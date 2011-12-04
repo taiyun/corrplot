@@ -1,7 +1,8 @@
 corrplot.mixed <- function(corr, lower = "number", 
     upper = "circle", addtextlabel = c("d", "lt", "no"), 
     diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray", 
-    ...) {
+    ...) 
+{
     diag <- match.arg(diag)
     addtextlabel <- match.arg(addtextlabel)
     n <- nrow(corr)
