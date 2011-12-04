@@ -1,6 +1,6 @@
 Package: corrplot
 Type: Package
-Title: visualization of a correlation matrix
+Title: Visualization of a correlation matrix
 Version: 0.60
 Date: 2011-12-04
 Author: Taiyun Wei
