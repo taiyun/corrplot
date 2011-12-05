@@ -11,7 +11,7 @@ CHANGES
   *  Revised document.
   *  In function corrplot(), the order's choice "PCA" was renamed as "AOE" for precise.
 	 and "FPC" was added for the first principal component order.
-  *  Added function corrMatOrder(), and corrplot.mixed().
+  *  Add function corrMatOrder(), and corrplot.mixed().
   *  Remove seldom used functions: corrplot.circle(), corrplot.ellipse(), 
      corrplot.square(), corrplot.shade(), corrplot.color(), corrplot.number().
   *  In corrplot(), remove parameter "assign.col" and "cl.range",
