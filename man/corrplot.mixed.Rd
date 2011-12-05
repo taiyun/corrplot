@@ -16,7 +16,7 @@ corrplot.mixed(corr, lower = "number", upper = "circle",
 
 \arguments{
   \item{corr}{
-Vector, the number of each cluster's members.
+Matrix, the correlation matrix to visualize.
 }
 
   \item{lower}{
@@ -28,14 +28,14 @@ Character, the visualization method for the upper triangular correlation matrix.
 }
 
   \item{addtextlabel}{
-Character, \code{"lt"} or \code{"d"}, giving position of 
+Character, \code{"lt"}, \code{"d"} or \code{"no"}, giving position of 
 text labels, \code{"lt"} means left and top,  \code{"d"} means diagonal. 
 If \code{"no"}, do not add textlabel.
 }
 
   \item{diag}{
 Character, for specifying the glyph on the principal diagonal. It is one of
-\code{"n"} (default, not draw anything), \code{"l"} (draw the glyphs of 
+\code{"n"} (default,  draw nothing), \code{"l"} (draw the glyphs of 
 lower triangular) or \code{"u"} (draw the glyphs of upper triangular). 
 }
   \item{bg}{

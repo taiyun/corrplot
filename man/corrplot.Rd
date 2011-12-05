@@ -123,10 +123,10 @@ Logic, whether translate coefficients into percentage style for spacesaving.
   \item{order}{
 Character, the ordering method of the correlation matrix. 
 	\itemize{
-		\item \code{"original"} for original order.
+		\item \code{"original"} for original order (default).
 		\item \code{"AOE"} for the angular order of the eigenvectors. 
 		\item \code{"FPC"} for the first principal component order.
-		\item \code{"hclust"} for hierarchical clustering order.
+		\item \code{"hclust"} for the hierarchical clustering order.
 		\item \code{"alphabet"} for alphabetical order.
 	}
 
@@ -144,12 +144,12 @@ add no rectangles.
 }
 
   \item{rect.col}{
-Color for rectangle border(s), only valid when \code{addrect} is not \code{NULL}.
+Color for rectangle border(s), only valid when \code{addrect} is equal or greater than 1.
 }
 
   \item{rect.lwd}{
 Numeric, line width for borders for rectangle border(s), only valid
-when \code{addrect} is equal greater than 1.
+when \code{addrect} is equal or greater than 1.
 }
 
 
