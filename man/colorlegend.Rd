@@ -26,7 +26,7 @@ Vector, numeric or character to be written.
 
 
   \item{at}{
-Numeric vector (quantile), giving where to put labels.
+Numeric vector (quantile), the position to put labels. See examples for details.
 }
   \item{xlim}{
 See in \code{\link{plot}}.  

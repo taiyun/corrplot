@@ -2,14 +2,12 @@
 		
 NEW FEATURES
   *  Now corrplot() can deal with the matrix not in [-1,1] by parameter "zoom" now.
-     Note: you should make sure the visualization you take after data zoom is meaningful.
+     Warning: please make sure the visualization you take after data zoom is meaningful!
   
 CHANGES
-  *  Change the default color, colorRampPalette(col2)(200) now while
-     col2 the version 0.54 on CRAN, see examples of corrplot() for col2.
   *  Function corr.rect() was renamed as corrRect().
-  *  Revised document.
-  *  In function corrplot(), the order's choice "PCA" was renamed as "AOE" for precise.
+  *  Revise document. (THANKS, Tao Gao)
+  *  In function corrplot(), "order"'s choice "PCA" was precisely renamed as "AOE".
 	 and "FPC" was added for the first principal component order.
   *  Add function corrMatOrder(), and corrplot.mixed().
   *  Remove seldom used functions: corrplot.circle(), corrplot.ellipse(), 
@@ -24,9 +22,8 @@ CHANGES
 
 CHANGES
   *  Parameter "tl.cex" in function corrplot() is more sensitive.
-  *  Change the default color.
   
 BUG FIXES
-  *  The issue that too much space adding to the margins (especially using a long label 
-     and larger font size) has been fixed.
+  *  The issue that too much space adding to the margins (especially using a longer text label 
+     or a larger font size) has been fixed.
   *  Specifying wrong color to the glyphs has been fixed.

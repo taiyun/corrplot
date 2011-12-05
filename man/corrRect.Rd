@@ -9,7 +9,7 @@ Draw rectangle(s) on the correlation matrix graph.
 \description{
 Draw rectangle(s) around the chart of corrrlation matrix. 
 
-\code{corrRect} needs parameter (\code{clus}) of each cluster's members, while \code{corrRect.hclust} can calculate each cluster's members based hierarchical clustering (\code{\link{hclust}}).
+\code{corrRect} needs the number(parameter \code{clus}) of each cluster's members, while \code{corrRect.hclust}  can get the members in each cluster based on hierarchical clustering (\code{\link{hclust}}).
 }
 \usage{
 corrRect(clus,  col = "black", lwd = 2)
@@ -28,7 +28,7 @@ Correlation matrix for function \code{corrRect.hclust}. It use \code{1-corr} as 
 }
 
   \item{k}{
-Integer, the number of rectangles draws on the graph according to the hierarchical cluster,
+Integer, the number of rectangles drawn on the graph according to the hierarchical cluster,
 for function \code{corrRect.hclust}.
 }
   \item{col}{

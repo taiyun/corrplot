@@ -7,40 +7,39 @@ A visualization of a correlation matrix.
 }
 \description{
 A graphical display of a correlation matrix, confidence interval. 
-The details of graph are paid great attention to.
+The details are paid great attention to.
 
 It can also visualize a general matrix if using parameter \code{zoom} to scale matrix.
 }
 
 \usage{
 corrplot(corr,
-		method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
-		type = c("full", "lower", "upper"), add = FALSE,
-		col = NULL, bg = "white", title = "",  zoom = 1,
-		diag = TRUE, outline = FALSE, mar = c(0,0,0,0),
-		addgrid.col = "gray", addCoef.col= NULL, addCoefasPercent = TRUE, 
+	method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
+	type = c("full", "lower", "upper"), add = FALSE,
+	col = NULL, bg = "white", title = "",  zoom = 1,		
+	diag = TRUE, outline = FALSE, mar = c(0,0,0,0),
+	addgrid.col = "gray", addCoef.col = NULL, addCoefasPercent = TRUE, 
 
-		order = c("original", "AOE", "FPC", "hclust", "alphabet"),
-		hclust.method = c("complete", "ward", "single", "average",
-							"mcquitty", "median", "centroid"),
-		addrect = NULL, rect.col = "black", rect.lwd = 2,
+	order = c("original", "AOE", "FPC", "hclust", "alphabet"),
+	hclust.method = c("complete", "ward", "single", "average","mcquitty", "median", "centroid"),
+	addrect = NULL, rect.col = "black", rect.lwd = 2,
 
-		addtextlabel = NULL, tl.cex = 1,
-		tl.col = "red", tl.offset = 0.4, tl.srt = 90,
+	addtextlabel = NULL, tl.cex = 1,
+	tl.col = "red", tl.offset = 0.4, tl.srt = 90,
 
-		addcolorlabel = c("right", "bottom","no"), cl.lim = c(-1, 1),
-		cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15, 
-		cl.align.text = "c",cl.offset = 0.5,
+	addcolorlabel = c("right", "bottom","no"), cl.lim = c(-1, 1),
+	cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15, 
+	cl.align.text = "c",cl.offset = 0.5,
 
-		addshade = c("negative", "positive", "all"),
-		shade.lwd = 1, shade.col = "white",
+	addshade = c("negative", "positive", "all"),
+	shade.lwd = 1, shade.col = "white",
 
-		p.mat = NULL, sig.level = 0.05,
-		insig = c("pch","blank", "no"),
-		pch = 4, pch.col = "black", pch.cex = 3,
+	p.mat = NULL, sig.level = 0.05,
+	insig = c("pch","blank", "no"),
+	pch = 4, pch.col = "black", pch.cex = 3,
 		
-		plotCI = c("no","square", "circle", "rect"),
-		lowCI.mat = NULL, uppCI.mat = NULL, ...)
+	plotCI = c("no","square", "circle", "rect"),
+	lowCI.mat = NULL, uppCI.mat = NULL, ...)
 }
 
 \arguments{
@@ -88,7 +87,7 @@ If the input matrix is not a correlation matrix in [-1, 1],
 then we can specify \code{zoom} to make the input matrix in [-1,1] and use corrplot() to
 visualize it. 
 
-Warning: you should make sure the visualization you take after data zoom is meaningful.
+Warning: please make sure the visualization you take after data zoom is meaningful!
 
 }
 
@@ -259,10 +258,8 @@ The cex of pch (only valid when \code{insig} is \code{"pch"}).
 
 
   \item{plotCI}{
-Character, method to plot confidence interval, if \code{"no"}, don't plot confidence interval. 
-If \code{"rect"}, plot rectangles whose upper side means upper bound, lower side means 
-lower bound, and correlation coefficients are also added on the rectangles. If \code{"circle"}, first plot a circle of the bigger absolute bound, then plot the smaller. Warning: if the 
-two bounds are the same sign, then the smaller circle will be wiped away, thus formed a ring. Method \code{"square"} is similar to \code{"circle"}. 
+Character, method of ploting confidence interval. If \code{"no"}, don't plot confidence interval. 
+If "rect", plot rectangles whose upper side means upper bound and lower side means lower bound, respectively, and meanwhile correlation coefficients are also added on the rectangles. If "circle", first plot a circle with the bigger absolute bound, and then plot the smaller. Warning: if the two bounds are the same sign, the smaller circle will be wiped away, thus forming a ring. Method "square" is similar to "circle".
 }
 
   \item{lowCI.mat}{
@@ -306,13 +303,13 @@ The American Statistician, 50, 178--180.
 }
 
 \note{
-	\code{Cairo} and \code{cairoDevice} package is strongly recommended to produce
+	\code{Cairo} and \code{cairoDevice} packages is strongly recommended to produce
 	high-quality PNG, JPEG, TIFF bitmap files, especially for that \code{method}
-	is \code{circle}, \code{ellipse} .
+	\code{circle}, \code{ellipse} .
 }
 
 \seealso{
-The \code{plotcorr} function in the \code{ellipse} package and \code{corrgram} function in the \code{corrgram} package has some similarities.
+Function \code{plotcorr}  in the \code{ellipse} package and \code{corrgram}  in the \code{corrgram} package have some similarities.
 
 Package \code{seriation} offered more methods to reorder matrices, such as 
 ARSA, BBURCG, BBWRCG, MDS, TSP, Chen and so forth.

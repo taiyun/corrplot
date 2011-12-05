@@ -30,7 +30,7 @@ Character, the visualization method for the upper triangular correlation matrix.
   \item{addtextlabel}{
 Character, \code{"lt"}, \code{"d"} or \code{"no"}, giving position of 
 text labels, \code{"lt"} means left and top,  \code{"d"} means diagonal. 
-If \code{"no"}, do not add textlabel.
+If \code{"no"},  add no textlabel.
 }
 
   \item{diag}{

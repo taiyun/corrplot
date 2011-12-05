@@ -45,7 +45,7 @@ Returns a single permutation vector.
 }
 
 \seealso{
-Package \code{seriation} offered more methods to reorder matrices, such as 
+Package \code{seriation} offers more methods to reorder matrices, such as 
 ARSA, BBURCG, BBWRCG, MDS, TSP, Chen and so forth.
 }
 
