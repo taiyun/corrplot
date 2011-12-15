@@ -220,14 +220,14 @@ corrplot <- function(corr,
 				dat <- cbind(c(x1, x1, x), c(y, y2, y2),
 						c(x, x2, x2), c(y1, y1 ,y))
 			}
-      	return(t(dat))
-	}
+			return(t(dat))
+		}
 
-	pos_corr <- rbind(cbind(Pos, DAT))
-	pos_corr2 <- split(pos_corr, 1:nrow(pos_corr))
-	SHADE.dat <- matrix(na.omit(unlist(lapply(pos_corr2, shade.dat))),byrow=TRUE, ncol=4)
-	segments(SHADE.dat[,1], SHADE.dat[,2], SHADE.dat[,3], 
-		SHADE.dat[,4], col = shade.col, lwd = shade.lwd)
+		pos_corr <- rbind(cbind(Pos, DAT))
+		pos_corr2 <- split(pos_corr, 1:nrow(pos_corr))
+		SHADE.dat <- matrix(na.omit(unlist(lapply(pos_corr2, shade.dat))),byrow=TRUE, ncol=4)
+		segments(SHADE.dat[,1], SHADE.dat[,2], SHADE.dat[,3], 
+			SHADE.dat[,4], col = shade.col, lwd = shade.lwd)
 	}
 
 	##square
@@ -244,7 +244,7 @@ corrplot <- function(corr,
 
 	## add grid
 	if(!is.null(addgrid.col)){
-    	symbols(Pos, add=TRUE, inches = FALSE,  bg = NA,
+    	symbols(Pos, add=TRUE, inches = FALSE,  bg = NA, 
 			squares = rep(1, len.DAT), fg = addgrid.col)
 	} 
 	
@@ -405,10 +405,12 @@ corrplot <- function(corr,
 		labels = round(DAT*ifelse(addCoefasPercent, 100, 1)/zoom, 
 				ifelse(addCoefasPercent, 0, 2)))
 	}
-
+	
+	## add grid, in case of the grid is ate when "diag=FALSE"
 	if(type=="full"&plotCI=="no"&!is.null(addgrid.col))
 		rect(m1-0.5, n1-0.5, m2+0.5, n2+0.5, border=addgrid.col)
-	##  draws rectangles
+	
+	##  draws rectangles, call function corrRect.hclust
 	if(!is.null(addrect)&order=="hclust"&type=="full"){
 		corrRect.hclust(corr, k = addrect, 
 			method = hclust.method, col = rect.col, lwd = rect.lwd)
