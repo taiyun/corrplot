@@ -6,7 +6,7 @@ corrplot <- function(corr,
 		type = c("full", "lower", "upper"), add = FALSE, 
 		col = NULL, bg = "white", title = "", is.corr = TRUE,
 		diag = TRUE, outline = FALSE, mar = c(0,0,0,0),
-		addgrid.col = "gray", addCoef.col = NULL, addCoefasPercent = FALSE, 
+		addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE, 
 
 		order = c("original", "AOE", "FPC", "hclust", "alphabet"),
 		hclust.method = c("complete", "ward", "single", "average",
@@ -41,6 +41,10 @@ corrplot <- function(corr,
 	if(!is.matrix(corr)&!is.data.frame(corr))
 		stop("Need a matrix or data frame!")
 
+	if(is.null(addgrid.col)){
+		addgrid.col <- ifelse(method=="color"|method=="shade", "white", "grey")
+	}
+	
 	if(any(corr<cl.lim[1])|any(corr>cl.lim[2]))
 		stop("color limits should cover matrix")
 	if(is.null(cl.lim)){
@@ -289,10 +293,8 @@ corrplot <- function(corr,
 	}
 
 	## add grid
-	if(!is.null(addgrid.col)){
-    	symbols(Pos, add=TRUE, inches = FALSE,  bg = NA, 
+	symbols(Pos, add=TRUE, inches = FALSE,  bg = NA, 
 			squares = rep(1, len.DAT), fg = addgrid.col)
-	} 
 	
 
 	if(plotCI!="n"){

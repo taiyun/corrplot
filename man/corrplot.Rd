@@ -18,7 +18,7 @@ corrplot(corr,
 	type = c("full", "lower", "upper"), add = FALSE,
 	col = NULL, bg = "white", title = "",  is.corr = TRUE,		
 	diag = TRUE, outline = FALSE, mar = c(0,0,0,0),
-	addgrid.col = "gray", addCoef.col = NULL, addCoefasPercent = FALSE, 
+	addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE, 
 
 	order = c("original", "AOE", "FPC", "hclust", "alphabet"),
 	hclust.method = c("complete", "ward", "single", "average","mcquitty", "median", "centroid"),
@@ -100,7 +100,8 @@ See \code{\link{par}}.
 
 
   \item{addgrid.col}{
-The color of grid, if \code{NULL}, don't add grid.
+The color of grid. The default value is depends on \code{method}, if \code{method} is \code{color}
+or \code{shade}, the default values is \code{"white"}, otherwise \code{"grey"}.
 }
 
 
