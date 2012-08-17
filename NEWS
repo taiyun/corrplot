@@ -3,7 +3,8 @@
 CHANGES
   *  Add html vignette, which was generated from markdown file by knitr.
   *  In corrplot(), remove parameter "zoom", add "is.corr"; now it is more convenient to
-     visualize  non-correlation matrix.
+     visualize  non-correlation matrix. Parameter "addtextlabel" was renamed as "tl.pos", and "addcolorlabel" 
+	 was renamed as "cl.pos".
   
   
 		CHANGES IN corrplot VERSION 0.60
