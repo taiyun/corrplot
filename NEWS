@@ -2,7 +2,7 @@
 		
 CHANGES
   *  Add html vignette, which was generated from markdown file by knitr.
-  *  In corrplot(), remove parameter "zoom", add "is.corr"; now it is more convenient for
+  *  In corrplot(), remove parameter "zoom", add "is.corr"; now it is more convenient to
      visualize  non-correlation matrix.
   
   
