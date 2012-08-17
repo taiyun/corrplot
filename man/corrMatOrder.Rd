@@ -23,7 +23,6 @@ Correlation matrix to reorder.
   \item{order}{
 Character, the ordering method for the correlation matrix. 
 	\itemize{
-		\item \code{"original"} for original order.
 		\item \code{"AOE"} for the angular order of the eigenvectors. It is calculated from the order of the angles, \eqn{a_i}:
 			\deqn{ a_i = tan (e_{i2}/e_{i1}), if e_{i1}>0}
 			\deqn{ a_i = tan (e_{i2}/e_{i1}) + \pi, otherwise.}

@@ -16,18 +16,18 @@ It can also visualize a general matrix if using parameter \code{zoom} to scale m
 corrplot(corr,
 	method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
 	type = c("full", "lower", "upper"), add = FALSE,
-	col = NULL, bg = "white", title = "",  zoom = 1,		
+	col = NULL, bg = "white", title = "",  is.corr = TRUE,		
 	diag = TRUE, outline = FALSE, mar = c(0,0,0,0),
-	addgrid.col = "gray", addCoef.col = NULL, addCoefasPercent = TRUE, 
+	addgrid.col = "gray", addCoef.col = NULL, addCoefasPercent = FALSE, 
 
 	order = c("original", "AOE", "FPC", "hclust", "alphabet"),
 	hclust.method = c("complete", "ward", "single", "average","mcquitty", "median", "centroid"),
 	addrect = NULL, rect.col = "black", rect.lwd = 2,
 
-	addtextlabel = NULL, tl.cex = 1,
+	tl.pos = NULL, tl.cex = 1,
 	tl.col = "red", tl.offset = 0.4, tl.srt = 90,
 
-	addcolorlabel = c("right", "bottom","no"), cl.lim = c(-1, 1),
+	cl.pos = NULL, cl.lim = NULL,
 	cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15, 
 	cl.align.text = "c",cl.offset = 0.5,
 
@@ -35,17 +35,17 @@ corrplot(corr,
 	shade.lwd = 1, shade.col = "white",
 
 	p.mat = NULL, sig.level = 0.05,
-	insig = c("pch","blank", "no"),
+	insig = c("pch","blank", "n"),
 	pch = 4, pch.col = "black", pch.cex = 3,
 		
-	plotCI = c("no","square", "circle", "rect"),
+	plotCI = c("n","square", "circle", "rect"),
 	lowCI.mat = NULL, uppCI.mat = NULL, ...)
 }
 
 \arguments{
   \item{corr}{
 The correlation matrix to visualize, must be square if \code{order} is not \code{"original"}.
-For general matrix, please use \code{zoom} to convert.
+For general matrix, please using \code{is.corr = FALSE} to convert.
 }
   \item{method}{
 Character, the visualization method of correlation matrix to be used. Currently, it supports seven methods, named \code{"circle"} (default), \code{"square"}, \code{"ellipse"}, \code{"number"}, \code{"pie"}, \code{"shade"} and \code{"color"}. See examples for details.
@@ -66,7 +66,7 @@ Logical, if \code{TRUE}, the graph is added to an existing plot, otherwise a new
 
   \item{col}{
 Vector, the color of glyphs.
-It is distributed uniformly in [-1, 1] (after zoom). 
+It is distributed uniformly in [-1, 1]. 
 
 If NULL, \code{col} will be \code{colorRampPalette(col2)(200)}, see example about col2.
 }
@@ -80,15 +80,9 @@ The background color.
 Character, title of the graph.
 }
 
-  \item{zoom}{
-Numeric, zoom for matrix \code{corr}: \code{corr <- corr * zoom}.
-
-If the input matrix is not a correlation matrix in [-1, 1], 
-then we can specify \code{zoom} to make the input matrix in [-1,1] and use corrplot() to
-visualize it. 
-
-Warning: please make sure the visualization you take after data zoom is meaningful!
-
+  \item{is.corr}{
+Logical, whether the input matrix is a correlation matrix or not.
+We can visualize the non-correlation matrix  by setting \code{is.corr = FALSE}.
 }
 
 
@@ -153,11 +147,13 @@ when \code{addrect} is equal or greater than 1.
 
 
 
-  \item{addtextlabel}{
-Character, \code{"lt"}, \code{"ld"}, \code{"td"}, \code{"d"} or \code{"no"}, giving position of 
-text labels; \code{"lt"} means left and top, \code{"ld"} means left and diagonal, 
-\code{"td"} means top and diagonal(near), \code{"d"} means diagonal, \code{"no"} means
-don't add textlabel.
+  \item{tl.pos}{
+Character or logical, position of text labels. If
+character, it must be one of \code{"lt"}, \code{"ld"}, \code{"td"}, \code{"d"} or \code{"n"}. 
+\code{"lt"}(default if \code{type=="full"}) 
+means left and top, \code{"ld"}(default if \code{type=="lower"}) means left and diagonal, 
+\code{"td"}(default if \code{type=="upper"}) means top and diagonal(near), \code{"d"} means diagonal, 
+\code{"n"} means don't add textlabel. 
 }
 
   \item{tl.cex}{
@@ -176,13 +172,15 @@ Numeric, for text label, see \code{\link{text}}.
 Numeric, for text label string rotation in degrees, see \code{\link{text}}.
 }
 
-  \item{addcolorlabel}{
-Character, \code{"right"} (default), \code{"bottom"} or \code{"no"}, where to draw colorlabel. 
-If \code{"no"}, don't draw colorlabel.
+  \item{cl.pos}{
+Character or logical, position of color labels; If
+character, it must be one of
+\code{"r"} (default if \code{type=="upper"} or \code{"full"}), 
+\code{"b"} (default if \code{type=="lower"}) or \code{"n"}, \code{"n"} means don't draw colorlabel.
 }
 
   \item{cl.lim}{
-The  limits \code{(x1, x2)} (after zoom) in the colorlabel.
+The  limits \code{(x1, x2)}  in the colorlabel.
 }
 
 \item{cl.length}{
@@ -237,10 +235,10 @@ the corresponding correlation coefficient is regarded as insignificant.
 
   \item{insig}{
 Character, specialized insignificant correlation coefficients, 
-\code{"pch"} (default), \code{"blank"} or \code{"no"}. 
+\code{"pch"} (default), \code{"blank"} or \code{"n"}. 
 If \code{"blank"}, wipe away the corresponding glyphs; 
 if \code{"pch"}, add characters (see \code{pch} for details) on corresponding glyphs; 
-if \code{"no"}, don't take any measures.
+if \code{"n"}, don't take any measures.
 }
 
   \item{pch}{
@@ -258,7 +256,7 @@ The cex of pch (only valid when \code{insig} is \code{"pch"}).
 
 
   \item{plotCI}{
-Character, method of ploting confidence interval. If \code{"no"}, don't plot confidence interval. 
+Character, method of ploting confidence interval. If \code{"n"}, don't plot confidence interval. 
 If "rect", plot rectangles whose upper side means upper bound and lower side means lower bound, respectively, and meanwhile correlation coefficients are also added on the rectangles. If "circle", first plot a circle with the bigger absolute bound, and then plot the smaller. Warning: if the two bounds are the same sign, the smaller circle will be wiped away, thus forming a ring. Method "square" is similar to "circle".
 }
 
@@ -335,7 +333,7 @@ par(ask = TRUE)
 
 
 ## different color scale and methods to display corr-matrix
-corrplot(M, method="number", col="black", addcolorlabel="no")
+corrplot(M, method="number", col="black", cl.pos="n")
 corrplot(M, method="number")
 corrplot(M)
 corrplot(M, order ="AOE")
@@ -360,31 +358,31 @@ corrplot(M, method="shade", col=col3(20),order = "AOE")
 corrplot(M, method="pie", order = "AOE")
 
 ## col=wb
-corrplot(M, col = wb, order="AOE", outline=TRUE, addcolorlabel="no")
+corrplot(M, col = wb, order="AOE", outline=TRUE, cl.pos="n")
 ## like Chinese wiqi, suit for either on screen or white-black print.
-corrplot(M, col = wb, bg="gold2",  order="AOE", addcolorlabel="no")
+corrplot(M, col = wb, bg="gold2",  order="AOE", cl.pos="n")
 
 
 ## mixed methods: It's more efficient if using function "corrplot.mixed"
 ## circle + ellipse
-corrplot(M,order="AOE",type="upper",addtextlabel="d")
+corrplot(M,order="AOE",type="upper",tl.pos="d")
 corrplot(M,add=TRUE, type="lower", method="ell",order="AOE",
-	diag=FALSE,addtextlabel="no", addcolorlabel="no")
+	diag=FALSE,tl.pos="n", cl.pos="n")
 	
 ## circle + square
-corrplot(M,order="AOE",type="upper",addtextlabel="d")
+corrplot(M,order="AOE",type="upper",tl.pos="d")
 corrplot(M,add=TRUE, type="lower", method="square",order="AOE",
-	diag=FALSE,addtextlabel="no", addcolorlabel="no")
+	diag=FALSE,tl.pos="n", cl.pos="n")
 
 ## circle + colorful number
-corrplot(M,order="AOE",type="upper",addtextlabel="d")
+corrplot(M,order="AOE",type="upper",tl.pos="d")
 corrplot(M,add=TRUE, type="lower", method="number",order="AOE",
-	diag=FALSE,addtextlabel="no", addcolorlabel="no")
+	diag=FALSE,tl.pos="n", cl.pos="n")
 
 ## circle + black number
-corrplot(M,order="AOE",type="upper",addtextlabel="tp")
+corrplot(M,order="AOE",type="upper",tl.pos="tp")
 corrplot(M,add=TRUE, type="lower", method="number",order="AOE", col="black",
-	diag=FALSE,addtextlabel="no", addcolorlabel="no")
+	diag=FALSE,tl.pos="n", cl.pos="n")
 
 	
 ## order is hclust and draw rectangles
@@ -401,23 +399,22 @@ corrplot(abs(M),order="AOE", cl.lim=c(0,1))
 corrplot(abs(M),order="AOE", col=col1(20), cl.lim=c(0,1))
 corrplot(abs(M),order="AOE", col=col3(200), cl.lim=c(0,1))
 
-## visualize a  matrix in [0, 6]
-corrplot(6*abs(M),order="AOE", zoom=1/6, col=col3(200), cl.lim=c(0,1))
 
-## visualize a  matrix in [-6, 6]
-corrplot(6*M, order="AOE", zoom=1/6,col=col3(200))
-corrplot(round(6*M,1), order="AOE", zoom=1/6,col=col3(200), 
-		addCoef.col="grey", addCoefasPercent=FALSE)
+## visualize a  matrix in [-100, 100]
+ran <- round(matrix(runif(225, -100,100), 15))
+corrplot(ran, is.corr=FALSE)
+corrplot(ran, is.corr=FALSE, cl.lim=c(-100, 100))
+
 
 ## text-labels and plot type
 corrplot(M, order="AOE", tl.srt=45)
 corrplot(M, order="AOE", tl.srt=60)
-corrplot(M, order="AOE", addtextlabel="d",addcolorlabel="no")
-corrplot(M, order="AOE", diag=FALSE, addtextlabel="d")
+corrplot(M, order="AOE", tl.pos="d",cl.pos="n")
+corrplot(M, order="AOE", diag=FALSE, tl.pos="d")
 corrplot(M, order="AOE", type="upper")
 corrplot(M, order="AOE", type="upper", diag=FALSE)
-corrplot(M, order="AOE", type="lower", addcolorlabel="b")
-corrplot(M, order="AOE", type="lower", addcolorlabel="b", diag=FALSE)
+corrplot(M, order="AOE", type="lower", cl.pos="b")
+corrplot(M, order="AOE", type="lower", cl.pos="b", diag=FALSE)
 
 
 
@@ -425,9 +422,9 @@ corrplot(M, order="AOE", type="lower", addcolorlabel="b", diag=FALSE)
 corrplot(M, order="AOE", cl.ratio=0.2, cl.align="l")
 corrplot(M, order="AOE", cl.ratio=0.2, cl.align="c")
 corrplot(M, order="AOE", cl.ratio=0.2, cl.align="r")
-corrplot(M, order="AOE", addcolorlabel="bottom")
-corrplot(M, order="AOE", addcolorlabel="bottom", addtextlabel="d")
-corrplot(M, order="AOE", addcolorlabel="no")
+corrplot(M, order="AOE", cl.pos="b")
+corrplot(M, order="AOE", cl.pos="b", tl.pos="d")
+corrplot(M, order="AOE", cl.pos="n")
 
 
 
@@ -470,33 +467,33 @@ corrplot(M, p.mat = res1[[1]], order="hclust", insig = "pch", addrect=3)
 
 ## plot confidence interval(0.95), "square" method	
 corrplot(M,low=res1[[2]], upp=res1[[3]],
-	plotC="circle", addg="grey20",addc="no")
+	plotC="circle", addg="grey20",cl.pos="n")
 corrplot(M, p.mat = res1[[1]],low=res1[[2]], upp=res1[[3]],
-	plotC="circle", addg="grey20",addc="no")
+	plotC="circle", addg="grey20",cl.pos="n")
 corrplot(M, low=res1[[2]], upp=res1[[3]], 
 	col=c("white","black"),bg="gold2",order="AOE",
-	plotCI="circle",addc="no",pch.col="red")
+	plotCI="circle",cl.pos="n",pch.col="red")
 corrplot(M, p.mat = res1[[1]], low=res1[[2]], upp=res1[[3]], 
 	col=c("white","black"),bg="gold2",order="AOE",
-	plotCI="circle",addc="no",pch.col="red")
+	plotCI="circle",cl.pos="n",pch.col="red")
 	
 ## plot confidence interval(0.95), "square" method	
 corrplot(M, low=res1[[2]], upp=res1[[3]],
 	col=c("white","black"),bg="gold2", order="AOE",
-	plotCI="square",addg=NULL,addc="no")
+	plotCI="square",addg=NULL,cl.pos="n")
 corrplot(M, p.mat = res1[[1]],low=res1[[2]], upp=res1[[3]],
 	col=c("white","black"),bg="gold2",order="AOE",pch.col="red", 
-	plotC="square", addg=NULL,addc="no")
+	plotC="square", addg=NULL,cl.pos="n")
 	
 ## plot confidence interval(0.95, 0.95, 0.99), "rect" method
 corrplot(M, low=res1[[2]], upp=res1[[3]], order="hclust",
-	rect.col="navy", plotC="rect",addc="no")
+	rect.col="navy", plotC="rect",cl.pos="n")
 corrplot(M, p.mat = res1[[1]], low=res1[[2]], upp=res1[[3]], order="hclust",
 	pch.col="red", sig.level = 0.05, addrect=3, rect.col="navy",
-	plotC="rect",addc="no")
+	plotC="rect",cl.pos="n")
 corrplot(M, p.mat = res2[[1]], low=res2[[2]], upp=res2[[3]], order="hclust",
 	pch.col="red", sig.level = 0.01, addrect=3, rect.col="navy",
-	plotC="rect",addc="no")
+	plotC="rect",cl.pos="n")
 
 
 ## an animation of changing confidence interval in different significance level
@@ -504,7 +501,7 @@ par(ask=FALSE)
 for(i in seq(0.1, 0.001, -0.001)){
 	tmp <- cor.mtest(mtcars,1-i)
 	corrplot(M, p.mat = tmp[[1]], low=tmp[[2]], upp=tmp[[3]], order="hclust",
-		pch.col="red", sig.level = i, plotC="rect", addc="no",
+		pch.col="red", sig.level = i, plotC="rect", cl.pos="n",
 		mar=c(0,0,1,0), 
 		title=substitute(alpha == x,list(x=format(i,digits=3,nsmall=3))))
 	Sys.sleep(0.01)

@@ -10,7 +10,7 @@ Using mixed methods to visualize a correlation matrix.
 }
 \usage{
 corrplot.mixed(corr, lower = "number", upper = "circle",
-	addtextlabel = c("d","lt","no"), diag = c("n","l","u"), 
+	tl.pos = c("d","lt","n"), diag = c("n","l","u"), 
 	bg = "white", addgrid.col = "gray",...)
 }
 
@@ -27,10 +27,10 @@ Character, the visualization method for the lower triangular correlation matrix.
 Character, the visualization method for the upper triangular correlation matrix.
 }
 
-  \item{addtextlabel}{
-Character, \code{"lt"}, \code{"d"} or \code{"no"}, giving position of 
+  \item{tl.pos}{
+Character, \code{"lt"}, \code{"d"} or \code{"n"}, giving position of 
 text labels, \code{"lt"} means left and top,  \code{"d"} means diagonal. 
-If \code{"no"},  add no textlabel.
+If \code{"n"},  add no textlabel.
 }
 
   \item{diag}{
@@ -63,10 +63,10 @@ corrplot.mixed(M2)
 corrplot.mixed(M2, lower="ellipse", upper="circle")
 corrplot.mixed(M2, lower="square", upper="circle")
 corrplot.mixed(M2, lower="shade", upper="circle")
-corrplot.mixed(M2, addtextlabel="lt")
-corrplot.mixed(M2, addtextlabel="lt", diag="u")
-corrplot.mixed(M2, addtextlabel="lt", diag="l")
-corrplot.mixed(M2, addtextlabel="no")
+corrplot.mixed(M2, tl.pos="lt")
+corrplot.mixed(M2, tl.pos="lt", diag="u")
+corrplot.mixed(M2, tl.pos="lt", diag="l")
+corrplot.mixed(M2, tl.pos="n")
 
 }
 

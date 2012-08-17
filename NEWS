@@ -1,3 +1,11 @@
+		CHANGES IN corrplot VERSION 0.66
+		
+CHANGES
+  *  Add html vignette, which was generated from markdown file by knitr.
+  *  In corrplot(), remove parameter "zoom", add "is.corr"; now it is more convenient for
+     visualize  non-correlation matrix.
+  
+  
 		CHANGES IN corrplot VERSION 0.60
 		
 NEW FEATURES
