@@ -1,31 +1,5 @@
-%% LyX 2.0.3 created this file.  For more info, see http://www.lyx.org/.
-%% Do not edit unless you really know what you are doing.
 \documentclass{article}
-\usepackage{mathpazo}
-\usepackage{animate}
-\renewcommand{\sfdefault}{lmss}
-\renewcommand{\ttdefault}{lmtt}
-\usepackage[T1]{fontenc}
-\usepackage{geometry}
-\geometry{verbose,tmargin=2.5cm,bmargin=2.5cm,lmargin=2.5cm,rmargin=2.5cm}
-\usepackage{url}
-\usepackage[authoryear]{natbib}
-\SweaveOpts{out.width='0.46\\textwidth',fig.align="center", cache=TRUE}
-
-\makeatletter
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
-% \VignetteIndexEntry{An Introduction to knitr}
-
-\makeatother
-
 \begin{document}
-
-
-\title{An Introduction to corrplot package}
-
-
-\author{Taiyun Wei}
-
-\maketitle
-
-Actually, the vignettes of corrplot was wrote by markdown and created by knitr:) However, we need this .Rnw file to make Makefile running.
+Actually, the vignettes of corrplot was wrote by markdown and created by knitr:) 
+However, we need this .Rnw file to make Makefile running.
+\end{document}

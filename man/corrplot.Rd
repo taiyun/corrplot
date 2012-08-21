@@ -9,7 +9,7 @@ A visualization of a correlation matrix.
 A graphical display of a correlation matrix, confidence interval. 
 The details are paid great attention to.
 
-It can also visualize a general matrix if using parameter \code{zoom} to scale matrix.
+It can also visualize a general matrix by setting \code{is.corr = FALSE}.
 }
 
 \usage{

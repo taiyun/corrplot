@@ -8,4 +8,4 @@ clean:
 	rm -f *.md *.bbl *.blg *.aux *.out *.log *.png *.Rnw  *.tex
 
 %.html: %.Rmd
-	$(R_HOME)/bin/Rscript -e "library(knitr); knit2html('$*.Rmd')"
+	$(R_HOME)/bin/Rscript -e "library(knitr); library(corrplot); knit2html('$*.Rmd')"
