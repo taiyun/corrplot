@@ -498,6 +498,7 @@ corrplot(M, p.mat = res2[[1]], low=res2[[2]], upp=res2[[3]], order="hclust",
 
 
 ## an animation of changing confidence interval in different significance level
+## begin.animaton
 par(ask=FALSE)
 for(i in seq(0.1, 0, -0.005)){
 	tmp <- cor.mtest(mtcars,1-i)
@@ -507,6 +508,7 @@ for(i in seq(0.1, 0, -0.005)){
 		title=substitute(alpha == x,list(x=format(i,digits=3,nsmall=3))))
 	Sys.sleep(0.15)
 }
+## end.animaton
 
 }
 
