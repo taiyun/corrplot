@@ -66,7 +66,7 @@ Logical, if \code{TRUE}, the graph is added to an existing plot, otherwise a new
 
   \item{col}{
 Vector, the color of glyphs.
-It is distributed uniformly in [-1, 1]. 
+It is distributed uniformly in \code{cl.lim}. 
 
 If NULL, \code{col} will be \code{colorRampPalette(col2)(200)}, see example about col2.
 }
