@@ -61,11 +61,11 @@ corrplot <- function(corr,
 			intercept <- 0
 			zoom <- 1/max(abs(cl.lim))
 		}
-		if(min(corr) > 0){
+		if(min(corr) >= 0){
 			intercept <- -cl.lim[1]
 			zoom <- 1/(diff(cl.lim))
 		}		
-		if(max(corr) < 0){
+		if(max(corr) <= 0){
 			intercept <- -cl.lim[2]
 			zoom <- 1/(diff(cl.lim))
 		}		
