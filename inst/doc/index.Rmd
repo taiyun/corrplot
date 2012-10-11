@@ -164,6 +164,10 @@ corrplot(M, p.mat = res1[[1]], sig.level=0.05)
 corrplot(M, p.mat = res1[[1]], sig.level=0.01)
 ## leave blank on no significant coefficient
 corrplot(M, p.mat = res1[[1]], insig = "blank")
+## add p-values on no significant coefficient
+corrplot(M, p.mat = res1[[1]], insig = "p-value")
+## add all p-values
+corrplot(M, p.mat = res1[[1]], insig = "p-value", sig.level=-1)
 ## add cross on no significant coefficient 
 corrplot(M, p.mat = res1[[1]], order="hclust", insig = "pch", addrect=3)
 ```

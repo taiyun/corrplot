@@ -1,3 +1,10 @@
+		CHANGES IN corrplot VERSION 0.70
+		
+CHANGES
+  *  In corrplot(), parameter insig add a  option "p-value", now p-values can be conveniently added 
+     on the glyph.
+  *	 Return value changes, corrplot() now returns a reordered correlation matrix.
+	 
 		CHANGES IN corrplot VERSION 0.66
 		
 CHANGES

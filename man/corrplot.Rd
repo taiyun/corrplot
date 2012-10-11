@@ -35,7 +35,7 @@ corrplot(corr,
 	shade.lwd = 1, shade.col = "white",
 
 	p.mat = NULL, sig.level = 0.05,
-	insig = c("pch","blank", "n"),
+	insig = c("pch","p-value","blank", "n"),
 	pch = 4, pch.col = "black", pch.cex = 3,
 		
 	plotCI = c("n","square", "circle", "rect"),
@@ -236,8 +236,9 @@ the corresponding correlation coefficient is regarded as insignificant.
 
   \item{insig}{
 Character, specialized insignificant correlation coefficients, 
-\code{"pch"} (default), \code{"blank"} or \code{"n"}. 
+\code{"pch"} (default), \code{"p-value"}, \code{"blank"} or \code{"n"}. 
 If \code{"blank"}, wipe away the corresponding glyphs; 
+if \code{"p-value"}, add p-values the corresponding glyphs; 
 if \code{"pch"}, add characters (see \code{pch} for details) on corresponding glyphs; 
 if \code{"n"}, don't take any measures.
 }
@@ -277,7 +278,7 @@ Additional arguments passing to function \code{text} for drawing text lable.
 }
 
 \value{
-(Invisibly) returns a single permutation vector.
+(Invisibly) returns a reordered correlation matrix.
 }
 
 \details{
@@ -461,6 +462,8 @@ corrplot(M, p.mat = res1[[1]], sig.level=0.2)
 corrplot(M, p.mat = res1[[1]], sig.level=0.05)
 corrplot(M, p.mat = res1[[1]], sig.level=0.01)
 corrplot(M, p.mat = res1[[1]], insig = "blank")
+corrplot(M, p.mat = res1[[1]], insig = "p-value")
+corrplot(M, p.mat = res1[[1]], insig = "p-value", sig.level=-1) ## add all p-values
 corrplot(M, p.mat = res1[[1]], order="hclust", insig = "blank", addrect=3)
 corrplot(M, p.mat = res1[[1]], order="hclust", insig = "pch", addrect=3)
 

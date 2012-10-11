@@ -24,7 +24,7 @@ corrplot <- function(corr,
 		shade.lwd = 1, shade.col = "white",
 
 		p.mat = NULL, sig.level = 0.05,
-		insig = c("pch","blank", "n"),
+		insig = c("pch","p-value","blank", "n"),
 		pch = 4, pch.col = "black", pch.cex = 3,
 		
 		plotCI = c("n","square", "circle", "rect"),
@@ -87,7 +87,7 @@ corrplot <- function(corr,
 	n <- nrow(corr)
 	m <- ncol(corr)
 	min.nm <- min(n,m)
-	ord <- NA
+	ord <- 1:min.nm
 	if(!order=="original"){
 		ord <- corrMatOrder(corr, order=order, hclust.method=hclust.method)
 		corr <- corr[ord,ord]
@@ -375,6 +375,12 @@ corrplot <- function(corr,
 			points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				pch = pch, col = pch.col, cex = pch.cex, lwd=2)
 		}
+		
+		if(insig=="p-value"){
+			text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
+				round(pNew[ind.p],2), col = pch.col)
+		}
+		
 		if(insig=="blank"){
 			symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
 				squares = rep(1, length(pos.pNew[,1][ind.p])),
@@ -465,5 +471,5 @@ corrplot <- function(corr,
 			method = hclust.method, col = rect.col, lwd = rect.lwd)
 	}
 
-	invisible(ord)
+	invisible(corr)
 } 
