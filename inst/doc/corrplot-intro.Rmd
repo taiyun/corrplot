@@ -1,3 +1,8 @@
+<!--
+%\VignetteEngine{knitr}
+%\VignetteIndexEntry{An Introduction to the corrplot package}
+-->
+
 An Introduction to **corrplot** package
 =======================================
 
@@ -21,7 +26,7 @@ Visualization Methods
 ----------------------------
 There are seven visualization methods (parameter `method`) in **corrplot** package, named `"circle"`, `"square"`, `"ellipse"`, `"number"`, `"shade"`, `"color"`, `"pie"`. 
 ```{r methods}
-data(mtcars)
+library(corrplot)
 M <- cor(mtcars)
 corrplot(M, method="circle")
 corrplot(M, method="square")

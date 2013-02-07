@@ -1,5 +1,0 @@
-\documentclass{article}
-\begin{document}
-Actually, the vignettes of corrplot was wrote by markdown and created by knitr:) 
-However, we need this .Rnw file to make Makefile running.
-\end{document}
