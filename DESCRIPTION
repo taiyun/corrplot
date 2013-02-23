@@ -8,7 +8,6 @@ Suggests: seriation, Cairo, knitr
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Description: The corrplot package is a graphical display of a correlation matrix, confidence interval. It also contains some algorithms to do matrix reordering.
 License: GPL
-LazyLoad: yes
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues
 VignetteBuilder: knitr
