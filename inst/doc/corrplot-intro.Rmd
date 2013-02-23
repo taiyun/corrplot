@@ -8,7 +8,8 @@ An Introduction to **corrplot** package
 
 
 ```{r setup, include=FALSE}
-opts_chunk$set(dev="CairoPNG", out.extra='style="display:block; margin: auto"', fig.path="", fig.align="center")
+library(knitr)
+opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center")
 opts_knit$set(animation.fun = hook_r2swf)
 ```
 
