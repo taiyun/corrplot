@@ -9,17 +9,7 @@ Visualization of a correlation matrix
 The corrplot package is a graphical display of a correlation matrix, 
 confidence interval. It also contains some algorithms to do matrix reordering.
 }
-\details{
-\tabular{ll}{
-Package: \tab corrplot\cr
-Type: \tab Package\cr
-Version: \tab 0.71 \cr
-Date: \tab 2013-02-22\cr
-License: \tab GPL\cr
-LazyLoad: \tab yes\cr
-}
 
-}
 \author{
 Taiyun Wei
 
