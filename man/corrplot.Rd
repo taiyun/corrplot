@@ -21,7 +21,8 @@ corrplot(corr,
 	addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE, 
 
 	order = c("original", "AOE", "FPC", "hclust", "alphabet"),
-	hclust.method = c("complete", "ward", "single", "average","mcquitty", "median", "centroid"),
+	hclust.method = c("complete", "ward", "single", "average",
+                      "mcquitty", "median", "centroid"),
 	addrect = NULL, rect.col = "black", rect.lwd = 2,
 
 	tl.pos = NULL, tl.cex = 1,

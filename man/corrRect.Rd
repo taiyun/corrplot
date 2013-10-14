@@ -15,7 +15,8 @@ Draw rectangle(s) around the chart of corrrlation matrix.
 corrRect(clus,  col = "black", lwd = 2)
 
 corrRect.hclust(corr, k=2, col = "black", lwd = 2,
-	method = c("complete", "ward", "single", "average","mcquitty", "median", "centroid"))
+	method = c("complete", "ward", "single", "average",
+	           "mcquitty", "median", "centroid"))
 }
 
 \arguments{
