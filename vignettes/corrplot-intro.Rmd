@@ -1,5 +1,5 @@
 <!--
-%\VignetteEngine{knitr}
+%\VignetteEngine{knitr::docco_linear}
 %\VignetteIndexEntry{An Introduction to the corrplot package}
 -->
 
