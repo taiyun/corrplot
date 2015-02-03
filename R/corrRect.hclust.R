@@ -1,5 +1,5 @@
 corrRect.hclust <- function(corr, k=2, col = "black", lwd = 2,
-	method = c("complete", "ward", "single", "average","mcquitty", "median", "centroid"))
+	method = c("complete", "ward", "ward.D", "ward.D2", "single", "average","mcquitty", "median", "centroid"))
 {
 	n <- nrow(corr)
 	method <- match.arg(method)
