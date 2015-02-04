@@ -21,7 +21,7 @@ corrplot(corr,
 	addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE, 
 
 	order = c("original", "AOE", "FPC", "hclust", "alphabet"),
-	hclust.method = c("complete", "ward", "single", "average",
+	hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
                       "mcquitty", "median", "centroid"),
 	addrect = NULL, rect.col = "black", rect.lwd = 2,
 
@@ -129,7 +129,7 @@ See function \code{\link{corrMatOrder}} for details.
 }
 
   \item{hclust.method}{
-Character, the agglomeration method to be used when \code{order} is \code{\link{hclust}}. This should be one of \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
+Character, the agglomeration method to be used when \code{order} is \code{\link{hclust}}. This should be one of \code{"ward"}, \code{"ward.D"}, \code{"ward.D2"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
 }
 
   \item{addrect}{

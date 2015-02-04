@@ -15,7 +15,7 @@ Draw rectangle(s) around the chart of corrrlation matrix.
 corrRect(clus,  col = "black", lwd = 2)
 
 corrRect.hclust(corr, k=2, col = "black", lwd = 2,
-	method = c("complete", "ward", "single", "average",
+	method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
 	           "mcquitty", "median", "centroid"))
 }
 
@@ -40,7 +40,7 @@ Line width of rectangles.
 }
 
   \item{method}{
-Character, the agglomeration method to be used for hierarchical clustering (\code{\link{hclust}}). This should be (an unambiguous abbreviation of) one of \code{"ward"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
+Character, the agglomeration method to be used for hierarchical clustering (\code{\link{hclust}}). This should be (an unambiguous abbreviation of) one of \code{"ward"}, \code{"ward.D"}, \code{"ward.D2"}, \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
 }
 }
 
