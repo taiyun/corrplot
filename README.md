@@ -5,3 +5,6 @@ reordering. For examples, see its
 
 This package is licensed under GPL, and available on CRAN:
 <http://cran.r-project.org/package=corrplot>.
+
+
+[![Join the chat at https://gitter.im/taiyun/corrplot](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/taiyun/corrplot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
