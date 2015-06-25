@@ -208,6 +208,16 @@ Character, \code{"l"}, \code{"c"} (default) or \code{"r"}, for number-label in c
 Numeric, for number-label in colorlabel, see \code{\link{text}}.
 }
 
+\item{number.cex}{
+The \code{cex} parameter to send to the call to \code{text} when writing
+the correlation coefficients into the plot.
+}
+
+\item{number.font}{
+the \code{font} parameter to send to the call to \code{text} when
+writing the correlation coefficients into the plot.
+}
+
   \item{addshade}{
 Character for shade style, \code{"negative"}, \code{"positive"} or \code{"all"}, 
 only valid when \code{method} is \code{"shade"}. If \code{"all"}, all
