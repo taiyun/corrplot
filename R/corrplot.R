@@ -238,7 +238,7 @@ corrplot <- function(corr,
 
 	## pie
 	if(method=="pie"&plotCI=="n"){
-    	symbols(Pos, add = TRUE, inches = FALSE, circles = rep(0.5, len.DAT)*0.85)
+    	symbols(Pos, add = TRUE, inches = FALSE, circles = rep(0.5, len.DAT)*0.85, fg=bg)
 		pie.dat <- function(theta, length = 100){
 			k <- seq(pi/2, pi/2 - theta, length = 0.5*length*abs(theta)/pi)
 			x <- c(0, cos(k)/2, 0)
