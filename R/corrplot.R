@@ -129,7 +129,8 @@ corrplot <- function(corr,
 	## assign colors
 	assign.color <- function(DAT){
 		newcorr <- (DAT + 1)/2
-		newcorr[newcorr==1] <- 1 - 1e-10
+		newcorr[newcorr <= 0]  <- 0
+		newcorr[newcorr >= 1]  <- 1 - 1e-16
 		col.fill <- col[floor(newcorr*length(col))+1]
 	}
 	col.fill <- assign.color(DAT)
