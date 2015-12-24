@@ -77,7 +77,7 @@ corrplot <- function(corr,
 	cl.lim2 <- (intercept + cl.lim) * zoom
 	int <- intercept * zoom
 	
-	if(min(corr) < -1 - .Machine$double.eps|| max(corr) > 1 + .Machine$double.eps){
+	if(min(corr) < -1 - .Machine$double.eps ^ (3/4) || max(corr) > 1 + .Machine$double.eps ^ (3/4) ){
 		stop("The matrix is not in [-1, 1]!")
 	} 
 	
