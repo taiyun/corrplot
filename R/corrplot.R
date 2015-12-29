@@ -375,17 +375,18 @@ corrplot <- function(corr,
     	pNew      <- getPos.Dat(p.mat)[[2]]
     	
 		ind.p <- which(pNew > (sig.level))
-    	if(insig=="pch"){
+		p_inSig <- length(ind.p) > 0
+    	if(insig=="pch" & p_inSig){
 			points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				pch = pch, col = pch.col, cex = pch.cex, lwd=2)
 		}
 		
-		if(insig=="p-value"){
+		if(insig=="p-value" & p_inSig){
 			text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				round(pNew[ind.p],2), col = pch.col)
 		}
 		
-		if(insig=="blank"){
+		if(insig=="blank" & p_inSig){
 			symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
 				squares = rep(1, length(pos.pNew[,1][ind.p])),
 				fg = addgrid.col, bg = bg, add = TRUE)
