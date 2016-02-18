@@ -26,7 +26,7 @@ corrplot(corr,
 	addrect = NULL, rect.col = "black", rect.lwd = 2,
 
 	tl.pos = NULL, tl.cex = 1,
-	tl.col = "red", tl.offset = 0.4, tl.srt = 90,
+	tl.x.col = "red", tl.y.col = "red", tl.offset = 0.4, tl.srt = 90,
 
 	cl.pos = NULL, cl.lim = NULL,
 	cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15, 
@@ -162,8 +162,8 @@ means left and top, \code{"ld"}(default if \code{type=="lower"}) means left and 
 Numeric, for the size of text label (variable names).
 }
 
-  \item{tl.col}{
-The color of text label.
+  \item{tl.x.col, tl.y.col}{
+The color of text label in x and y axes.
 }
 
   \item{tl.offset}{

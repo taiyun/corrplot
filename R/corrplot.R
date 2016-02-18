@@ -14,7 +14,7 @@ corrplot <- function(corr,
 		addrect = NULL, rect.col="black", rect.lwd = 2,
 
 		tl.pos = NULL, tl.cex = 1,
-		tl.col = "red", tl.offset = 0.4, tl.srt = 90,
+		tl.x.col = "red", tl.y.col = "red", tl.offset = 0.4, tl.srt = 90,
 
 		cl.pos = NULL, cl.lim = NULL,
 		cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15, 
@@ -447,13 +447,13 @@ corrplot <- function(corr,
 				bg = bg, fg = addgrid.col,
 				inches = FALSE, squares = rep(1, length(pos.ylabel[,1])))
 			text(pos.ylabel[,1]+0.5, pos.ylabel[,2], newcolnames[1:min(n,m)],
-                col = tl.col, cex = tl.cex, ...)
+                col = tl.x.col, cex = tl.cex, ...)
 		} else {
 			text(pos.xlabel[,1], pos.xlabel[,2], newcolnames, srt = tl.srt, 
 				adj=ifelse(tl.srt==0, c(0.5,0), c(0,0)),
-                col = tl.col, cex = tl.cex, offset=tl.offset, ...)
+                col = tl.x.col, cex = tl.cex, offset=tl.offset, ...)
 			text(pos.ylabel[,1], pos.ylabel[,2], newrownames,
-                col = tl.col, cex = tl.cex, pos=2, offset=tl.offset, ...)
+                col = tl.y.col, cex = tl.cex, pos=2, offset=tl.offset, ...)
 		}
 	}
 
