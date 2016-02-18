@@ -77,7 +77,7 @@ corrplot <- function(corr,
 	cl.lim2 <- (intercept + cl.lim) * zoom
 	int <- intercept * zoom
 	
-	if(min(corr) < -1 - .Machine$double.eps|| max(corr) > 1 + .Machine$double.eps){
+	if(min(corr) < -1 - .Machine$double.eps ^ (3/4) || max(corr) > 1 + .Machine$double.eps ^ (3/4) ){
 		stop("The matrix is not in [-1, 1]!")
 	} 
 	
@@ -129,7 +129,8 @@ corrplot <- function(corr,
 	## assign colors
 	assign.color <- function(DAT){
 		newcorr <- (DAT + 1)/2
-		newcorr[newcorr==1] <- 1 - 1e-10
+		newcorr[newcorr <= 0]  <- 0
+		newcorr[newcorr >= 1]  <- 1 - 1e-16
 		col.fill <- col[floor(newcorr*length(col))+1]
 	}
 	col.fill <- assign.color(DAT)
@@ -374,17 +375,18 @@ corrplot <- function(corr,
     	pNew      <- getPos.Dat(p.mat)[[2]]
     	
 		ind.p <- which(pNew > (sig.level))
-    	if(insig=="pch"){
+		p_inSig <- length(ind.p) > 0
+    	if(insig=="pch" & p_inSig){
 			points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				pch = pch, col = pch.col, cex = pch.cex, lwd=2)
 		}
 		
-		if(insig=="p-value"){
+		if(insig=="p-value" & p_inSig){
 			text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				round(pNew[ind.p],2), col = pch.col)
 		}
 		
-		if(insig=="blank"){
+		if(insig=="blank" & p_inSig){
 			symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
 				squares = rep(1, length(pos.pNew[,1][ind.p])),
 				fg = addgrid.col, bg = bg, add = TRUE)
