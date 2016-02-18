@@ -162,8 +162,12 @@ means left and top, \code{"ld"}(default if \code{type=="lower"}) means left and 
 Numeric, for the size of text label (variable names).
 }
 
-  \item{tl.x.col, tl.y.col}{
-The color of text label in x and y axes.
+  \item{tl.x.col}{
+The color of text label in x axis.
+}
+
+  \item{tl.y.col}{
+The color of text label in y axis.
 }
 
   \item{tl.offset}{
