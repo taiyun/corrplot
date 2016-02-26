@@ -1,6 +1,7 @@
 #' Visualize Correlation Matrix
 #' @author Taiyun Wei
 #' @email weitaiyun@gmail.com
+#' @export
 corrplot <- function(corr,
 		method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
 		type = c("full", "lower", "upper"), add = FALSE, 

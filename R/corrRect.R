@@ -1,3 +1,4 @@
+#' @export
 corrRect <- function(clus, col = "black", lwd = 2){
 	hc <- length(clus)
 	cu <- c(0, cumsum(clus))

@@ -1,3 +1,4 @@
+#' @export
 corrMatOrder <- function(corr, order=c("AOE", "FPC", "hclust", "alphabet"),
 	hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
 			"mcquitty", "median", "centroid"))

@@ -2,6 +2,7 @@ colorlegend <- function(colbar, labels, at = NULL,
     xlim = c(0, 1), ylim = c(0, 1), vertical = TRUE, ratio.colbar = 0.4, 
     lim.segment = NULL, align = c("c", "l", "r"), addlabels = TRUE, 
     ...) 
+#' @export
 {
     ### last modified 2010-5-26, 11:49, changsha, china
     if (is.null(at) & addlabels) 
