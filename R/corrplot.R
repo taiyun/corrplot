@@ -1,13 +1,218 @@
-#' Visualize Correlation Matrix
-#' @author Taiyun Wei
-#' @email weitaiyun@gmail.com
+#' A visualization of a correlation matrix.
+#'
+#' A graphical display of a correlation matrix, confidence interval. The details
+#' are paid great attention to. It can also visualize a general matrix by
+#' setting \code{is.corr = FALSE}.
+#'
+#' @param corr The correlation matrix to visualize, must be square if
+#'   \code{order} is not \code{"original"}. For general matrix, please using
+#'   \code{is.corr = FALSE} to convert.
+#'
+#' @param method Character, the visualization method of correlation matrix to be
+#'   used. Currently, it supports seven methods, named \code{"circle"}
+#'   (default), \code{"square"}, \code{"ellipse"}, \code{"number"},
+#'   \code{"pie"}, \code{"shade"} and \code{"color"}. See examples for details.
+#'
+#'   The areas of circles or squares show the absolute value of corresponding
+#'   correlation coefficients. Method \code{"pie"} and \code{"shade"} came from
+#'   Michael Friendly's job (with some adjustment about the shade added on), and
+#'   \code{"ellipse"} came from D.J. Murdoch and E.D. Chow's job, see in section
+#'   References.
+#'
+#' @param type Character, \code{"full"} (default), \code{"upper"} or
+#'   \code{"lower"}, display full matrix, lower triangular or upper triangular
+#'   matrix.
+#'
+#' @param add Logical, if \code{TRUE}, the graph is added to an existing plot,
+#'   otherwise a new plot is created.
+#'
+#' @param col Vector, the color of glyphs. It is distributed uniformly in
+#'   \code{cl.lim}. If NULL, \code{col} will be
+#'   \code{colorRampPalette(col2)(200)}, see example about col2.
+#'
+#' @param bg The background color.
+#'
+#' @param title Character, title of the graph.
+#'
+#' @param is.corr Logical, whether the input matrix is a correlation matrix or
+#'   not. We can visualize the non-correlation matrix  by setting \code{is.corr
+#'   = FALSE}.
+#'
+#' @param diag Logical, whether display the correlation coefficients on the
+#'   principal diagonal.
+#'
+#' @param outline Logical, whether plot outline of circles, square and ellipse.
+#'
+#' @param mar See \code{\link{par}}.
+#'
+#' @param addgrid.col The color of grid. The default value is depends on
+#'   \code{method}, if \code{method} is \code{color} or \code{shade}, the
+#'   default values is \code{"white"}, otherwise \code{"grey"}.
+#'
+#' @param addCoef.col Color of coefficients added on the graph. If \code{NULL}
+#'   (default), add no coefficients.
+#'
+#' @param addCoefasPercent Logic, whether translate coefficients into percentage
+#'   style for spacesaving.
+#'
+#' @param order Character, the ordering method of the correlation matrix.
+#' \itemize{
+#'   \item{\code{"original"} for original order (default).}
+#'   \item{\code{"AOE"} for the angular order of the eigenvectors.}
+#'   \item{\code{"FPC"} for the first principal component order.}
+#'   \item{\code{"hclust"} for the hierarchical clustering order.}
+#'   \item{\code{"alphabet"} for alphabetical order.}
+#' }
+#'
+#' See function \code{\link{corrMatOrder}} for details.
+#'
+#' @param hclust.method Character, the agglomeration method to be used when
+#'   \code{order} is \code{\link{hclust}}. This should be one of \code{"ward"},
+#'   \code{"ward.D"}, \code{"ward.D2"}, \code{"single"}, \code{"complete"},
+#'   \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
+#'
+#' @param addrect Integer, the number of rectangles draws on the graph according
+#'   to the hierarchical cluster, only valid when \code{order} is \code{hclust}.
+#'   If \code{NULL} (default), then add no rectangles.
+#'
+#' @param rect.col Color for rectangle border(s), only valid when \code{addrect}
+#'   is equal or greater than 1.
+#'
+#' @param rect.lwd Numeric, line width for borders for rectangle border(s), only
+#'   valid when \code{addrect} is equal or greater than 1.
+#'
+#' @param tl.pos Character or logical, position of text labels. If character, it
+#'   must be one of \code{"lt"}, \code{"ld"}, \code{"td"}, \code{"d"} or
+#'   \code{"n"}. \code{"lt"}(default if \code{type=="full"}) means left and top,
+#'   \code{"ld"}(default if \code{type=="lower"}) means left and diagonal,
+#'   \code{"td"}(default if \code{type=="upper"}) means top and diagonal(near),
+#'   \code{"d"} means diagonal, \code{"n"} means don't add textlabel.
+#'
+#' @param tl.cex Numeric, for the size of text label (variable names).
+#'
+#' @param tl.col The color of text label.
+#'
+#' @param tl.offset Numeric, for text label, see \code{\link{text}}.
+#'
+#' @param tl.srt Numeric, for text label string rotation in degrees, see
+#'   \code{\link{text}}.
+#'
+#' @param cl.pos Character or logical, position of color labels; If character,
+#'   it must be one of \code{"r"} (default if \code{type=="upper"} or
+#'   \code{"full"}), \code{"b"} (default if \code{type=="lower"}) or \code{"n"},
+#'   \code{"n"} means don't draw colorlabel.
+#'
+#' @param cl.lim The  limits \code{(x1, x2)}  in the colorlabel.
+#'
+#' @param cl.length Integer, the number of number-text in colorlabel, passed to
+#'   \code{\link{colorlegend}}. If \code{NULL}, \code{cl.length} is
+#'   \code{length(col) + 1} when \code{length(col) <=20}; \code{cl.length} is 11
+#'   when \code{length(col) > 20}
+#'
+#' @param cl.cex Numeric, cex of number-label in colorlabel,  passed to
+#'   \code{\link{colorlegend}}.
+#'
+#' @param cl.ratio Numeric, to justify the width of colorlabel, 0.1~0.2 is
+#'   suggested.
+#'
+#' @param cl.align.text Character, \code{"l"}, \code{"c"} (default) or
+#'   \code{"r"}, for number-label in colorlabel, \code{"l"} means left,
+#'   \code{"c"} means center, and \code{"r"} means right.
+#'
+#' @param cl.offset Numeric, for number-label in colorlabel, see
+#'   \code{\link{text}}.
+#'
+#' @param number.cex The \code{cex} parameter to send to the call to \code{text}
+#'   when writing the correlation coefficients into the plot.
+#'
+#' @param number.font the \code{font} parameter to send to the call to
+#'   \code{text} when writing the correlation coefficients into the plot.
+#'
+#' @param addshade Character for shade style, \code{"negative"},
+#'   \code{"positive"} or \code{"all"}, only valid when \code{method} is
+#'   \code{"shade"}. If \code{"all"}, all correlation coefficients' glyph will
+#'   be shaded; if \code{"positive"}, only the positive will be shaded; if
+#'   \code{"negative"}, only the negative will be shaded. Note: the angle of
+#'   shade line is different, 45 degrees for positive and 135 degrees for
+#'   negative.
+#'
+#' @param shade.lwd Numeric, the line width of shade.
+#'
+#' @param shade.col The color of shade line.
+#'
+#' @param p.mat Matrix of p-value, if \code{NULL}, arguments \code{sig.level},
+#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} is invalid.
+#'
+#' @param sig.level Significant level,  if the p-value in \code{p-mat} is bigger
+#'   than \code{sig.level}, then the corresponding correlation coefficient is
+#'   regarded as insignificant.
+#'
+#' @param insig Character, specialized insignificant correlation coefficients,
+#'   \code{"pch"} (default), \code{"p-value"}, \code{"blank"} or \code{"n"}. If
+#'   \code{"blank"}, wipe away the corresponding glyphs; if \code{"p-value"},
+#'   add p-values the corresponding glyphs; if \code{"pch"}, add characters (see
+#'   \code{pch} for details) on corresponding glyphs; if \code{"n"}, don't take
+#'   any measures.
+#'
+#' @param pch Add character on the glyphs of insignificant correlation
+#'   coefficients(only valid when \code{insig} is \code{"pch"}). See
+#'   \code{\link{par}}.
+#'
+#' @param pch.col The color of pch (only valid when \code{insig} is
+#'   \code{"pch"}).
+#'
+#' @param pch.cex The cex of pch (only valid when \code{insig} is \code{"pch"}).
+#'
+#' @param plotCI Character, method of ploting confidence interval. If
+#'   \code{"n"}, don't plot confidence interval. If "rect", plot rectangles
+#'   whose upper side means upper bound and lower side means lower bound,
+#'   respectively, and meanwhile correlation coefficients are also added on the
+#'   rectangles. If "circle", first plot a circle with the bigger absolute
+#'   bound, and then plot the smaller. Warning: if the two bounds are the same
+#'   sign, the smaller circle will be wiped away, thus forming a ring. Method
+#'   "square" is similar to "circle".
+#'
+#' @param lowCI.mat Matrix of the lower bound of confidence interval.
+#'
+#' @param uppCI.mat Matrix of the upper bound of confidence interval.
+#'
+#' @param \dots Additional arguments passing to function \code{text} for drawing
+#'   text lable.
+#'
+#' @return (Invisibly) returns a reordered correlation matrix.
+#'
+#' @details \code{corrplot} function offers flexible ways to visualize
+#'   correlation matrix, lower and upper bound of confidence interval matrix.
+#'
+#' @references
+#' Michael Friendly (2002).
+#' \emph{Corrgrams: Exploratory displays for correlation matrices}.
+#' The American Statistician, 56, 316--324.
+#'
+#' D.J. Murdoch, E.D. Chow (1996).
+#' \emph{A graphical display of large correlation matrices}.
+#' The American Statistician, 50, 178--180.
+#'
+#' @author Taiyun Wei (weitaiyun@@gmail.com)
+#' @note \code{Cairo} and \code{cairoDevice} packages is strongly recommended to
+#'   produce high-quality PNG, JPEG, TIFF bitmap files, especially for that
+#'   \code{method} \code{circle}, \code{ellipse}.
+#'
+#' @seealso Function \code{plotcorr}  in the \code{ellipse} package and
+#'   \code{corrgram}  in the \code{corrgram} package have some similarities.
+#'
+#'   Package \code{seriation} offered more methods to reorder matrices, such as
+#'   ARSA, BBURCG, BBWRCG, MDS, TSP, Chen and so forth.
+#'
+#' @example vignettes/example-corrplot.R
+#' @keywords hplot
 #' @export
 corrplot <- function(corr,
 		method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
-		type = c("full", "lower", "upper"), add = FALSE, 
+		type = c("full", "lower", "upper"), add = FALSE,
 		col = NULL, bg = "white", title = "", is.corr = TRUE,
 		diag = TRUE, outline = FALSE, mar = c(0,0,0,0),
-		addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE, 
+		addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
 		order = c("original", "AOE", "FPC", "hclust", "alphabet"),
 		hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
@@ -18,9 +223,9 @@ corrplot <- function(corr,
 		tl.col = "red", tl.offset = 0.4, tl.srt = 90,
 
 		cl.pos = NULL, cl.lim = NULL,
-		cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15, 
+		cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15,
 		cl.align.text = "c", cl.offset=0.5,
-		
+
 		number.cex = 1, number.font = 2,
 
 		addshade = c("negative", "positive", "all"),
@@ -29,34 +234,34 @@ corrplot <- function(corr,
 		p.mat = NULL, sig.level = 0.05,
 		insig = c("pch","p-value","blank", "n"),
 		pch = 4, pch.col = "black", pch.cex = 3,
-		
+
 		plotCI = c("n","square", "circle", "rect"),
 		lowCI.mat = NULL, uppCI.mat = NULL, ...)
 {
-	
+
 	method <- match.arg(method)
 	type <- match.arg(type)
 	order <- match.arg(order)
 	hclust.method <- match.arg(hclust.method)
 	plotCI <- match.arg(plotCI)
 	insig <- match.arg(insig)
-	
+
 	if(!is.matrix(corr)&!is.data.frame(corr))
 		stop("Need a matrix or data frame!")
 
 	if(is.null(addgrid.col)){
 		addgrid.col <- ifelse(method=="color"|method=="shade", "white", "grey")
 	}
-	
+
 	if(any(corr<cl.lim[1])|any(corr>cl.lim[2]))
 		stop("color limits should cover matrix")
 	if(is.null(cl.lim)){
-		if(is.corr) 
-			cl.lim <-  c(-1,1) 
+		if(is.corr)
+			cl.lim <-  c(-1,1)
 		if(!is.corr)
 			cl.lim <- c(min(corr), max(corr))
 	}
-	
+
 	intercept <- 0
 	zoom <- 1
 	if(!is.corr){
@@ -67,26 +272,26 @@ corrplot <- function(corr,
 		if(min(corr) >= 0){
 			intercept <- -cl.lim[1]
 			zoom <- 1/(diff(cl.lim))
-		}		
+		}
 		if(max(corr) <= 0){
 			intercept <- -cl.lim[2]
 			zoom <- 1/(diff(cl.lim))
-		}		
+		}
 		corr <- (intercept + corr) * zoom
 	}
-	
+
 	cl.lim2 <- (intercept + cl.lim) * zoom
 	int <- intercept * zoom
-	
+
 	if(min(corr) < -1 - .Machine$double.eps ^ (3/4) || max(corr) > 1 + .Machine$double.eps ^ (3/4) ){
 		stop("The matrix is not in [-1, 1]!")
-	} 
-	
-	if(is.null(col)){	
+	}
+
+	if(is.null(col)){
 		col <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582", "#FDDBC7",
 			"#FFFFFF", "#D1E5F0", "#92C5DE", "#4393C3", "#2166AC", "#053061"))(200)
-	}		
-	
+	}
+
 	n <- nrow(corr)
 	m <- ncol(corr)
 	min.nm <- min(n,m)
@@ -135,31 +340,31 @@ corrplot <- function(corr,
 		col.fill <- col[floor(newcorr*length(col))+1]
 	}
 	col.fill <- assign.color(DAT)
-	
+
 	isFALSE = function(x) identical(x, FALSE)
-	isTRUE = function(x) identical(x, TRUE)	
-	
+	isTRUE = function(x) identical(x, TRUE)
+
 	if(isFALSE(tl.pos)){
 		tl.pos <- "n"
-	}		
-	
+	}
+
 	if(is.null(tl.pos)|isTRUE(tl.pos)){
 		if(type=="full")  tl.pos <- "lt"
 		if(type=="lower") tl.pos <- "ld"
 		if(type=="upper") tl.pos <- "td"
-	}	
-	
+	}
+
 	if(isFALSE(cl.pos)){
 		cl.pos <- "n"
 	}
-	
+
 	if(is.null(cl.pos)|isTRUE(cl.pos)){
 		if(type=="full")  cl.pos <- "r"
 		if(type=="lower") cl.pos <- "b"
 		if(type=="upper") cl.pos <- "r"
-	}	
+	}
 
-	
+
 	if(outline)
 		col.border <- "black"
 	if(!outline)
@@ -170,11 +375,11 @@ corrplot <- function(corr,
 		par(mar = mar, bg = "white")
 		plot.new()
 		xlabwidth <- ylabwidth <- 0
-	
+
 		for(i in 1:50){
 			xlim <- c(m1 - 0.5 - xlabwidth, m2 + 0.5 + mm*cl.ratio*(cl.pos=="r"))
 			ylim <- c(n1 - 0.5 - nn*cl.ratio*(cl.pos=="b"), n2 + 0.5 + ylabwidth)
-			plot.window(xlim + c(-0.2,0.2), ylim + c(-0.2,0.2), 
+			plot.window(xlim + c(-0.2,0.2), ylim + c(-0.2,0.2),
 				asp = 1, xaxs = "i", yaxs = "i")
 			x.tmp <- max(strwidth(newrownames, cex = tl.cex))
 			y.tmp <- max(strwidth(newcolnames, cex = tl.cex))
@@ -186,29 +391,29 @@ corrplot <- function(corr,
 		if(tl.pos=="n"|tl.pos=="d") xlabwidth <- ylabwidth <- 0
 		if(tl.pos=="td")	ylabwidth <- 0
 		if(tl.pos=="ld")	xlabwidth <- 0
-	
+
 		laboffset <- strwidth("W", cex = tl.cex) * tl.offset
-		xlim <- c(m1 - 0.5 - xlabwidth - laboffset, 
+		xlim <- c(m1 - 0.5 - xlabwidth - laboffset,
 			m2 + 0.5 + mm*cl.ratio*(cl.pos=="r")) + c(-0.35,0.15)
-		ylim <- c(n1 - 0.5 - nn*cl.ratio*(cl.pos=="b"), 
+		ylim <- c(n1 - 0.5 - nn*cl.ratio*(cl.pos=="b"),
 			n2 + 0.5 + ylabwidth*abs(sin(tl.srt*pi/180)) + laboffset) + c(-0.15, 0.35)
 
-		if(.Platform$OS.type == "windows"){ 
+		if(.Platform$OS.type == "windows"){
 			windows.options(width=7, height=7*diff(ylim)/diff(xlim))
 		}
-	
-		plot.window(xlim=xlim , ylim=ylim, 
+
+		plot.window(xlim=xlim , ylim=ylim,
 			asp = 1, xlab="", ylab="", xaxs = "i", yaxs = "i")
-	}	
-	
+	}
+
 	## for: add = TRUE
 	laboffset <- strwidth("W", cex = tl.cex) * tl.offset
 
-	
+
 	## squares
 	symbols(Pos, add = TRUE, inches = FALSE,
 			squares = rep(1, len.DAT), bg = bg, fg = bg)
-	
+
 
 	## circle
 	if(method=="circle"&plotCI=="n"){
@@ -233,7 +438,7 @@ corrplot <- function(corr,
 	## number
 	if(method=="number"&plotCI=="n"){
 		text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
-		labels = round((DAT-int)*ifelse(addCoefasPercent, 100, 1)/zoom, 
+		labels = round((DAT-int)*ifelse(addCoefasPercent, 100, 1)/zoom,
 				ifelse(addCoefasPercent, 0, 2)),
 		cex = number.cex)
 	}
@@ -281,7 +486,7 @@ corrplot <- function(corr,
 		pos_corr <- rbind(cbind(Pos, DAT))
 		pos_corr2 <- split(pos_corr, 1:nrow(pos_corr))
 		SHADE.dat <- matrix(na.omit(unlist(lapply(pos_corr2, shade.dat))),byrow=TRUE, ncol=4)
-		segments(SHADE.dat[,1], SHADE.dat[,2], SHADE.dat[,3], 
+		segments(SHADE.dat[,1], SHADE.dat[,2], SHADE.dat[,3],
 			SHADE.dat[,4], col = shade.col, lwd = shade.lwd)
 	}
 
@@ -298,9 +503,9 @@ corrplot <- function(corr,
 	}
 
 	## add grid
-	symbols(Pos, add=TRUE, inches = FALSE,  bg = NA, 
+	symbols(Pos, add=TRUE, inches = FALSE,  bg = NA,
 			squares = rep(1, len.DAT), fg = addgrid.col)
-	
+
 
 	if(plotCI!="n"){
 		if(is.null(lowCI.mat)||is.null(uppCI.mat))
@@ -316,34 +521,34 @@ corrplot <- function(corr,
 		if(!(method=="circle"||method=="square"))
 			stop("method shoud be circle or square if draw confidence interval!")
 		k1 <- (abs(uppNew) > abs(lowNew))
-		bigabs <- uppNew 
+		bigabs <- uppNew
 		bigabs[which(!k1)] <- lowNew[!k1]
 		smallabs <- lowNew
 		smallabs[which(!k1)] <- uppNew[!k1]
 		sig <- sign(uppNew * lowNew)
-		
-		if(plotCI=="circle"){	
+
+		if(plotCI=="circle"){
 			symbols(pos.uppNew[,1], pos.uppNew[,2],
 				add = TRUE,  inches = FALSE,
-				circles = 0.95*abs(bigabs)**0.5/2,  
+				circles = 0.95*abs(bigabs)**0.5/2,
 				bg = ifelse(sig>0, col.fill, col[ceiling((bigabs+1)*length(col)/2)]),
 				fg = ifelse(sig>0, col.fill, col[ceiling((bigabs+1)*length(col)/2)]))
 			symbols(pos.lowNew[,1], pos.lowNew[,2],
-				add = TRUE, inches = FALSE, 
-				circles = 0.95*abs(smallabs)**0.5/2, 
+				add = TRUE, inches = FALSE,
+				circles = 0.95*abs(smallabs)**0.5/2,
 				bg = ifelse(sig>0, bg, col[ceiling((smallabs+1)*length(col)/2)]),
 				fg = ifelse(sig>0, col.fill, col[ceiling((smallabs+1)*length(col)/2)]))
 		}
-		
+
 		if(plotCI=="square"){
 			symbols(pos.uppNew[,1], pos.uppNew[,2],
 				add = TRUE,  inches = FALSE,
-				squares = abs(bigabs)**0.5,  
+				squares = abs(bigabs)**0.5,
 				bg = ifelse(sig>0, col.fill, col[ceiling((bigabs+1)*length(col)/2)]),
 				fg = ifelse(sig>0, col.fill, col[ceiling((bigabs+1)*length(col)/2)]))
 			symbols(pos.lowNew[,1], pos.lowNew[,2],
-				add = TRUE, inches = FALSE, 
-				squares = abs(smallabs)**0.5, 
+				add = TRUE, inches = FALSE,
+				squares = abs(smallabs)**0.5,
 				bg = ifelse(sig>0, bg, col[ceiling((smallabs+1)*length(col)/2)]),
 				fg = ifelse(sig>0, col.fill, col[ceiling((smallabs+1)*length(col)/2)]))
 		}
@@ -355,59 +560,59 @@ corrplot <- function(corr,
 				col=col.fill, border=col.fill)
 			segments(pos.lowNew[,1]-rect.width, pos.lowNew[,2]+DAT/2,
 				pos.lowNew[,1]+rect.width, pos.lowNew[,2]+DAT/2,
-				col="black",lwd=1)	
+				col="black",lwd=1)
 			segments(pos.uppNew[,1]-rect.width, pos.uppNew[,2]+uppNew/2,
 				pos.uppNew[,1]+rect.width, pos.uppNew[,2]+uppNew/2,
 				col="black",lwd=1)
 			segments(pos.lowNew[,1]-rect.width, pos.lowNew[,2]+lowNew/2,
 				pos.lowNew[,1]+rect.width, pos.lowNew[,2]+lowNew/2,
 				col="black",lwd=1)
-			segments(pos.lowNew[,1]-0.5,pos.lowNew[,2], 
+			segments(pos.lowNew[,1]-0.5,pos.lowNew[,2],
 				pos.lowNew[,1]+0.5, pos.lowNew[,2],col = "grey70", lty=3)
 		}
 
 	}
-	
+
 
 	if(!is.null(p.mat)&!insig=="n"){
     	if(!order=="original")
     	p.mat <- p.mat[ord, ord]
 		pos.pNew  <- getPos.Dat(p.mat)[[1]]
     	pNew      <- getPos.Dat(p.mat)[[2]]
-    	
+
 		ind.p <- which(pNew > (sig.level))
 		p_inSig <- length(ind.p) > 0
     	if(insig=="pch" & p_inSig){
 			points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				pch = pch, col = pch.col, cex = pch.cex, lwd=2)
 		}
-		
+
 		if(insig=="p-value" & p_inSig){
 			text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
 				round(pNew[ind.p],2), col = pch.col)
 		}
-		
+
 		if(insig=="blank" & p_inSig){
 			symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
 				squares = rep(1, length(pos.pNew[,1][ind.p])),
 				fg = addgrid.col, bg = bg, add = TRUE)
 		}
 	}
-	
 
-	
-	if(cl.pos!="n"){		
+
+
+	if(cl.pos!="n"){
 		colRange <- assign.color(cl.lim2)
 		ind1 <- which(col==colRange[1])
 		ind2 <- which(col==colRange[2])
 		colbar <- col[ind1:ind2]
-		
-		if(is.null(cl.length)) 
+
+		if(is.null(cl.length))
 		cl.length <- ifelse(length(colbar) > 20, 11, length(colbar)+1)
-		
+
 		labels <- seq(cl.lim[1], cl.lim[2], length=cl.length)
 		at <- seq(0,1,length=length(labels))
-		
+
 		if(cl.pos=="r"){
 			vertical <- TRUE
 			xlim <- c(m2 + 0.5 + mm*0.02, m2 + 0.5 + mm*cl.ratio)
@@ -419,12 +624,12 @@ corrplot <- function(corr,
 			xlim <- c(m1-0.5, m2+0.5)
 			ylim <- c(n1 - 0.5 - nn*cl.ratio, n1 - 0.5- nn*0.02)
 		}
-		colorlegend(colbar=colbar, labels=round(labels, 2), 
+		colorlegend(colbar=colbar, labels=round(labels, 2),
 			offset=cl.offset, ratio.colbar = 0.3, cex = cl.cex,
 			xlim = xlim, ylim = ylim, vertical = vertical, align= cl.align.text)
 	}
 
-	
+
 	## add variable names and title
 	if(tl.pos!="n"){
         ylabwidth2 <- strwidth(newrownames, cex = tl.cex)
@@ -450,7 +655,7 @@ corrplot <- function(corr,
 			text(pos.ylabel[,1]+0.5, pos.ylabel[,2], newcolnames[1:min(n,m)],
                 col = tl.col, cex = tl.cex, ...)
 		} else {
-			text(pos.xlabel[,1], pos.xlabel[,2], newcolnames, srt = tl.srt, 
+			text(pos.xlabel[,1], pos.xlabel[,2], newcolnames, srt = tl.srt,
 				adj=ifelse(tl.srt==0, c(0.5,0), c(0,0)),
                 col = tl.col, cex = tl.cex, offset=tl.offset, ...)
 			text(pos.ylabel[,1], pos.ylabel[,2], newrownames,
@@ -459,24 +664,24 @@ corrplot <- function(corr,
 	}
 
 	title(title, ...)
-   
+
 	## add numbers
 	if(!is.null(addCoef.col)&(!method == "number")){
 		text(Pos[,1], Pos[,2],  col = addCoef.col,
-		labels = round((DAT-int)*ifelse(addCoefasPercent, 100, 1)/zoom, 
+		labels = round((DAT-int)*ifelse(addCoefasPercent, 100, 1)/zoom,
 				ifelse(addCoefasPercent, 0, 2)),
 		cex = number.cex, font = number.font)
 	}
-	
+
 	## add grid, in case of the grid is ate when "diag=FALSE"
 	if(type=="full"&plotCI=="n"&!is.null(addgrid.col))
 		rect(m1-0.5, n1-0.5, m2+0.5, n2+0.5, border=addgrid.col)
-	
+
 	##  draws rectangles, call function corrRect.hclust
 	if(!is.null(addrect)&order=="hclust"&type=="full"){
-		corrRect.hclust(corr, k = addrect, 
+		corrRect.hclust(corr, k = addrect,
 			method = hclust.method, col = rect.col, lwd = rect.lwd)
 	}
 
 	invisible(corr)
-} 
+}
