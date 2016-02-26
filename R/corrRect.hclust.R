@@ -1,3 +1,24 @@
+#' TODO: please add title for this function
+#'
+#' TODO: please add description for this function
+#'
+#' @param corr Correlation matrix for function \code{corrRect.hclust}. It use
+#'   \code{1-corr} as dist in  hierarchical clustering (\code{\link{hclust}}).
+#'
+#' @param k Integer, the number of rectangles drawn on the graph according to
+#'   the hierarchical cluster, for function \code{corrRect.hclust}.
+#'
+#' @param col Color of rectangles.
+#' @param lwd Line width of rectangles.
+#'
+#' @param method Character, the agglomeration method to be used for hierarchical
+#'   clustering (\code{\link{hclust}}). This should be (an unambiguous
+#'   abbreviation of) one of \code{"ward"}, \code{"ward.D"}, \code{"ward.D2"},
+#'   \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"},
+#'   \code{"median"} or \code{"centroid"}.
+#'
+#' @keywords hplot
+#' @author Taiyun Wei
 #' @export
 corrRect.hclust <- function(corr, k = 2, col = "black", lwd = 2,
   method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
