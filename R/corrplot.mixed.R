@@ -19,9 +19,9 @@
 #' @example vignettes/example-corrplot.mixed.R
 #' @export
 corrplot.mixed <- function(corr, lower = "number",
-    upper = "circle", tl.pos = c("d", "lt", "n"),
-    diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
-    ...)
+  upper = "circle", tl.pos = c("d", "lt", "n"),
+  diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
+  ...)
 {
     diag <- match.arg(diag)
     tl.pos <- match.arg(tl.pos)
