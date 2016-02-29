@@ -1,6 +1,6 @@
-#' TODO: please add title for this function
+#' Draw rectangles on the correlation matrix graph.
 #'
-#' TODO: please add description for this function
+#' Draw rectangles on the correlation matrix graph based on hierarchical cluster (\code{\link{hclust}}).
 #'
 #' @param corr Correlation matrix for function \code{corrRect.hclust}. It use
 #'   \code{1-corr} as dist in  hierarchical clustering (\code{\link{hclust}}).
