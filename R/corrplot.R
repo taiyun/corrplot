@@ -340,16 +340,10 @@ corrplot <- function(corr,
   len.DAT <- length(DAT)
 
   ## assign colors
-  assign.color <- function(DAT){
-    newcorr <- (DAT + 1) / 2
-    newcorr[newcorr <= 0]  <- 0
-    newcorr[newcorr >= 1]  <- 1 - 1e-16
-    col.fill <- col[floor(newcorr * length(col)) + 1]
-  }
-
-  # TODO: This looks suspicious! Assigning "col.fill" inside the "assign.color"
-  #       function and at the same time using return value from "assign.color"
-  col.fill <- assign.color(DAT)
+  newcorr <- (DAT + 1) / 2
+  newcorr[newcorr <= 0]  <- 0
+  newcorr[newcorr >= 1]  <- 1 - 1e-16
+  col.fill <- col[floor(newcorr * length(col)) + 1]
 
   isFALSE <- function(x) identical(x, FALSE)
   isTRUE <- function(x) identical(x, TRUE)
