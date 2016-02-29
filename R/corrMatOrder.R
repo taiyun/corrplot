@@ -9,8 +9,8 @@
 #' \itemize{
 #'    \item{\code{"AOE"} for the angular order of the eigenvectors.
 #'      It is calculated from the order of the angles, \eqn{a_i}:
-#'      \deqn{ a_i = tan (e_{i2}/e_{i1}), if e_{i1}>0}
-#'      \deqn{ a_i = tan (e_{i2}/e_{i1}) + \pi, otherwise.}
+#'      \deqn{ a_i = tan (e_{i2} / e_{i1}), if e_{i1} > 0}
+#'      \deqn{ a_i = tan (e_{i2} / e_{i1}) + \pi, otherwise.}
 #'      where \eqn{e_1} and \eqn{e_2} are the largest two eigenvalues
 #'      of matrix \code{corr}.
 #'      See Michael Friendly (2002) for details.}
@@ -33,40 +33,41 @@
 #' @author Taiyun Wei
 #' @keywords hplot
 #' @export
-corrMatOrder <- function(corr, order=c("AOE", "FPC", "hclust", "alphabet"),
-	hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
-			"mcquitty", "median", "centroid"))
+corrMatOrder <- function(
+  corr,
+  order = c("AOE", "FPC", "hclust", "alphabet"),
+  hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single",
+                    "average", "mcquitty", "median", "centroid") )
 {
+  order <- match.arg(order)
+  hclust.method <- match.arg(hclust.method)
 
-	order <- match.arg(order)
-	hclust.method <- match.arg(hclust.method)
+  ## reorder the variables using the angular order of the eigenvectors
+  if (order == "AOE") {
+    x.eigen <- eigen(corr)$vectors[, 1:2]
+    e1 <- x.eigen[, 1]
+    e2 <- x.eigen[, 2]
+    alpha <- ifelse(e1 > 0, atan(e2 / e1), atan(e2 / e1) + pi)
+    ord <- order(alpha)
+  }
 
-	## reorder the variables using the angular order of the eigenvectors
-	if (order == "AOE") {
-		x.eigen <- eigen(corr)$vectors[, 1:2]
-		e1 <- x.eigen[, 1]
-		e2 <- x.eigen[, 2]
-		alpha <- ifelse(e1 > 0, atan(e2/e1), atan(e2/e1) + pi)
-		ord <- order(alpha)
-	}
+  ## reorder the variables using the first principal component
+  if (order == "FPC") {
+    x.eigen <- eigen(corr)$vectors[, 1:2]
+    e1 <- x.eigen[, 1]
+    ord <- order(e1)
+  }
 
-	## reorder the variables using the first principal component
-	if (order == "FPC") {
-		x.eigen <- eigen(corr)$vectors[, 1:2]
-		e1 <- x.eigen[, 1]
-		ord <- order(e1)
-	}
+  ## reorder the variables in alphabet ordering
+  if (order == "alphabet") {
+    ord <- sort(rownames(corr))
+  }
 
-	## reorder the variables in alphabet ordering
-	if (order == "alphabet") {
-		ord <- sort(rownames(corr))
-	}
+  ## reorder the variables using hclhust
+  if (order == "hclust") {
+    ord <- order.dendrogram(as.dendrogram(hclust(as.dist(1 - corr),
+                                                 method = hclust.method)))
+  }
 
-	## reorder the variables using hclhust
-	if (order == "hclust") {
-		ord <- order.dendrogram(as.dendrogram(hclust(as.dist(1 - corr),
-		method = hclust.method)))
-	}
-
-	return(ord)
+  return(ord)
 }
