@@ -41,8 +41,9 @@
 #' @param diag Logical, whether display the correlation coefficients on the
 #'   principal diagonal.
 #'
-#' @param outline Logical or character, whether plot outline of circles, square and ellipse, or the color of these glyphs.
-#' If \code{outline} is \code{TRUE}, the default value is \code{"black"}.
+#' @param outline Logical or character, whether plot outline of circles, square
+#'   and ellipse, or the color of these glyphs. If \code{outline} is
+#'   \code{TRUE}, the default value is \code{"black"}.
 #'
 #' @param mar See \code{\link{par}}.
 #'
