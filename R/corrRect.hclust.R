@@ -1,6 +1,7 @@
 #' Draw rectangles on the correlation matrix graph.
 #'
-#' Draw rectangles on the correlation matrix graph based on hierarchical cluster (\code{\link{hclust}}).
+#' Draw rectangles on the correlation matrix graph based on hierarchical cluster
+#' (\code{\link{hclust}}).
 #'
 #' @param corr Correlation matrix for function \code{corrRect.hclust}. It use
 #'   \code{1-corr} as dist in  hierarchical clustering (\code{\link{hclust}}).
@@ -17,6 +18,7 @@
 #'   \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"},
 #'   \code{"median"} or \code{"centroid"}.
 #'
+#' @example vignettes/example-corrRect.hclust.R
 #' @keywords hplot
 #' @author Taiyun Wei
 #' @export

@@ -59,7 +59,9 @@ not. We can visualize the non-correlation matrix  by setting \code{is.corr
 \item{diag}{Logical, whether display the correlation coefficients on the
 principal diagonal.}
 
-\item{outline}{Logical, whether plot outline of circles, square and ellipse.}
+\item{outline}{Logical or character, whether plot outline of circles, square
+and ellipse, or the color of these glyphs. If \code{outline} is
+\code{TRUE}, the default value is \code{"black"}.}
 
 \item{mar}{See \code{\link{par}}.}
 

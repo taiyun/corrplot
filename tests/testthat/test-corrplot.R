@@ -2,7 +2,7 @@ context("Visualization of a correlation matrix")
 
 # Tests ==========
 
-test_that("Replacing IF statements with switch", {
+test_that("Replacing IF statements with SWITCH statement", {
   orig_code <- function(type) {
     tl.pos <- NULL
     if (type == "full")  tl.pos <- "lt"
