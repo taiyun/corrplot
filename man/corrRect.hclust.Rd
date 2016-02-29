@@ -2,7 +2,7 @@
 % Please edit documentation in R/corrRect.hclust.R
 \name{corrRect.hclust}
 \alias{corrRect.hclust}
-\title{TODO: please add title for this function}
+\title{Draw rectangles on the correlation matrix graph.}
 \usage{
 corrRect.hclust(corr, k = 2, col = "black", lwd = 2,
   method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
@@ -26,7 +26,7 @@ abbreviation of) one of \code{"ward"}, \code{"ward.D"}, \code{"ward.D2"},
 \code{"median"} or \code{"centroid"}.}
 }
 \description{
-TODO: please add description for this function
+Draw rectangles on the correlation matrix graph based on hierarchical cluster (\code{\link{hclust}}).
 }
 \author{
 Taiyun Wei
