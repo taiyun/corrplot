@@ -1,4 +1,4 @@
-exclusions: list("R/RcppExports.R")
+exclusions: list()
 exclude: "# Exclude Linting"
 exclude_start: "# Begin Exclude Linting"
 exclude_end: "# End Exclude Linting"
@@ -6,5 +6,8 @@ linters: with_defaults(
     spaces_left_parentheses_linter = NULL,
     commented_code_linter = NULL,
     multiple_dots_linter = NULL,
+    commas_linter = NULL,
+    open_curly_linter = NULL,
+    camel_case_linter = NULL,
     NULL
   )
