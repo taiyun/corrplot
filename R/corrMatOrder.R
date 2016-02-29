@@ -42,32 +42,38 @@ corrMatOrder <- function(
   order <- match.arg(order)
   hclust.method <- match.arg(hclust.method)
 
-  ## reorder the variables using the angular order of the eigenvectors
-  if (order == "AOE") {
-    x.eigen <- eigen(corr)$vectors[, 1:2]
-    e1 <- x.eigen[, 1]
-    e2 <- x.eigen[, 2]
-    alpha <- ifelse(e1 > 0, atan(e2 / e1), atan(e2 / e1) + pi)
-    ord <- order(alpha)
-  }
+  switch(order,
+    AOE = reorder_using_aoe(corr),
+    FPC = reorder_using_fpc(corr),
+    hclust = reorder_using_hclust(corr, hclust.method),
+    alphabet = sort(rownames(corr))
+  )
+}
 
-  ## reorder the variables using the first principal component
-  if (order == "FPC") {
-    x.eigen <- eigen(corr)$vectors[, 1:2]
-    e1 <- x.eigen[, 1]
-    ord <- order(e1)
-  }
+#' Reorder the variables using the angular order of the eigenvectors.
+#' @note helper function - not exported
+#' @noRd
+reorder_using_aoe <- function(corr) {
+  x.eigen <- eigen(corr)$vectors[, 1:2]
+  e1 <- x.eigen[, 1]
+  e2 <- x.eigen[, 2]
+  alpha <- ifelse(e1 > 0, atan(e2 / e1), atan(e2 / e1) + pi)
+  order(alpha) # returned vector
+}
 
-  ## reorder the variables in alphabet ordering
-  if (order == "alphabet") {
-    ord <- sort(rownames(corr))
-  }
+#' Reorder the variables using the first principal component.
+#' @note helper function - not exported
+#' @noRd
+reorder_using_fpc <- function(corr) {
+  x.eigen <- eigen(corr)$vectors[, 1:2]
+  e1 <- x.eigen[, 1]
+  order(e1) # returned vector
+}
 
-  ## reorder the variables using hclhust
-  if (order == "hclust") {
-    ord <- order.dendrogram(as.dendrogram(hclust(as.dist(1 - corr),
-                                                 method = hclust.method)))
-  }
-
-  return(ord)
+#' Reorder the variables using hclust (Hierarchical Clustering).
+#' @note helper function - not exported
+#' @noRd
+reorder_using_hclust <- function(corr, hclust.method) {
+  hc <- hclust(as.dist(1 - corr), method = hclust.method)
+  order.dendrogram(as.dendrogram(hc)) # returned vector
 }
