@@ -41,7 +41,7 @@
 #' @param diag Logical, whether display the correlation coefficients on the
 #'   principal diagonal.
 #'
-#' @param outline Logical or character, whether plot outline of circles, square and ellipse, or the color of these glyphs. 
+#' @param outline Logical or character, whether plot outline of circles, square and ellipse, or the color of these glyphs.
 #' If \code{outline} is \code{TRUE}, the default value is \code{"black"}.
 #'
 #' @param mar See \code{\link{par}}.
@@ -348,7 +348,7 @@ corrplot <- function(corr,
      newcol <- color[floor(newcorr * length(color)) + 1]
      return(newcol)
   }
-  
+
   col.fill <- assign.color()
 
   isFALSE <- function(x) identical(x, FALSE)
@@ -421,7 +421,8 @@ corrplot <- function(corr,
             + c(-0.15, 0.35)
 
     if (.Platform$OS.type == "windows") {
-      windows.options(width = 7, height = 7 * diff(ylim) / diff(xlim))
+      grDevices::windows.options(width = 7,
+                                 height = 7 * diff(ylim) / diff(xlim))
     }
 
     plot.window(xlim = xlim , ylim = ylim,
