@@ -41,7 +41,8 @@
 #' @param diag Logical, whether display the correlation coefficients on the
 #'   principal diagonal.
 #'
-#' @param outline Logical, whether plot outline of circles, square and ellipse.
+#' @param outline Logical or character, whether plot outline of circles, square and ellipse, or the color of these glyphs. 
+#' If \code{outline} is \code{TRUE}, the default value is \code{"black"}.
 #'
 #' @param mar See \code{\link{par}}.
 #'
@@ -369,7 +370,17 @@ corrplot <- function(corr,
     cl.pos <- switch(type, full = "r", lower = "b", upper = "r")
   }
 
-  col.border <- ifelse(outline, "black", col.fill)
+  if(isFALSE(outline)) {
+    col.border <- col.fill
+  }
+
+  if(isTRUE(outline)) {
+    col.border <- "black"
+  }
+
+  if(is.character(outline)) {
+    col.border <- outline
+  }
 
   ## calculate label-text width approximately
   if (!add) {
