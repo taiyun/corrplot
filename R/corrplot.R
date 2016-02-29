@@ -340,10 +340,15 @@ corrplot <- function(corr,
   len.DAT <- length(DAT)
 
   ## assign colors
-  newcorr <- (DAT + 1) / 2
-  newcorr[newcorr <= 0]  <- 0
-  newcorr[newcorr >= 1]  <- 1 - 1e-16
-  col.fill <- col[floor(newcorr * length(col)) + 1]
+  assign.color <- function(dat = DAT, color = col){
+     newcorr <- (dat + 1) / 2
+     newcorr[newcorr <= 0]  <- 0
+     newcorr[newcorr >= 1]  <- 1 - 1e-16
+     newcol <- color[floor(newcorr * length(color)) + 1]
+     return(newcol)
+  }
+  
+  col.fill <- assign.color()
 
   isFALSE <- function(x) identical(x, FALSE)
   isTRUE <- function(x) identical(x, TRUE)
@@ -629,7 +634,7 @@ corrplot <- function(corr,
   }
 
   if (cl.pos != "n") {
-    colRange <- assign.color(cl.lim2)
+    colRange <- assign.color(dat = cl.lim2)
     ind1 <- which(col == colRange[1])
     ind2 <- which(col == colRange[2])
     colbar <- col[ind1:ind2]
@@ -639,7 +644,6 @@ corrplot <- function(corr,
     }
 
     labels <- seq(cl.lim[1], cl.lim[2], length = cl.length)
-    at <- seq(0, 1, length = length(labels)) # TODO: variable not used
 
     if (cl.pos == "r") {
       vertical <- TRUE
@@ -662,8 +666,6 @@ corrplot <- function(corr,
 
   ## add variable names and title
   if (tl.pos != "n") {
-    ylabwidth2 <- strwidth(newrownames, cex = tl.cex) # TODO: variable not used?
-    xlabwidth2 <- strwidth(newcolnames, cex = tl.cex) # TODO: variable not used?
     pos.xlabel <- cbind(m1:m2, n2 + 0.5 + laboffset)
     pos.ylabel <- cbind(m1 - 0.5, n2:n1)
 
