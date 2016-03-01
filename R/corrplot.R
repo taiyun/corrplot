@@ -343,7 +343,11 @@ corrplot <- function(corr,
   newrownames <- as.character(rownames(corr)[(n + 1 - n2):(n + 1 - n1)])
   m2 <- max(Pos[,1])
   m1 <- min(Pos[,1])
-  mm <- m2 - m1
+
+  # Viliam Simko: fixing issue #19
+  # also discussed here: http://stackoverflow.com/questions/34638555/
+  mm <- max(1, m2 - m1)
+
   newcolnames <- as.character(colnames(corr)[m1:m2])
   DAT <- getPos.Dat(corr)[[2]]
   len.DAT <- length(DAT)
@@ -682,7 +686,6 @@ corrplot <- function(corr,
                 xlim = xlim, ylim = ylim, vertical = vertical,
                 align = cl.align.text)
   }
-
 
   ## add variable names and title
   if (tl.pos != "n") {
