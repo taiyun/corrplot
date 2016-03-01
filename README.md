@@ -26,7 +26,7 @@ devtools::install_github("taiyun/corrplot")
 
 To download the release version of the package on CRAN, type the following at the R command line:
 ```r
-install.packages("biwavelet")
+install.packages("corrplot")
 ```
 
 ## For Developers ###
