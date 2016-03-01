@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/vsimko/corrplot.svg)](https://travis-ci.org/vsimko/corrplot)
-[![codecov.io](https://codecov.io/github/vsimko/corrplot/coverage.svg?branch=master)](https://codecov.io/github/vsimko/corrplot?branch=master)
+[![Build Status](https://travis-ci.org/taiyun/corrplot.svg)](https://travis-ci.org/taiyun/corrplot)
+[![codecov.io](https://codecov.io/github/taiyun/corrplot/coverage.svg?branch=master)](https://codecov.io/github/taiyun/corrplot?branch=master)
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/corrplot)](http://cran.r-project.org/package=corrplot)
 ![CRAN Downloads](http://cranlogs.r-pkg.org/badges/corrplot)
 [![Issue Stats](http://issuestats.com/github/taiyun/corrplot/badge/pr)](http://issuestats.com/github/taiyun/corrplot)
