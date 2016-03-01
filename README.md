@@ -7,7 +7,6 @@
 [![Join the chat at https://gitter.im/taiyun/corrplot](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/taiyun/corrplot?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Summary
-
 The R package **corrplot** is for visualizing correlation matrices and
 confidence intervals. It also contains some algorithms to do matrix
 reordering. For examples, see its
@@ -16,8 +15,15 @@ reordering. For examples, see its
 This package is licensed under GPL, and available on CRAN:
 <http://cran.r-project.org/package=corrplot>.
 
-## Download and Install
+## Basic example
+```r
+library(corrplot)
+M <- cor(mtcars)
+corrplot(M, method = "ellipse")
+```
+![Basic example](vignettes/README-basic-corr-matrix-1.png)
 
+## Download and Install
 To download the development version of the package, type the following at the R command line:
 ```r
 install.packages("devtools")
@@ -30,7 +36,6 @@ install.packages("corrplot")
 ```
 
 ## For Developers ###
-
 ### How to contribute
 - Fork, clone, edit, commit, push, create pull request, 
 - Use RStudio
