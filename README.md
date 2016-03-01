@@ -35,12 +35,14 @@ To download the release version of the package on CRAN, type the following at th
 install.packages("corrplot")
 ```
 
-## For Developers ###
 ### How to contribute
 - Fork, clone, edit, commit, push, create pull request
 - Use RStudio
 - Unit-testing: press `CTRL+SHIFT+T` in RStudio
   - we know that is hard to write tests especially for a visual package like this
+
+### Reporting bugs and other issues
+If you encounter a clear bug, please file a minimal reproducible example on github.
 
 ### How to perform static code analysis and style checks
 We use `lintr` which also performs the analysis on Travis-CI.
