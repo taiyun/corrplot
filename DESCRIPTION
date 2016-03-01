@@ -6,6 +6,7 @@ Author: Taiyun Wei
 Suggests:
     seriation,
     knitr,
+    Cairo,
     testthat
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Description: The corrplot package is a graphical display of a
