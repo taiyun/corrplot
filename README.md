@@ -58,7 +58,9 @@ In RStudio, you can run `lintr` from the console as follows:
 - [Wei Taiyun](https://github.com/taiyun) (main)
 - [Viliam Simko](https://github.com/vsimko) (backup)
 
+## License
+This package is free and open source software, licensed under GPL.
+
 ## Other links
 - Corrplot listed at OpenHub: https://www.openhub.net/p/corrplot
 - CRAN: http://cran.r-project.org/web/packages/corrplot
-
