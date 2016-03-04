@@ -130,6 +130,9 @@
 #' @param number.font the \code{font} parameter to send to the call to
 #'   \code{text} when writing the correlation coefficients into the plot.
 #'
+#' @param number.digits indicating the number of decimal digits to be
+#'   added into the plot.
+#'
 #' @param addshade Character for shade style, \code{"negative"},
 #'   \code{"positive"} or \code{"all"}, only valid when \code{method} is
 #'   \code{"shade"}. If \code{"all"}, all correlation coefficients' glyph will
@@ -228,7 +231,7 @@ corrplot <- function(corr,
   cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15,
   cl.align.text = "c", cl.offset = 0.5,
 
-  number.cex = 1, number.font = 2,
+  number.cex = 1, number.font = 2, number.digits = NULL,
 
   addshade = c("negative", "positive", "all"),
   shade.lwd = 1, shade.col = "white",
@@ -470,10 +473,14 @@ corrplot <- function(corr,
   }
 
   ## number
+  if (is.null(number.digits)){
+    number.digits = switch(addCoefasPercent + 1, 2, 0)
+  }
+  
   if (method == "number" && plotCI == "n") {
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
          labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        ifelse(addCoefasPercent, 0, 2)),
+                        number.digits),
          cex = number.cex)
   }
 
@@ -732,7 +739,7 @@ corrplot <- function(corr,
   if (!is.null(addCoef.col) && method != "number") {
     text(Pos[,1], Pos[,2],  col = addCoef.col,
          labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        ifelse(addCoefasPercent, 0, 2)),
+                        number.digits),
          cex = number.cex, font = number.font)
   }
 
