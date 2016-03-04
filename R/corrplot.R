@@ -474,9 +474,9 @@ corrplot <- function(corr,
 
   ## number
   if (is.null(number.digits)){
-    number.digits = switch(addCoefasPercent + 1, 2, 0)
+    number.digits <- switch(addCoefasPercent + 1, 2, 0)
   }
-  
+
   if (method == "number" && plotCI == "n") {
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
          labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
