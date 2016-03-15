@@ -29,6 +29,9 @@ of lower triangular) or \code{"u"} (draw the glyphs of upper triangular).}
 
 \item{addgrid.col}{The color of grid, if \code{NULL}, don't add grid.}
 
+\item{plotCI}{See description of the \code{plotCI} parameter in the function
+\code{\link{corrplot}}}
+
 \item{\dots}{Additional arguments for corrplot's wrappers}
 }
 \description{

@@ -13,6 +13,8 @@
 #'   of lower triangular) or \code{"u"} (draw the glyphs of upper triangular).
 #' @param bg The background color.
 #' @param addgrid.col The color of grid, if \code{NULL}, don't add grid.
+#' @param plotCI See description of the \code{plotCI} parameter in the function
+#'   \code{\link{corrplot}}
 #' @param \dots Additional arguments for corrplot's wrappers
 #'
 #' @author Taiyun Wei
