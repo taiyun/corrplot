@@ -290,8 +290,8 @@ corrplot <- function(corr,
   cl.lim2 <- (intercept + cl.lim) * zoom
   int <- intercept * zoom
 
-  if (min(corr) < -1 - .Machine$double.eps ^ .75 ||
-      max(corr) >  1 + .Machine$double.eps ^ .75 ) {
+  if (min(corr, na.rm = TRUE) < -1 - .Machine$double.eps ^ .75 ||
+      max(corr, na.rm = TRUE) >  1 + .Machine$double.eps ^ .75 ) {
     stop("The matrix is not in [-1, 1]!")
   }
 

@@ -20,3 +20,9 @@ test_that("Replacing IF statements with SWITCH statement", {
     expect_equal(orig_code(t), switch_code(t))
   }
 })
+
+test_that("Issue #7: Enable to plot a matrix with NA", {
+  M <- cor(mtcars)
+  diag(M) <- NA
+  expect_equal(corrplot(M), M)
+})
