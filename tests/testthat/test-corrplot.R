@@ -26,3 +26,18 @@ test_that("Issue #7: Enable to plot a matrix with NA", {
   diag(M) <- NA
   expect_equal(corrplot(M), M)
 })
+
+test_that("Issues #21: ", {
+  M <- cor(mtcars)
+  L <- M - 0.1
+  U <- M + 0.1
+  expect_equal(corrplot.mixed(M, lower = "circle", upper = "number",
+                              low = L, upp = U, plotCI = "rect"), M)
+  expect_equal(corrplot.mixed(M, lower = "number", upper = "circle",
+                              low = L, upp = U, plotCI = "rect"), M)
+})
+
+test_that("Issue #43: Return value should be the same as corrplot function", {
+  M <- cor(mtcars)
+  expect_equal(corrplot.mixed(M), corrplot(M))
+})
