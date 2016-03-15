@@ -15,11 +15,11 @@ corrplot(corr, method = c("circle", "square", "ellipse", "number", "shade",
   tl.cex = 1, tl.col = "red", tl.offset = 0.4, tl.srt = 90,
   cl.pos = NULL, cl.lim = NULL, cl.length = NULL, cl.cex = 0.8,
   cl.ratio = 0.15, cl.align.text = "c", cl.offset = 0.5, number.cex = 1,
-  number.font = 2, addshade = c("negative", "positive", "all"),
-  shade.lwd = 1, shade.col = "white", p.mat = NULL, sig.level = 0.05,
-  insig = c("pch", "p-value", "blank", "n"), pch = 4, pch.col = "black",
-  pch.cex = 3, plotCI = c("n", "square", "circle", "rect"),
-  lowCI.mat = NULL, uppCI.mat = NULL, ...)
+  number.font = 2, number.digits = NULL, addshade = c("negative",
+  "positive", "all"), shade.lwd = 1, shade.col = "white", p.mat = NULL,
+  sig.level = 0.05, insig = c("pch", "p-value", "blank", "n"), pch = 4,
+  pch.col = "black", pch.cex = 3, plotCI = c("n", "square", "circle",
+  "rect"), lowCI.mat = NULL, uppCI.mat = NULL, ...)
 }
 \arguments{
 \item{corr}{The correlation matrix to visualize, must be square if
@@ -147,6 +147,9 @@ when writing the correlation coefficients into the plot.}
 
 \item{number.font}{the \code{font} parameter to send to the call to
 \code{text} when writing the correlation coefficients into the plot.}
+
+\item{number.digits}{indicating the number of decimal digits to be
+added into the plot.}
 
 \item{addshade}{Character for shade style, \code{"negative"},
 \code{"positive"} or \code{"all"}, only valid when \code{method} is
