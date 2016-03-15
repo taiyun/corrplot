@@ -573,8 +573,8 @@ corrplot <- function(corr,
     pos.uppNew  <- getPos.Dat(uppCI.mat)[[1]]
     uppNew      <- getPos.Dat(uppCI.mat)[[2]]
 
-    if (method != "circle" && method != "square") {
-      stop("method shoud be circle or square if draw confidence interval!")
+    if (!method %in% c("circle", "square")) {
+       stop("method shoud be circle or square if draw confidence interval!")
     }
 
     k1 <- (abs(uppNew) > abs(lowNew))

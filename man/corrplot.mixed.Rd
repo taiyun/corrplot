@@ -6,7 +6,7 @@
 \usage{
 corrplot.mixed(corr, lower = "number", upper = "circle", tl.pos = c("d",
   "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
-  ...)
+  plotCI = c("n", "square", "circle", "rect"), ...)
 }
 \arguments{
 \item{corr}{Matrix, the correlation matrix to visualize.}
