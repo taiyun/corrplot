@@ -27,7 +27,7 @@ test_that("Issue #7: Enable to plot a matrix with NA", {
   expect_equal(corrplot(M), M)
 })
 
-test_that("Issues #21: ", {
+test_that("Issues #21: plotCI=rect incompatible with some methods", {
   M <- cor(mtcars)
   L <- M - 0.1
   U <- M + 0.1
@@ -46,4 +46,23 @@ test_that("Issues #21: ", {
 test_that("Issue #43: Return value should be the same as corrplot function", {
   M <- cor(mtcars)
   expect_equal(corrplot.mixed(M), corrplot(M))
+})
+
+test_that("Should only work with matrix or dataframe", {
+  expect_error(corrplot("some string"),
+               regexp = "matrix or data frame")
+  expect_error(corrplot(42),
+               regexp = "matrix or data frame")
+})
+
+test_that("Non-correlation matrix", {
+  M <- matrix(runif(100, 0, 10), nrow = 10)
+  expect_error(corrplot(M), regexp = "The matrix is not in")
+  expect_true(is.matrix(corrplot(M, is.corr = FALSE)))
+})
+
+test_that("Try different ordering", {
+  M <- cor(mtcars)
+  expect_true(  identical(M, corrplot(M)) )
+  expect_false( identical(M, corrplot(M, order = "AOE")) )
 })

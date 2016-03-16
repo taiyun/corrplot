@@ -35,8 +35,8 @@
 #' @param title Character, title of the graph.
 #'
 #' @param is.corr Logical, whether the input matrix is a correlation matrix or
-#'   not. We can visualize the non-correlation matrix  by setting \code{is.corr
-#'   = FALSE}.
+#'   not. We can visualize the non-correlation matrix by setting
+#'   \code{is.corr = FALSE}.
 #'
 #' @param diag Logical, whether display the correlation coefficients on the
 #'   principal diagonal.
@@ -754,5 +754,5 @@ corrplot <- function(corr,
                     col = rect.col, lwd = rect.lwd)
   }
 
-  invisible(corr)
+  invisible(corr) # reordered correlation matrix
 }
