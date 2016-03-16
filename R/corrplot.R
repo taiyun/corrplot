@@ -47,7 +47,8 @@
 #'
 #' @param mar See \code{\link{par}}.
 #'
-#' @param addgrid.col The color of grid. The default value is depends on
+#' @param addgrid.col The color of the grid. If \code{NA}, don't add grid. If
+#'   \code{NULL} the default value is chosen. The default value depends on
 #'   \code{method}, if \code{method} is \code{color} or \code{shade}, the
 #'   default values is \code{"white"}, otherwise \code{"grey"}.
 #'

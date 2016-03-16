@@ -12,8 +12,9 @@
 #'   is one of \code{"n"} (default,  draw nothing), \code{"l"} (draw the glyphs
 #'   of lower triangular) or \code{"u"} (draw the glyphs of upper triangular).
 #' @param bg The background color.
-#' @param addgrid.col The color of grid, if \code{NULL}, don't add grid.
-#' @param plotCI See description of the \code{plotCI} parameter in the function
+#' @param addgrid.col See the \code{addgrid.col} parameter in the function
+#'   \code{\link{corrplot}}
+#' @param plotCI See the \code{plotCI} parameter in the function
 #'   \code{\link{corrplot}}
 #' @param \dots Additional arguments for corrplot's wrappers
 #'
@@ -22,7 +23,7 @@
 #' @export
 corrplot.mixed <- function(corr, lower = "number",
   upper = "circle", tl.pos = c("d", "lt", "n"),
-  diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
+  diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
   plotCI = c("n", "square", "circle", "rect"),
   ...)
 {

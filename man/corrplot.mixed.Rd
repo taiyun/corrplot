@@ -5,7 +5,7 @@
 \title{Using mixed methods to visualize a correlation matrix.}
 \usage{
 corrplot.mixed(corr, lower = "number", upper = "circle", tl.pos = c("d",
-  "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
+  "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
   plotCI = c("n", "square", "circle", "rect"), ...)
 }
 \arguments{
@@ -27,9 +27,10 @@ of lower triangular) or \code{"u"} (draw the glyphs of upper triangular).}
 
 \item{bg}{The background color.}
 
-\item{addgrid.col}{The color of grid, if \code{NULL}, don't add grid.}
+\item{addgrid.col}{See the \code{addgrid.col} parameter in the function
+\code{\link{corrplot}}}
 
-\item{plotCI}{See description of the \code{plotCI} parameter in the function
+\item{plotCI}{See the \code{plotCI} parameter in the function
 \code{\link{corrplot}}}
 
 \item{\dots}{Additional arguments for corrplot's wrappers}

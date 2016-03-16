@@ -53,8 +53,8 @@ otherwise a new plot is created.}
 \item{title}{Character, title of the graph.}
 
 \item{is.corr}{Logical, whether the input matrix is a correlation matrix or
-not. We can visualize the non-correlation matrix  by setting \code{is.corr
-= FALSE}.}
+not. We can visualize the non-correlation matrix by setting
+\code{is.corr = FALSE}.}
 
 \item{diag}{Logical, whether display the correlation coefficients on the
 principal diagonal.}
@@ -65,7 +65,8 @@ and ellipse, or the color of these glyphs. If \code{outline} is
 
 \item{mar}{See \code{\link{par}}.}
 
-\item{addgrid.col}{The color of grid. The default value is depends on
+\item{addgrid.col}{The color of the grid. If \code{NA}, don't add grid. If
+\code{NULL} the default value is chosen. The default value depends on
 \code{method}, if \code{method} is \code{color} or \code{shade}, the
 default values is \code{"white"}, otherwise \code{"grey"}.}
 
