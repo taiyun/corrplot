@@ -73,12 +73,32 @@ test_that("Plot without a grid should not crash", {
   M <- cor(mtcars)
 
   # without grid
-  expect_equal(corrplot(M, addgrid.col = NA), M)
+  corrplot(M, addgrid.col = NA)
 
   # white grid
-  expect_equal(corrplot(M, addgrid.col = NULL, method = "color"), M)
-  expect_equal(corrplot(M, addgrid.col = NULL, method = "shade"), M)
+  corrplot(M, addgrid.col = NULL, method = "color")
+  corrplot(M, addgrid.col = NULL, method = "shade")
 
   # grey grid
-  expect_equal(corrplot(M, addgrid.col = NULL, method = "circle"), M)
+  corrplot(M, addgrid.col = NULL, method = "circle")
+})
+
+test_that("Issue #46: Rendering NA values", {
+
+  M <- cor(mtcars)
+  diag(M) <- NA
+  M[4,2] <- NA
+
+  # default with questionmarks
+  corrplot(M)
+
+  # black square instead of the label
+  corrplot(M, na.label = "square", na.label.col = "black")
+
+  # large matrix
+  M <- matrix(runif(10000, 0.5, 1), nrow = 100)
+  M[40:50,30:70] <- 0
+  diag(M) <- NA
+  corrplot(M, method = "color", cl.pos = "n", tl.pos = "n",
+           na.label = "square", addgrid.col = NA)
 })

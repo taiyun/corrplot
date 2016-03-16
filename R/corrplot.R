@@ -182,6 +182,13 @@
 #'
 #' @param uppCI.mat Matrix of the upper bound of confidence interval.
 #'
+#' @param na.label Label to be used for rendering \code{NA} cells. Default is
+#'   \code{"?"}. If "square", then the cell is rendered as a square with the
+#'   \code{na.label.col} color.
+#'
+#' @param na.label.col Color used for rendering \code{NA} cells. Default is
+#'   \code{"black"}.
+#'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text lable.
 #'
@@ -200,6 +207,8 @@
 #' The American Statistician, 50, 178--180.
 #'
 #' @author Taiyun Wei (weitaiyun@@gmail.com)
+#' @author Viliam Simko (viliam.simko@@gmail.com)
+#'
 #' @note \code{Cairo} and \code{cairoDevice} packages is strongly recommended to
 #'   produce high-quality PNG, JPEG, TIFF bitmap files, especially for that
 #'   \code{method} \code{circle}, \code{ellipse}.
@@ -242,7 +251,8 @@ corrplot <- function(corr,
   pch = 4, pch.col = "black", pch.cex = 3,
 
   plotCI = c("n", "square", "circle", "rect"),
-  lowCI.mat = NULL, uppCI.mat = NULL, ...)
+  lowCI.mat = NULL, uppCI.mat = NULL,
+  na.label = "?", na.label.col = "black", ...)
 {
 
   method <- match.arg(method)
@@ -323,21 +333,40 @@ corrplot <- function(corr,
     colnames(corr) <- seq_len(m)
   }
 
-  getPos.Dat <- function(mat){
+  # assigns Inf to cells in the matrix depending on the type paramter
+  apply_mat_filter <- function(mat) {
     x <- matrix(1:n * m, n, m)
-    tmp <- mat
-    if (type == "upper")  tmp[row(x) > col(x)] <- Inf
-    if (type == "lower")  tmp[row(x) < col(x)] <- Inf
-    if (type == "full")   tmp <- tmp
-    if (!diag)            diag(tmp) <- Inf
+    switch(type,
+        upper = mat[row(x) > col(x)] <- Inf,
+        lower = mat[row(x) < col(x)] <- Inf
+    )
 
+    if (!diag) {
+      diag(mat) <- Inf
+    }
+    return(mat)
+  }
+
+  # retrieves coordinates of cells to be rendered
+  getPos.Dat <- function(mat) {
+    tmp <- apply_mat_filter(mat)
     Dat <- tmp[is.finite(tmp)]
     ind  <- which(is.finite(tmp), arr.ind = TRUE)
     Pos <- ind
     Pos[,1] <-  ind[,2]
     Pos[,2] <- -ind[,1] + 1 + n
-
     return(list(Pos, Dat))
+  }
+
+  # retrieves coordinates of NA cells
+  # we use this for rending NA cells differently
+  getPos.NAs <- function(mat) {
+    tmp <- apply_mat_filter(mat)
+    ind  <- which(is.na(tmp), arr.ind = TRUE)
+    Pos <- ind
+    Pos[,1] <-  ind[,2]
+    Pos[,2] <- -ind[,1] + 1 + n
+    return(Pos)
   }
 
   Pos  <- getPos.Dat(corr)[[1]]
@@ -454,8 +483,9 @@ corrplot <- function(corr,
 
   ## circle
   if (method == "circle" && plotCI == "n") {
-      symbols(Pos, add = TRUE,  inches = FALSE, bg = col.fill,
-      circles = 0.9 * abs(DAT) ^ 0.5 / 2, fg = col.border)
+      symbols(Pos, add = TRUE,  inches = FALSE,
+              circles = 0.9 * abs(DAT) ^ 0.5 / 2,
+              fg = col.border, bg = col.fill )
   }
 
   ## ellipse
@@ -474,7 +504,7 @@ corrplot <- function(corr,
   }
 
   ## number
-  if (is.null(number.digits)){
+  if (is.null(number.digits)) {
     number.digits <- switch(addCoefasPercent + 1, 2, 0)
   }
 
@@ -483,6 +513,25 @@ corrplot <- function(corr,
          labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
                         number.digits),
          cex = number.cex)
+  }
+
+  # renders NA cells
+  if (any(is.na(corr)) && is.character(na.label)) {
+    PosNA <- getPos.NAs(corr)
+
+    if (na.label == "square") {
+      symbols(PosNA, add = TRUE, inches = FALSE,
+              squares = rep(1, nrow(PosNA)),
+              bg = na.label.col, fg = na.label.col)
+    } else if (nchar(na.label) == 1) {
+      symbols(PosNA, add = TRUE, inches = FALSE,
+              squares = rep(1, nrow(PosNA)), fg = bg, bg = bg)
+      text(PosNA[,1], PosNA[,2], font = number.font,
+           col = na.label.col,
+           labels = na.label, cex = number.cex, ...)
+    } else {
+      stop("Only single character allowed for na.label")
+    }
   }
 
   ## pie
@@ -542,13 +591,13 @@ corrplot <- function(corr,
              SHADE.dat[,4], col = shade.col, lwd = shade.lwd)
   }
 
-  ##square
+  ## square
   if (method == "square" && plotCI == "n") {
     symbols(Pos, add = TRUE, inches = FALSE,
             squares = abs(DAT) ^ 0.5, bg = col.fill, fg = col.border)
   }
 
-  ##  color
+  ## color
   if (method == "color" && plotCI == "n") {
       symbols(Pos, add = TRUE, inches = FALSE,
               squares = rep(1, len.DAT), bg = col.fill, fg = col.border)
