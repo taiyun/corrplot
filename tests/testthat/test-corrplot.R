@@ -86,7 +86,7 @@ test_that("Plot without a grid should not crash", {
 test_that("Issue #46: Rendering NA values", {
 
   M <- cor(mtcars)
-  diag(M) = NA
+  diag(M) <- NA
   M[4,2] <- NA
 
   # default with questionmarks
