@@ -362,7 +362,6 @@ corrplot <- function(corr,
   # we use this for rending NA cells differently
   getPos.NAs <- function(mat) {
     tmp <- apply_mat_filter(mat)
-    Dat <- tmp[is.na(tmp)]
     ind  <- which(is.na(tmp), arr.ind = TRUE)
     Pos <- ind
     Pos[,1] <-  ind[,2]
