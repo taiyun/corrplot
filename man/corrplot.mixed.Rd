@@ -5,7 +5,7 @@
 \title{Using mixed methods to visualize a correlation matrix.}
 \usage{
 corrplot.mixed(corr, lower = "number", upper = "circle", tl.pos = c("d",
-  "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
+  "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
   plotCI = c("n", "square", "circle", "rect"), ...)
 }
 \arguments{

@@ -23,7 +23,7 @@
 #' @export
 corrplot.mixed <- function(corr, lower = "number",
   upper = "circle", tl.pos = c("d", "lt", "n"),
-  diag = c("n", "l", "u"), bg = "white", addgrid.col = "gray",
+  diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
   plotCI = c("n", "square", "circle", "rect"),
   ...)
 {
