@@ -66,3 +66,19 @@ test_that("Try different ordering", {
   expect_true(  identical(M, corrplot(M)) )
   expect_false( identical(M, corrplot(M, order = "AOE")) )
 })
+
+test_that("Plot without a grid should not crash", {
+  # TODO: currently, we cannot test how the rendered grid looks like
+  # we can only check whether it does not crash
+  M <- cor(mtcars)
+
+  # without grid
+  expect_equal(corrplot(M, addgrid.col = NA), M)
+
+  # white grid
+  expect_equal(corrplot(M, addgrid.col = NULL, method = "color"), M)
+  expect_equal(corrplot(M, addgrid.col = NULL, method = "shade"), M)
+
+  # grey grid
+  expect_equal(corrplot(M, addgrid.col = NULL, method = "circle"), M)
+})
