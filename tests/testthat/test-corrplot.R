@@ -86,18 +86,14 @@ test_that("Plot without a grid should not crash", {
 test_that("Issue #46: Rendering NA values", {
 
   M <- cor(mtcars)
-  diag(M1) = 0
-  diag(M2) = NA
-  M2[4,2] <- NA
+  diag(M) = NA
+  M[4,2] <- NA
 
   # default with questionmarks
   corrplot(M)
 
   # black square instead of the label
   corrplot(M, na.label = "square", na.label.col = "black")
-
-  # unicode character as label
-  corrplot(M, na.label = "😕", na.label.col = "black")
 
   # large matrix
   M <- matrix(runif(10000, 0.5, 1), nrow = 100)
