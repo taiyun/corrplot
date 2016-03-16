@@ -31,10 +31,17 @@ corrplot.mixed <- function(corr, lower = "number",
   n <- nrow(corr)
 
   # fixes issue #21
-  # method="number" and plotCI="rect" are not compatible but should not cause
-  # errors when running from corrplot.mixed
-  plotCI_lower <- ifelse(lower == "number" && plotCI == "rect", "n", plotCI)
-  plotCI_upper <- ifelse(upper == "number" && plotCI == "rect", "n", plotCI)
+  # some methods are not compatible with plotCI="rect"
+  adjust_plotCI <- function(plotCI, method) {
+    if (plotCI != "rect" ||
+        method %in% c("circle", "square")) {
+      return(plotCI)
+    }
+    return("n")
+  }
+
+  plotCI_lower <- adjust_plotCI(plotCI, lower)
+  plotCI_upper <- adjust_plotCI(plotCI, upper)
 
   corrplot(corr, type = "upper", method = upper, diag = TRUE,
            tl.pos = tl.pos, plotCI = plotCI_upper, ...)
