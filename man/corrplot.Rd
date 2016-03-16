@@ -19,7 +19,8 @@ corrplot(corr, method = c("circle", "square", "ellipse", "number", "shade",
   "positive", "all"), shade.lwd = 1, shade.col = "white", p.mat = NULL,
   sig.level = 0.05, insig = c("pch", "p-value", "blank", "n"), pch = 4,
   pch.col = "black", pch.cex = 3, plotCI = c("n", "square", "circle",
-  "rect"), lowCI.mat = NULL, uppCI.mat = NULL, ...)
+  "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
+  na.label.col = "black", ...)
 }
 \arguments{
 \item{corr}{The correlation matrix to visualize, must be square if
@@ -199,6 +200,13 @@ sign, the smaller circle will be wiped away, thus forming a ring. Method
 \item{lowCI.mat}{Matrix of the lower bound of confidence interval.}
 
 \item{uppCI.mat}{Matrix of the upper bound of confidence interval.}
+
+\item{na.label}{Label to be used for rendering \code{NA} cells. Default is
+\code{"?"}. If "square", then the cell is rendered as a square with the
+\code{na.label.col} color.}
+
+\item{na.label.col}{Color used for rendering \code{NA} cells. Default is
+\code{"black"}.}
 
 \item{\dots}{Additional arguments passing to function \code{text} for drawing
 text lable.}
@@ -418,6 +426,8 @@ for(i in seq(0.1, 0, -0.005)){
 }
 \author{
 Taiyun Wei (weitaiyun@gmail.com)
+
+Viliam Simko (viliam.simko@gmail.com)
 }
 \references{
 Michael Friendly (2002).
