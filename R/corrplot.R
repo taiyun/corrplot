@@ -505,7 +505,8 @@ corrplot <- function(corr,
 
   ## number
   if (is.null(number.digits)) {
-    number.digits <- switch(addCoefasPercent + 1, 2, 0) # TODO: this expression might be confusing
+    # TODO: this expression might be confusing
+    number.digits <- switch(addCoefasPercent + 1, 2, 0)
   }
 
   stopifnot(number.digits %% 1 == 0)  # is whole number
