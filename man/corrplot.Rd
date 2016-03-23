@@ -151,7 +151,7 @@ when writing the correlation coefficients into the plot.}
 \code{text} when writing the correlation coefficients into the plot.}
 
 \item{number.digits}{indicating the number of decimal digits to be
-added into the plot.}
+added into the plot. Non-negative integer or NULL, default NULL.}
 
 \item{addshade}{Character for shade style, \code{"negative"},
 \code{"positive"} or \code{"all"}, only valid when \code{method} is

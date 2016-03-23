@@ -132,7 +132,7 @@
 #'   \code{text} when writing the correlation coefficients into the plot.
 #'
 #' @param number.digits indicating the number of decimal digits to be
-#'   added into the plot.
+#'   added into the plot. Non-negative integer or NULL, default NULL.
 #'
 #' @param addshade Character for shade style, \code{"negative"},
 #'   \code{"positive"} or \code{"all"}, only valid when \code{method} is
@@ -505,8 +505,11 @@ corrplot <- function(corr,
 
   ## number
   if (is.null(number.digits)) {
-    number.digits <- switch(addCoefasPercent + 1, 2, 0)
+    number.digits <- switch(addCoefasPercent + 1, 2, 0) # TODO: this expression might be confusing
   }
+
+  stopifnot(number.digits %% 1 == 0)  # is whole number
+  stopifnot(number.digits >= 0)       # is non-negative number
 
   if (method == "number" && plotCI == "n") {
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,

@@ -102,3 +102,14 @@ test_that("Issue #46: Rendering NA values", {
   corrplot(M, method = "color", cl.pos = "n", tl.pos = "n",
            na.label = "square", addgrid.col = NA)
 })
+
+test_that("Using 'number.digits' parameter", {
+  M <- cor(mtcars)
+
+  corrplot(M, number.digits = 0)
+  corrplot(M, number.digits = 1)
+  corrplot(M, method = "number", number.digits = 200000) # should not fail
+
+  expect_error(corrplot(M, number.digits = 1.2), regexp = "is not TRUE" )
+  expect_error(corrplot(M, number.digits = -1), regexp = "is not TRUE" )
+})
