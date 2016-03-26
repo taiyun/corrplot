@@ -113,3 +113,12 @@ test_that("Using 'number.digits' parameter", {
   expect_error(corrplot(M, number.digits = 1.2), regexp = "is not TRUE" )
   expect_error(corrplot(M, number.digits = -1), regexp = "is not TRUE" )
 })
+
+test_that("par() is restored after corrplot()", {
+  grDevices::pdf(NULL)
+  par1 <- par("mar")
+  corrplot(cor(mtcars))
+  par2 <- par("mar")
+  dev.off()
+  expect_identical(par1, par2)
+})

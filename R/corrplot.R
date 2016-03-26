@@ -221,6 +221,7 @@
 #'
 #' @example vignettes/example-corrplot.R
 #' @keywords hplot
+#' @import graphics grDevices stats
 #' @export
 corrplot <- function(corr,
   method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
@@ -429,7 +430,8 @@ corrplot <- function(corr,
 
   ## calculate label-text width approximately
   if (!add) {
-    par(mar = mar, bg = "white")
+    oldpar <- par(mar = mar, bg = "white")
+    on.exit(par(oldpar), add = TRUE)
     plot.new()
     xlabwidth <- ylabwidth <- 0
 
