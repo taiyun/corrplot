@@ -221,6 +221,7 @@
 #'
 #' @example vignettes/example-corrplot.R
 #' @keywords hplot
+#' @import graphics grDevices stats
 #' @export
 corrplot <- function(corr,
   method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
