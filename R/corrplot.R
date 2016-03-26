@@ -429,7 +429,8 @@ corrplot <- function(corr,
 
   ## calculate label-text width approximately
   if (!add) {
-    par(mar = mar, bg = "white")
+    oldpar <- par(mar = mar, bg = "white")
+    on.exit(par(oldpar), add = TRUE)
     plot.new()
     xlabwidth <- ylabwidth <- 0
 
