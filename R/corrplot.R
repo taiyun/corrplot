@@ -50,7 +50,7 @@
 #' @param addgrid.col The color of the grid. If \code{NA}, don't add grid. If
 #'   \code{NULL} the default value is chosen. The default value depends on
 #'   \code{method}, if \code{method} is \code{color} or \code{shade}, the
-#'   default values is \code{"white"}, otherwise \code{"grey"}.
+#'   color of the grid is \code{NA}, that is, not draw grid; otherwise \code{"grey"}.
 #'
 #' @param addCoef.col Color of coefficients added on the graph. If \code{NULL}
 #'   (default), add no coefficients.
@@ -268,7 +268,7 @@ corrplot <- function(corr,
   }
 
   if (is.null(addgrid.col)) {
-    addgrid.col <- switch(method, color = "white", shade = "white", "grey")
+    addgrid.col <- switch(method, color = NA, shade = NA, "grey")
   }
 
   if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {

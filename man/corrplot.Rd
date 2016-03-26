@@ -69,7 +69,7 @@ and ellipse, or the color of these glyphs. If \code{outline} is
 \item{addgrid.col}{The color of the grid. If \code{NA}, don't add grid. If
 \code{NULL} the default value is chosen. The default value depends on
 \code{method}, if \code{method} is \code{color} or \code{shade}, the
-default values is \code{"white"}, otherwise \code{"grey"}.}
+color of the grid is \code{NA}, that is, not draw grid; otherwise \code{"grey"}.}
 
 \item{addCoef.col}{Color of coefficients added on the graph. If \code{NULL}
 (default), add no coefficients.}
