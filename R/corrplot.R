@@ -521,6 +521,9 @@ corrplot <- function(corr,
          cex = number.cex)
   }
 
+  # Issue #55: Support for multiple characters when rendering NAs
+  NA_LABEL_MAX_CHARS <- 2
+
   # renders NA cells
   if (any(is.na(corr)) && is.character(na.label)) {
     PosNA <- getPos.NAs(corr)
@@ -529,14 +532,15 @@ corrplot <- function(corr,
       symbols(PosNA, add = TRUE, inches = FALSE,
               squares = rep(1, nrow(PosNA)),
               bg = na.label.col, fg = na.label.col)
-    } else if (nchar(na.label) == 1) {
+    } else if (nchar(na.label) %in% 1:NA_LABEL_MAX_CHARS) {
       symbols(PosNA, add = TRUE, inches = FALSE,
               squares = rep(1, nrow(PosNA)), fg = bg, bg = bg)
       text(PosNA[,1], PosNA[,2], font = number.font,
            col = na.label.col,
            labels = na.label, cex = number.cex, ...)
     } else {
-      stop("Only single character allowed for na.label")
+      stop(paste("Maximum number of characters for NA label is:",
+                 NA_LABEL_MAX_CHARS))
     }
   }
 

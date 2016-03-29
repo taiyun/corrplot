@@ -101,6 +101,16 @@ test_that("Issue #46: Rendering NA values", {
   diag(M) <- NA
   corrplot(M, method = "color", cl.pos = "n", tl.pos = "n",
            na.label = "square", addgrid.col = NA)
+test_that("Issue #55: Support for multiple characters when rendering NAs", {
+  M <- cor(mtcars)
+  diag(M) <- NA
+
+  # label with 2 chars should work
+  expect_silent(corrplot(M, na.label = "NA"))
+
+  expect_error(corrplot(M, na.label = "ABC"),
+               regexp = "Maximum number of characters for NA label is: 2")
+
 })
 
 test_that("Using 'number.digits' parameter", {
