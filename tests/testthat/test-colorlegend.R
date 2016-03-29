@@ -5,7 +5,7 @@ pdf(NULL)
 
 test_that("Basic usage of colorlegend", {
   plot(0, type = "n")
-  colorlegend(rainbow(100), 0:9)
+  expect_silent(colorlegend(rainbow(100), 0:9))
 })
 
 test_that("Calling colorlegend without first calling plot should fail", {
