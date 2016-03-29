@@ -1,3 +1,8 @@
+		CHANGES IN corrplot VERSION 0.76
+
+CHANGES
+  * na.label can now use one or two characters, default is "?" (issue #55)
+
 		CHANGES IN corrplot VERSION 0.75
 
 CHANGES

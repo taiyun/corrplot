@@ -49,10 +49,8 @@ test_that("Issue #43: Return value should be the same as corrplot function", {
 })
 
 test_that("Should only work with matrix or dataframe", {
-  expect_error(corrplot("some string"),
-               regexp = "matrix or data frame")
-  expect_error(corrplot(42),
-               regexp = "matrix or data frame")
+  expect_error(corrplot("some string"), regexp = "matrix or data frame")
+  expect_error(corrplot(42), regexp = "matrix or data frame")
 })
 
 test_that("Non-correlation matrix", {
@@ -63,8 +61,8 @@ test_that("Non-correlation matrix", {
 
 test_that("Try different ordering", {
   M <- cor(mtcars)
-  expect_true(  identical(M, corrplot(M)) )
-  expect_false( identical(M, corrplot(M, order = "AOE")) )
+  expect_true(identical(M, corrplot(M)))
+  expect_false(identical(M, corrplot(M, order = "AOE")))
 })
 
 test_that("Plot without a grid should not crash", {
@@ -73,14 +71,14 @@ test_that("Plot without a grid should not crash", {
   M <- cor(mtcars)
 
   # without grid
-  corrplot(M, addgrid.col = NA)
+  expect_silent(corrplot(M, addgrid.col = NA))
 
   # white grid
-  corrplot(M, addgrid.col = NULL, method = "color")
-  corrplot(M, addgrid.col = NULL, method = "shade")
+  expect_silent(corrplot(M, addgrid.col = NULL, method = "color"))
+  expect_silent(corrplot(M, addgrid.col = NULL, method = "shade"))
 
   # grey grid
-  corrplot(M, addgrid.col = NULL, method = "circle")
+  expect_silent(corrplot(M, addgrid.col = NULL, method = "circle"))
 })
 
 test_that("Issue #46: Rendering NA values", {
@@ -89,26 +87,38 @@ test_that("Issue #46: Rendering NA values", {
   diag(M) <- NA
   M[4,2] <- NA
 
-  # default with questionmarks
-  corrplot(M)
+  # default label for NAs
+  expect_silent(corrplot(M))
 
   # black square instead of the label
-  corrplot(M, na.label = "square", na.label.col = "black")
+  expect_silent(corrplot(M, na.label = "square", na.label.col = "black"))
 
   # large matrix
   M <- matrix(runif(10000, 0.5, 1), nrow = 100)
   M[40:50,30:70] <- 0
   diag(M) <- NA
-  corrplot(M, method = "color", cl.pos = "n", tl.pos = "n",
-           na.label = "square", addgrid.col = NA)
+  expect_silent(corrplot(M, method = "color", cl.pos = "n", tl.pos = "n",
+                         na.label = "square", addgrid.col = NA))
+})
+
+test_that("Issue #55: Support for multiple characters when rendering NAs", {
+  M <- cor(mtcars)
+  diag(M) <- NA
+
+  # label with 2 chars should work
+  expect_silent(corrplot(M, na.label = "NA"))
+
+  expect_error(corrplot(M, na.label = "ABC"),
+               regexp = "Maximum number of characters for NA label is: 2")
+
 })
 
 test_that("Using 'number.digits' parameter", {
   M <- cor(mtcars)
 
-  corrplot(M, number.digits = 0)
-  corrplot(M, number.digits = 1)
-  corrplot(M, method = "number", number.digits = 200000) # should not fail
+  expect_silent(corrplot(M, number.digits = 0))
+  expect_silent(corrplot(M, number.digits = 1))
+  expect_silent(corrplot(M, method = "number", number.digits = 200000))
 
   expect_error(corrplot(M, number.digits = 1.2), regexp = "is not TRUE" )
   expect_error(corrplot(M, number.digits = -1), regexp = "is not TRUE" )
