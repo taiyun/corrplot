@@ -142,6 +142,16 @@ corrplot(ran, is.corr=FALSE, method="square")
 corrplot(ran, is.corr=FALSE, method="ellipse", cl.lim=c(-100, 100))
 ```
 
+Deal with the NAs
+----------------------------------
+```{r NAs}
+M2 <- M
+diag(M2) = NA
+corrplot(M2)
+corrplot(M2, na.label = "o")
+corrplot(M2, na.label = "NA")
+```
+
 Combine with the Significance Test
 ----------------------------------
 ```{r test}

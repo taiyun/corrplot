@@ -109,6 +109,13 @@ corrplot(M, order="AOE", cl.pos="b", tl.pos="d")
 corrplot(M, order="AOE", cl.pos="n")
 
 
+## deal with the NAs
+M2 <- M
+diag(M2) = NA
+corrplot(M2)
+corrplot(M2, na.label = "o")
+corrplot(M2, na.label = "NA")
+
 
 ##the input matrix is not square
 corrplot(M[1:8,])
