@@ -109,7 +109,7 @@ corrplot(M, order="AOE", cl.pos="b", tl.pos="d")
 corrplot(M, order="AOE", cl.pos="n")
 
 
-## deal with the NAs
+## deal with missing Values
 M2 <- M
 diag(M2) = NA
 corrplot(M2)

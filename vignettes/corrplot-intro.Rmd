@@ -142,7 +142,7 @@ corrplot(ran, is.corr=FALSE, method="square")
 corrplot(ran, is.corr=FALSE, method="ellipse", cl.lim=c(-100, 100))
 ```
 
-Deal with the NAs
+Deal with missing Values
 ----------------------------------
 ```{r NAs}
 M2 <- M
