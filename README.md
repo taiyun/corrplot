@@ -25,7 +25,7 @@ corrplot(M, order = "hclust", addrect = 2)
 To download the development version of the package, type the following at the R command line:
 ```r
 install.packages("devtools")
-devtools::install_github("taiyun/corrplot")
+devtools::install_github("taiyun/corrplot", build_vignettes = TRUE)
 ```
 
 To download the release version of the package on CRAN, type the following at the R command line:
