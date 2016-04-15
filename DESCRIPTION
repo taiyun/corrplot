@@ -1,6 +1,6 @@
 Package: corrplot
 Type: Package
-Title: Visualization of a correlation matrix
+Title: Visualization of a Correlation Matrix
 Version: 0.76
 Author: Taiyun Wei, Viliam Simko
 Suggests:
@@ -9,9 +9,8 @@ Suggests:
     Cairo,
     testthat
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
-Description: The corrplot package is a graphical display of a
-    correlation matrix, confidence interval. It also contains some
-    algorithms to do matrix reordering.
+Description: A graphical display of a correlation matrix or general matrix.
+    It also contains some algorithms to do matrix reordering.
 License: GPL
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues
