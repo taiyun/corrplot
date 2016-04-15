@@ -17,9 +17,9 @@ This package is licensed under GPL, and available on CRAN:
 ```r
 library(corrplot)
 M <- cor(mtcars)
-corrplot(M, method = "ellipse")
+corrplot(M, order = "hclust", addrect = 2)
 ```
-![Basic example](vignettes/README-basic-corr-matrix-1.png)
+![Basic example](http://cos.name/wp-content/uploads/2016/04/example-corrplot.png)
 
 ## Download and Install
 To download the development version of the package, type the following at the R command line:
