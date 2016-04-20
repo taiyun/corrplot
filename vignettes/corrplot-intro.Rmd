@@ -3,7 +3,7 @@
 %\VignetteIndexEntry{An Introduction to the corrplot package}
 -->
 
-An Introduction to **corrplot** package
+An Introduction to **corrplot** Package
 =======================================
 
 

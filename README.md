@@ -53,7 +53,7 @@ In RStudio, you can run `lintr` from the console as follows:
 ```
 
 ### Who do I talk to? ###
-- [Wei Taiyun](https://github.com/taiyun) (main)
+- [Taiyun Wei](https://github.com/taiyun) (main)
 - [Viliam Simko](https://github.com/vsimko) (backup)
 
 ## License
