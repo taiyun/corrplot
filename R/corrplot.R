@@ -394,7 +394,7 @@ corrplot <- function(corr,
 
   # Issue #20: support plotmath expressions in rownames and colnames
   expand_expression <- function(s) {
-    ifelse(grepl('^[:=$]', s), parse(text = substring(s, 2)), s)
+    ifelse(grepl("^[:=$]", s), parse(text = substring(s, 2)), s)
   }
 
   newrownames <- sapply(
