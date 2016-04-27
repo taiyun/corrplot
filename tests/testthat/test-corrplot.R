@@ -27,6 +27,13 @@ test_that("Issue #7: Enable to plot a matrix with NA", {
   expect_equal(corrplot(M), M)
 })
 
+test_that("Issue #20: plotmath expressions in rownames / colnames", {
+  M <- cor(mtcars)[1:5,1:5]
+  colnames(M) <- c("alpha", "beta", ":alpha+beta", ": a[0]", "=a[beta]")
+  rownames(M) <- c("alpha", "beta", NA, "$a[0]", "$ a[beta]")
+  corrplot(M)
+})
+
 test_that("Issues #21: plotCI=rect incompatible with some methods", {
   M <- cor(mtcars)
   L <- M - 0.1

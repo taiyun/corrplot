@@ -227,6 +227,11 @@ setting \code{is.corr = FALSE}.
 \code{Cairo} and \code{cairoDevice} packages is strongly recommended to
   produce high-quality PNG, JPEG, TIFF bitmap files, especially for that
   \code{method} \code{circle}, \code{ellipse}.
+
+Row- and column names of the input matrix are used as labels rendered
+  in the corrplot. Plothmath expressions will be used if the name is prefixed
+  by one of the following characters: \code{:}, \code{=} or \code{$}.
+  For example \code{":alpha + beta"}.
 }
 \examples{
 data(mtcars)
