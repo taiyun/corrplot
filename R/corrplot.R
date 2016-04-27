@@ -213,6 +213,11 @@
 #'   produce high-quality PNG, JPEG, TIFF bitmap files, especially for that
 #'   \code{method} \code{circle}, \code{ellipse}.
 #'
+#' @note Row- and column names of the input matrix are used as labels rendered
+#'   in the corrplot. Plothmath expressions will be used if the name is prefixed
+#'   by one of the following characters: \code{:}, \code{=} or \code{$}.
+#'   For example \code{":alpha + beta"}.
+#'
 #' @seealso Function \code{plotcorr}  in the \code{ellipse} package and
 #'   \code{corrgram}  in the \code{corrgram} package have some similarities.
 #'
@@ -253,7 +258,8 @@ corrplot <- function(corr,
 
   plotCI = c("n", "square", "circle", "rect"),
   lowCI.mat = NULL, uppCI.mat = NULL,
-  na.label = "?", na.label.col = "black", ...)
+  na.label = "?", na.label.col = "black",
+  ...)
 {
 
   method <- match.arg(method)
@@ -371,18 +377,32 @@ corrplot <- function(corr,
   }
 
   Pos  <- getPos.Dat(corr)[[1]]
+
+  # rows
   n2 <- max(Pos[,2])
   n1 <- min(Pos[,2])
-  nn <- n2 - n1
-  newrownames <- as.character(rownames(corr)[(n + 1 - n2):(n + 1 - n1)])
+
+  nn <- n2 - n1 # TODO: isn't this a similar problem as in Issue #19 ?
+
+  # columns
   m2 <- max(Pos[,1])
   m1 <- min(Pos[,1])
 
-  # Viliam Simko: fixing issue #19
+  # Issue #19: legend color bar width 0 when using just one column matrix
   # also discussed here: http://stackoverflow.com/questions/34638555/
   mm <- max(1, m2 - m1)
 
-  newcolnames <- as.character(colnames(corr)[m1:m2])
+  # Issue #20: support plotmath expressions in rownames and colnames
+  expand_expression <- function(s) {
+    ifelse(grepl("^[:=$]", s), parse(text = substring(s, 2)), s)
+  }
+
+  newrownames <- sapply(
+    rownames(corr)[(n + 1 - n2):(n + 1 - n1)], expand_expression)
+
+  newcolnames <- sapply(
+    colnames(corr)[m1:m2], expand_expression)
+
   DAT <- getPos.Dat(corr)[[2]]
   len.DAT <- length(DAT)
 
@@ -786,8 +806,8 @@ corrplot <- function(corr,
 
     } else {
       text(pos.xlabel[,1], pos.xlabel[,2], newcolnames, srt = tl.srt,
-        adj = ifelse(tl.srt == 0, c(0.5,0), c(0,0)),
-        col = tl.col, cex = tl.cex, offset = tl.offset, ...)
+           adj = ifelse(tl.srt == 0, c(0.5,0), c(0,0)),
+           col = tl.col, cex = tl.cex, offset = tl.offset, ...)
       text(pos.ylabel[,1], pos.ylabel[,2], newrownames,
            col = tl.col, cex = tl.cex, pos = 2, offset = tl.offset, ...)
     }
