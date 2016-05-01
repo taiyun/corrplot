@@ -262,17 +262,20 @@ corrplot <- function(corr,
   ...)
 {
 
+  # checking multi-option input parameters
   method <- match.arg(method)
   type <- match.arg(type)
   order <- match.arg(order)
   hclust.method <- match.arg(hclust.method)
-  plotCI <- match.arg(plotCI)
+  addshade <- match.arg(addshade)
   insig <- match.arg(insig)
+  plotCI <- match.arg(plotCI)
 
   if (!is.matrix(corr) && !is.data.frame(corr)) {
     stop("Need a matrix or data frame!")
   }
 
+  # select grid color automatically if not specified
   if (is.null(addgrid.col)) {
     addgrid.col <- switch(method, color = NA, shade = NA, "grey")
   }
@@ -397,14 +400,16 @@ corrplot <- function(corr,
     ifelse(grepl("^[:=$]", s), parse(text = substring(s, 2)), s)
   }
 
-  newrownames <- sapply(
-    rownames(corr)[(n + 1 - n2):(n + 1 - n1)], expand_expression)
+    newrownames <- sapply(
+      rownames(corr)[(n + 1 - n2):(n + 1 - n1)], expand_expression)
 
-  newcolnames <- sapply(
-    colnames(corr)[m1:m2], expand_expression)
+    newcolnames <- sapply(
+      colnames(corr)[m1:m2], expand_expression)
 
-  DAT <- getPos.Dat(corr)[[2]]
-  len.DAT <- length(DAT)
+    DAT <- getPos.Dat(corr)[[2]]
+    len.DAT <- length(DAT)
+
+  rm(expand_expression) # making sure the function is only used here
 
   ## assign colors
   assign.color <- function(dat = DAT, color = col){
@@ -584,7 +589,6 @@ corrplot <- function(corr,
 
   ## shade
   if (method == "shade" && plotCI == "n") {
-    addshade <- match.arg(addshade)
     symbols(Pos, add = TRUE, inches = FALSE, squares = rep(1, len.DAT),
             bg = col.fill, fg = addgrid.col)
 
