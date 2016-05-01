@@ -21,21 +21,25 @@
 #' @author Taiyun Wei
 #' @example vignettes/example-corrplot.mixed.R
 #' @export
-corrplot.mixed <- function(corr, lower = "number",
-  upper = "circle", tl.pos = c("d", "lt", "n"),
-  diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
+corrplot.mixed <- function(
+  corr,
+  lower = "number",
+  upper = "circle",
+  tl.pos = c("d", "lt", "n"),
+  diag = c("n", "l", "u"),
+  bg = "white",
+  addgrid.col = "grey",
   plotCI = c("n", "square", "circle", "rect"),
   ...)
 {
-  diag <- match.arg(diag)
   tl.pos <- match.arg(tl.pos)
+  diag <- match.arg(diag)
   n <- nrow(corr)
 
   # fixes issue #21
   # some methods are not compatible with plotCI="rect"
   adjust_plotCI <- function(plotCI, method) {
-    if (plotCI != "rect" ||
-        method %in% c("circle", "square")) {
+    if (plotCI != "rect" || method %in% c("circle", "square")) {
       return(plotCI)
     }
     return("n")
