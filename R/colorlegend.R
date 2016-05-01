@@ -25,14 +25,21 @@ colorlegend <- function(colbar, labels, at = NULL,
     lim.segment = NULL, align = c("c", "l", "r"), addlabels = TRUE,
     ...) {
 
-  if (is.null(at) & addlabels)
+  if (is.null(at) & addlabels) {
     at <- seq(0L, 1L, length = length(labels))
-  if (is.null(lim.segment))
+  }
+
+  if (is.null(lim.segment)) {
     lim.segment <- ratio.colbar + c(0, ratio.colbar / 5)
-  if (any(at < 0L) | any(at > 1L))
+  }
+
+  if (any(at < 0L) | any(at > 1L)) {
     stop("at should be between 0 and 1")
-  if (any(lim.segment < 0L) | any(lim.segment > 1L))
+  }
+
+  if (any(lim.segment < 0L) | any(lim.segment > 1L)) {
     stop("lim.segment should be between 0 and 1")
+  }
 
   align <- match.arg(align)
   xgap <- diff(xlim)
@@ -42,25 +49,25 @@ colorlegend <- function(colbar, labels, at = NULL,
   rat2 <- lim.segment
 
   if (vertical) {
+
       at <- at * ygap + ylim[1]
       yyy <- seq(ylim[1], ylim[2], length = len + 1)
-      rect(rep(xlim[1], len), yyy[1:len], rep(xlim[1] +
-          xgap * rat1, len), yyy[-1], col = colbar, border = colbar)
-      rect(xlim[1], ylim[1], xlim[1] + xgap * rat1, ylim[2],
-          border = "black")
-      pos.xlabel <- rep(xlim[1] + xgap * max(rat2, rat1),
-          length(at))
+
+      rect(rep(xlim[1], len), yyy[1:len],
+           rep(xlim[1] + xgap * rat1, len), yyy[-1],
+           col = colbar, border = colbar)
+      rect(xlim[1], ylim[1], xlim[1] + xgap * rat1, ylim[2], border = "black")
+
+      pos.xlabel <- rep(xlim[1] + xgap * max(rat2, rat1), length(at))
       segments(xlim[1] + xgap * rat2[1], at, xlim[1] + xgap * rat2[2], at)
 
       if (addlabels) {
-          if (align == "l")
-              text(x = pos.xlabel, y = at, labels = labels,
-                pos = 4, ...)
-          if (align == "c")
-              text((pos.xlabel + xlim[2]) / 2, y = at, labels = labels, ...)
-          if (align == "r")
-              text(x = xlim[2], y = at, labels = labels,
-                pos = 2, ...)
+        switch(align,
+          l = text(pos.xlabel, y = at, labels = labels, pos = 4, ...),
+          r = text(xlim[2],    y = at, labels = labels, pos = 2, ...),
+          c = text((pos.xlabel + xlim[2]) / 2, y = at, labels = labels, ...),
+          stop("programming error - should not have reached this line!")
+        )
       }
   }
 
@@ -75,9 +82,10 @@ colorlegend <- function(colbar, labels, at = NULL,
 
     if (addlabels) {
       switch(align,
-       l = text(at, pos.ylabel, labels, pos = 1, ...),
-       c = text(at, (pos.ylabel + ylim[1]) / 2, labels = labels, ...),
-       r = text(at, ylim[1], labels = labels, pos = 2, ...)
+       l = text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...),
+       r = text(x = at, y = ylim[1],    labels = labels, pos = 2, ...),
+       c = text(x = at, y = (pos.ylabel + ylim[1]) / 2, labels = labels, ...),
+       stop("programming error - should not have reached this line!")
       )
     }
   }
