@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/taiyun/corrplot.svg)](https://travis-ci.org/taiyun/corrplot)
 [![codecov.io](https://codecov.io/github/taiyun/corrplot/coverage.svg?branch=master)](https://codecov.io/github/taiyun/corrplot?branch=master)
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/corrplot)](http://cran.r-project.org/package=corrplot)
-![CRAN Downloads](http://cranlogs.r-pkg.org/badges/corrplot)
-
+[![CRAN Status](http://www.r-pkg.org/badges/version/corrplot)](http://cran.r-project.org/package=corrplot)
+[![CRAN Downloads](http://cranlogs.r-pkg.org/badges/corrplot)](http://www.r-pkg.org/pkg/corrplot)
 
 ## Summary
 The R package **corrplot** is for visualizing correlation matrices and
