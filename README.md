@@ -61,4 +61,5 @@ This package is free and open source software, licensed under GPL.
 
 ## Other links
 - Corrplot listed at OpenHub: https://www.openhub.net/p/corrplot
+- Research software impact of Corrplot (by Depsy): http://depsy.org/package/r/corrplot
 - CRAN: http://cran.r-project.org/web/packages/corrplot
