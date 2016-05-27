@@ -2,6 +2,7 @@
 [![codecov.io](https://codecov.io/github/taiyun/corrplot/coverage.svg?branch=master)](https://codecov.io/github/taiyun/corrplot?branch=master)
 [![CRAN Status](http://www.r-pkg.org/badges/version/corrplot)](http://cran.r-project.org/package=corrplot)
 [![CRAN Downloads](http://cranlogs.r-pkg.org/badges/corrplot)](http://www.r-pkg.org/pkg/corrplot)
+[![Research software impact](http://depsy.org/api/package/cran/corrplot/badge.svg)](http://depsy.org/package/r/corrplot)
 
 ## Summary
 The R package **corrplot** is for visualizing correlation matrices and
@@ -60,4 +61,5 @@ This package is free and open source software, licensed under GPL.
 
 ## Other links
 - Corrplot listed at OpenHub: https://www.openhub.net/p/corrplot
+- Research software impact of Corrplot (by Depsy): http://depsy.org/package/r/corrplot
 - CRAN: http://cran.r-project.org/web/packages/corrplot
