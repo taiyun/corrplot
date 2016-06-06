@@ -26,7 +26,7 @@ for details.}
 (including colorbar, segments and labels).}
 
 \item{lim.segment}{Vector (quantile) of length 2, the elements should be in
-[-1,1], giving segments coordinates ranges.}
+[0,1], giving segments coordinates ranges.}
 
 \item{align}{Character, alignment type of labels, \code{"l"} means left,
 \code{"c"} means center and \code{"r"} right.}

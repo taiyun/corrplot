@@ -34,7 +34,7 @@ test_that("Issue #20: plotmath expressions in rownames / colnames", {
   corrplot(M)
 })
 
-test_that("Issues #21: plotCI=rect incompatible with some methods", {
+test_that("Issue #21: plotCI=rect incompatible with some methods", {
   M <- cor(mtcars)
   L <- M - 0.1
   U <- M + 0.1
