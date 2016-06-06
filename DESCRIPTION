@@ -1,7 +1,7 @@
 Package: corrplot
 Type: Package
 Title: Visualization of a Correlation Matrix
-Version: 0.78
+Version: 0.79
 Author: Taiyun Wei, Viliam Simko
 Suggests:
     seriation,
