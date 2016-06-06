@@ -10,7 +10,7 @@
 #' @param ratio.colbar The width ratio of colorbar to the total colorlegend
 #'   (including colorbar, segments and labels).
 #' @param lim.segment Vector (quantile) of length 2, the elements should be in
-#'   [-1,1], giving segments coordinates ranges.
+#'   [0,1], giving segments coordinates ranges.
 #' @param align Character, alignment type of labels, \code{"l"} means left,
 #'   \code{"c"} means center and \code{"r"} right.
 #' @param addlabels Logical, whether add text label or not.
@@ -45,7 +45,11 @@ colorlegend <- function(
     stop("at should be between 0 and 1")
   }
 
-  if (any(lim.segment < 0L) | any(lim.segment > 1L)) {
+  if (length(lim.segment) != 2) {
+    stop("lim.segment should be a vector of length 2")
+  }
+
+  if (any(lim.segment < 0L) || any(lim.segment > 1L)) {
     stop("lim.segment should be between 0 and 1")
   }
 
