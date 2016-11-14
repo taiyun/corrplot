@@ -5,7 +5,7 @@
 \title{Draw color legend.}
 \usage{
 colorlegend(colbar, labels, at = NULL, xlim = c(0, 1), ylim = c(0, 1),
-  vertical = TRUE, ratio.colbar = 0.4, lim.segment = NULL,
+  vertical = TRUE, ratio.colbar = 0.4, lim.segment = "auto",
   align = c("c", "l", "r"), addlabels = TRUE, ...)
 }
 \arguments{
@@ -26,7 +26,8 @@ for details.}
 (including colorbar, segments and labels).}
 
 \item{lim.segment}{Vector (quantile) of length 2, the elements should be in
-[0,1], giving segments coordinates ranges.}
+[0,1], giving segments coordinates ranges. If the value is NULL or "auto",
+then the ranges are derived automatically.}
 
 \item{align}{Character, alignment type of labels, \code{"l"} means left,
 \code{"c"} means center and \code{"r"} right.}
