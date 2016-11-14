@@ -10,7 +10,8 @@
 #' @param ratio.colbar The width ratio of colorbar to the total colorlegend
 #'   (including colorbar, segments and labels).
 #' @param lim.segment Vector (quantile) of length 2, the elements should be in
-#'   [0,1], giving segments coordinates ranges.
+#'   [0,1], giving segments coordinates ranges. If the value is NULL or "auto",
+#'   then the ranges are derived automatically.
 #' @param align Character, alignment type of labels, \code{"l"} means left,
 #'   \code{"c"} means center and \code{"r"} right.
 #' @param addlabels Logical, whether add text label or not.
@@ -28,7 +29,7 @@ colorlegend <- function(
   ylim = c(0, 1),
   vertical = TRUE,
   ratio.colbar = 0.4,
-  lim.segment = NULL,
+  lim.segment = "auto", # NOTE: NULL treated as "auto"
   align = c("c", "l", "r"),
   addlabels = TRUE,
   ...)
@@ -37,7 +38,7 @@ colorlegend <- function(
     at <- seq(0L, 1L, length = length(labels))
   }
 
-  if (is.null(lim.segment)) {
+  if (is.null(lim.segment) || lim.segment == "auto") {
     lim.segment <- ratio.colbar + c(0, ratio.colbar * .2)
   }
 
