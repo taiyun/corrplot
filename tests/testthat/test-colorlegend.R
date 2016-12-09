@@ -18,7 +18,7 @@ test_that("Calling colorlegend without first calling plot should fail", {
                regexp = "plot.new has not been called yet")
 })
 
-test_that("Issue #64: lim.segment in function colorlegend()", {
+test_that("Issues #64, #66: lim.segment in function colorlegend()", {
   plot(0, type = "n")
 
   expect_error(colorlegend(rainbow(100), 0:9, lim.segment = 1),
@@ -37,6 +37,11 @@ test_that("Issue #64: lim.segment in function colorlegend()", {
 
   # automatic lim.segment
   expect_silent(colorlegend(rainbow(100), 0:9, lim.segment = NULL))
+
+  # Issue #66: more intuitive value for automatic lim.segment
+  expect_silent(colorlegend(rainbow(100), 0:9, lim.segment = "auto"))
+  expect_error(colorlegend(rainbow(100), 0:9, lim.segment = "otherstring"),
+               regexp = "should be a vector of length 2")
 
   expect_silent(colorlegend(rainbow(100), 0:9, lim.segment = c(0,1)))
 })

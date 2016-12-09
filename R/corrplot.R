@@ -49,8 +49,8 @@
 #'
 #' @param addgrid.col The color of the grid. If \code{NA}, don't add grid. If
 #'   \code{NULL} the default value is chosen. The default value depends on
-#'   \code{method}, if \code{method} is \code{color} or \code{shade}, the
-#'   color of the grid is \code{NA}, that is, not draw grid; otherwise \code{"grey"}.
+#'   \code{method}, if \code{method} is \code{color} or \code{shade}, the color
+#'   of the grid is \code{NA}, that is, not draw grid; otherwise \code{"grey"}.
 #'
 #' @param addCoef.col Color of coefficients added on the graph. If \code{NULL}
 #'   (default), add no coefficients.
@@ -288,7 +288,7 @@ corrplot <- function(corr,
     if (is.corr) {
       cl.lim <- c(-1,1)
     } else {
-      cl.lim <- c(min(corr), max(corr))
+      cl.lim <- c(min(corr, na.rm = TRUE), max(corr, na.rm = TRUE))
     }
   }
 
@@ -296,18 +296,53 @@ corrplot <- function(corr,
   zoom <- 1
 
   if (!is.corr) {
-    if (max(corr) * min(corr) < 0) {
-      intercept <- 0
-      zoom <- 1 / max(abs(cl.lim))
-    }
-    if (min(corr) >= 0) {
-      intercept <- -cl.lim[1]
-      zoom <- 1 / (diff(cl.lim))
-    }
-    if (max(corr) <= 0) {
+
+    c_max <- max(corr, na.rm = TRUE)
+    c_min <- min(corr, na.rm = TRUE)
+
+    # The following if-elseif-else code should exhaustively cover all 9
+    # combinations of c_min and c_max variables. Each variable can be either
+    # zero (0), positive (+) or negative (-).
+
+    # c_min c_max
+
+    # 00
+    # -0
+    # +0
+    # --
+    # 0-
+    if (c_max <= 0) {
       intercept <- -cl.lim[2]
       zoom <- 1 / (diff(cl.lim))
     }
+
+    # ++
+    # +-
+    # 0+
+    else if (c_min >= 0) {
+      intercept <- -cl.lim[1]
+      zoom <- 1 / (diff(cl.lim))
+    }
+
+    # -+
+    else {
+
+      # expression from the original code as a sanity check
+      stopifnot(c_max * c_min < 0)
+
+      # newly derived expression which covers the single remainig case
+      stopifnot(c_min < 0 && c_max > 0)
+
+      intercept <- 0
+      zoom <- 1 / max(abs(cl.lim))
+    }
+
+    # now, the zoom might still be Inf when cl.lim were both zero
+    if (zoom == Inf) {
+      stopifnot(cl.lim[1] == 0 && cl.lim[2] == 0) # check the assumption
+      zoom <- 0
+    }
+
     corr <- (intercept + corr) * zoom
   }
 

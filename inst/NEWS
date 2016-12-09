@@ -1,3 +1,9 @@
+		CHANGES IN corrplot VERSION 0.80
+
+CHANGES
+  * Fixed #70, Enable to plot a matrix with NA when 'is.corr = F'
+
+
 		CHANGES IN corrplot VERSION 0.77
 
 CHANGES
