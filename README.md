@@ -12,6 +12,13 @@ reordering. For examples, see its
 This package is licensed under GPL, and available on CRAN:
 <http://cran.r-project.org/package=corrplot>.
 
+## How to cite
+To cite corrplot properly, call the R built-in command `citation("corrplot")` as follows:
+```r
+library(corrplot)
+citation("corrplot")
+```
+
 ## Basic example
 ```r
 library(corrplot)
