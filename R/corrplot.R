@@ -189,6 +189,9 @@
 #' @param na.label.col Color used for rendering \code{NA} cells. Default is
 #'   \code{"black"}.
 #'
+#' @param win.asp Aspect ration for the whole plot. Value other than 1 is
+#'   currently compatible only with methods "circle" and "square".
+#'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text lable.
 #'
@@ -259,6 +262,7 @@ corrplot <- function(corr,
   plotCI = c("n", "square", "circle", "rect"),
   lowCI.mat = NULL, uppCI.mat = NULL,
   na.label = "?", na.label.col = "black",
+  win.asp = 1,
   ...)
 {
 
@@ -270,6 +274,13 @@ corrplot <- function(corr,
   addshade <- match.arg(addshade)
   insig <- match.arg(insig)
   plotCI <- match.arg(plotCI)
+
+  # rescale symbols within the corrplot based on win.asp parameter
+  if (win.asp != 1 && !(method %in% c("circle", "square"))) {
+    stop("Parameter 'win.asp' is supported only for circle and square methods.")
+  }
+  asp_rescale_factor <- min(1, win.asp) / max(1, win.asp)
+  stopifnot(asp_rescale_factor >= 0 && asp_rescale_factor <= 1)
 
   if (!is.matrix(corr) && !is.data.frame(corr)) {
     stop("Need a matrix or data frame!")
@@ -435,14 +446,14 @@ corrplot <- function(corr,
     ifelse(grepl("^[:=$]", s), parse(text = substring(s, 2)), s)
   }
 
-    newrownames <- sapply(
-      rownames(corr)[(n + 1 - n2):(n + 1 - n1)], expand_expression)
+  newrownames <- sapply(
+    rownames(corr)[(n + 1 - n2):(n + 1 - n1)], expand_expression)
 
-    newcolnames <- sapply(
-      colnames(corr)[m1:m2], expand_expression)
+  newcolnames <- sapply(
+    colnames(corr)[m1:m2], expand_expression)
 
-    DAT <- getPos.Dat(corr)[[2]]
-    len.DAT <- length(DAT)
+  DAT <- getPos.Dat(corr)[[2]]
+  len.DAT <- length(DAT)
 
   rm(expand_expression) # making sure the function is only used here
 
@@ -500,7 +511,7 @@ corrplot <- function(corr,
                 m2 + 0.5 + mm * cl.ratio * (cl.pos == "r"))
       ylim <- c(n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
                 n2 + 0.5 + ylabwidth)
-      plot.window(xlim + c(-0.2,0.2), ylim + c(-0.2,0.2), asp = 1,
+      plot.window(xlim + c(-0.2, 0.2), ylim + c(-0.2, 0.2), asp = 1,
                   xaxs = "i", yaxs = "i")
       x.tmp <- max(strwidth(newrownames, cex = tl.cex))
       y.tmp <- max(strwidth(newcolnames, cex = tl.cex))
@@ -522,7 +533,7 @@ corrplot <- function(corr,
 
     laboffset <- strwidth("W", cex = tl.cex) * tl.offset
     xlim <- c(m1 - 0.5 - xlabwidth - laboffset,
-              m2 + 0.5 + mm * cl.ratio * (cl.pos == "r")) + c(-0.35,0.15)
+              m2 + 0.5 + mm * cl.ratio * (cl.pos == "r")) + c(-0.35, 0.15)
     ylim <- c(n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
               n2 + 0.5 + ylabwidth * abs(sin(tl.srt * pi / 180)) + laboffset)
             + c(-0.15, 0.35)
@@ -533,21 +544,21 @@ corrplot <- function(corr,
     }
 
     plot.window(xlim = xlim , ylim = ylim,
-                asp = 1, xlab = "", ylab = "", xaxs = "i", yaxs = "i")
+                asp = win.asp, xlab = "", ylab = "", xaxs = "i", yaxs = "i")
   }
 
   ## for: add = TRUE
   laboffset <- strwidth("W", cex = tl.cex) * tl.offset
 
-  ## squares
+  ## background for the cells
   symbols(Pos, add = TRUE, inches = FALSE,
-          squares = rep(1, len.DAT), bg = bg, fg = bg)
+          rectangles = matrix(1, len.DAT, 2), bg = bg, fg = bg)
 
   ## circle
   if (method == "circle" && plotCI == "n") {
-      symbols(Pos, add = TRUE,  inches = FALSE,
-              circles = 0.9 * abs(DAT) ^ 0.5 / 2,
-              fg = col.border, bg = col.fill )
+    symbols(Pos, add = TRUE,  inches = FALSE,
+            circles = asp_rescale_factor * 0.9 * abs(DAT) ^ 0.5 / 2,
+            fg = col.border, bg = col.fill )
   }
 
   ## ellipse
@@ -556,7 +567,7 @@ corrplot <- function(corr,
       k <- seq(0, 2 * pi, length = length)
       x <- cos(k + acos(rho) / 2) / 2
       y <- cos(k - acos(rho) / 2) / 2
-      return(cbind(rbind(x,y), c(NA, NA)))
+      cbind(rbind(x,y), c(NA, NA))
     }
 
     ELL.dat <- lapply(DAT, ell.dat)
@@ -663,7 +674,8 @@ corrplot <- function(corr,
   ## square
   if (method == "square" && plotCI == "n") {
     symbols(Pos, add = TRUE, inches = FALSE,
-            squares = abs(DAT) ^ 0.5, bg = col.fill, fg = col.border)
+            squares = asp_rescale_factor * abs(DAT) ^ 0.5,
+            bg = col.fill, fg = col.border)
   }
 
   ## color
@@ -673,8 +685,8 @@ corrplot <- function(corr,
   }
 
   ## add grid
-  symbols(Pos, add = TRUE, inches = FALSE,  bg = NA,
-          squares = rep(1, len.DAT), fg = addgrid.col)
+  symbols(Pos, add = TRUE, inches = FALSE,  bg = NA, fg = addgrid.col,
+          rectangles = matrix(1, nrow = len.DAT, ncol = 2) )
 
   if (plotCI != "n") {
 
@@ -693,7 +705,7 @@ corrplot <- function(corr,
     uppNew      <- getPos.Dat(uppCI.mat)[[2]]
 
     if (!method %in% c("circle", "square")) {
-       stop("method shoud be circle or square if draw confidence interval!")
+       stop("Method shoud be circle or square if drawing confidence intervals.")
     }
 
     k1 <- (abs(uppNew) > abs(lowNew))

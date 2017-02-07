@@ -146,3 +146,11 @@ test_that("par() is restored after corrplot()", {
   dev.off()
   expect_identical(par1, par2)
 })
+
+test_that("Issue #79: Changing aspect ratio for the plot", {
+  M <- matrix(rnorm(70), ncol = 7)
+  expect_silent(corrplot(M, is.corr = F, win.asp = .7, method = "circle"))
+  expect_silent(corrplot(M, is.corr = F, win.asp = .7, method = "square"))
+  expect_error(corrplot(M, is.corr = F, win.asp = .7, method = "pie"),
+               regexp = "supported only for circle and square methods")
+})
