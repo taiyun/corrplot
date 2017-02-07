@@ -66,4 +66,3 @@ corrRect.hclust(M.hc2, k = 4, method = "ward")
 Taiyun Wei
 }
 \keyword{hplot}
-
