@@ -9,8 +9,8 @@ An Introduction to **corrplot** Package
 
 ```{r setup, include=FALSE}
 library(knitr)
-library(Cairo)
-opts_chunk$set(out.extra='style="display:block; margin: auto"', fig.align="center", dev='CairoPNG')
+opts_chunk$set(out.extra = 'style="display:block; margin: auto"',
+               fig.align = "center", dev = "png")
 ```
 
 
