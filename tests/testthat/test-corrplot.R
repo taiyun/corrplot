@@ -2,14 +2,14 @@ context("Visualization of a correlation matrix")
 
 # Tests ==========
 
-test_that("Testing cl.lim parameter", {
+test_that("Testing 'cl.lim' parameter", {
   M <- cor(mtcars)
   expect_silent(corrplot(M, cl.lim = c(-1, 1)))
   expect_error(corrplot(M, cl.lim = c(0, 1)),
                regexp = "color limits should cover matrix")
 })
 
-test_that("Testing tl.pos parameter", {
+test_that("Testing 'tl.pos' parameter", {
   M <- cor(mtcars)
   expect_silent(corrplot(M, tl.pos = "td", type = "upper"))
   expect_error(corrplot(M, tl.pos = "td", type = "lower"),
@@ -18,6 +18,29 @@ test_that("Testing tl.pos parameter", {
   expect_error(corrplot(M, tl.pos = "ld", type = "upper"),
                regexp = "type should be")
 })
+
+test_that("Testing 'corrRect' function", {
+  M <- cor(mtcars)
+  corrplot(M, method = "circle", order = "FPC")
+  corrRect(c(5,6))
+})
+
+test_that("Testing 'outline' parameter", {
+  M <- cor(mtcars)
+  expect_silent(corrplot(M, outline = FALSE))
+  expect_silent(corrplot(M, outline = TRUE))
+  expect_silent(corrplot(M, outline = "white"))
+
+  for (unsupported in list(42, NA, NULL)) {
+    expect_error(corrplot(M, outline = unsupported),
+                 regexp = "Unsupported value type for parameter outline")
+  }
+
+  expect_error(corrplot(M, outline = ""),
+               regexp = "invalid color name")
+
+})
+
 
 test_that("Replacing IF statements with SWITCH statement", {
   orig_code <- function(type) {
