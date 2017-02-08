@@ -2,6 +2,26 @@ context("Visualization of a correlation matrix")
 
 # Tests ==========
 
+test_that("Testing 'cl.pos' parameter", {
+  M <- cor(mtcars)
+  expect_silent(corrplot(M, cl.pos = TRUE))
+  expect_silent(corrplot(M, cl.pos = FALSE))
+  expect_silent(corrplot(M, cl.pos = "r"))
+  expect_silent(corrplot(M, cl.pos = "b"))
+})
+
+test_that("Testing 'tl.pos' parameter", {
+  M <- cor(mtcars)
+  expect_silent(corrplot(M, tl.pos = TRUE))
+  expect_silent(corrplot(M, tl.pos = FALSE))
+  expect_silent(corrplot(M, tl.pos = "d"))
+  expect_silent(corrplot(M, tl.pos = "n"))
+  expect_silent(corrplot(M, tl.pos = "lt"))
+  expect_silent(corrplot(M, tl.pos = "ld", type = "lower"))
+  expect_silent(corrplot(M, tl.pos = "td", type = "upper"))
+})
+
+
 test_that("Testing 'cl.lim' parameter", {
   M <- cor(mtcars)
   expect_silent(corrplot(M, cl.lim = c(-1, 1)))
@@ -39,26 +59,6 @@ test_that("Testing 'outline' parameter", {
   expect_error(corrplot(M, outline = ""),
                regexp = "invalid color name")
 
-})
-
-
-test_that("Replacing IF statements with SWITCH statement", {
-  orig_code <- function(type) {
-    tl.pos <- NULL
-    if (type == "full")  tl.pos <- "lt"
-    if (type == "lower") tl.pos <- "ld"
-    if (type == "upper") tl.pos <- "td"
-    return(tl.pos)
-  }
-
-  switch_code <- function(type) {
-    tl.pos <- switch(type, full = "lt", lower = "ld", upper = "td")
-    return(tl.pos)
-  }
-
-  for (t in c("full", "lower", "upper", "DUMMY", NULL)) {
-    expect_equal(orig_code(t), switch_code(t))
-  }
 })
 
 test_that("Issue #7: Enable to plot a matrix with NA", {
