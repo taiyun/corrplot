@@ -2,6 +2,13 @@ context("Visualization of a correlation matrix")
 
 # Tests ==========
 
+test_that("Testing cl.lim parameter", {
+  M <- cor(mtcars)
+  expect_silent(corrplot(M, cl.lim = c(-1, 1)))
+  expect_error(corrplot(M, cl.lim = c(0, 1)),
+               regexp = "color limits should cover matrix")
+})
+
 test_that("Replacing IF statements with SWITCH statement", {
   orig_code <- function(type) {
     tl.pos <- NULL
