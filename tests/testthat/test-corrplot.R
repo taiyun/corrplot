@@ -82,11 +82,14 @@ test_that("Non-correlation matrix", {
 
 test_that("Try different ordering", {
   M <- cor(mtcars)
+
   expect_true(identical(M, corrplot(M)))
   expect_false(identical(M, corrplot(M, order = "AOE")))
   expect_false(identical(M, corrplot(M, order = "FPC")))
   expect_false(identical(M, corrplot(M, order = "hclust")))
   expect_false(identical(M, corrplot(M, order = "alphabet")))
+
+  expect_silent(corrplot(M, addrect = 2, order = "hclust", type = "full"))
 })
 
 test_that("Plot without a grid should not crash", {
