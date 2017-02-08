@@ -9,6 +9,16 @@ test_that("Testing cl.lim parameter", {
                regexp = "color limits should cover matrix")
 })
 
+test_that("Testing tl.pos parameter", {
+  M <- cor(mtcars)
+  expect_silent(corrplot(M, tl.pos = "td", type = "upper"))
+  expect_error(corrplot(M, tl.pos = "td", type = "lower"),
+               regexp = "type should be")
+  expect_silent(corrplot(M, tl.pos = "ld", type = "lower"))
+  expect_error(corrplot(M, tl.pos = "ld", type = "upper"),
+               regexp = "type should be")
+})
+
 test_that("Replacing IF statements with SWITCH statement", {
   orig_code <- function(type) {
     tl.pos <- NULL
