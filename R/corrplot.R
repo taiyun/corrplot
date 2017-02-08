@@ -489,14 +489,12 @@ corrplot <- function(corr,
 
   if (isFALSE(outline)) {
     col.border <- col.fill
-  }
-
-  if (isTRUE(outline)) {
+  } else if (isTRUE(outline)) {
     col.border <- "black"
-  }
-
-  if (is.character(outline)) {
+  } else if (is.character(outline)) {
     col.border <- outline
+  } else {
+    stop("Unsupported value type for parameter outline")
   }
 
   oldpar <- par(mar = mar, bg = "white")
