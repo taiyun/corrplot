@@ -42,8 +42,9 @@
 #'   principal diagonal.
 #'
 #' @param outline Logical or character, whether plot outline of circles, square
-#'   and ellipse, or the color of these glyphs. If \code{outline} is
-#'   \code{TRUE}, the default value is \code{"black"}.
+#'   and ellipse, or the color of these glyphs. For pie, this represents the
+#'   color of the circle outlining the pie. If \code{outline} is \code{TRUE},
+#'   the default value is \code{"black"}.
 #'
 #' @param mar See \code{\link{par}}.
 #'
@@ -617,7 +618,10 @@ corrplot <- function(corr,
 
   ## pie
   if (method == "pie" && plotCI == "n") {
-    symbols(Pos, add = TRUE, inches = FALSE, circles = rep(0.5, len.DAT) * 0.85)
+
+    # Issue #18: Corrplot background circle
+    symbols(Pos, add = TRUE, inches = FALSE,
+            circles = rep(0.5, len.DAT) * 0.85, fg = col.border)
 
     pie.dat <- function(theta, length = 100) {
       k <- seq(pi / 2, pi / 2 - theta, length = 0.5 * length * abs(theta) / pi)
