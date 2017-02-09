@@ -2,12 +2,12 @@ bibentry("Manual",
 	title="R package 'corrplot': Visualization of a correlation matrix",
 	author="Taiyun Wei and Viliam Simko",
 	year="2017",
-	note="(Version 0.81)",
+	note="(Version 0.82)",
 	url="https://github.com/taiyun/corrplot",
 
 	textVersion =
   	paste("T. Wei and V. Simko (2016). ",
-  			"R package 'corrplot': Visualization of a correlation matrix (Version 0.81). ",
+  			"R package 'corrplot': Visualization of a correlation matrix (Version 0.82). ",
   			"Available from https://github.com/taiyun/corrplot",
   			sep=""),
 
