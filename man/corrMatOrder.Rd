@@ -67,12 +67,11 @@ corrRect.hclust(corr = M.hc, k = 3)
 corrplot(M.hc2)
 corrRect.hclust(M.hc2, k = 2, method = "ward")
 }
-\author{
-Taiyun Wei
-}
 \seealso{
 Package \code{seriation} offers more methods to reorder matrices,
   such as ARSA, BBURCG, BBWRCG, MDS, TSP, Chen and so forth.
 }
+\author{
+Taiyun Wei
+}
 \keyword{hplot}
-

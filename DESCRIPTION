@@ -1,13 +1,11 @@
 Package: corrplot
 Type: Package
 Title: Visualization of a Correlation Matrix
-Version: 0.80
-Date: 2016-11-14
+Version: 0.81
+Date: 2017-02-07
 Author: Taiyun Wei, Viliam Simko
 Suggests:
-    seriation,
     knitr,
-    Cairo,
     testthat
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Description: A graphical display of a correlation matrix or general matrix.
@@ -16,4 +14,4 @@ License: GPL
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

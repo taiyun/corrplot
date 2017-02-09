@@ -69,4 +69,3 @@ colorlegend(sample(rainbow(12)),
 Taiyun Wei
 }
 \keyword{hplot}
-

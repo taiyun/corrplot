@@ -20,7 +20,7 @@ corrplot(corr, method = c("circle", "square", "ellipse", "number", "shade",
   sig.level = 0.05, insig = c("pch", "p-value", "blank", "n"), pch = 4,
   pch.col = "black", pch.cex = 3, plotCI = c("n", "square", "circle",
   "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
-  na.label.col = "black", ...)
+  na.label.col = "black", win.asp = 1, ...)
 }
 \arguments{
 \item{corr}{The correlation matrix to visualize, must be square if
@@ -61,8 +61,9 @@ not. We can visualize the non-correlation matrix by setting
 principal diagonal.}
 
 \item{outline}{Logical or character, whether plot outline of circles, square
-and ellipse, or the color of these glyphs. If \code{outline} is
-\code{TRUE}, the default value is \code{"black"}.}
+and ellipse, or the color of these glyphs. For pie, this represents the
+color of the circle outlining the pie. If \code{outline} is \code{TRUE},
+the default value is \code{"black"}.}
 
 \item{mar}{See \code{\link{par}}.}
 
@@ -207,6 +208,9 @@ sign, the smaller circle will be wiped away, thus forming a ring. Method
 
 \item{na.label.col}{Color used for rendering \code{NA} cells. Default is
 \code{"black"}.}
+
+\item{win.asp}{Aspect ration for the whole plot. Value other than 1 is
+currently compatible only with methods "circle" and "square".}
 
 \item{\dots}{Additional arguments passing to function \code{text} for drawing
 text lable.}
@@ -436,11 +440,6 @@ for(i in seq(0.1, 0, -0.005)){
 }
 ## end.animaton
 }
-\author{
-Taiyun Wei (weitaiyun@gmail.com)
-
-Viliam Simko (viliam.simko@gmail.com)
-}
 \references{
 Michael Friendly (2002).
 \emph{Corrgrams: Exploratory displays for correlation matrices}.
@@ -457,5 +456,9 @@ Function \code{plotcorr}  in the \code{ellipse} package and
   Package \code{seriation} offered more methods to reorder matrices, such as
   ARSA, BBURCG, BBWRCG, MDS, TSP, Chen and so forth.
 }
-\keyword{hplot}
+\author{
+Taiyun Wei (weitaiyun@gmail.com)
 
+Viliam Simko (viliam.simko@gmail.com)
+}
+\keyword{hplot}
