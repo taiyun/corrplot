@@ -1,13 +1,22 @@
+		CHANGES IN corrplot VERSION 0.81
+
+CHANGES
+  * Fixed #79: added parameter `win.asp` to control aspect ratio
+  * Fixed #18: parameter `outline` combined with `method="pie"` controls
+    the color of the otline circle of each pie.
+  * updated vignette
+
+
 		CHANGES IN corrplot VERSION 0.80
 
 CHANGES
-  * Fixed #70, Enable to plot a matrix with NA when 'is.corr = F'
+  * Fixed #70: Enable to plot a matrix with NA when 'is.corr = F'
 
 
 		CHANGES IN corrplot VERSION 0.77
 
 CHANGES
-  * Fixed #58, make sure the margin is correct in corrplot.mixed().
+  * Fixed #58: make sure the margin is correct in corrplot.mixed().
   * Revised document.
 
 
