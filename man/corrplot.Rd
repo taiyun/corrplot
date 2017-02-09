@@ -61,8 +61,9 @@ not. We can visualize the non-correlation matrix by setting
 principal diagonal.}
 
 \item{outline}{Logical or character, whether plot outline of circles, square
-and ellipse, or the color of these glyphs. If \code{outline} is
-\code{TRUE}, the default value is \code{"black"}.}
+and ellipse, or the color of these glyphs. For pie, this represents the
+color of the circle outlining the pie. If \code{outline} is \code{TRUE},
+the default value is \code{"black"}.}
 
 \item{mar}{See \code{\link{par}}.}
 
