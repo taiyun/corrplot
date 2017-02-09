@@ -514,14 +514,14 @@ corrplot <- function(corr,
         m1 - 0.5 - laboffset -
           xlabwidth * (grepl("l", tl.pos) | grepl("d", tl.pos)),
         m2 + 0.5 + mm * cl.ratio * (cl.pos == "r") +
-          xlabwidth * abs(cos(tl.srt * pi/180)) * grepl("d", tl.pos)
+          xlabwidth * abs(cos(tl.srt * pi / 180)) * grepl("d", tl.pos)
       ) + c(-0.35, 0.15) +
           c(-1,0) * grepl("l", tl.pos) # margin between text and grid
 
       ylim <- c(
         n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
         n2 + 0.5 + laboffset +
-          ylabwidth * abs(sin(tl.srt * pi/180)) * grepl("t", tl.pos)
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
       ) +
         c(-0.15, 0) +
         c(0, -1) * (type == "upper") + # nasty hack
