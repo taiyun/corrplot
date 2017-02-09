@@ -3,12 +3,12 @@
 \docType{package}
 \name{corrplot-package}
 \alias{corrplot-package}
-\alias{corrplot}
 \title{Visualization of a correlation matrix}
 \description{
 The corrplot package is a graphical display of a correlation matrix,
-confidence interval. It also contains some algorithms to do matrix
-reordering.
+confidence interval or general matrix. It also contains some algorithms to do
+matrix reordering. In addition, corrplot is good at details, including
+choosing color, text labels, color labels, layout, etc.
 }
 \references{
 Michael Friendly (2002).
