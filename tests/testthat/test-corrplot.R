@@ -200,3 +200,11 @@ test_that("Issue #79: Changing aspect ratio for the plot", {
   expect_error(corrplot(M, is.corr = F, win.asp = .7, method = "pie"),
                regexp = "supported only for circle and square methods")
 })
+
+test_that("Issue #18", {
+  M <- cor(mtcars)
+  # TODO: calling the function without actually checking anything
+  expect_silent(corrplot(M, method = "pie"))
+  expect_silent(corrplot(M, method = "pie", outline = TRUE))
+  expect_silent(corrplot(M, method = "pie", outline = "white"))
+})
