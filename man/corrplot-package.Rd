@@ -32,4 +32,9 @@ Viliam Simko (viliam.simko@gmail.com)
 Maintainer: Taiyun Wei (weitaiyun@gmail.com)
 }
 \keyword{correlation}
+\keyword{correlogram}
+\keyword{dimensionality}
+\keyword{feature}
 \keyword{hplot}
+\keyword{reduction}
+\keyword{selection}

@@ -31,6 +31,9 @@
 #'
 #' @keywords hplot
 #' @keywords correlation
+#' @keywords correlogram
+#' @keywords feature selection
+#' @keywords dimensionality reduction
 NULL
 
 .onAttach <- function(libname, pkgname) {
