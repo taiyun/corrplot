@@ -393,8 +393,8 @@ corrplot <- function(corr,
   apply_mat_filter <- function(mat) {
     x <- matrix(1:n * m, n, m)
     switch(type,
-        upper = mat[row(x) > col(x)] <- Inf,
-        lower = mat[row(x) < col(x)] <- Inf
+      upper = mat[row(x) > col(x)] <- Inf,
+      lower = mat[row(x) < col(x)] <- Inf
     )
 
     if (!diag) {
@@ -418,14 +418,14 @@ corrplot <- function(corr,
   # we use this for rending NA cells differently
   getPos.NAs <- function(mat) {
     tmp <- apply_mat_filter(mat)
-    ind  <- which(is.na(tmp), arr.ind = TRUE)
+    ind <- which(is.na(tmp), arr.ind = TRUE)
     Pos <- ind
     Pos[,1] <-  ind[,2]
     Pos[,2] <- -ind[,1] + 1 + n
     return(Pos)
   }
 
-  Pos  <- getPos.Dat(corr)[[1]]
+  Pos <- getPos.Dat(corr)[[1]]
 
   # rows
   n2 <- max(Pos[,2])
@@ -459,11 +459,11 @@ corrplot <- function(corr,
 
   ## assign colors
   assign.color <- function(dat = DAT, color = col){
-     newcorr <- (dat + 1) / 2
-     newcorr[newcorr <= 0]  <- 0
-     newcorr[newcorr >= 1]  <- 1 - 1e-16
+    newcorr <- (dat + 1) / 2
+    newcorr[newcorr <= 0]  <- 0
+    newcorr[newcorr >= 1]  <- 1 - 1e-16
 
-     color[floor(newcorr * length(color)) + 1] # new color returned
+    color[floor(newcorr * length(color)) + 1] # new color returned
   }
 
   col.fill <- assign.color()
@@ -502,39 +502,54 @@ corrplot <- function(corr,
   ## calculate label-text width approximately
   if (!add) {
     plot.new()
-    xlabwidth <- ylabwidth <- 0
 
+    # Issue #10: code from Sébastien Rochette (github user @statnmap)
+    xlabwidth <- max(strwidth(newrownames, cex = tl.cex))
+    ylabwidth <- max(strwidth(newcolnames, cex = tl.cex))
+    laboffset <- strwidth("W", cex = tl.cex) * tl.offset
+
+    # Issue #10
     for (i in 1:50) {
-      xlim <- c(m1 - 0.5 - xlabwidth,
-                m2 + 0.5 + mm * cl.ratio * (cl.pos == "r"))
-      ylim <- c(n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
-                n2 + 0.5 + ylabwidth)
-      plot.window(xlim + c(-0.2, 0.2), ylim + c(-0.2, 0.2), asp = 1,
-                  xaxs = "i", yaxs = "i")
+      xlim <- c(
+        m1 - 0.5 - laboffset -
+          xlabwidth * (grepl("l", tl.pos) | grepl("d", tl.pos)),
+        m2 + 0.5 + mm * cl.ratio * (cl.pos == "r") +
+          xlabwidth * abs(cos(tl.srt * pi/180)) * grepl("d", tl.pos)
+      ) + c(-0.35, 0.15) +
+          c(-1,0) * grepl("l", tl.pos) # margin between text and grid
+
+      ylim <- c(
+        n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
+        n2 + 0.5 + laboffset +
+          ylabwidth * abs(sin(tl.srt * pi/180)) * grepl("t", tl.pos)
+      ) +
+        c(-0.15, 0) +
+        c(0, -1) * (type == "upper") + # nasty hack
+        c(0,1) * grepl("d", tl.pos) # margin between text and grid
+
+      plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
+
       x.tmp <- max(strwidth(newrownames, cex = tl.cex))
       y.tmp <- max(strwidth(newcolnames, cex = tl.cex))
 
-      if (min(x.tmp - xlabwidth, y.tmp - ylabwidth) < 0.0001) {
+      laboffset.tmp <- strwidth("W", cex = tl.cex) * tl.offset
+      if (max(x.tmp - xlabwidth,
+              y.tmp - ylabwidth,
+              laboffset.tmp - laboffset) < 1e-03) {
         break
       }
 
       xlabwidth <- x.tmp
       ylabwidth <- y.tmp
+
+      laboffset <- laboffset.tmp
+
+      if (i == 50) {
+        warning(c("Not been able to calculate text margin, ",
+                  "please try again with a clean new empty window using ",
+                  "{plot.new(); dev.off()} or reduce tl.cex"))
+      }
     }
-
-    if (tl.pos == "n" || tl.pos == "d") {
-      xlabwidth <- ylabwidth <- 0
-    }
-
-    if (tl.pos == "td") ylabwidth <- 0
-    if (tl.pos == "ld") xlabwidth <- 0
-
-    laboffset <- strwidth("W", cex = tl.cex) * tl.offset
-    xlim <- c(m1 - 0.5 - xlabwidth - laboffset,
-              m2 + 0.5 + mm * cl.ratio * (cl.pos == "r")) + c(-0.35, 0.15)
-    ylim <- c(n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
-              n2 + 0.5 + ylabwidth * abs(sin(tl.srt * pi / 180)) + laboffset)
-            + c(-0.15, 0.35)
 
     if (.Platform$OS.type == "windows") {
       grDevices::windows.options(width = 7,
