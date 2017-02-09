@@ -86,15 +86,15 @@ test_that("Issue #21: plotCI=rect incompatible with some methods", {
   L <- M - 0.1
   U <- M + 0.1
   expect_equal(corrplot.mixed(M, lower = "circle", upper = "number",
-                              low = L, upp = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect"), M)
   expect_equal(corrplot.mixed(M, lower = "number", upper = "circle",
-                              low = L, upp = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect"), M)
   expect_equal(corrplot.mixed(M, lower = "circle", upper = "square",
-                              low = L, upp = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect"), M)
   expect_equal(corrplot.mixed(M, lower = "ellipse", upper = "square",
-                              low = L, upp = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect"), M)
   expect_equal(corrplot.mixed(M, lower = "pie", upper = "square",
-                              low = L, upp = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect"), M)
 })
 
 test_that("Issue #43: Return value should be the same as corrplot function", {
@@ -207,4 +207,11 @@ test_that("Issue #18", {
   expect_silent(corrplot(M, method = "pie"))
   expect_silent(corrplot(M, method = "pie", outline = TRUE))
   expect_silent(corrplot(M, method = "pie", outline = "white"))
+})
+
+test_that("Issue #76: separate `col` parameters corrplot.mixed", {
+  M <- cor(mtcars)
+  expect_silent(corrplot.mixed(M, lower.col = "black"))
+  expect_silent(corrplot.mixed(M, lower = "circle",
+                               upper = "number", upper.col = "black"))
 })

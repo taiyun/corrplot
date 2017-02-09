@@ -57,9 +57,9 @@ corrplot(M, type = "upper")
 `corrplot.mixed()` is a wrapped function for mixed visualization style.
 ```{r mixed}
 corrplot.mixed(M)
+corrplot.mixed(M, lower.col = "black", number.cex = .7)
 corrplot.mixed(M, lower = "ellipse", upper = "circle")
-corrplot.mixed(M, lower = "square", upper = "circle")
-
+corrplot.mixed(M, lower = "square", upper = "circle", tl.col = "black")
 ```
 
 
@@ -117,8 +117,10 @@ corrplot(M, order = "hclust", addrect = 3)
 corrplot(M, type = "upper", order = "hclust",
          col = c("black", "white"), bg = "lightblue")
 ```
+
+
 Using different color spectra
------------------------------
+------------------------------
 As shown in the above section, the color of the correlogram can be customized.
 The function `colorRampPalette()` is very convenient for generating color
 spectrum.
