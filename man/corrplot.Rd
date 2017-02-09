@@ -461,4 +461,3 @@ Taiyun Wei (weitaiyun@gmail.com)
 
 Viliam Simko (viliam.simko@gmail.com)
 }
-\keyword{hplot}

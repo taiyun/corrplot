@@ -229,7 +229,6 @@
 #'   ARSA, BBURCG, BBWRCG, MDS, TSP, Chen and so forth.
 #'
 #' @example vignettes/example-corrplot.R
-#' @keywords hplot
 #' @import graphics grDevices stats
 #' @export
 corrplot <- function(corr,
