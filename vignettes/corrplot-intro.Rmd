@@ -6,7 +6,6 @@
 An Introduction to **corrplot** Package
 =======================================
 
-
 ```{r setup, include=FALSE}
 library(knitr)
 opts_chunk$set(out.extra = 'style="display:block; margin: auto"',
@@ -24,14 +23,19 @@ color labels, layout, etc.
 
 Visualization methods
 ----------------------------
-There are seven visualization methods (parameter `method`) in **corrplot** package, named `"circle"`, `"square"`, `"ellipse"`, `"number"`, `"shade"`, `"color"`, `"pie"`. 
+There are seven visualization methods (parameter `method`) in **corrplot** package, named `"circle"`, `"square"`, `"ellipse"`, `"number"`, `"shade"`, `"color"`, `"pie"`.
+
+> Positive correlations are displayed in blue and negative correlations in red
+> color. Color intensity and the size of the circle are proportional to the
+> correlation coefficients.
+
 ```{r methods}
 library(corrplot)
 M <- cor(mtcars)
 corrplot(M, method = "circle")
 corrplot(M, method = "square")
 corrplot(M, method = "ellipse")
-corrplot(M, method = "number")
+corrplot(M, method = "number") # Display the correlation coefficient
 corrplot(M, method = "shade")
 corrplot(M, method = "color")
 corrplot(M, method = "pie")
@@ -40,29 +44,31 @@ corrplot(M, method = "pie")
 
 Layout
 -----------------------------
-There are three layout types (parameter `type`), named `"full"` (default),
-`"upper"` or `"lower"`, display full matrix, lower triangular or upper
-triangular matrix.
+There are three layout types (parameter `type`):
+- `"full"` (default) : display full **correlation matrix**
+- `"upper"` : display upper triangular of the **correlation matrix**
+- `"lower"` : display lower triangular of the **correlation matrix**
 
 ```{r layout}
 corrplot(M, type = "upper")
-corrplot(M, type = "lower")
+corrplot(M, type = "upper")
 ```
 
 `corrplot.mixed()` is a wrapped function for mixed visualization style.
 ```{r mixed}
 corrplot.mixed(M)
+corrplot.mixed(M, lower.col = "black", number.cex = .7)
 corrplot.mixed(M, lower = "ellipse", upper = "circle")
-corrplot.mixed(M, lower = "square", upper = "circle")
-
+corrplot.mixed(M, lower = "square", upper = "circle", tl.col = "black")
 ```
 
 
 Reorder a correlation matrix
 ----------------------------
-Matrix reorder is very important for mining the hiden structure and pattern in
-the matrix. There are four methods in corrplot (parameter `order`), named
-`"AOE"`, `"FPC"`, `"hclust"`, `"alphabet"`.  More algorithms can be found in
+The correlation matrix can be reordered according to the correlation
+coefficient. This is important to identify the hidden structure and pattern in
+the matrix. There are four methods in corrplot (parameter `order`), named 
+`"AOE"`, `"FPC"`, `"hclust"`, `"alphabet"`.  More algorithms can be found in 
 [seriation](cran.r-project.org/package=seriation) package.
 
 You can also reorder the matrix "manually" via function `corrMatOrder()`.
@@ -106,12 +112,18 @@ If using `"hclust"`, `corrplot()` can  draw rectangles around the chart of corrr
 corrplot(M, order = "hclust", addrect = 2)
 corrplot(M, order = "hclust", addrect = 3)
 ```
+```{r hclust-lightblue}
+# Change background color to lightblue
+corrplot(M, type = "upper", order = "hclust",
+         col = c("black", "white"), bg = "lightblue")
+```
 
 
 Using different color spectra
------------------------------
-We can also specify the color system, `colorRampPalette()` is very convenient
-for generating color spectrum.
+------------------------------
+As shown in the above section, the color of the correlogram can be customized.
+The function `colorRampPalette()` is very convenient for generating color
+spectrum.
 
 ```{r color}
 col1 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
@@ -130,17 +142,35 @@ corrplot(M, order = "hclust", addrect = 2, col = col2(50))
 corrplot(M, order = "hclust", addrect = 2, col = col3(20))
 corrplot(M, order = "hclust", addrect = 2, col = col4(10))
 corrplot(M, order = "hclust", addrect = 2, col = whiteblack, bg = "gold2")
+```
 
-## you can also use the standard color palettes (package `grDevices`)
+You can also use the standard color palettes (package `grDevices`)
+```{r hclust-stdcolors}
 corrplot(M, order = "hclust", addrect = 2, col = heat.colors(100))
 corrplot(M, order = "hclust", addrect = 2, col = terrain.colors(100))
 corrplot(M, order = "hclust", addrect = 2, col = cm.colors(100))
+corrplot(M, order = "hclust", addrect = 2, col = gray.colors(100))
+```
+
+Other option would be to use `RcolorBrewer` package.
+```{r hclust-rcolorbrewer}
+library(RColorBrewer)
+
+corrplot(M, type = "upper", order = "hclust",
+         col = brewer.pal(n = 8, name = "RdBu"))
+corrplot(M, type = "upper", order = "hclust",
+         col = brewer.pal(n = 8, name = "RdYlBu"))
+corrplot(M, type = "upper", order = "hclust",
+         col = brewer.pal(n = 8, name = "PuOr"))
 ```
 
 
-Color legend and text legend
-----------------------------
-Parameter `cl.*` is for color legend, and `tl.*` if for text legend.
+
+Changing color and rotation of text labels and legend
+-----------------------------------------------------
+Parameter `cl.*` is for color legend, and `tl.*` if for text legend. For the
+text label, `tl.col` (text label color) and `tl.srt` (text label string 
+rotation) are used to change text colors and rotations.
 
 Here are some examples.
 ```{r color-label}
@@ -152,6 +182,9 @@ corrplot(M, order = "AOE", cl.pos = "b", tl.pos = "d", tl.srt = 60)
 
 ## a wider color legend with numbers right aligned
 corrplot(M, order = "AOE", cl.ratio = 0.2, cl.align = "r")
+
+## text labels rotated 45 degrees
+corrplot(M, type = "lower", order = "hclust", tl.col = "black", tl.srt = 45)
 ```
 
 
@@ -203,8 +236,8 @@ corrplot(M2)
 ```
 
 
-Combine with the significance test
-----------------------------------
+Combining correlogram with the significance test
+------------------------------------------------
 ```{r test}
 cor.mtest <- function(mat, conf.level = 0.95){
   mat <- as.matrix(mat)
@@ -223,8 +256,8 @@ cor.mtest <- function(mat, conf.level = 0.95){
 	return(list(p.mat, lowCI.mat, uppCI.mat))
 }
 
-res1 <- cor.mtest(mtcars,0.95)
-res2 <- cor.mtest(mtcars,0.99)
+res1 <- cor.mtest(mtcars, 0.95)
+res2 <- cor.mtest(mtcars, 0.99)
 
 ## specialized the insignificant value according to the significant level
 corrplot(M, p.mat = res1[[1]], sig.level = 0.2)
@@ -256,3 +289,54 @@ corrplot(M, p.mat = res1[[1]], low = res1[[2]], upp = res1[[3]],
          addrect = 3, rect.col = "navy", plotC = "rect",cl.pos = "n")
 ```
 
+Customize the correlogram
+-------------------------
+```{r pmat}
+# mat : is a matrix of data
+# ... : further arguments to pass to the native R cor.test function
+cor.mtest <- function(mat, ...) {
+  mat <- as.matrix(mat)
+  n <- ncol(mat)
+  p.mat <- matrix(NA, n, n)
+  diag(p.mat) <- 0
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      tmp <- cor.test(mat[, i], mat[, j], ...)
+      p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
+    }
+  }
+  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+  p.mat
+}
+
+# matrix of the p-value of the correlation
+p.mat <- cor.mtest(mtcars)
+head(p.mat[, 1:5])
+
+# Specialized the insignificant value according to the significant level
+corrplot(M, type = "upper", order = "hclust", 
+         p.mat = p.mat, sig.level = 0.01)
+
+# Leave blank on no significant coefficient
+corrplot(M, type = "upper", order = "hclust", 
+         p.mat = p.mat, sig.level = 0.01, insig = "blank")
+```
+In the above figure, correlations with **p-value > 0.01** are considered as
+insignificant. In this case the correlation coefficient values are leaved blank
+or crosses are added.
+
+```{r customized}
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(M, method = "color", col = col(200),
+         type = "upper", order = "hclust", number.cex = .7,
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col = "black", tl.srt = 90, #Text label color and rotation
+         # Combine with significance
+         p.mat = p.mat, sig.level = 0.01, insig = "blank", 
+         # hide correlation coefficient on the principal diagonal
+         diag = FALSE)
+```
+
+**Note:** Some of the plots were taken from [this blog].
+
+[this blog]: http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram

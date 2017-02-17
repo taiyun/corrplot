@@ -16,6 +16,8 @@
 #'   \code{\link{corrplot}}
 #' @param plotCI See the \code{plotCI} parameter in the function
 #'   \code{\link{corrplot}}
+#' @param lower.col Passed as \code{col} parameter to the lower matrix.
+#' @param upper.col Passed as \code{col} parameter to the upper matrix.
 #' @param \dots Additional arguments for corrplot's wrappers
 #'
 #' @author Taiyun Wei
@@ -29,6 +31,8 @@ corrplot.mixed <- function(
   diag = c("n", "l", "u"),
   bg = "white",
   addgrid.col = "grey",
+  lower.col = NULL,
+  upper.col = NULL,
   plotCI = c("n", "square", "circle", "rect"),
   ...)
 {
@@ -49,11 +53,13 @@ corrplot.mixed <- function(
   plotCI_upper <- adjust_plotCI(plotCI, upper)
 
   corrplot(corr, type = "upper", method = upper, diag = TRUE,
-           tl.pos = tl.pos, plotCI = plotCI_upper, ...)
+           tl.pos = tl.pos, plotCI = plotCI_upper,
+           col = upper.col, ...)
 
   corrplot(corr, add = TRUE, type = "lower", method = lower,
            diag = (diag == "l"),
-           tl.pos = "n", cl.pos = "n", plotCI = plotCI_lower, ...)
+           tl.pos = "n", cl.pos = "n", plotCI = plotCI_lower,
+           col = lower.col, ...)
 
   if (diag == "n" && tl.pos != "d") {
       symbols(1:n, n:1, add = TRUE, bg = bg, fg = addgrid.col,
