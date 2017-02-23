@@ -1,14 +1,21 @@
+PKG <- "corrplot"
+VERSION <- packageVersion(PKG)
+TITLE <- packageDescription(PKG, fields = "Title")
+AUTHORS <- packageDescription(PKG, fields = "Author")
+URL <- packageDescription(PKG, fields = "URL")
+YEAR <- strftime(packageDescription(PKG, fields = "Date"), "%Y")
+
 bibentry("Manual",
-	title="R package 'corrplot': Visualization of a correlation matrix",
-	author="Taiyun Wei and Viliam Simko",
-	year="2017",
-	note="(Version 0.82)",
-	url="https://github.com/taiyun/corrplot",
+	title = sprintf("R package \"%s\": %s", PKG, TITLE),
+	author = AUTHORS,
+	year = YEAR,
+	note = sprintf("(Version %s)", VERSION),
+	url = URL,
 
-	textVersion =
-  	paste("T. Wei and V. Simko (2016). ",
-  			"R package 'corrplot': Visualization of a correlation matrix (Version 0.82). ",
-  			"Available from https://github.com/taiyun/corrplot",
-  			sep=""),
+	mheader = sprintf("To cite %s in publications use:", PKG),
 
-	mheader = "To cite corrplot in publications use:")
+	textVersion = sprintf(
+    "%s (%s). R package \"%s\": %s (Version %s). Available from %s",
+    AUTHORS, YEAR, PKG, TITLE, VERSION, URL
+	)
+)
