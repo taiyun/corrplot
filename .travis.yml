@@ -1,6 +1,11 @@
 language: r
 # see also https://docs.travis-ci.com/user/languages/r
 
+# see also https://docs.travis-ci.com/user/multi-os/
+os:
+  - linux
+  - osx
+
 # Using the package cache to store R package dependencies can significantly
 # speed up build times and is recommended for most builds.
 cache:
