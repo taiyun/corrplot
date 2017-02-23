@@ -13,7 +13,11 @@ This package is licensed under GPL, and available on CRAN:
 <http://cran.r-project.org/package=corrplot>.
 
 ## How to cite
-To cite corrplot properly, call the R built-in command `citation("corrplot")` as follows:
+The R core development team and the very active community of package authors
+have invested a lot of time and effort in creating R as it is today. Please give
+credit where credit is due and cite R and R packages when you use them for data
+analysis. To cite `corrplot` properly, call the R built-in command
+`citation("corrplot")` as follows:
 ```r
 library(corrplot)
 citation("corrplot")
