@@ -6,6 +6,7 @@ Date: 2017-02-09
 Author: Taiyun Wei, Viliam Simko
 Suggests:
     knitr,
+    RColorBrewer,
     testthat
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Description: A graphical display of a correlation matrix or general matrix.
