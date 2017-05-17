@@ -813,7 +813,7 @@ corrplot <- function(corr,
         l <- length(sig.level)
         for (i in seq_along(sig.level)) {
           iter <- l + 1 - i
-          pchTmp <- paste(rep(pch, iter), collapse = "")
+          pchTmp <- paste(rep(pch, i), collapse = "")
           if(i == length(sig.level)) {
             locs <- which(pNew < sig.level[iter])
             if (length(locs))
