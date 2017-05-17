@@ -152,14 +152,19 @@
 #'
 #' @param sig.level Significant level,  if the p-value in \code{p-mat} is bigger
 #'   than \code{sig.level}, then the corresponding correlation coefficient is
-#'   regarded as insignificant.
+#'   regarded as insignificant. If \code{insig} is \code{"label_sig"}, this may
+#'   be an increasing vector of significance levels, in which case \code{pch}
+#'   will be used once for the highest p-value interval and multiple times
+#'   (e.g. "*", "**", "***") for each lower p-value interval.
 #'
 #' @param insig Character, specialized insignificant correlation coefficients,
-#'   \code{"pch"} (default), \code{"p-value"}, \code{"blank"} or \code{"n"}. If
-#'   \code{"blank"}, wipe away the corresponding glyphs; if \code{"p-value"},
-#'   add p-values the corresponding glyphs; if \code{"pch"}, add characters (see
-#'   \code{pch} for details) on corresponding glyphs; if \code{"n"}, don't take
-#'   any measures.
+#'   \code{"pch"} (default), \code{"p-value"}, \code{"blank"}, \code{"n"}, or
+#'   \code{"label_sig"}. If \code{"blank"}, wipe away the corresponding glyphs;
+#'   if \code{"p-value"}, add p-values the corresponding glyphs;
+#'   if \code{"pch"}, add characters (see \code{pch} for details) on
+#'   corresponding glyphs; if \code{"n"}, don't take any measures; if
+#'   \code{"label_sig"}, mark significant correlations with pch
+#'   (see \code{sig.level}).
 #'
 #' @param pch Add character on the glyphs of insignificant correlation
 #'   coefficients(only valid when \code{insig} is \code{"pch"}). See
@@ -256,7 +261,7 @@ corrplot <- function(corr,
   shade.lwd = 1, shade.col = "white",
 
   p.mat = NULL, sig.level = 0.05,
-  insig = c("pch", "p-value", "blank", "n"),
+  insig = c("pch", "p-value", "blank", "n", "label_sig"),
   pch = 4, pch.col = "black", pch.cex = 3,
 
   plotCI = c("n", "square", "circle", "rect"),
@@ -791,25 +796,61 @@ corrplot <- function(corr,
     pos.pNew  <- getPos.Dat(p.mat)[[1]]
     pNew      <- getPos.Dat(p.mat)[[2]]
 
-    ind.p <- which(pNew > sig.level)
-    p_inSig <- length(ind.p) > 0
+    if (insig == "label_sig") {
 
-    if (insig == "pch" && p_inSig) {
-      points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
-             pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
-    }
+      # Unless another character is specified, mark sig with *
+      if(!is.character(pch))
+        pch <- "*"
 
-    if (insig == "p-value" && p_inSig) {
-      text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
-        round(pNew[ind.p],2), col = pch.col)
-    }
+      place_points <- function(sig.locs, point)
+        text(pos.pNew[,1][sig.locs], pos.pNew[,2][sig.locs],
+             labels = point, col = pch.col, cex = pch.cex, lwd = 2)
 
-    if (insig == "blank" && p_inSig) {
-      symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
-        squares = rep(1, length(pos.pNew[,1][ind.p])),
-        fg = addgrid.col, bg = bg, add = TRUE)
+      if (length(sig.level) == 1) {
+        place_points(sig.locs = which(pNew < sig.level), point = pch)
+
+      } else {
+        l <- length(sig.level)
+        for (i in seq_along(sig.level)) {
+          iter <- l + 1 - i
+          pchTmp <- paste(rep(pch, iter), collapse = "")
+          if(i == length(sig.level)) {
+            locs <- which(pNew < sig.level[iter])
+            if (length(locs))
+              place_points(sig.locs = locs, point = pchTmp)
+          } else {
+            locs <- which(pNew < sig.level[iter] & pNew > sig.level[iter - 1])
+            if(length(locs))
+              place_points(sig.locs = locs, point = pchTmp)
+          }
+
+        }
+      }
+
+    } else {
+
+      ind.p <- which(pNew > sig.level)
+      p_inSig <- length(ind.p) > 0
+
+      if (insig == "pch" && p_inSig) {
+        points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
+               pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
+      }
+
+      if (insig == "p-value" && p_inSig) {
+        text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
+             round(pNew[ind.p],2), col = pch.col)
+      }
+
+      if (insig == "blank" && p_inSig) {
+        symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
+                squares = rep(1, length(pos.pNew[,1][ind.p])),
+                fg = addgrid.col, bg = bg, add = TRUE)
+      }
     }
   }
+
+
 
   if (cl.pos != "n") {
     colRange <- assign.color(dat = cl.lim2)

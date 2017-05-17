@@ -215,3 +215,15 @@ test_that("Issue #76: separate `col` parameters corrplot.mixed", {
   expect_silent(corrplot.mixed(M, lower = "circle",
                                upper = "number", upper.col = "black"))
 })
+
+test_that("Mark significant correlations", {
+  M <- cor(mtcars)
+  fakepmat <- 1 - abs(M) ^ .2  # Hmisc::rcorr provides a p-value matrix, but
+  # don't want to introduce the dependency
+  expect_silent(corrplot(M, p.mat = fakepmat, insig = "label_sig", pch = "!",
+                         sig.level = c(.001, .1, .99)))
+  expect_silent(corrplot(M[1:2, ], p.mat = fakepmat[1:2, ], method = "ellipse",
+                         insig = "label_sig", pch.col = "white"))
+  expect_silent(corrplot(M, p.mat = fakepmat, insig = "label_sig",
+                         pch = "p<.05", pch.cex = .5, order = "AOE"))
+})
