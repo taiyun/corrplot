@@ -465,4 +465,6 @@ Function \code{plotcorr}  in the \code{ellipse} package and
 Taiyun Wei (weitaiyun@gmail.com)
 
 Viliam Simko (viliam.simko@gmail.com)
+
+Michael Levy (michael.levy@healthcatalyst.com)
 }

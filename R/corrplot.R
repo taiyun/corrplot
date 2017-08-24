@@ -217,6 +217,7 @@
 #'
 #' @author Taiyun Wei (weitaiyun@@gmail.com)
 #' @author Viliam Simko (viliam.simko@@gmail.com)
+#' @author Michael Levy (michael.levy@@healthcatalyst.com)
 #'
 #' @note \code{Cairo} and \code{cairoDevice} packages is strongly recommended to
 #'   produce high-quality PNG, JPEG, TIFF bitmap files, especially for that
@@ -799,12 +800,13 @@ corrplot <- function(corr,
     if (insig == "label_sig") {
 
       # Unless another character is specified, mark sig with *
-      if(!is.character(pch))
+      if (!is.character(pch))
         pch <- "*"
 
-      place_points <- function(sig.locs, point)
+      place_points <- function(sig.locs, point) {
         text(pos.pNew[,1][sig.locs], pos.pNew[,2][sig.locs],
              labels = point, col = pch.col, cex = pch.cex, lwd = 2)
+      }
 
       if (length(sig.level) == 1) {
         place_points(sig.locs = which(pNew < sig.level), point = pch)
@@ -814,17 +816,19 @@ corrplot <- function(corr,
         for (i in seq_along(sig.level)) {
           iter <- l + 1 - i
           pchTmp <- paste(rep(pch, i), collapse = "")
-          if(i == length(sig.level)) {
+          if (i == length(sig.level)) {
             locs <- which(pNew < sig.level[iter])
-            if (length(locs))
+            if (length(locs)) {
               place_points(sig.locs = locs, point = pchTmp)
+            }
           } else {
             locs <- which(pNew < sig.level[iter] & pNew > sig.level[iter - 1])
-            if(length(locs))
+            if (length(locs)) {
               place_points(sig.locs = locs, point = pchTmp)
+            }
           }
-
         }
+
       }
 
     } else {
