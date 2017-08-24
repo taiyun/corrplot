@@ -17,9 +17,9 @@ corrplot(corr, method = c("circle", "square", "ellipse", "number", "shade",
   cl.ratio = 0.15, cl.align.text = "c", cl.offset = 0.5, number.cex = 1,
   number.font = 2, number.digits = NULL, addshade = c("negative",
   "positive", "all"), shade.lwd = 1, shade.col = "white", p.mat = NULL,
-  sig.level = 0.05, insig = c("pch", "p-value", "blank", "n"), pch = 4,
-  pch.col = "black", pch.cex = 3, plotCI = c("n", "square", "circle",
-  "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
+  sig.level = 0.05, insig = c("pch", "p-value", "blank", "n", "label_sig"),
+  pch = 4, pch.col = "black", pch.cex = 3, plotCI = c("n", "square",
+  "circle", "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
   na.label.col = "black", win.asp = 1, ...)
 }
 \arguments{
@@ -171,14 +171,19 @@ negative.}
 
 \item{sig.level}{Significant level,  if the p-value in \code{p-mat} is bigger
 than \code{sig.level}, then the corresponding correlation coefficient is
-regarded as insignificant.}
+regarded as insignificant. If \code{insig} is \code{"label_sig"}, this may
+be an increasing vector of significance levels, in which case \code{pch}
+will be used once for the highest p-value interval and multiple times
+(e.g. "*", "**", "***") for each lower p-value interval.}
 
 \item{insig}{Character, specialized insignificant correlation coefficients,
-\code{"pch"} (default), \code{"p-value"}, \code{"blank"} or \code{"n"}. If
-\code{"blank"}, wipe away the corresponding glyphs; if \code{"p-value"},
-add p-values the corresponding glyphs; if \code{"pch"}, add characters (see
-\code{pch} for details) on corresponding glyphs; if \code{"n"}, don't take
-any measures.}
+\code{"pch"} (default), \code{"p-value"}, \code{"blank"}, \code{"n"}, or
+\code{"label_sig"}. If \code{"blank"}, wipe away the corresponding glyphs;
+if \code{"p-value"}, add p-values the corresponding glyphs;
+if \code{"pch"}, add characters (see \code{pch} for details) on
+corresponding glyphs; if \code{"n"}, don't take any measures; if
+\code{"label_sig"}, mark significant correlations with pch
+(see \code{sig.level}).}
 
 \item{pch}{Add character on the glyphs of insignificant correlation
 coefficients(only valid when \code{insig} is \code{"pch"}). See
