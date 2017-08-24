@@ -1,7 +1,8 @@
 PKG <- "corrplot"
 VERSION <- packageVersion(PKG)
 TITLE <- packageDescription(PKG, fields = "Title")
-AUTHORS <- packageDescription(PKG, fields = "Author")
+AUTHORS <- gsub("\\s+with contrib.*", " et al.",
+                packageDescription(PKG, fields = "Author"))
 URL <- packageDescription(PKG, fields = "URL")
 YEAR <- strftime(packageDescription(PKG, fields = "Date"), "%Y")
 
