@@ -216,7 +216,7 @@ test_that("Issue #76: separate `col` parameters corrplot.mixed", {
                                upper = "number", upper.col = "black"))
 })
 
-test_that("Mark significant correlations", {
+test_that("Issue #99: Mark significant correlations", {
   M <- cor(mtcars)
   fakepmat <- 1 - abs(M) ^ .2  # Hmisc::rcorr provides a p-value matrix, but
   # don't want to introduce the dependency
