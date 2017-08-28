@@ -291,7 +291,7 @@ corrplot(M, p.mat = res1[[1]], low = res1[[2]], upp = res1[[3]],
 
 ```{r ci_with_laber}
 
-cor.mtest <- function(mat, conf.level = 0.95){
+cor.mtest <- function(mat, conf.level = 0.95) {
   mat <- as.matrix(mat)
   n <- ncol(mat)
   p.mat <- matrix(NA, n, n)
@@ -305,18 +305,17 @@ cor.mtest <- function(mat, conf.level = 0.95){
   p.mat
 }
 
-M <- mtcars
-Mcor <- cor(M)
-Mpval <- cor.mtest(M)
+M <- cor(mtcars)
+Mpval <- cor.mtest(mtcars)
 
-corrplot(Mcor, p.mat = Mpval, insig = "label_sig",
+corrplot(M, p.mat = Mpval, insig = "label_sig",
          sig.level = c(.001, .01, .05), pch.cex = .9, pch.col = "white")
-corrplot(Mcor, p.mat = Mpval, method = "color",
+corrplot(M, p.mat = Mpval, method = "color",
          insig = "label_sig", pch.col = "white")
-corrplot(Mcor, p.mat = Mpval, method = "color", type = "upper",
+corrplot(M, p.mat = Mpval, method = "color", type = "upper",
          sig.level = c(.001, .01, .05), pch.cex = .9,
          insig = "label_sig", pch.col = "white", order = "AOE")
-corrplot(Mcor, p.mat = Mpval, insig = "label_sig", pch.col = "white",
+corrplot(M, p.mat = Mpval, insig = "label_sig", pch.col = "white",
          pch = "p<.05", pch.cex = .5, order = "AOE")
 ```
 
