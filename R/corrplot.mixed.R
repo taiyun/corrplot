@@ -61,12 +61,12 @@ corrplot.mixed <- function(
 
   corrplot(corr, type = "upper", method = upper, diag = TRUE,
            tl.pos = tl.pos, plotCI = plotCI_upper,
-           col = upper.col, ...)
+           col = upper.col, mar = mar, ...)
 
   corrplot(corr, add = TRUE, type = "lower", method = lower,
            diag = (diag == "l"),
            tl.pos = "n", cl.pos = "n", plotCI = plotCI_lower,
-           col = lower.col, ...)
+           col = lower.col, mar = mar, ...)
 
   if (diag == "n" && tl.pos != "d") {
     # draw empty rectangles over the diagonal to "clean" it graphically
