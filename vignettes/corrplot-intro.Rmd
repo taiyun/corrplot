@@ -340,3 +340,25 @@ corrplot(M, method = "color", col = col(200),
 **Note:** Some of the plots were taken from [this blog].
 
 [this blog]: http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram
+
+Large feature matrices
+-------------------------
+```{r large_matrix}
+
+# generating large feature matrix (cols=features, rows=samples)
+set.seed(0)
+size <- 80
+M <- matrix(runif(size**2), nrow = size, ncol = size)
+
+# setting names for the features
+colnames(M) <- paste0("f", 1:nrow(M))
+
+# we make 30% of all features to be correlated with feature #1
+idx_correlated_features <- as.integer(seq(from = 1, to = size, length.out = size * .3)[-1])
+for (i in idx_correlated_features) {
+  M[,i] <- M[,1] + runif(size) # adding some noise
+}
+
+corrplot(cor(M), diag = FALSE, order = "FPC",
+         tl.pos = "td", tl.cex = 0.5,
+         method = "color", type = "upper")
