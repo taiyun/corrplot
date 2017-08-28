@@ -697,20 +697,16 @@ corrplot <- function(corr,
 
   ## square
   if (method == "square" && plotCI == "n") {
-    symbols(Pos, add = TRUE, inches = FALSE,
-            squares = asp_rescale_factor * abs(DAT) ^ 0.5,
-            bg = col.fill, fg = col.border)
+    draw_method_square(Pos, DAT, asp_rescale_factor, col.border, col.fill)
   }
 
   ## color
   if (method == "color" && plotCI == "n") {
-      symbols(Pos, add = TRUE, inches = FALSE,
-              squares = rep(1, len.DAT), bg = col.fill, fg = col.border)
+    draw_method_color(Pos, col.border, col.fill)
   }
 
   ## add grid
-  symbols(Pos, add = TRUE, inches = FALSE,  bg = NA, fg = addgrid.col,
-          rectangles = matrix(1, nrow = len.DAT, ncol = 2) )
+  draw_grid(AllCoords, addgrid.col)
 
   if (plotCI != "n") {
 
@@ -856,8 +852,7 @@ corrplot <- function(corr,
     }
   }
 
-
-
+  ### color legend
   if (cl.pos != "n") {
     colRange <- assign.color(dat = cl.lim2)
     ind1 <- which(col == colRange[1])
@@ -950,3 +945,24 @@ corrplot <- function(corr,
 
   invisible(corr) # reordered correlation matrix
 }
+
+#' @note pure function
+#' @noRd
+draw_method_square <- function(coords, values, asp_rescale_factor, fg, bg) {
+  symbols(coords, add = TRUE, inches = FALSE,
+          squares = asp_rescale_factor * abs(values) ^ 0.5,
+          bg = bg, fg = fg)
+}
+
+#' @note pure function
+#' @noRd
+draw_method_color <- function(coords, fg, bg) {
+  symbols(coords, squares = rep(1, nrow(coords)), fg = fg, bg = bg,
+          add = TRUE, inches = FALSE)
+}
+
+#' @note pure function
+#' @noRd
+draw_grid <- function(coords, fg) {
+  symbols(coords, add = TRUE, inches = FALSE, fg = fg, bg = NA,
+          rectangles = matrix(1, nrow = nrow(coords), ncol = 2))
