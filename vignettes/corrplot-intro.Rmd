@@ -290,21 +290,33 @@ corrplot(M, p.mat = res1[[1]], low = res1[[2]], upp = res1[[3]],
 ```
 
 ```{r ci_with_laber}
-# Hmisc::rcorr provides a p-value matrix, but we don't want to introduce the dependency
-# HM <- Hmisc::rcorr(as.matrix(mtcars))
 
-# therefore, we use fake p-values
-HM <- list( r = cor(mtcars),
-            P = 1 - abs(cor(mtcars)) ^ .08)
+cor.mtest <- function(mat, conf.level = 0.95){
+  mat <- as.matrix(mat)
+  n <- ncol(mat)
+  p.mat <- matrix(NA, n, n)
+  diag(p.mat) <- NA
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      tmp <- cor.test(mat[,i], mat[,j], conf.level = conf.level)
+      p.mat[i,j] <- p.mat[j,i] <- tmp$p.value
+    }
+  }
+  p.mat
+}
 
-corrplot(HM$r, p.mat = HM$P, insig = "label_sig",
+M <- mtcars
+Mcor <- cor(M)
+Mpval <- cor.mtest(M)
+
+corrplot(Mcor, p.mat = Mpval, insig = "label_sig",
          sig.level = c(.001, .01, .05), pch.cex = .9, pch.col = "white")
-corrplot(HM$r, p.mat = HM$P, method = "color",
+corrplot(Mcor, p.mat = Mpval, method = "color",
          insig = "label_sig", pch.col = "white")
-corrplot(HM$r, p.mat = HM$P, method = "color", type = "upper",
+corrplot(Mcor, p.mat = Mpval, method = "color", type = "upper",
          sig.level = c(.001, .01, .05), pch.cex = .9,
-         insig = "label_sig", pch.col = "white")
-corrplot(HM$r, p.mat = HM$P, insig = "label_sig", pch.col = "white",
+         insig = "label_sig", pch.col = "white", order = "AOE")
+corrplot(Mcor, p.mat = Mpval, insig = "label_sig", pch.col = "white",
          pch = "p<.05", pch.cex = .5, order = "AOE")
 ```
 
