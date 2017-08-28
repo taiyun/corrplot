@@ -198,6 +198,7 @@
 #' @param win.asp Aspect ration for the whole plot. Value other than 1 is
 #'   currently compatible only with methods "circle" and "square".
 #'
+#' @param isMixed Whether mixed display is used.
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text lable.
 #'
@@ -268,7 +269,7 @@ corrplot <- function(corr,
   plotCI = c("n", "square", "circle", "rect"),
   lowCI.mat = NULL, uppCI.mat = NULL,
   na.label = "?", na.label.col = "black",
-  win.asp = 1,
+  win.asp = 1, isMixed = FALSE,
   ...)
 {
 
@@ -504,7 +505,10 @@ corrplot <- function(corr,
   }
 
   oldpar <- par(mar = mar, bg = "white")
-  on.exit(par(oldpar), add = TRUE)
+  if(!isMixed) {
+    on.exit(par(oldpar), add = TRUE)
+  }
+
   ## calculate label-text width approximately
   if (!add) {
     plot.new()
@@ -525,7 +529,7 @@ corrplot <- function(corr,
           c(-1,0) * grepl("l", tl.pos) # margin between text and grid
 
       ylim <- c(
-        n1 - 0.5 - nn * cl.ratio * (cl.pos == "b"),
+        n1 - 0.5 - nn * cl.ratio * (cl.pos == "b") - laboffset,
         n2 + 0.5 + laboffset +
           ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
       ) +

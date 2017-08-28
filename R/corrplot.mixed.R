@@ -54,17 +54,20 @@ corrplot.mixed <- function(
 
   corrplot(corr, type = "upper", method = upper, diag = TRUE,
            tl.pos = tl.pos, plotCI = plotCI_upper,
-           col = upper.col, ...)
+           col = upper.col, isMixed = TRUE, ...)
+
+
 
   corrplot(corr, add = TRUE, type = "lower", method = lower,
            diag = (diag == "l"),
            tl.pos = "n", cl.pos = "n", plotCI = plotCI_lower,
-           col = lower.col, ...)
+           col = lower.col, isMixed = FALSE, ...)
 
-  if (diag == "n" && tl.pos != "d") {
-      symbols(1:n, n:1, add = TRUE, bg = bg, fg = addgrid.col,
-              inches = FALSE, squares = rep(1, n))
-  }
+   if (diag == "n" && (tl.pos != "d" )) {
+       symbols(1:n, n:1, add = TRUE, bg = bg, fg = addgrid.col,
+               inches = FALSE, squares = rep(1, n))
+   }
+
 
   # fixes issue #43
   # return value should be the same as in the corrplot function
