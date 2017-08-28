@@ -532,8 +532,10 @@ corrplot <- function(corr,
           ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
       ) +
         c(-0.15, 0) +
-        c(0, -1) * (type == "upper") + # nasty hack
+        c(0, -1) * (type == "upper" && tl.pos != "n") + # nasty hack
         c(0,1) * grepl("d", tl.pos) # margin between text and grid
+
+      # note: the nasty hack above solves multiple issues (e.g. #96, #94)
 
       plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
 
