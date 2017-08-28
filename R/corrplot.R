@@ -433,15 +433,26 @@ corrplot <- function(corr,
 
   Pos <- getPos.Dat(corr)[[1]]
 
-  # rows
-  n2 <- max(Pos[,2])
-  n1 <- min(Pos[,2])
+  # decide whether NA labels are going to be rendered or whether we ignore them
+  if (any(is.na(corr)) && is.character(na.label)) {
+    PosNA <- getPos.NAs(corr)
+  } else {
+    # explicitly set to NULL to indicate that NA labels are not going to be
+    # rendered
+    PosNA <- NULL
+  }
 
-  nn <- n2 - n1 # TODO: isn't this a similar problem as in Issue #19 ?
+  AllCoords <- rbind(Pos, PosNA)
+
+  # rows
+  n2 <- max(AllCoords[,2])
+  n1 <- min(AllCoords[,2])
+
+  nn <- n2 - n1
 
   # columns
-  m2 <- max(Pos[,1])
-  m1 <- min(Pos[,1])
+  m2 <- max(AllCoords[,1])
+  m1 <- min(AllCoords[,1])
 
   # Issue #19: legend color bar width 0 when using just one column matrix
   # also discussed here: http://stackoverflow.com/questions/34638555/
@@ -581,7 +592,7 @@ corrplot <- function(corr,
   if (method == "circle" && plotCI == "n") {
     symbols(Pos, add = TRUE,  inches = FALSE,
             circles = asp_rescale_factor * 0.9 * abs(DAT) ^ 0.5 / 2,
-            fg = col.border, bg = col.fill )
+            fg = col.border, bg = col.fill)
   }
 
   ## ellipse
@@ -619,8 +630,9 @@ corrplot <- function(corr,
   NA_LABEL_MAX_CHARS <- 2
 
   # renders NA cells
-  if (any(is.na(corr)) && is.character(na.label)) {
-    PosNA <- getPos.NAs(corr)
+  if (is.matrix(PosNA) && nrow(PosNA) > 0) {
+
+    stopifnot(is.matrix(PosNA)) # sanity check
 
     if (na.label == "square") {
       symbols(PosNA, add = TRUE, inches = FALSE,
@@ -968,3 +980,4 @@ draw_method_color <- function(coords, fg, bg) {
 draw_grid <- function(coords, fg) {
   symbols(coords, add = TRUE, inches = FALSE, fg = fg, bg = NA,
           rectangles = matrix(1, nrow = nrow(coords), ncol = 2))
+}
