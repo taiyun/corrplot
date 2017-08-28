@@ -55,7 +55,7 @@ corrplot.mixed <- function(
   plotCI_upper <- adjust_plotCI(plotCI, upper)
 
   # fixed issue #102
-  # restore this parameter when exiting the corrplot function in any way
+  # restore this parameter when exiting the corrplot.mixed function in any way
   oldpar <- par(mar = mar, bg = "white")
   on.exit(par(oldpar), add = TRUE)
 
@@ -69,8 +69,9 @@ corrplot.mixed <- function(
            col = lower.col, ...)
 
   if (diag == "n" && tl.pos != "d") {
-      symbols(1:n, n:1, add = TRUE, bg = bg, fg = addgrid.col,
-              inches = FALSE, squares = rep(1, n))
+    # draw empty rectangles over the diagonal to "clean" it graphically
+    symbols(1:n, n:1, add = TRUE, bg = bg, fg = addgrid.col,
+            inches = FALSE, squares = rep(1, n))
   }
 
   # fixes issue #43
