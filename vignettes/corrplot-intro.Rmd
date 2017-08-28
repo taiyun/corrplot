@@ -289,6 +289,25 @@ corrplot(M, p.mat = res1[[1]], low = res1[[2]], upp = res1[[3]],
          addrect = 3, rect.col = "navy", plotC = "rect",cl.pos = "n")
 ```
 
+```{r ci_with_laber}
+# Hmisc::rcorr provides a p-value matrix, but we don't want to introduce the dependency
+# HM <- Hmisc::rcorr(as.matrix(mtcars))
+
+# therefore, we use fake p-values
+HM <- list( r = cor(mtcars),
+            P = 1 - abs(cor(mtcars)) ^ .08)
+
+corrplot(HM$r, p.mat = HM$P, insig = "label_sig",
+         sig.level = c(.001, .01, .05), pch.cex = .9, pch.col = "white")
+corrplot(HM$r, p.mat = HM$P, method = "color",
+         insig = "label_sig", pch.col = "white")
+corrplot(HM$r, p.mat = HM$P, method = "color", type = "upper",
+         sig.level = c(.001, .01, .05), pch.cex = .9,
+         insig = "label_sig", pch.col = "white")
+corrplot(HM$r, p.mat = HM$P, insig = "label_sig", pch.col = "white",
+         pch = "p<.05", pch.cex = .5, order = "AOE")
+```
+
 Customize the correlogram
 -------------------------
 ```{r pmat}
@@ -362,3 +381,4 @@ for (i in idx_correlated_features) {
 corrplot(cor(M), diag = FALSE, order = "FPC",
          tl.pos = "td", tl.cex = 0.5,
          method = "color", type = "upper")
+```
