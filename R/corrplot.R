@@ -503,8 +503,10 @@ corrplot <- function(corr,
     stop("Unsupported value type for parameter outline")
   }
 
+  # restore this parameter when exiting the corrplot function in any way
   oldpar <- par(mar = mar, bg = "white")
   on.exit(par(oldpar), add = TRUE)
+
   ## calculate label-text width approximately
   if (!add) {
     plot.new()
