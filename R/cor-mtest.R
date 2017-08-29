@@ -1,0 +1,40 @@
+#' Significance test which produces p-values and confidence intervals for each
+#' pair of input features.
+#'
+#' @param mat Input matrix of size \code{FxS}, with \code{F} columns that
+#'   represent features and \code{S} rows that represent samples.
+#' @param \dots Additional arguments passed to function \code{\link{cor.test}},
+#'   e.g. \code{conf.level = 0.95}.
+#'
+#' @return Return a list containing:
+#'   \item{p}{Square matrix of size \code{FxF} with p-values as cells}
+#'   \item{lowCI}{Square matrix of size \code{FxF}, each cell represents the
+#'   \emph{lower part} of a confidence interval}
+#'   \item{uppCI}{Square matrix of size \code{FxF}, each cell represents the
+#'   \emph{upper part} of a confidence interval}
+#'
+#' @seealso Function \code{\link{cor.test}}
+#'
+#' @keywords p-value, confidence, significance
+#' @export
+cor.mtest <- function(mat, ...) {
+  mat <- as.matrix(mat)
+  n <- ncol(mat)
+  p.mat <- lowCI.mat <- uppCI.mat <- matrix(NA, n, n)
+  diag(p.mat) <- 0
+  diag(lowCI.mat) <- diag(uppCI.mat) <- 1
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      tmp <- cor.test(mat[,i], mat[,j], ...)
+      p.mat[i,j] <- p.mat[j,i] <- tmp$p.value
+      lowCI.mat[i,j] <- lowCI.mat[j,i] <- tmp$conf.int[1]
+      uppCI.mat[i,j] <- uppCI.mat[j,i] <- tmp$conf.int[2]
+    }
+  }
+
+  list(
+    p = p.mat,
+    lowCI = lowCI.mat,
+    uppCI = uppCI.mat
+  )
+}
