@@ -307,7 +307,7 @@ corrplot <- function(corr,
     } else {
       # Issue #91
       corr_tmp <- corr
-      diag(corr_tmp) = ifelse(diag, diag(corr_tmp), NA)
+      diag(corr_tmp) <- ifelse(diag, diag(corr_tmp), NA)
       cl.lim <- c(min(corr_tmp, na.rm = TRUE), max(corr_tmp, na.rm = TRUE))
     }
   }
@@ -549,7 +549,8 @@ corrplot <- function(corr,
         c(0, -1) * (type == "upper" && tl.pos != "n") + # nasty hack
         c(0,1) * grepl("d", tl.pos) # margin between text and grid
 
-      # note: the nasty hack above is related to multiple issues (e.g. #96, #94, #102)
+      # note: the nasty hack above is related to multiple issues
+      # (e.g. #96, #94, #102)
 
       plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
 
