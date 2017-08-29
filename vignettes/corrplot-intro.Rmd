@@ -7,6 +7,7 @@ An Introduction to **corrplot** Package
 =======================================
 
 ```{r setup, include=FALSE}
+set.seed(0) # we need reproducible results
 knitr::opts_chunk$set(
   out.extra = 'style="display:block; margin: auto"',
   fig.align = "center",
@@ -204,7 +205,7 @@ If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 ```{r non-corr-asp}
 ran <- matrix(rnorm(70), ncol = 7)
-corrplot(ran, is.corr = F, win.asp = .7, method = "circle")
+corrplot(ran, is.corr = FALSE, win.asp = .7, method = "circle")
 ```
 
 Dealing with missing (NA) values
@@ -326,7 +327,6 @@ Explore Large Feature Matrices
 ```{r large_matrix}
 
 # generating large feature matrix (cols=features, rows=samples)
-set.seed(0)
 num_features <- 60 # how many features
 num_samples <- 300 # how many samples
 DATASET <- matrix(runif(num_features * num_samples),
