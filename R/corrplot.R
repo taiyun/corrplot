@@ -198,7 +198,6 @@
 #' @param win.asp Aspect ration for the whole plot. Value other than 1 is
 #'   currently compatible only with methods "circle" and "square".
 #'
-#' @param isMixed Whether mixed display is used.
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text lable.
 #'
@@ -269,7 +268,7 @@ corrplot <- function(corr,
   plotCI = c("n", "square", "circle", "rect"),
   lowCI.mat = NULL, uppCI.mat = NULL,
   na.label = "?", na.label.col = "black",
-  win.asp = 1, isMixed = FALSE,
+  win.asp = 1,
   ...)
 {
 
@@ -304,11 +303,15 @@ corrplot <- function(corr,
 
   if (is.null(cl.lim)) {
     if (is.corr) {
+      # if the matrix is expected to be a correlation matrix
+      # it MUST be within the interval [-1,1]
       cl.lim <- c(-1,1)
     } else {
       # Issue #91
+      # if not a correlation matrix and the diagonal is hidden,
+      # we need to compute limits from all cells except the diagonal
       corr_tmp <- corr
-      diag(corr_tmp) = ifelse(diag, diag(corr_tmp), NA)
+      diag(corr_tmp) <- ifelse(diag, diag(corr_tmp), NA)
       cl.lim <- c(min(corr_tmp, na.rm = TRUE), max(corr_tmp, na.rm = TRUE))
     }
   }
@@ -370,9 +373,13 @@ corrplot <- function(corr,
   cl.lim2 <- (intercept + cl.lim) * zoom
   int <- intercept * zoom
 
-  if (min(corr, na.rm = TRUE) < -1 - .Machine$double.eps ^ .75 ||
+  if (is.corr) {
+    # check the interval if expecting a correlation matrix
+    # otherwise, the values can be any number
+    if (min(corr, na.rm = TRUE) < -1 - .Machine$double.eps ^ .75 ||
       max(corr, na.rm = TRUE) >  1 + .Machine$double.eps ^ .75 ) {
-    stop("The matrix is not in [-1, 1]!")
+      stop("The matrix is not in [-1, 1]!")
+    }
   }
 
   if (is.null(col)) {
@@ -437,15 +444,26 @@ corrplot <- function(corr,
 
   Pos <- getPos.Dat(corr)[[1]]
 
-  # rows
-  n2 <- max(Pos[,2])
-  n1 <- min(Pos[,2])
+  # decide whether NA labels are going to be rendered or whether we ignore them
+  if (any(is.na(corr)) && is.character(na.label)) {
+    PosNA <- getPos.NAs(corr)
+  } else {
+    # explicitly set to NULL to indicate that NA labels are not going to be
+    # rendered
+    PosNA <- NULL
+  }
 
-  nn <- n2 - n1 # TODO: isn't this a similar problem as in Issue #19 ?
+  AllCoords <- rbind(Pos, PosNA)
+
+  # rows
+  n2 <- max(AllCoords[,2])
+  n1 <- min(AllCoords[,2])
+
+  nn <- n2 - n1
 
   # columns
-  m2 <- max(Pos[,1])
-  m1 <- min(Pos[,1])
+  m2 <- max(AllCoords[,1])
+  m1 <- min(AllCoords[,1])
 
   # Issue #19: legend color bar width 0 when using just one column matrix
   # also discussed here: http://stackoverflow.com/questions/34638555/
@@ -507,10 +525,9 @@ corrplot <- function(corr,
     stop("Unsupported value type for parameter outline")
   }
 
+  # restore this parameter when exiting the corrplot function in any way
   oldpar <- par(mar = mar, bg = "white")
-  if(!isMixed) {
-    on.exit(par(oldpar), add = TRUE)
-  }
+  on.exit(par(oldpar), add = TRUE)
 
   ## calculate label-text width approximately
   if (!add) {
@@ -537,8 +554,11 @@ corrplot <- function(corr,
           ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
       ) +
         c(-0.15, 0) +
-        c(0, -1) * (type == "upper") + # nasty hack
+        c(0, -1) * (type == "upper" && tl.pos != "n") + # nasty hack
         c(0,1) * grepl("d", tl.pos) # margin between text and grid
+
+      # note: the nasty hack above is related to multiple issues
+      # (e.g. #96, #94, #102)
 
       plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
 
@@ -584,7 +604,7 @@ corrplot <- function(corr,
   if (method == "circle" && plotCI == "n") {
     symbols(Pos, add = TRUE,  inches = FALSE,
             circles = asp_rescale_factor * 0.9 * abs(DAT) ^ 0.5 / 2,
-            fg = col.border, bg = col.fill )
+            fg = col.border, bg = col.fill)
   }
 
   ## ellipse
@@ -622,8 +642,9 @@ corrplot <- function(corr,
   NA_LABEL_MAX_CHARS <- 2
 
   # renders NA cells
-  if (any(is.na(corr)) && is.character(na.label)) {
-    PosNA <- getPos.NAs(corr)
+  if (is.matrix(PosNA) && nrow(PosNA) > 0) {
+
+    stopifnot(is.matrix(PosNA)) # sanity check
 
     if (na.label == "square") {
       symbols(PosNA, add = TRUE, inches = FALSE,
@@ -702,20 +723,16 @@ corrplot <- function(corr,
 
   ## square
   if (method == "square" && plotCI == "n") {
-    symbols(Pos, add = TRUE, inches = FALSE,
-            squares = asp_rescale_factor * abs(DAT) ^ 0.5,
-            bg = col.fill, fg = col.border)
+    draw_method_square(Pos, DAT, asp_rescale_factor, col.border, col.fill)
   }
 
   ## color
   if (method == "color" && plotCI == "n") {
-      symbols(Pos, add = TRUE, inches = FALSE,
-              squares = rep(1, len.DAT), bg = col.fill, fg = col.border)
+    draw_method_color(Pos, col.border, col.fill)
   }
 
   ## add grid
-  symbols(Pos, add = TRUE, inches = FALSE,  bg = NA, fg = addgrid.col,
-          rectangles = matrix(1, nrow = len.DAT, ncol = 2) )
+  draw_grid(AllCoords, addgrid.col)
 
   if (plotCI != "n") {
 
@@ -861,8 +878,7 @@ corrplot <- function(corr,
     }
   }
 
-
-
+  ### color legend
   if (cl.pos != "n") {
     colRange <- assign.color(dat = cl.lim2)
     ind1 <- which(col == colRange[1])
@@ -954,4 +970,26 @@ corrplot <- function(corr,
   }
 
   invisible(corr) # reordered correlation matrix
+}
+
+#' @note pure function
+#' @noRd
+draw_method_square <- function(coords, values, asp_rescale_factor, fg, bg) {
+  symbols(coords, add = TRUE, inches = FALSE,
+          squares = asp_rescale_factor * abs(values) ^ 0.5,
+          bg = bg, fg = fg)
+}
+
+#' @note pure function
+#' @noRd
+draw_method_color <- function(coords, fg, bg) {
+  symbols(coords, squares = rep(1, nrow(coords)), fg = fg, bg = bg,
+          add = TRUE, inches = FALSE)
+}
+
+#' @note pure function
+#' @noRd
+draw_grid <- function(coords, fg) {
+  symbols(coords, add = TRUE, inches = FALSE, fg = fg, bg = NA,
+          rectangles = matrix(1, nrow = nrow(coords), ncol = 2))
 }

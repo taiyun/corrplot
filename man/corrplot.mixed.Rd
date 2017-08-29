@@ -7,7 +7,7 @@
 corrplot.mixed(corr, lower = "number", upper = "circle", tl.pos = c("d",
   "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
   lower.col = NULL, upper.col = NULL, plotCI = c("n", "square", "circle",
-  "rect"), ...)
+  "rect"), mar = c(0, 0, 0, 0), ...)
 }
 \arguments{
 \item{corr}{Matrix, the correlation matrix to visualize.}
@@ -37,6 +37,8 @@ of lower triangular) or \code{"u"} (draw the glyphs of upper triangular).}
 
 \item{plotCI}{See the \code{plotCI} parameter in the function
 \code{\link{corrplot}}}
+
+\item{mar}{See \code{\link{par}}.}
 
 \item{\dots}{Additional arguments for corrplot's wrappers}
 }

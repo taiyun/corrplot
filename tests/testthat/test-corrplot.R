@@ -67,10 +67,10 @@ test_that("Issue #7: Enable to plot a matrix with NA", {
   expect_equal(corrplot(M), M)
 })
 
-test_that("Issue #70: Enable to plot a matrix with NA when 'is.corr = F'", {
+test_that("Issue #70: Enable to plot a matrix with NA when 'is.corr = FALSE'", {
   M <- matrix(0, ncol = 5, nrow = 5)
   M[1,1] <- NA
-  expect_true(is.matrix(corrplot(M, is.corr = F)))
+  expect_true(is.matrix(corrplot(M, is.corr = FALSE)))
 })
 
 
@@ -195,9 +195,9 @@ test_that("par() is restored after corrplot()", {
 
 test_that("Issue #79: Changing aspect ratio for the plot", {
   M <- matrix(rnorm(70), ncol = 7)
-  expect_silent(corrplot(M, is.corr = F, win.asp = .7, method = "circle"))
-  expect_silent(corrplot(M, is.corr = F, win.asp = .7, method = "square"))
-  expect_error(corrplot(M, is.corr = F, win.asp = .7, method = "pie"),
+  expect_silent(corrplot(M, is.corr = FALSE, win.asp = .7, method = "circle"))
+  expect_silent(corrplot(M, is.corr = FALSE, win.asp = .7, method = "square"))
+  expect_error(corrplot(M, is.corr = FALSE, win.asp = .7, method = "pie"),
                regexp = "supported only for circle and square methods")
 })
 
