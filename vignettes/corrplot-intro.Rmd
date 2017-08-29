@@ -7,11 +7,12 @@ An Introduction to **corrplot** Package
 =======================================
 
 ```{r setup, include=FALSE}
-library(knitr)
-opts_chunk$set(out.extra = 'style="display:block; margin: auto"',
-               fig.align = "center", dev = "png")
+knitr::opts_chunk$set(
+  out.extra = 'style="display:block; margin: auto"',
+  fig.align = "center",
+  fig.path = "webimg/",
+  dev = "png")
 ```
-
 
 Introduction
 ------------
