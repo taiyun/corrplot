@@ -303,9 +303,13 @@ corrplot <- function(corr,
 
   if (is.null(cl.lim)) {
     if (is.corr) {
+      # if the matrix is expected to be a correlation matrix
+      # it MUST be within the interval [-1,1]
       cl.lim <- c(-1,1)
     } else {
       # Issue #91
+      # if not a correlation matrix and the diagonal is hidden,
+      # we need to compute limits from all cells except the diagonal
       corr_tmp <- corr
       diag(corr_tmp) <- ifelse(diag, diag(corr_tmp), NA)
       cl.lim <- c(min(corr_tmp, na.rm = TRUE), max(corr_tmp, na.rm = TRUE))
