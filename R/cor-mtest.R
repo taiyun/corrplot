@@ -25,10 +25,15 @@ cor.mtest <- function(mat, ...) {
   diag(lowCI.mat) <- diag(uppCI.mat) <- 1
   for (i in 1:(n - 1)) {
     for (j in (i + 1):n) {
-      tmp <- cor.test(mat[,i], mat[,j], ...)
+
+      tmp <- cor.test(x = mat[,i], y = mat[,j], ...)
       p.mat[i,j] <- p.mat[j,i] <- tmp$p.value
-      lowCI.mat[i,j] <- lowCI.mat[j,i] <- tmp$conf.int[1]
-      uppCI.mat[i,j] <- uppCI.mat[j,i] <- tmp$conf.int[2]
+
+      # only "pearson" method provides confidence intervals
+      if (!is.null(tmp$conf.int)) {
+        lowCI.mat[i,j] <- lowCI.mat[j,i] <- tmp$conf.int[1]
+        uppCI.mat[i,j] <- uppCI.mat[j,i] <- tmp$conf.int[2]
+      }
     }
   }
 
