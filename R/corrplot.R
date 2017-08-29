@@ -306,7 +306,10 @@ corrplot <- function(corr,
     if (is.corr) {
       cl.lim <- c(-1,1)
     } else {
-      cl.lim <- c(min(corr, na.rm = TRUE), max(corr, na.rm = TRUE))
+      # Issue #91
+      corr_tmp <- corr
+      diag(corr_tmp) = ifelse(diag, diag(corr_tmp), NA)
+      cl.lim <- c(min(corr_tmp, na.rm = TRUE), max(corr_tmp, na.rm = TRUE))
     }
   }
 
