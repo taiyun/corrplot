@@ -30,7 +30,7 @@ library(corrplot)
 M <- cor(mtcars)
 corrplot(M, order = "hclust", addrect = 2)
 ```
-![Basic example](http://cos.name/wp-content/uploads/2016/04/example-corrplot.png)
+![Basic example](vignettes/webimg/methods-1.png)
 
 ## Download and Install
 To download the development version of the package, type the following at the R command line:
