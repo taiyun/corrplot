@@ -450,6 +450,19 @@ corrplot <- function(corr,
     return(list(Pos, Dat))
   }
 
+  # mreg code: retrieves coordinates of cells to be crossed out
+  getPosInf.Dat <- function(mat) {
+    # USed by Leading/Langing system
+    #tmp <- apply_mat_filter(mat)
+    tmp <- mat
+    Dat <- tmp[is.infinite(tmp)]
+    ind <- which(is.infinite(tmp), arr.ind = TRUE)
+    Pos <- ind
+    Pos[, 1] <- ind[, 2]
+    Pos[, 2] <- -ind[, 1] + 1 + n
+    return(list(Pos, Dat))
+  }
+
   # retrieves coordinates of NA cells
   # we use this for rending NA cells differently
   getPos.NAs <- function(mat) {
