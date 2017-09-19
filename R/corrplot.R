@@ -198,6 +198,10 @@
 #' @param win.asp Aspect ration for the whole plot. Value other than 1 is
 #'   currently compatible only with methods "circle" and "square".
 #'
+#' @param mreg Logical, whether matrix is a multiple regression representation 
+#'  (TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially 
+#'  meant for linia
+#'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text lable.
 #'
@@ -269,6 +273,9 @@ corrplot <- function(corr,
   lowCI.mat = NULL, uppCI.mat = NULL,
   na.label = "?", na.label.col = "black",
   win.asp = 1,
+  
+  mreg = FALSE,
+  
   ...)
 {
 
