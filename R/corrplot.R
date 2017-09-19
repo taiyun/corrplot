@@ -304,6 +304,18 @@ corrplot <- function(corr,
     addgrid.col <- switch(method, color = NA, shade = NA, "grey")
   }
 
+  
+  if (mreg) {
+    # mreg code: number of response variables usually smaller than number of predictor variables
+    is.corr = FALSE                   
+  }
+
+  # mreg code: catch corr for multiple regression cross out of left out predictors
+  corrbefore <- corr
+  # mreg code: replace infinite values by 0, so that rest of corrplot codes keeps working
+  corr[ is.infinite(corr)] <- 0         
+  
+  
   if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {
     stop("color limits should cover matrix")
   }
