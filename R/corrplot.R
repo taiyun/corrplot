@@ -910,6 +910,28 @@ corrplot <- function(corr,
     }
   }
 
+  
+  ### in case of multiple regression":
+  if (mreg ) {
+    ## zero: Hide values that are 0. These items returned zero impact in the multiple regression 
+    pos.pNew <- getPos.Dat(corr)[[1]]
+    pNew <- getPos.Dat(corr)[[2]]
+    ind.p <- which(pNew == 0)              # overrule for mreg purpose
+    
+    ## Blank out zero's.
+    symbols(pos.pNew[, 1][ind.p], pos.pNew[, 2][ind.p], 
+            inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p])), fg = addgrid.col, bg = bg, add = TRUE)
+    
+    pos.pNew <- getPosInf.Dat(corrbefore)[[1]]
+    pNew <- getPosInf.Dat(corrbefore)[[2]]
+    
+    ind.p2 <- which(is.infinite(pNew))
+    
+    points(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2], 
+           pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
+  }
+
+  
   ### color legend
   if (cl.pos != "n") {
     colRange <- assign.color(dat = cl.lim2)
