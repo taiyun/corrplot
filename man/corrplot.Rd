@@ -20,7 +20,7 @@ corrplot(corr, method = c("circle", "square", "ellipse", "number", "shade",
   sig.level = 0.05, insig = c("pch", "p-value", "blank", "n", "label_sig"),
   pch = 4, pch.col = "black", pch.cex = 3, plotCI = c("n", "square",
   "circle", "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
-  na.label.col = "black", win.asp = 1, ...)
+  na.label.col = "black", win.asp = 1, mreg = FALSE, ...)
 }
 \arguments{
 \item{corr}{The correlation matrix to visualize, must be square if
@@ -216,6 +216,10 @@ sign, the smaller circle will be wiped away, thus forming a ring. Method
 
 \item{win.asp}{Aspect ration for the whole plot. Value other than 1 is
 currently compatible only with methods "circle" and "square".}
+
+\item{mreg}{Logical, whether matrix is a multiple regression representation 
+(TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially 
+meant for linia}
 
 \item{\dots}{Additional arguments passing to function \code{text} for drawing
 text lable.}
