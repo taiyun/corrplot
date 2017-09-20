@@ -198,8 +198,8 @@
 #' @param win.asp Aspect ration for the whole plot. Value other than 1 is
 #'   currently compatible only with methods "circle" and "square".
 #'
-#' @param mreg Logical, whether matrix is a multiple regression representation 
-#'  (TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially 
+#' @param mreg Logical, whether matrix is a multiple regression representation
+#'  (TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially
 #'  meant for linia
 #'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
@@ -273,9 +273,9 @@ corrplot <- function(corr,
   lowCI.mat = NULL, uppCI.mat = NULL,
   na.label = "?", na.label.col = "black",
   win.asp = 1,
-  
+
   mreg = FALSE,
-  
+
   ...)
 {
 
@@ -304,18 +304,26 @@ corrplot <- function(corr,
     addgrid.col <- switch(method, color = NA, shade = NA, "grey")
   }
 
-  
+
   if (mreg) {
-    # mreg code: number of response variables usually smaller than number of predictor variables
-    is.corr = FALSE                   
+    # mreg code: number of response variables usually smaller than number of
+    # predictor variables
+    is.corr = FALSE
+    #if (is.null(cl.lim)) {
+      # if the matrix is expected to be a multiple regression correlation matrix
+      # it MUST be within the interval [-1,1], although it can be overruled
+    #  cl.lim <- c(-1,1)
+    #}
   }
 
-  # mreg code: catch corr for multiple regression cross out of left out predictors
+  # mreg code: catch corr for multiple regression
+  # cross out of ignored predictors
   corrbefore <- corr
-  # mreg code: replace infinite values by 0, so that rest of corrplot codes keeps working
-  corr[ is.infinite(corr)] <- 0         
-  
-  
+  # mreg code: replace infinite values by 0,
+  # so that rest of corrplot codes keeps working
+  corr[ is.infinite(corr)] <- 0
+
+
   if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {
     stop("color limits should cover matrix")
   }
@@ -425,7 +433,7 @@ corrplot <- function(corr,
     colnames(corr) <- seq_len(m)
   }
 
-  # assigns Inf to cells in the matrix depending on the type paramter
+  # assigns Inf to cells in the matrix depending on the type parameter
   apply_mat_filter <- function(mat) {
     x <- matrix(1:n * m, n, m)
     switch(type,
@@ -452,13 +460,12 @@ corrplot <- function(corr,
 
   # mreg code: retrieves coordinates of cells to be crossed out
   getPosInf.Dat <- function(mat) {
-    # USed by Leading/Langing system
-    #tmp <- apply_mat_filter(mat)
+    # Used by mreg system
     tmp <- mat
     Dat <- tmp[is.infinite(tmp)]
     ind <- which(is.infinite(tmp), arr.ind = TRUE)
     Pos <- ind
-    Pos[, 1] <- ind[, 2]
+    Pos[, 1] <-  ind[, 2]
     Pos[, 2] <- -ind[, 1] + 1 + n
     return(list(Pos, Dat))
   }
@@ -783,7 +790,7 @@ corrplot <- function(corr,
     uppNew      <- getPos.Dat(uppCI.mat)[[2]]
 
     if (!method %in% c("circle", "square")) {
-       stop("Method shoud be circle or square if drawing confidence intervals.")
+      stop("Method should be circle or square if drawing confidence intervals.")
     }
 
     k1 <- (abs(uppNew) > abs(lowNew))
@@ -910,31 +917,54 @@ corrplot <- function(corr,
     }
   }
 
-  
+
   ### in case of multiple regression":
   if (mreg ) {
-    ## zero: Hide values that are 0. These items returned zero impact in the multiple regression 
+
     pos.pNew <- getPos.Dat(corr)[[1]]
     pNew <- getPos.Dat(corr)[[2]]
+
+    ## Blank out zeros.
     ind.p <- which(pNew == 0)              # overrule for mreg purpose
-    
-    ## Blank out zero's.
-    symbols(pos.pNew[, 1][ind.p], pos.pNew[, 2][ind.p], 
-            inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p])), fg = addgrid.col, bg = bg, add = TRUE)
-    
+    if (length(ind.p) >0) {
+      symbols(pos.pNew[, 1][ind.p], pos.pNew[, 2][ind.p],
+              inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p])),
+              fg = addgrid.col, bg = bg, add = TRUE)
+    }
+
+    ## Blank out and cross out Infs
     pos.pNew <- getPosInf.Dat(corrbefore)[[1]]
     pNew <- getPosInf.Dat(corrbefore)[[2]]
-    
-    ind.p2 <- which(is.infinite(pNew))
-    
-    points(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2], 
-           pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
+    ind.p2 <- which(is.infinite(pNew), arr.ind = TRUE)
+
+    if (length(ind.p2) > 0) {
+
+
+
+      ## blank out Infs
+      symbols(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2],
+                inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p2])),
+                fg = addgrid.col, bg = bg, add = TRUE)
+
+      ## Cross out Infs
+      points(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2],
+             pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
+    }
   }
 
-  
+
   ### color legend
   if (cl.pos != "n") {
-    colRange <- assign.color(dat = cl.lim2)
+
+    if ( mreg ) {
+      # Force the whole range by default
+      # by default from blue to red
+      colRange <- assign.color(dat = cl.lim)
+
+    } else {
+      colRange <- assign.color(dat = cl.lim2)
+    }
+
     ind1 <- which(col == colRange[1])
     ind2 <- which(col == colRange[2])
     colbar <- col[ind1:ind2]
