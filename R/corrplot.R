@@ -308,7 +308,7 @@ corrplot <- function(corr,
   if (mreg) {
     # mreg code: number of response variables usually smaller than number of
     # predictor variables
-    is.corr = FALSE
+    is.corr <- FALSE
     #if (is.null(cl.lim)) {
       # if the matrix is expected to be a multiple regression correlation matrix
       # it MUST be within the interval [-1,1], although it can be overruled
@@ -926,7 +926,7 @@ corrplot <- function(corr,
 
     ## Blank out zeros.
     ind.p <- which(pNew == 0)              # overrule for mreg purpose
-    if (length(ind.p) >0) {
+    if (length(ind.p) > 0) {
       symbols(pos.pNew[, 1][ind.p], pos.pNew[, 2][ind.p],
               inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p])),
               fg = addgrid.col, bg = bg, add = TRUE)
@@ -938,8 +938,6 @@ corrplot <- function(corr,
     ind.p2 <- which(is.infinite(pNew), arr.ind = TRUE)
 
     if (length(ind.p2) > 0) {
-
-
 
       ## blank out Infs
       symbols(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2],
