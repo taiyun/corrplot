@@ -64,15 +64,24 @@ colorlegend <- function(
   if (vertical) {
 
       at <- at * ygap + ylim[1]
+
       yyy <- seq(ylim[1], ylim[2], length = len + 1)
 
+      # multiple colored rectangles
       rect(rep(xlim[1], len), yyy[1:len],
            rep(xlim[1] + xgap * rat1, len), yyy[-1],
            col = colbar, border = colbar)
-      rect(xlim[1], ylim[1], xlim[1] + xgap * rat1, ylim[2], border = "black")
-      segments(xlim[1] + xgap * rat2[1], at, xlim[1] + xgap * rat2[2], at)
+
+      # put a border around it
+      rect(xlim[1], ylim[1],
+           xlim[1] + xgap * rat1, ylim[2], border = "black")
+
+      # put the tickmarks
+      segments(xlim[1] + xgap * rat2[1], at,
+               xlim[1] + xgap * rat2[2], at)
 
       if (addlabels) {
+
         pos.xlabel <- rep(xlim[1] + xgap * max(rat2, rat1), length(at))
         switch(align,
           l = text(pos.xlabel, y = at, labels = labels, pos = 4, ...),
