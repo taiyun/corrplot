@@ -14,12 +14,13 @@ corrplot(corr, method = c("circle", "square", "ellipse", "number", "shade",
   addrect = NULL, rect.col = "black", rect.lwd = 2, tl.pos = NULL,
   tl.cex = 1, tl.col = "red", tl.offset = 0.4, tl.srt = 90,
   cl.pos = NULL, cl.lim = NULL, cl.length = NULL, cl.cex = 0.8,
-  cl.ratio = 0.15, cl.align.text = "c", cl.offset = 0.5, number.cex = 1,
-  number.font = 2, number.digits = NULL, addshade = c("negative",
-  "positive", "all"), shade.lwd = 1, shade.col = "white", p.mat = NULL,
-  sig.level = 0.05, insig = c("pch", "p-value", "blank", "n", "label_sig"),
-  pch = 4, pch.col = "black", pch.cex = 3, plotCI = c("n", "square",
-  "circle", "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
+  cl.ratio = 0.15, cl.align.text = "c", cl.offset = 0.5,
+  cl.lmar = 0.245, number.cex = 1, number.font = 2,
+  number.digits = NULL, addshade = c("negative", "positive", "all"),
+  shade.lwd = 1, shade.col = "white", p.mat = NULL, sig.level = 0.05,
+  insig = c("pch", "p-value", "blank", "n", "label_sig"), pch = 4,
+  pch.col = "black", pch.cex = 3, plotCI = c("n", "square", "circle",
+  "rect"), lowCI.mat = NULL, uppCI.mat = NULL, na.label = "?",
   na.label.col = "black", win.asp = 1, mreg = FALSE, ...)
 }
 \arguments{
@@ -145,6 +146,10 @@ suggested.}
 \item{cl.offset}{Numeric, for number-label in colorlabel, see
 \code{\link{text}}.}
 
+\item{cl.lmar}{Numeric, left margin for colbar. Distance between plot and
+colorbar. Defaults to 0.245. Currently only used in combination with
+\code{mreg} = \code{TRUE} and \code{cl.pos} = \code{"r"}}
+
 \item{number.cex}{The \code{cex} parameter to send to the call to \code{text}
 when writing the correlation coefficients into the plot.}
 
@@ -167,9 +172,9 @@ negative.}
 \item{shade.col}{The color of shade line.}
 
 \item{p.mat}{Matrix of p-value, if \code{NULL}, arguments \code{sig.level},
-\code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} is invalid.}
+\code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} are invalid.}
 
-\item{sig.level}{Significant level,  if the p-value in \code{p-mat} is bigger
+\item{sig.level}{Significant level,if the p-value in \code{p-mat} is bigger
 than \code{sig.level}, then the corresponding correlation coefficient is
 regarded as insignificant. If \code{insig} is \code{"label_sig"}, this may
 be an increasing vector of significance levels, in which case \code{pch}
@@ -217,9 +222,9 @@ sign, the smaller circle will be wiped away, thus forming a ring. Method
 \item{win.asp}{Aspect ration for the whole plot. Value other than 1 is
 currently compatible only with methods "circle" and "square".}
 
-\item{mreg}{Logical, whether matrix is a multiple regression representation 
-(TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially 
-meant for linia}
+\item{mreg}{Logical, whether matrix is a multiple regression representation
+(TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially
+meant for linear regression.}
 
 \item{\dots}{Additional arguments passing to function \code{text} for drawing
 text lable.}

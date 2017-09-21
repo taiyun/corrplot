@@ -126,6 +126,10 @@
 #' @param cl.offset Numeric, for number-label in colorlabel, see
 #'   \code{\link{text}}.
 #'
+#' @param cl.lmar Numeric, left margin for colbar. Distance between plot and
+#'   colorbar. Defaults to 0.245. Currently only used in combination with
+#'   \code{mreg} = \code{TRUE} and \code{cl.pos} = \code{"r"}
+#'
 #' @param number.cex The \code{cex} parameter to send to the call to \code{text}
 #'   when writing the correlation coefficients into the plot.
 #'
@@ -148,9 +152,9 @@
 #' @param shade.col The color of shade line.
 #'
 #' @param p.mat Matrix of p-value, if \code{NULL}, arguments \code{sig.level},
-#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} is invalid.
+#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} are invalid.
 #'
-#' @param sig.level Significant level,  if the p-value in \code{p-mat} is bigger
+#' @param sig.level Significant level,if the p-value in \code{p-mat} is bigger
 #'   than \code{sig.level}, then the corresponding correlation coefficient is
 #'   regarded as insignificant. If \code{insig} is \code{"label_sig"}, this may
 #'   be an increasing vector of significance levels, in which case \code{pch}
@@ -259,6 +263,7 @@ corrplot <- function(corr,
   cl.pos = NULL, cl.lim = NULL,
   cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15,
   cl.align.text = "c", cl.offset = 0.5,
+  cl.lmar = 0.245,
 
   number.cex = 1, number.font = 2, number.digits = NULL,
 
@@ -310,11 +315,11 @@ corrplot <- function(corr,
     # predictor variables
     is.corr <- FALSE
 
-    #if (is.null(cl.lim)) {
+    if (is.null(cl.lim)) {
       # if the matrix is expected to be a multiple regression correlation matrix
       # it MUST be within the interval [-1,1], although it can be overruled
-    #  cl.lim <- c(-1,1)
-    #}
+      cl.lim <- c(-1,1)
+    }
 
     # mreg code: catch corr for multiple regression
     # cross out of ignored predictors
@@ -976,7 +981,25 @@ corrplot <- function(corr,
 
     if (cl.pos == "r") {
       vertical <- TRUE
-      xlim <- c(m2 + 0.5 + mm * 0.02, m2 + 0.5 + mm * cl.ratio)
+
+      if (mreg) {
+        # each column has a width of 1
+        # m2: last column :
+        # 0.5: interdistance between graph and colorbar
+        # mm*0.02: mm is according to me equal to m
+        # correction for each interdistance between columns + end column
+
+        plot.xposmax <- m + 0.5 # m is center position. Add 0.5 for right edge
+
+        cl.width <- 8           # quasi width to mimic non mreg situation
+
+        # cl.lmar and cl.width set by trial and error for backward compatibility
+        xlim <- c(plot.xposmax + cl.lmar,
+                  plot.xposmax + cl.lmar + cl.width * cl.ratio )
+
+      } else {
+        xlim <- c(m2 + 0.5 + mm * 0.02, m2 + 0.5 + mm * cl.ratio)
+      }
       ylim <- c(n1 - 0.5, n2 + 0.5)
     }
 
@@ -987,7 +1010,7 @@ corrplot <- function(corr,
     }
 
     colorlegend(colbar = colbar, labels = round(labels, 2),
-                offset = cl.offset, ratio.colbar = 0.3, cex = cl.cex,
+                offset = cl.offset, ratio.colbar = .3, cex = cl.cex,
                 xlim = xlim, ylim = ylim, vertical = vertical,
                 align = cl.align.text)
   }
