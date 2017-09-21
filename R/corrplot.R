@@ -200,7 +200,7 @@
 #'
 #' @param mreg Logical, whether matrix is a multiple regression representation
 #'  (TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially
-#'  meant for linia
+#'  meant for linear regression.
 #'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text lable.
@@ -309,20 +309,20 @@ corrplot <- function(corr,
     # mreg code: number of response variables usually smaller than number of
     # predictor variables
     is.corr <- FALSE
+
     #if (is.null(cl.lim)) {
       # if the matrix is expected to be a multiple regression correlation matrix
       # it MUST be within the interval [-1,1], although it can be overruled
     #  cl.lim <- c(-1,1)
     #}
+
+    # mreg code: catch corr for multiple regression
+    # cross out of ignored predictors
+    corrbefore <- corr
+    # mreg code: replace infinite values by 0,
+    # so that rest of corrplot codes keeps working
+    corr[ is.infinite(corr)] <- 0
   }
-
-  # mreg code: catch corr for multiple regression
-  # cross out of ignored predictors
-  corrbefore <- corr
-  # mreg code: replace infinite values by 0,
-  # so that rest of corrplot codes keeps working
-  corr[ is.infinite(corr)] <- 0
-
 
   if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {
     stop("color limits should cover matrix")
@@ -410,6 +410,7 @@ corrplot <- function(corr,
   }
 
   if (is.null(col)) {
+    # Create 200 colors for a gradual color transition through the colors below
     col <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                               "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                               "#4393C3", "#2166AC", "#053061"))(200)
@@ -458,7 +459,9 @@ corrplot <- function(corr,
     return(list(Pos, Dat))
   }
 
-  # mreg code: retrieves coordinates of cells to be crossed out
+  # mreg code:
+  # retrieves coordinates of Inf cells
+  # we use this to blank and cross out "X" Inf Cells
   getPosInf.Dat <- function(mat) {
     # Used by mreg system
     tmp <- mat
@@ -921,11 +924,11 @@ corrplot <- function(corr,
   ### in case of multiple regression":
   if (mreg ) {
 
-    pos.pNew <- getPos.Dat(corr)[[1]]
-    pNew <- getPos.Dat(corr)[[2]]
+    pos.pNew <- getPos.Dat(corrbefore)[[1]]
+    pNew <- getPos.Dat(corrbefore)[[2]]
 
     ## Blank out zeros.
-    ind.p <- which(pNew == 0)              # overrule for mreg purpose
+    ind.p <- which(pNew == 0)
     if (length(ind.p) > 0) {
       symbols(pos.pNew[, 1][ind.p], pos.pNew[, 2][ind.p],
               inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p])),
@@ -938,7 +941,6 @@ corrplot <- function(corr,
     ind.p2 <- which(is.infinite(pNew), arr.ind = TRUE)
 
     if (length(ind.p2) > 0) {
-
       ## blank out Infs
       symbols(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2],
                 inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p2])),
@@ -958,7 +960,6 @@ corrplot <- function(corr,
       # Force the whole range by default
       # by default from blue to red
       colRange <- assign.color(dat = cl.lim)
-
     } else {
       colRange <- assign.color(dat = cl.lim2)
     }
