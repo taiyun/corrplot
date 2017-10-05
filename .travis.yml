@@ -12,10 +12,7 @@ cache:
   - apt
   - packages
 
-# You will need to set sudo: false in order to use the container based builds
-# and package caching.
 sudo: false
-
 warnings_are_errors: true
 
 notifications:
@@ -24,9 +21,9 @@ notifications:
     on_failure: change
 
 r_github_packages:
-  - jimhester/covr
-  - jimhester/lintr
+  - covr
+  - lintr
 
 after_success:
-  - Rscript -e 'library(covr);codecov()'
-  - Rscript -e 'devtools::install();lintr::lint_package()'
+  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'devtools::install(); lintr::lint_package()'
