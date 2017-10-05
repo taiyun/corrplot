@@ -12,7 +12,10 @@ cache:
   - apt
   - packages
 
+# You will need to set sudo: false in order to use the container based builds
+# and package caching.
 sudo: false
+
 warnings_are_errors: true
 
 notifications:
@@ -20,7 +23,7 @@ notifications:
     on_success: change
     on_failure: change
 
-r_github_packages:
+r_packages:
   - covr
   - lintr
 
