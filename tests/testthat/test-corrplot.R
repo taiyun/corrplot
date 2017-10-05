@@ -81,6 +81,12 @@ test_that("Issue #20: plotmath expressions in rownames / colnames", {
   corrplot(M)
 })
 
+test_that("Issue #20: using dollar sign in plotmath expressions", {
+  M <- cor(mtcars)
+  rownames(M)[1] <- " $"
+  corrplot(M)
+})
+
 test_that("Issue #21: plotCI=rect incompatible with some methods", {
   M <- cor(mtcars)
   L <- M - 0.1
