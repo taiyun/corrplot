@@ -408,7 +408,7 @@ corrplot <- function(corr,
 
   # assigns Inf to cells in the matrix depending on the type paramter
   apply_mat_filter <- function(mat) {
-    x <- matrix(1:n * m, n, m)
+    x <- matrix(1:n * m, nrow = n, ncol = m)
     switch(type,
       upper = mat[row(x) > col(x)] <- Inf,
       lower = mat[row(x) < col(x)] <- Inf
@@ -486,7 +486,7 @@ corrplot <- function(corr,
   rm(expand_expression) # making sure the function is only used here
 
   ## assign colors
-  assign.color <- function(dat = DAT, color = col){
+  assign.color <- function(dat = DAT, color = col) {
     newcorr <- (dat + 1) / 2
     newcorr[newcorr <= 0]  <- 0
     newcorr[newcorr >= 1]  <- 1 - 1e-16
