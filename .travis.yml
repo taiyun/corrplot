@@ -23,10 +23,10 @@ notifications:
     on_success: change
     on_failure: change
 
-r_github_packages:
-  - jimhester/covr
-  - jimhester/lintr
+r_packages:
+  - covr
+  - lintr
 
 after_success:
-  - Rscript -e 'library(covr);codecov()'
-  - Rscript -e 'devtools::install();lintr::lint_package()'
+  - Rscript -e 'library(covr); codecov()'
+  - Rscript -e 'devtools::install(); lintr::lint_package()'
