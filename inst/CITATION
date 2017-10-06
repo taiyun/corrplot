@@ -13,6 +13,7 @@ URL <- packageDescription(PKG, fields = "URL")
 YEAR <- strftime(packageDescription(PKG, fields = "Date"), "%Y")
 
 bibentry("Manual",
+  key = paste0(PKG, YEAR),
 	title = sprintf("R package \"%s\": %s", PKG, TITLE),
 	author = paste(AUTHORS, "et al."),
 	year = YEAR,
