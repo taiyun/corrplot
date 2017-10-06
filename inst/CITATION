@@ -1,14 +1,21 @@
 PKG <- "corrplot"
 VERSION <- packageVersion(PKG)
 TITLE <- packageDescription(PKG, fields = "Title")
-AUTHORS <- gsub("\\s+with contrib.*", " et al.",
-                packageDescription(PKG, fields = "Author"))
+
+# all contributors, see also http://www.loc.gov/marc/relators/relaterm.html
+ALL <- eval(parse(text=packageDescription(PKG, fields = "Authors@R")))
+
+# authors only
+AUTHORS <- ALL[[ sapply(ALL$role, function(x) "aut" %in% x) ]]
+AUTHORS <- paste(AUTHORS$given, AUTHORS$family, collapse = " and ")
+
 URL <- packageDescription(PKG, fields = "URL")
 YEAR <- strftime(packageDescription(PKG, fields = "Date"), "%Y")
 
 bibentry("Manual",
+  key = paste0(PKG, YEAR),
 	title = sprintf("R package \"%s\": %s", PKG, TITLE),
-	author = AUTHORS,
+	author = paste(AUTHORS, "et al."),
 	year = YEAR,
 	note = sprintf("(Version %s)", VERSION),
 	url = URL,
