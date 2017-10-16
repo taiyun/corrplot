@@ -533,7 +533,7 @@ corrplot <- function(corr,
   if (!add) {
     plot.new()
 
-    # Issue #10: code from Sébastien Rochette (github user @statnmap)
+    # Issue #10: code from Sebastien Rochette (github user @statnmap)
     xlabwidth <- max(strwidth(newrownames, cex = tl.cex))
     ylabwidth <- max(strwidth(newcolnames, cex = tl.cex))
     laboffset <- strwidth("W", cex = tl.cex) * tl.offset
