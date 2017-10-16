@@ -226,7 +226,7 @@ corrplot(M2, na.label = "NA")
 Using "plotmath" expressions in labels
 --------------------------------------
 Since version `0.78`, it is possible to use
-[plotmath](https://artax.karlin.mff.cuni.cz/r-help/library/grDevices/html/plotmath.html)
+[plotmath](https://www.rdocumentation.org/packages/grDevices/topics/plotmath)
 expression in variable names. To activate plotmath rendering, prefix your label
 with one of the characters `":"`, `"="` or `"$"`.
 
