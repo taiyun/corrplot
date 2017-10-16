@@ -1,29 +1,24 @@
-PKG <- "corrplot"
-VERSION <- packageVersion(PKG)
-TITLE <- packageDescription(PKG, fields = "Title")
+YEAR <- strftime(meta$Date, "%Y")
 
-# all contributors, see also http://www.loc.gov/marc/relators/relaterm.html
-ALL <- eval(parse(text=packageDescription(PKG, fields = "Authors@R")))
+# all roles, see also http://www.loc.gov/marc/relators/relaterm.html
+ALL <- eval(parse(text = meta$`Authors@R`))
 
 # authors only
 AUTHORS <- ALL[[ sapply(ALL$role, function(x) "aut" %in% x) ]]
 AUTHORS <- paste(AUTHORS$given, AUTHORS$family, collapse = " and ")
 
-URL <- packageDescription(PKG, fields = "URL")
-YEAR <- strftime(packageDescription(PKG, fields = "Date"), "%Y")
-
 bibentry("Manual",
-  key = paste0(PKG, YEAR),
-	title = sprintf("R package \"%s\": %s", PKG, TITLE),
-	author = paste(AUTHORS, "et al."),
+  key = paste0(meta$Package, YEAR),
+	title = sprintf("R package \"%s\": %s", meta$Package, meta$Title),
+	author = AUTHORS,
 	year = YEAR,
-	note = sprintf("(Version %s)", VERSION),
-	url = URL,
+	note = sprintf("(Version %s)", meta$Version),
+	url = meta$URL,
 
-	mheader = sprintf("To cite %s in publications use:", PKG),
+	mheader = sprintf("To cite %s in publications use:", meta$Package),
 
 	textVersion = sprintf(
     "%s (%s). R package \"%s\": %s (Version %s). Available from %s",
-    AUTHORS, YEAR, PKG, TITLE, VERSION, URL
+    AUTHORS, YEAR, meta$Package, meta$Title, meta$Version, meta$URL
 	)
 )
