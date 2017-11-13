@@ -587,8 +587,8 @@ corrplot <- function(corr,
                                  height = 7 * diff(ylim) / diff(xlim))
     }
 
-    xlim = xlim + diff(xlim) * 0.01 * c(-1, 1)
-    ylim = ylim + diff(ylim) * 0.01 * c(-1, 1)
+    xlim <- xlim + diff(xlim) * 0.01 * c(-1, 1)
+    ylim <- ylim + diff(ylim) * 0.01 * c(-1, 1)
 
     plot.window(xlim = xlim , ylim = ylim,
                 asp = win.asp, xlab = "", ylab = "", xaxs = "i", yaxs = "i")
@@ -633,9 +633,9 @@ corrplot <- function(corr,
   stopifnot(number.digits >= 0)       # is non-negative number
 
   if (method == "number" && plotCI == "n") {
+    x <- (DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
-         labels = format(round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits), nsmall = number.digits),
+         labels = format(round(x, number.digits), nsmall = number.digits),
          cex = number.cex)
   }
 
