@@ -218,7 +218,7 @@ sign, the smaller circle will be wiped away, thus forming a ring. Method
 currently compatible only with methods "circle" and "square".}
 
 \item{\dots}{Additional arguments passing to function \code{text} for drawing
-text lable.}
+text label.}
 }
 \value{
 (Invisibly) returns a reordered correlation matrix.

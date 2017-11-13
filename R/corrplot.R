@@ -199,7 +199,7 @@
 #'   currently compatible only with methods "circle" and "square".
 #'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
-#'   text lable.
+#'   text label.
 #'
 #' @return (Invisibly) returns a reordered correlation matrix.
 #'
