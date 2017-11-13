@@ -42,7 +42,7 @@ test_that("Testing 'tl.pos' parameter", {
 test_that("Testing 'corrRect' function", {
   M <- cor(mtcars)
   corrplot(M, method = "circle", order = "FPC")
-  corrRect(c(5,6))
+  corrRect(c(5, 6))
 })
 
 test_that("Testing 'outline' parameter", {
@@ -184,7 +184,8 @@ test_that("Using 'number.digits' parameter", {
 
   expect_silent(corrplot(M, number.digits = 0))
   expect_silent(corrplot(M, number.digits = 1))
-  expect_silent(corrplot(M, method = "number", number.digits = 200000))
+  # the allowed values for nsmall parameter of format() function is [0, 20]
+  expect_silent(corrplot(M, method = "number", number.digits = 20))
 
   expect_error(corrplot(M, number.digits = 1.2), regexp = "is not TRUE" )
   expect_error(corrplot(M, number.digits = -1), regexp = "is not TRUE" )
