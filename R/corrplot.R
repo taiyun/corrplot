@@ -634,8 +634,8 @@ corrplot <- function(corr,
 
   if (method == "number" && plotCI == "n") {
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
-         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits),
+         labels = format(round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
+                        number.digits), nsmall = number.digits),
          cex = number.cex)
   }
 
