@@ -526,7 +526,7 @@ corrplot <- function(corr,
   }
 
   # restore this parameter when exiting the corrplot function in any way
-  oldpar <- par(mar = mar, bg = "white")
+  oldpar <- par(mar = mar, bg = par()$bg)
   on.exit(par(oldpar), add = TRUE)
 
   ## calculate label-text width approximately
@@ -545,17 +545,15 @@ corrplot <- function(corr,
           xlabwidth * (grepl("l", tl.pos) | grepl("d", tl.pos)),
         m2 + 0.5 + mm * cl.ratio * (cl.pos == "r") +
           xlabwidth * abs(cos(tl.srt * pi / 180)) * grepl("d", tl.pos)
-      ) + c(-0.35, 0.15) +
-          c(-1,0) * grepl("l", tl.pos) # margin between text and grid
+      ) #+ c(-0.35, 0.15)
 
       ylim <- c(
         n1 - 0.5 - nn * cl.ratio * (cl.pos == "b") - laboffset,
         n2 + 0.5 + laboffset +
           ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
       ) +
-        c(-0.15, 0) +
-        c(0, -1) * (type == "upper" && tl.pos != "n") + # nasty hack
-        c(0,1) * grepl("d", tl.pos) # margin between text and grid
+        #c(-0.15, 0) +
+        c(0, -1) * (type == "upper" && tl.pos != "n")  # nasty hack
 
       # note: the nasty hack above is related to multiple issues
       # (e.g. #96, #94, #102)
@@ -588,6 +586,9 @@ corrplot <- function(corr,
       grDevices::windows.options(width = 7,
                                  height = 7 * diff(ylim) / diff(xlim))
     }
+
+    xlim = xlim + diff(xlim) * 0.01 * c(-1, 1)
+    ylim = ylim + diff(ylim) * 0.01 * c(-1, 1)
 
     plot.window(xlim = xlim , ylim = ylim,
                 asp = win.asp, xlab = "", ylab = "", xaxs = "i", yaxs = "i")

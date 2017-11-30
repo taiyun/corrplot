@@ -32,7 +32,7 @@ library(corrplot)
 M <- cor(mtcars)
 corrplot(M, order = "hclust", addrect = 2)
 ```
-![Basic example](vignettes/webimg/rectangles-1.png)
+![Basic example](https://raw.githubusercontent.com/taiyun/corrplot/master/vignettes/webimg/rectangles-1.png)
 
 ## Download and Install
 To download the development version of the package, type the following at the R command line:
