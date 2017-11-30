@@ -587,8 +587,8 @@ corrplot <- function(corr,
                                  height = 7 * diff(ylim) / diff(xlim))
     }
 
-    xlim = xlim + diff(xlim) * 0.01 * c(-1, 1)
-    ylim = ylim + diff(ylim) * 0.01 * c(-1, 1)
+    xlim <- xlim + diff(xlim) * 0.01 * c(-1, 1)
+    ylim <- ylim + diff(ylim) * 0.01 * c(-1, 1)
 
     plot.window(xlim = xlim , ylim = ylim,
                 asp = win.asp, xlab = "", ylab = "", xaxs = "i", yaxs = "i")
