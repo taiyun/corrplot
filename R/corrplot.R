@@ -126,6 +126,10 @@
 #' @param cl.offset Numeric, for number-label in colorlabel, see
 #'   \code{\link{text}}.
 #'
+#' @param cl.lmar Numeric, left margin for colbar. Distance between plot and
+#'   colorbar. Defaults to 0.245. Currently only used in combination with
+#'   \code{mreg} = \code{TRUE} and \code{cl.pos} = \code{"r"}
+#'
 #' @param number.cex The \code{cex} parameter to send to the call to \code{text}
 #'   when writing the correlation coefficients into the plot.
 #'
@@ -148,9 +152,9 @@
 #' @param shade.col The color of shade line.
 #'
 #' @param p.mat Matrix of p-value, if \code{NULL}, arguments \code{sig.level},
-#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} is invalid.
+#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} are invalid.
 #'
-#' @param sig.level Significant level,  if the p-value in \code{p-mat} is bigger
+#' @param sig.level Significant level,if the p-value in \code{p-mat} is bigger
 #'   than \code{sig.level}, then the corresponding correlation coefficient is
 #'   regarded as insignificant. If \code{insig} is \code{"label_sig"}, this may
 #'   be an increasing vector of significance levels, in which case \code{pch}
@@ -197,6 +201,10 @@
 #'
 #' @param win.asp Aspect ration for the whole plot. Value other than 1 is
 #'   currently compatible only with methods "circle" and "square".
+#'
+#' @param mreg Logical, whether matrix is a multiple regression representation
+#'  (TRUE) or something else (FALSE.) Default is FALSE as corrplot is initially
+#'  meant for linear regression.
 #'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text label.
@@ -255,6 +263,7 @@ corrplot <- function(corr,
   cl.pos = NULL, cl.lim = NULL,
   cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15,
   cl.align.text = "c", cl.offset = 0.5,
+  cl.lmar = 0.245,
 
   number.cex = 1, number.font = 2, number.digits = NULL,
 
@@ -269,6 +278,9 @@ corrplot <- function(corr,
   lowCI.mat = NULL, uppCI.mat = NULL,
   na.label = "?", na.label.col = "black",
   win.asp = 1,
+
+  mreg = FALSE,
+
   ...)
 {
 
@@ -295,6 +307,26 @@ corrplot <- function(corr,
   # select grid color automatically if not specified
   if (is.null(addgrid.col)) {
     addgrid.col <- switch(method, color = NA, shade = NA, "grey")
+  }
+
+
+  if (mreg) {
+    # mreg code: number of response variables usually smaller than number of
+    # predictor variables
+    is.corr <- FALSE
+
+    if (is.null(cl.lim)) {
+      # if the matrix is expected to be a multiple regression correlation matrix
+      # it MUST be within the interval [-1,1], although it can be overruled
+      cl.lim <- c(-1,1)
+    }
+
+    # mreg code: catch corr for multiple regression
+    # cross out of ignored predictors
+    corrbefore <- corr
+    # mreg code: replace infinite values by 0,
+    # so that rest of corrplot codes keeps working
+    corr[ is.infinite(corr)] <- 0
   }
 
   if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {
@@ -383,6 +415,7 @@ corrplot <- function(corr,
   }
 
   if (is.null(col)) {
+    # Create 200 colors for a gradual color transition through the colors below
     col <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                               "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                               "#4393C3", "#2166AC", "#053061"))(200)
@@ -406,7 +439,7 @@ corrplot <- function(corr,
     colnames(corr) <- seq_len(m)
   }
 
-  # assigns Inf to cells in the matrix depending on the type paramter
+  # assigns Inf to cells in the matrix depending on the type parameter
   apply_mat_filter <- function(mat) {
     x <- matrix(1:n * m, nrow = n, ncol = m)
     switch(type,
@@ -428,6 +461,20 @@ corrplot <- function(corr,
     Pos <- ind
     Pos[,1] <-  ind[,2]
     Pos[,2] <- -ind[,1] + 1 + n
+    return(list(Pos, Dat))
+  }
+
+  # mreg code:
+  # retrieves coordinates of Inf cells
+  # we use this to blank and cross out "X" Inf Cells
+  getPosInf.Dat <- function(mat) {
+    # Used by mreg system
+    tmp <- mat
+    Dat <- tmp[is.infinite(tmp)]
+    ind <- which(is.infinite(tmp), arr.ind = TRUE)
+    Pos <- ind
+    Pos[, 1] <-  ind[, 2]
+    Pos[, 2] <- -ind[, 1] + 1 + n
     return(list(Pos, Dat))
   }
 
@@ -752,7 +799,7 @@ corrplot <- function(corr,
     uppNew      <- getPos.Dat(uppCI.mat)[[2]]
 
     if (!method %in% c("circle", "square")) {
-       stop("Method shoud be circle or square if drawing confidence intervals.")
+      stop("Method should be circle or square if drawing confidence intervals.")
     }
 
     k1 <- (abs(uppNew) > abs(lowNew))
@@ -879,9 +926,50 @@ corrplot <- function(corr,
     }
   }
 
+
+  ### in case of multiple regression":
+  if (mreg ) {
+
+    pos.pNew <- getPos.Dat(corrbefore)[[1]]
+    pNew <- getPos.Dat(corrbefore)[[2]]
+
+    ## Blank out zeros.
+    ind.p <- which(pNew == 0)
+    if (length(ind.p) > 0) {
+      symbols(pos.pNew[, 1][ind.p], pos.pNew[, 2][ind.p],
+              inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p])),
+              fg = addgrid.col, bg = bg, add = TRUE)
+    }
+
+    ## Blank out and cross out Infs
+    pos.pNew <- getPosInf.Dat(corrbefore)[[1]]
+    pNew <- getPosInf.Dat(corrbefore)[[2]]
+    ind.p2 <- which(is.infinite(pNew), arr.ind = TRUE)
+
+    if (length(ind.p2) > 0) {
+      ## blank out Infs
+      symbols(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2],
+                inches = FALSE, squares = rep(1, length(pos.pNew[,1][ind.p2])),
+                fg = addgrid.col, bg = bg, add = TRUE)
+
+      ## Cross out Infs
+      points(pos.pNew[, 1][ind.p2], pos.pNew[, 2][ind.p2],
+             pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
+    }
+  }
+
+
   ### color legend
   if (cl.pos != "n") {
-    colRange <- assign.color(dat = cl.lim2)
+
+    if ( mreg ) {
+      # Force the whole range by default
+      # by default from blue to red
+      colRange <- assign.color(dat = cl.lim)
+    } else {
+      colRange <- assign.color(dat = cl.lim2)
+    }
+
     ind1 <- which(col == colRange[1])
     ind2 <- which(col == colRange[2])
     colbar <- col[ind1:ind2]
@@ -894,7 +982,25 @@ corrplot <- function(corr,
 
     if (cl.pos == "r") {
       vertical <- TRUE
-      xlim <- c(m2 + 0.5 + mm * 0.02, m2 + 0.5 + mm * cl.ratio)
+
+      if (mreg) {
+        # each column has a width of 1
+        # m2: last column :
+        # 0.5: interdistance between graph and colorbar
+        # mm*0.02: mm is according to me equal to m
+        # correction for each interdistance between columns + end column
+
+        plot.xposmax <- m + 0.5 # m is center position. Add 0.5 for right edge
+
+        cl.width <- 8           # quasi width to mimic non mreg situation
+
+        # cl.lmar and cl.width set by trial and error for backward compatibility
+        xlim <- c(plot.xposmax + cl.lmar,
+                  plot.xposmax + cl.lmar + cl.width * cl.ratio )
+
+      } else {
+        xlim <- c(m2 + 0.5 + mm * 0.02, m2 + 0.5 + mm * cl.ratio)
+      }
       ylim <- c(n1 - 0.5, n2 + 0.5)
     }
 
@@ -905,7 +1011,7 @@ corrplot <- function(corr,
     }
 
     colorlegend(colbar = colbar, labels = round(labels, 2),
-                offset = cl.offset, ratio.colbar = 0.3, cex = cl.cex,
+                offset = cl.offset, ratio.colbar = .3, cex = cl.cex,
                 xlim = xlim, ylim = ylim, vertical = vertical,
                 align = cl.align.text)
   }
