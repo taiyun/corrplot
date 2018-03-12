@@ -1,0 +1,18 @@
+dependencies:
+  - name: jquery
+    version: 1.8.3
+    src: "htmlwidgets/lib/jquery"
+    script: jquery-1.8.3.js
+  - name: jquery-ui
+    version: 1.9.2
+    src: "htmlwidgets/lib/jquery-ui"
+    script: jquery-ui-1.9.2.custom.min.js
+    stylesheet: jquery-ui-1.9.2.custom.css
+  - name: corrplot
+    version: 1.0.1
+    src: "htmlwidgets/lib/corrplot"
+    stylesheet: corrplot.css
+  - name: d3
+    version: 2.5.1
+    src: "htmlwidgets/lib/d3"
+    script: d3.v2.min.js

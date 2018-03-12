@@ -12,6 +12,8 @@ Authors@R: c(
   person("Jeff", "Zemla", email = "zemla@wisc.edu", role = "ctb")
   )
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
+Imports:
+    htmlwidgets
 Suggests:
     knitr,
     RColorBrewer,
