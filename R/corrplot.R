@@ -311,7 +311,7 @@ corrplot <- function(corr,
       # if not a correlation matrix and the diagonal is hidden,
       # we need to compute limits from all cells except the diagonal
       corr_tmp <- corr
-      diag(corr_tmp) <- ifelse(diag, diag(corr_tmp), NA)
+      diag(corr_tmp) <- ifelse(rep(diag, length(diag(corr_tmp))), diag(corr_tmp), NA)
       cl.lim <- c(min(corr_tmp, na.rm = TRUE), max(corr_tmp, na.rm = TRUE))
     }
   }
