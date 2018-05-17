@@ -1,3 +1,30 @@
+		CHANGES IN corrplot VERSION 0.83
+		
+CHANGES
+  * CITATION now uses fields from DESCRIPTION
+  * RColorBrewer is now a suggested package (not required)
+  
+NEW FEATURES
+  * Fixed #99 : A new option insig = "label_sig" to mark significant correlations.
+
+		CHANGES IN corrplot VERSION 0.82
+BUG FIXES
+  * Fixed #10: corrplot with type = "upper" and long colname strings cuts off top labels
+  * Fixed #19: Color Legend has 0 width when only 1 column is used
+  * Fixed #70: NA errors when is.corr = F
+  * Fixed #77: Error when the matrix(corr) contains NA values.
+  
+NEW FEATURES
+  * Fixed #18: title position and pie corrplot background circle
+    * Used existing parameter `outline` to control the border color of pie symbols.
+  * Fixed #66: `lim.segment` parameter default value
+    * added default value "auto" for `lim.segment` parameter
+  * Fixed #76: corrplot.mixed with black color correlation coefficient
+    * Added two new parameters `lower.col` and `upper.col`
+  * Fixed #79: Changing aspect ratio for the plot
+    * Added a new parameter `win.asp` which controls the aspect ratio of the plotted matrix.
+  * Added more examples to the vignette
+
 		CHANGES IN corrplot VERSION 0.81
 
 CHANGES
@@ -6,19 +33,16 @@ CHANGES
     the color of the otline circle of each pie.
   * updated vignette
 
-
 		CHANGES IN corrplot VERSION 0.80
 
 CHANGES
   * Fixed #70: Enable to plot a matrix with NA when 'is.corr = F'
-
 
 		CHANGES IN corrplot VERSION 0.77
 
 CHANGES
   * Fixed #58: make sure the margin is correct in corrplot.mixed().
   * Revised document.
-
 
 		CHANGES IN corrplot VERSION 0.76
 
@@ -29,7 +53,6 @@ CHANGES
   * Fixed #16: checks for [-1, 1] interval are too strict.
   * Fixed #15: error with correlation plot using insig argument when all values are significant.
   * Fixed #9: added ward.D and ward.D2 hclust methods (thanks, #jeffzemla)
-
 
 		CHANGES IN corrplot VERSION 0.70
 
@@ -44,7 +67,6 @@ CHANGES
   *  In corrplot(), remove parameter "zoom", add "is.corr"; now it is more convenient to
      visualize  non-correlation matrix. Parameter "addtextlabel" was renamed as "tl.pos",
      and "addcolorlabel" was renamed as "cl.pos".
-
 
 		CHANGES IN corrplot VERSION 0.60
 
@@ -62,9 +84,6 @@ CHANGES
      corrplot.square(), corrplot.shade(), corrplot.color(), corrplot.number().
   *  In corrplot(), remove parameter "assign.col" and "cl.range",
      add "zoom", "cl.lim" and "addCoefasPercent".
-
-
-
 
 		CHANGES IN corrplot VERSION 0.54
 
