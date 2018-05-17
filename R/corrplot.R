@@ -30,6 +30,9 @@
 #'   \code{cl.lim}. If NULL, \code{col} will be
 #'   \code{colorRampPalette(col2)(200)}, see example about col2.
 #'
+#' @param full_col Logical, whether to use the entire color spectrum 
+#'   defined in \code{col} for visualization.
+#'
 #' @param bg The background color.
 #'
 #' @param title Character, title of the graph.
@@ -240,7 +243,7 @@
 corrplot <- function(corr,
   method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
   type = c("full", "lower", "upper"), add = FALSE,
-  col = NULL, bg = "white", title = "", is.corr = TRUE,
+  col = NULL, full_col = TRUE, bg = "white", title = "", is.corr = TRUE,
   diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
@@ -491,11 +494,23 @@ corrplot <- function(corr,
 
   ## assign colors
   assign.color <- function(dat = DAT, color = col) {
-    newcorr <- (dat + 1) / 2
-    newcorr[newcorr <= 0]  <- 0
-    newcorr[newcorr >= 1]  <- 1 - 1e-16
+    if (full_col) {
+        # scale data to range [lower, upper]
+        scale_to_range <- function(data, lower=1, upper) {
+            (((upper - lower) * (dat - min(dat))) / (max(dat) - min(dat))) + lower
+        }
 
-    color[floor(newcorr * length(color)) + 1] # new color returned
+        # Rescale data before computing color to ensure that all colors are used.
+       newcorr = scale_to_range(data = dat, lower = 1, upper = length(color))
+       color[floor(newcorr)]
+    }
+    else {
+        newcorr <- (dat + 1) / 2
+        newcorr[newcorr <= 0]  <- 0
+        newcorr[newcorr >= 1]  <- 1 - 1e-16
+        color[floor(newcorr * length(color)) + 1] # new color returned
+    }
+
   }
 
   col.fill <- assign.color()
