@@ -199,7 +199,7 @@
 #'   currently compatible only with methods "circle" and "square".
 #'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
-#'   text lable.
+#'   text label.
 #'
 #' @return (Invisibly) returns a reordered correlation matrix.
 #'
@@ -633,9 +633,9 @@ corrplot <- function(corr,
   stopifnot(number.digits >= 0)       # is non-negative number
 
   if (method == "number" && plotCI == "n") {
+    x <- (DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
-         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits),
+         labels = format(round(x, number.digits), nsmall = number.digits),
          cex = number.cex)
   }
 
