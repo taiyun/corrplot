@@ -10,7 +10,8 @@ Authors@R: c(
   person("Yihui", "Xie", email = "xie@yihui.name", role = "ctb"),
   person("Yan", "Jin", email = "jyfeather@gmail.com", role = "ctb"),
   person("Jeff", "Zemla", email = "zemla@wisc.edu", role = "ctb"),
-  person("Jun", "Cai", email = "cai-j12@mails.tsinghua.edu.cn", role = "ctb")
+  person("Jun", "Cai", email = "cai-j12@mails.tsinghua.edu.cn", role = "ctb"),
+  person("Tomas", "Protivinsky", email = "tomas.protivinsky@gmail.com", role = "ctb")
   )
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Suggests:
