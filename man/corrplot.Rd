@@ -421,7 +421,7 @@ corrplot(M, p.mat = res2$p, low = res2$lowCI, upp = res2$uppCI,
 
 
 ## an animation of changing confidence interval in different significance level
-## begin.animaton
+## begin.animation
 par(ask = FALSE)
 for (i in seq(0.1, 0, -0.005)) {
   tmp <- cor.mtest(mtcars, conf.level = 1 - i)
@@ -432,7 +432,7 @@ for (i in seq(0.1, 0, -0.005)) {
                               list(x = format(i, digits = 3, nsmall = 3))))
   Sys.sleep(0.15)
 }
-## end.animaton
+## end.animation
 }
 \references{
 Michael Friendly (2002).
