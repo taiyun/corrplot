@@ -4,9 +4,14 @@
 \alias{corrRect.hclust}
 \title{Draw rectangles on the correlation matrix graph.}
 \usage{
-corrRect.hclust(corr, k = 2, col = "black", lwd = 2,
-  method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
-  "mcquitty", "median", "centroid"))
+corrRect.hclust(
+  corr,
+  k = 2,
+  col = "black",
+  lwd = 2,
+  method = c("complete", "ward", "ward.D", "ward.D2", "single", "average", "mcquitty",
+    "median", "centroid")
+)
 }
 \arguments{
 \item{corr}{Correlation matrix for function \code{corrRect.hclust}. It use

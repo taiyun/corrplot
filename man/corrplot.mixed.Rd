@@ -4,10 +4,20 @@
 \alias{corrplot.mixed}
 \title{Using mixed methods to visualize a correlation matrix.}
 \usage{
-corrplot.mixed(corr, lower = "number", upper = "circle", tl.pos = c("d",
-  "lt", "n"), diag = c("n", "l", "u"), bg = "white", addgrid.col = "grey",
-  lower.col = NULL, upper.col = NULL, plotCI = c("n", "square", "circle",
-  "rect"), mar = c(0, 0, 0, 0), ...)
+corrplot.mixed(
+  corr,
+  lower = "number",
+  upper = "circle",
+  tl.pos = c("d", "lt", "n"),
+  diag = c("n", "l", "u"),
+  bg = "white",
+  addgrid.col = "grey",
+  lower.col = NULL,
+  upper.col = NULL,
+  plotCI = c("n", "square", "circle", "rect"),
+  mar = c(0, 0, 0, 0),
+  ...
+)
 }
 \arguments{
 \item{corr}{Matrix, the correlation matrix to visualize.}

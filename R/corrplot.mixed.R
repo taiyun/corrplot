@@ -40,6 +40,7 @@ corrplot.mixed <- function(
 {
   tl.pos <- match.arg(tl.pos)
   diag <- match.arg(diag)
+  plotCI <- match.arg(plotCI)
   n <- nrow(corr)
 
   # fixes issue #21
