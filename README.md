@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/taiyun/corrplot.svg)](https://travis-ci.org/taiyun/corrplot)
+[![Build Status](https://travis-ci.org/taiyun/corrplot.svg?branch=master)](https://travis-ci.org/taiyun/corrplot)
 [![codecov.io](https://codecov.io/github/taiyun/corrplot/coverage.svg?branch=master)](https://codecov.io/github/taiyun/corrplot?branch=master)
 [![CRAN Status](http://www.r-pkg.org/badges/version/corrplot)](http://cran.r-project.org/package=corrplot)
 [![Rdoc](http://www.rdocumentation.org/badges/version/corrplot)](http://www.rdocumentation.org/packages/corrplot)
