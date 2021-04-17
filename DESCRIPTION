@@ -1,8 +1,8 @@
 Package: corrplot
 Type: Package
 Title: Visualization of a Correlation Matrix
-Version: 0.85
-Date: 2020-04-07
+Version: 0.86
+Date: 2021-04-17
 Authors@R: c(
   person("Taiyun", "Wei", email = "weitaiyun@gmail.com", role = c("cre", "aut")),
   person("Viliam", "Simko", email = "viliam.simko@gmail.com", role = "aut"),
@@ -18,6 +18,7 @@ Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Suggests:
     knitr,
     RColorBrewer,
+    markdown,
     testthat
 Description: A graphical display of a correlation matrix or general matrix.
     It also contains some algorithms to do matrix reordering. In addition,
@@ -27,4 +28,4 @@ License: MIT
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
