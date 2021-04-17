@@ -300,7 +300,9 @@ corrplot <- function(corr,
     addgrid.col <- switch(method, color = NA, shade = NA, "grey")
   }
 
-  if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {
+  # Issue #142
+  # checks for all values that are not missing
+  if (any(corr[!is.na(corr)] < cl.lim[1]) || any(corr[!is.na(corr)] > cl.lim[2])) {
     stop("color limits should cover matrix")
   }
 
