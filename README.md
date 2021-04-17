@@ -65,8 +65,8 @@ In RStudio, you can run `lintr` from the console as follows:
 ```
 
 ### Who do I talk to? ###
-- [Taiyun Wei](https://github.com/taiyun) (main)
-- [Viliam Simko](https://github.com/vsimko) (backup)
+- [Viliam Simko](https://github.com/vsimko)
+- [Taiyun Wei](https://github.com/taiyun)
 
 ## License
 This package is free and open source software, licensed under MIT
@@ -75,3 +75,26 @@ This package is free and open source software, licensed under MIT
 - Corrplot listed at OpenHub: https://www.openhub.net/p/corrplot
 - Research software impact of Corrplot (by Depsy): http://depsy.org/package/r/corrplot
 - CRAN: http://cran.r-project.org/web/packages/corrplot
+
+### Additional development dependendencies
+In order to develop the corrplot package, you might want to install the following dependencies on Ubuntu-based systems. These are mostly needed for generating the vignette.
+
+```sh
+sudo apt-get install libxml2-dev
+sudo apt-get install libcurl4-openssl-dev
+sudo apt-get install texlive-latex-base
+sudo apt-get install texlive-latex-extra
+sudo apt-get install texlive-fonts-recommended
+sudo apt-get install texlive-extra-utils
+sudo apt-get install librsvg2-bin
+sudo apt-get install libmagick++-dev
+```
+
+```r
+install.packages("lintr")
+install.packages("testthat")
+install.packages("roxygen2")
+install.packages("magick")
+
+base64enc, rmarkdown, tinytex
+```
