@@ -71,7 +71,7 @@ The correlation matrix can be reordered according to the correlation
 coefficient. This is important to identify the hidden structure and pattern in
 the matrix. There are four methods in corrplot (parameter `order`), named 
 `"AOE"`, `"FPC"`, `"hclust"`, `"alphabet"`.  More algorithms can be found in 
-[seriation](https://cran.r-project.org/web/packages/seriation/index.html) package.
+[seriation](https://cran.r-project.org/package=seriation) package.
 
 You can also reorder the matrix "manually" via function `corrMatOrder()`.
 
