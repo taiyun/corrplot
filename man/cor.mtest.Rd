@@ -29,6 +29,6 @@ pair of input features.
 \seealso{
 Function \code{\link{cor.test}}
 }
-\keyword{confidence,}
-\keyword{p-value,}
+\keyword{confidence}
+\keyword{p-value}
 \keyword{significance}

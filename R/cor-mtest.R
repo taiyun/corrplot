@@ -15,7 +15,7 @@
 #'
 #' @seealso Function \code{\link{cor.test}}
 #'
-#' @keywords p-value, confidence, significance
+#' @keywords p-value confidence significance
 #' @export
 cor.mtest <- function(mat, ...) {
   mat <- as.matrix(mat)
