@@ -95,6 +95,7 @@ install.packages("lintr")
 install.packages("testthat")
 install.packages("roxygen2")
 install.packages("magick")
-
-base64enc, rmarkdown, tinytex
+install.packages("base64enc")
+install.packages("rmarkdown")
+install.packages("tinytex")
 ```
