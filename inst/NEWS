@@ -1,7 +1,15 @@
-		CHANGES IN corrplot VERSION 0.87
+		CHANGES IN corrplot VERSION 0.88
 
 CHANGES
+  * Change vignette engine from 'knitr::knitr' to 'knitr::rmarkdown'
+  * Set 'rmarkdown' as a Suggests package
+
+
+		CHANGES IN corrplot VERSION 0.87
+CHANGES
   * Change to MIT license
+  * Fix #142: NA issues when cl.lim is supplied. (thanks, @AlexChristensen)
+
 
 		CHANGES IN corrplot VERSION 0.83
 
