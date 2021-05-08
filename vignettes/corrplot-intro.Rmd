@@ -1,10 +1,13 @@
-<!--
-%\VignetteEngine{knitr::docco_linear}
-%\VignetteIndexEntry{An Introduction to the corrplot package}
--->
+---
+title: "An Introduction to corrplot Package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{An Introduction to corrplot Package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
 
-An Introduction to **corrplot** Package
-=======================================
+
 
 ```{r setup, include=FALSE}
 set.seed(0) # we need reproducible results
@@ -12,19 +15,21 @@ knitr::opts_chunk$set(
   out.extra = 'style="display:block; margin: auto"',
   fig.align = "center",
   fig.path = "webimg/",
-  dev = "png")
+  fig.width = 6,
+  fig.height = 6,
+  dev = "svg")
 ```
 
-Introduction
-------------
+# Introduction
+
 The **corrplot** package is a graphical display of a correlation matrix, 
 confidence interval. It also contains some algorithms to do matrix reordering. 
 In addition, corrplot is good at details, including choosing color, text labels,
 color labels, layout, etc.
 
 
-Visualization methods
-----------------------------
+# Visualization methods
+
 There are seven visualization methods (parameter `method`) in **corrplot** package, named `"circle"`, `"square"`, `"ellipse"`, `"number"`, `"shade"`, `"color"`, `"pie"`.
 
 > Positive correlations are displayed in blue and negative correlations in red
@@ -44,8 +49,8 @@ corrplot(M, method = "pie")
 ```
 
 
-Layout
------------------------------
+# Layout
+
 There are three layout types (parameter `type`):
 - `"full"` (default) : display full **correlation matrix**
 - `"upper"` : display upper triangular of the **correlation matrix**
@@ -65,8 +70,8 @@ corrplot.mixed(M, lower = "square", upper = "circle", tl.col = "black")
 ```
 
 
-Reorder a correlation matrix
-----------------------------
+# Reorder a correlation matrix
+
 The correlation matrix can be reordered according to the correlation
 coefficient. This is important to identify the hidden structure and pattern in
 the matrix. There are four methods in corrplot (parameter `order`), named 
@@ -121,8 +126,9 @@ corrplot(M, type = "upper", order = "hclust",
 ```
 
 
-Using different color spectra
-------------------------------
+# Using different color spectra
+
+
 As shown in the above section, the color of the correlogram can be customized.
 The function `colorRampPalette()` is very convenient for generating color
 spectrum.
@@ -168,8 +174,9 @@ corrplot(M, type = "upper", order = "hclust",
 
 
 
-Changing color and rotation of text labels and legend
------------------------------------------------------
+# Changing color and rotation of text labels and legend
+
+
 Parameter `cl.*` is for color legend, and `tl.*` if for text legend. For the
 text label, `tl.col` (text label color) and `tl.srt` (text label string 
 rotation) are used to change text colors and rotations.
@@ -190,8 +197,9 @@ corrplot(M, type = "lower", order = "hclust", tl.col = "black", tl.srt = 45)
 ```
 
 
-Dealing with a non-correlation matrix
--------------------------------------
+# Dealing with a non-correlation matrix
+
+
 ```{r non-corr}
 corrplot(abs(M),order = "AOE", col = col3(200), cl.lim = c(0, 1))
 ## visualize a  matrix in [-100, 100]
@@ -208,8 +216,9 @@ ran <- matrix(rnorm(70), ncol = 7)
 corrplot(ran, is.corr = FALSE, win.asp = .7, method = "circle")
 ```
 
-Dealing with missing (NA) values
---------------------------------
+# Dealing with missing (NA) values
+
+
 By default, **corrplot** renders NA values as `"?"` characters. Using `na.label`
 parameter, it is possible to use a different value (max. two characters are
 supported).
@@ -223,8 +232,9 @@ corrplot(M2, na.label = "NA")
 ```
 
 
-Using "plotmath" expressions in labels
---------------------------------------
+# Using "plotmath" expressions in labels
+
+
 Since version `0.78`, it is possible to use
 [plotmath](https://www.rdocumentation.org/packages/grDevices/topics/plotmath)
 expression in variable names. To activate plotmath rendering, prefix your label
@@ -238,8 +248,9 @@ corrplot(M2)
 ```
 
 
-Combining correlogram with the significance test
-------------------------------------------------
+# Combining correlogram with the significance test
+
+
 ```{r test}
 res1 <- cor.mtest(mtcars, conf.level = .95)
 res2 <- cor.mtest(mtcars, conf.level = .99)
@@ -263,8 +274,9 @@ corrplot(M, p.mat = res1$p, order = "hclust", insig = "pch", addrect = 3)
 ```
 
 
-Visualize confidence interval
------------------------------
+# Visualize confidence interval
+
+
 ```{r ci}
 corrplot(M, low = res1$lowCI, upp = res1$uppCI, order = "hclust",
          rect.col = "navy", plotC = "rect", cl.pos = "n")
@@ -287,8 +299,9 @@ corrplot(M, p.mat = res1$p, insig = "label_sig", pch.col = "white",
          pch = "p<.05", pch.cex = .5, order = "AOE")
 ```
 
-Customize the correlogram
--------------------------
+# Customize the correlogram
+
+
 ```{r pmat}
 # matrix of the p-value of the correlation
 p.mat <- cor.mtest(mtcars)$p
@@ -322,8 +335,9 @@ corrplot(M, method = "color", col = col(200),
 
 [this blog]: http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram
 
-Explore Large Feature Matrices
-------------------------------
+# Explore Large Feature Matrices
+
+
 ```{r large_matrix}
 
 # generating large feature matrix (cols=features, rows=samples)
