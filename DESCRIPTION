@@ -19,6 +19,7 @@ Suggests:
     knitr,
     RColorBrewer,
     rmarkdown,
+    prettydoc,
     testthat
 Description: A graphical display of a correlation matrix or general matrix.
     It also contains some algorithms to do matrix reordering. In addition,

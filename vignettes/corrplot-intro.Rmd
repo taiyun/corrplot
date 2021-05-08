@@ -1,6 +1,13 @@
 ---
 title: "An Introduction to corrplot Package"
-output: rmarkdown::html_vignette
+subtitle: "Making Correlation Matrix Plot Worth A Thousand Words"
+author: "Taiyun Wei, Viliam Simko"
+date: "`r Sys.Date()`"
+output:
+  prettydoc::html_pretty:
+    theme: Tactile
+    toc: true
+toc-title: "Table of Contents"
 vignette: >
   %\VignetteIndexEntry{An Introduction to corrplot Package}
   %\VignetteEngine{knitr::rmarkdown}
@@ -242,8 +249,8 @@ with one of the characters `":"`, `"="` or `"$"`.
 
 ```{r plotmath}
 M2 <- M[1:5,1:5]
-colnames(M2) <- c("alpha", "beta", ":alpha+beta", ":a[0]", "=a[beta]")
-rownames(M2) <- c("alpha", "beta", NA, "$a[0]", "$ a[beta]")
+colnames(M2) <- c("alpha", "beta", ":alpha+beta", ":alpha[0]", "=alpha[beta]")
+rownames(M2) <- c("$alpha", "$beta", NA, "$alpha[0]", "$alpha[beta]")
 corrplot(M2)
 ```
 
