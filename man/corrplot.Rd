@@ -10,7 +10,7 @@ corrplot(
   type = c("full", "lower", "upper"),
   add = FALSE,
   col = NULL,
-  full_col = NULL,
+  col_assign = NULL,
   bg = "white",
   title = "",
   is.corr = TRUE,
@@ -85,12 +85,6 @@ otherwise a new plot is created.}
 \item{col}{Vector, the color of glyphs. It is distributed uniformly in
 \code{cl.lim}. If NULL, \code{col} will be
 \code{colorRampPalette(col2)(200)}, see example about col2.}
-
-\item{full_col}{Logical, whether to use the entire color spectrum
-defined in \code{col} for visualization. By default, it will
-be automatically specified by \code{is.corr}. When \code{is.corr} is
-\code{TRUE}, \code{full_col} will be \code{FALSE}. When \code{is.corr} is
-\code{FALSE}, \code{full_col} will be \code{TRUE}.}
 
 \item{bg}{The background color.}
 

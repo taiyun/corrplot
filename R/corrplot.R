@@ -30,11 +30,6 @@
 #'   \code{cl.lim}. If NULL, \code{col} will be
 #'   \code{colorRampPalette(col2)(200)}, see example about col2.
 #'
-#' @param full_col Logical, whether to use the entire color spectrum
-#'   defined in \code{col} for visualization. By default, it will
-#'   be automatically specified by \code{is.corr}. When \code{is.corr} is
-#'   \code{TRUE}, \code{full_col} will be \code{FALSE}. When \code{is.corr} is
-#'   \code{FALSE}, \code{full_col} will be \code{TRUE}.
 #'
 #' @param bg The background color.
 #'
@@ -246,7 +241,7 @@
 corrplot <- function(corr,
   method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
   type = c("full", "lower", "upper"), add = FALSE,
-  col = NULL, full_col = NULL, bg = "white", title = "", is.corr = TRUE,
+  col = NULL, bg = "white", title = "", is.corr = TRUE,
   diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
@@ -497,33 +492,13 @@ corrplot <- function(corr,
 
   rm(expand_expression) # making sure the function is only used here
 
-  # scale data to range [lower, upper]
-  # if the dataspan is invalid we use the coller in the middle of the interval
-  scale_to_range <- function(data, lower = 1, upper) {
-    dataspan <- max(data) - min(data)
-    if (dataspan == 0)
-      rep((upper - lower) / 2, length(data)) # middle color
-    else
-      (upper - lower) * (data - min(data)) / dataspan + lower # full range
-  }
-
-  # set full_col automatically if not specified
-  if (is.null(full_col)) {
-    full_col <- ifelse(is.corr, FALSE, TRUE)
-  }
 
   ## assign colors
   assign.color <- function(dat = DAT, color = col) {
-    if (full_col) {
-      # Rescale data before computing color to ensure that all colors are used.
-      newcorr <- scale_to_range(data = dat, lower = 1, upper = length(color))
-      color[floor(newcorr)]
-    } else {
-      newcorr <- (dat + 1) / 2
-      newcorr[newcorr <= 0]  <- 0
-      newcorr[newcorr >= 1]  <- 1 - 1e-16
-      color[floor(newcorr * length(color)) + 1] # new color returned
-    }
+    newcorr <- (dat + 1) / 2
+    newcorr[newcorr <= 0]  <- 0
+    newcorr[newcorr >= 1]  <- 1 - 1e-16
+    color[floor(newcorr * length(color)) + 1] # new color returned
   }
 
   col.fill <- assign.color()
