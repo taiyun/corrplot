@@ -2,6 +2,8 @@
 
 CHANGES
   * Revise the document
+  * Remove full_col and fix #152 #157 #165 #166
+  * Fix #150 in document, it should be the arcus tangens functions. (thanks, @surmann)
   * Change vignette engine from 'knitr::knitr' to 'knitr::rmarkdown'
   * Use 'prettydoc' package creating vignettes
   * Set 'rmarkdown' and 'prettydoc' as Suggests packages
