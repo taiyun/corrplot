@@ -28,17 +28,13 @@ jobs:
           - {os: ubuntu-18.04, r: 'devel'}
           - {os: ubuntu-18.04, r: 'oldrel'}
 
-    env:
-      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
-      RSPM: ${{ matrix.config.rspm }}
-
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up R ${{ matrix.r-version }}
+      - name: Set up R ${{matrix.config.r}}
         uses: r-lib/actions/setup-r@ffe45a39586f073cc2e9af79c4ba563b657dc6e3
         with:
-          r-version: ${{ matrix.r-version }}
+          r-version: ${{matrix.config.r}}
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
