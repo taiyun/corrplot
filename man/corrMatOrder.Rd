@@ -18,8 +18,8 @@ corrMatOrder(
 \itemize{
    \item{\code{"AOE"} for the angular order of the eigenvectors.
      It is calculated from the order of the angles, \eqn{a_i}:
-     \deqn{ a_i = tan (e_{i2} / e_{i1}), if e_{i1} > 0}
-     \deqn{ a_i = tan (e_{i2} / e_{i1}) + \pi, otherwise.}
+     \deqn{ a_i = arctan (e_{i2} / e_{i1}), if e_{i1} > 0}
+     \deqn{ a_i = arctan (e_{i2} / e_{i1}) + \pi, otherwise.}
      where \eqn{e_1} and \eqn{e_2} are the largest two eigenvalues
      of matrix \code{corr}.
      See Michael Friendly (2002) for details.}
