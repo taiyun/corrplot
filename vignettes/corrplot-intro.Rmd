@@ -97,9 +97,9 @@ You can also reorder the matrix "manually" via function `corrMatOrder()`.
     $$
     a_i = 
     \begin{cases}
-    			\tan (e_{i2}/e_{i1}), & \text{if $e_{i1}>0$;}
+    			\arctan (e_{i2}/e_{i1}), & \text{if $e_{i1}>0$;}
     			 \newline
-    			\tan (e_{i2}/e_{i1}) + \pi, & \text{otherwise.}
+    			\arctan (e_{i2}/e_{i1}) + \pi, & \text{otherwise.}
     \end{cases}			
     $$
     
