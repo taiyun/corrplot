@@ -1,14 +1,16 @@
 		CHANGES IN corrplot VERSION 0.88
 
 CHANGES
+  * Revise the document
   * Change vignette engine from 'knitr::knitr' to 'knitr::rmarkdown'
   * Use 'prettydoc' package creating vignettes
   * Set 'rmarkdown' and 'prettydoc' as Suggests packages
 
 
 		CHANGES IN corrplot VERSION 0.87
+
 CHANGES
-  * Change to MIT license
+  * Change to the MIT license
   * Fix #142: NA issues when cl.lim is supplied. (thanks, @AlexChristensen)
 
 
