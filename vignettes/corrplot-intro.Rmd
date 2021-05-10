@@ -24,8 +24,11 @@ knitr::opts_chunk$set(
   fig.path = "webimg/",
   fig.width = 6,
   fig.height = 6,
-  dev = "png",
-  dev.args = list(type="cairo"))
+  dev = "png")
+
+if(capabilities("cairo")){
+  knitr::opts_chunk$set(dev.args = list(type="cairo"))
+}
 ```
 
 # Introduction
