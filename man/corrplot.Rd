@@ -10,7 +10,6 @@ corrplot(
   type = c("full", "lower", "upper"),
   add = FALSE,
   col = NULL,
-  col_assign = NULL,
   bg = "white",
   title = "",
   is.corr = TRUE,
