@@ -31,7 +31,10 @@
 #'   \code{colorRampPalette(col2)(200)}, see example about col2.
 #'
 #' @param full_col Logical, whether to use the entire color spectrum
-#'   defined in \code{col} for visualization.
+#'   defined in \code{col} for visualization. By default, it will
+#'   be automatically specified by \code{is.corr}. When \code{is.corr} is
+#'   \code{TRUE}, \code{full_col} will be \code{FALSE}. When \code{is.corr} is
+#'   \code{FALSE}, \code{full_col} will be \code{TRUE}.
 #'
 #' @param bg The background color.
 #'
@@ -243,7 +246,7 @@
 corrplot <- function(corr,
   method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
   type = c("full", "lower", "upper"), add = FALSE,
-  col = NULL, full_col = TRUE, bg = "white", title = "", is.corr = TRUE,
+  col = NULL, full_col = NULL, bg = "white", title = "", is.corr = TRUE,
   diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
@@ -502,6 +505,11 @@ corrplot <- function(corr,
       rep((upper - lower) / 2, length(data)) # middle color
     else
       (upper - lower) * (data - min(data)) / dataspan + lower # full range
+  }
+
+  # set full_col automatically if not specified
+  if (is.null(full_col)) {
+    full_col <- ifelse(is.corr, FALSE, TRUE)
   }
 
   ## assign colors
