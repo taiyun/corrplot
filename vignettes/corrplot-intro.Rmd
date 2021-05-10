@@ -5,7 +5,7 @@ author: "Taiyun Wei, Viliam Simko"
 date: "`r Sys.Date()`"
 output:
   prettydoc::html_pretty:
-    theme: Tactile
+    theme: cayman
     toc: true
 toc-title: "Table of Contents"
 vignette: >
@@ -24,7 +24,8 @@ knitr::opts_chunk$set(
   fig.path = "webimg/",
   fig.width = 6,
   fig.height = 6,
-  dev = "png")
+  dev = "png",
+  dev.args = list(type="cairo"))
 ```
 
 # Introduction
