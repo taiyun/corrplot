@@ -26,7 +26,22 @@ knitr::opts_chunk$set(
   fig.height = 6,
   dev = "png")
 
-if(all(capabilities(c('cairo', 'X11')))){
+get_os <- function(){
+  sysinf <- Sys.info()
+  if (!is.null(sysinf)){
+    os <- sysinf['sysname']
+    if (os == 'Darwin')
+      os <- "osx"
+  } else { ## mystery machine
+    os <- .Platform$OS.type
+    if (grepl("^darwin", R.version$os))
+      os <- "osx"
+    if (grepl("linux-gnu", R.version$os))
+      os <- "linux"
+  }
+  tolower(os)
+}
+if(get_os() =='windows' & capabilities('cairo')){
   knitr::opts_chunk$set(dev.args = list(type="cairo"))
 }
 ```
@@ -68,15 +83,13 @@ There are three layout types (parameter `type`):
 - `"lower"` : display lower triangular of the **correlation matrix**
 
 ```{r layout}
-corrplot(M, type = "upper")
-corrplot(M, type = "upper")
+corrplot(M, type = "lower")
 ```
 
 `corrplot.mixed()` is a wrapped function for mixed visualization style.
 ```{r mixed}
 corrplot.mixed(M)
 corrplot.mixed(M, lower.col = "black", number.cex = .7)
-corrplot.mixed(M, lower = "ellipse", upper = "circle")
 corrplot.mixed(M, lower = "square", upper = "circle", tl.col = "black")
 ```
 
@@ -121,18 +134,16 @@ You can also reorder the matrix "manually" via function `corrMatOrder()`.
 corrplot(M, order = "AOE")
 corrplot(M, order = "hclust")
 corrplot(M, order = "FPC")
-corrplot(M, order = "alphabet")
 ```
 
 If using `"hclust"`, `corrplot()` can  draw rectangles around the chart of corrrlation matrix based on the results of  hierarchical clustering.
 
 ```{r rectangles}
-corrplot(M, order = "hclust", addrect = 2)
 corrplot(M, order = "hclust", addrect = 3)
 ```
 ```{r hclust-lightblue}
 # Change background color to lightblue
-corrplot(M, type = "upper", order = "hclust",
+corrplot(M, type = "upper", order = "hclust", cl.pos = "n",
          col = c("black", "white"), bg = "lightblue")
 ```
 
@@ -145,6 +156,10 @@ The function `colorRampPalette()` is very convenient for generating color
 spectrum.
 
 ```{r color}
+## color example, suitable for matrix in [-N, 0] or [0, N]
+col0 <- colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
+
+## diverging color example, suitable for matrix in [-N, N]
 col1 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
                            "cyan", "#007FFF", "blue", "#00007F"))
 col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
@@ -165,10 +180,7 @@ corrplot(M, order = "hclust", addrect = 2, col = whiteblack, bg = "gold2")
 
 You can also use the standard color palettes (package `grDevices`)
 ```{r hclust-stdcolors}
-corrplot(M, order = "hclust", addrect = 2, col = heat.colors(100))
-corrplot(M, order = "hclust", addrect = 2, col = terrain.colors(100))
 corrplot(M, order = "hclust", addrect = 2, col = cm.colors(100))
-corrplot(M, order = "hclust", addrect = 2, col = gray.colors(100))
 ```
 
 Other option would be to use `RcolorBrewer` package.
@@ -177,10 +189,6 @@ library(RColorBrewer)
 
 corrplot(M, type = "upper", order = "hclust",
          col = brewer.pal(n = 8, name = "RdBu"))
-corrplot(M, type = "upper", order = "hclust",
-         col = brewer.pal(n = 8, name = "RdYlBu"))
-corrplot(M, type = "upper", order = "hclust",
-         col = brewer.pal(n = 8, name = "PuOr"))
 ```
 
 
@@ -208,16 +216,28 @@ corrplot(M, type = "lower", order = "hclust", tl.col = "black", tl.srt = 45)
 ```
 
 
+# Assign and display color using cl.lim 
+
+```{r cl_lim}
+# when is.corr=TRUE, cl.lim only affect the color legend
+# If you change it, the color is still assigned on [-1, 1]
+corrplot(M/2)
+corrplot(M/2, cl.lim=c(-0.5,0.5))
+
+# when is.corr=FALSE, cl.lim is also used to assign colors
+# if the matrix have both positive and negative values
+# the matrix transformation keep every values positive and negative
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2))
+```
+
 # Dealing with a non-correlation matrix
 
-
 ```{r non-corr}
-corrplot(abs(M),order = "AOE", col = col3(200), cl.lim = c(0, 1))
-## visualize a  matrix in [-100, 100]
-ran <- round(matrix(runif(225, -100,100), 15))
-corrplot(ran, is.corr = FALSE, method = "square")
-## a beautiful color legend 
-corrplot(ran, is.corr = FALSE, method = "ellipse", cl.lim = c(-100, 100))
+# for showing the usage of cl.lim, run with warning
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2)
+
+## matrix in 0.5~0.6, a good example
+corrplot(abs(M)*10+50, is.corr = FALSE, cl.lim=c(50, 60), col=col0(10))
 ```
 
 If your matrix is rectangular, you can adjust the aspect ratio with the
@@ -308,19 +328,4 @@ corrplot(M, p.mat = res1$p, method = "color", type = "upper",
          insig = "label_sig", pch.col = "white", order = "AOE")
 corrplot(M, p.mat = res1$p, insig = "label_sig", pch.col = "white",
          pch = "p<.05", pch.cex = .5, order = "AOE")
-```
-
-
-
-# Explore Large Correlation Matrices
-
-
-```{r large_matrix}
-n <- 100
-m <- 10
-DATASET <- matrix(runif(n * m), nrow = m, ncol = n)
-
-# A 100x100 correlation matrix, tl.cex = 0.45
-corrplot(cor(DATASET), method = "color", type = "upper",
-         order = "FPC", tl.pos = "td", tl.cex = 0.45)
 ```

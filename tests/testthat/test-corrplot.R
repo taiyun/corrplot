@@ -67,11 +67,7 @@ test_that("Issue #7: Enable to plot a matrix with NA", {
   expect_equal(corrplot(M), M)
 })
 
-test_that("Issue #70: Enable to plot a matrix with NA when 'is.corr = FALSE'", {
-  M <- matrix(0, ncol = 5, nrow = 5)
-  M[1,1] <- NA
-  expect_true(is.matrix(corrplot(M, is.corr = FALSE)))
-})
+
 
 test_that("Issue #20: plotmath expressions in rownames / colnames", {
   M <- cor(mtcars)[1:5,1:5]

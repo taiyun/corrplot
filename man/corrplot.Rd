@@ -10,6 +10,7 @@ corrplot(
   type = c("full", "lower", "upper"),
   add = FALSE,
   col = NULL,
+  cl.lim = NULL,
   bg = "white",
   title = "",
   is.corr = TRUE,
@@ -31,7 +32,6 @@ corrplot(
   tl.offset = 0.4,
   tl.srt = 90,
   cl.pos = NULL,
-  cl.lim = NULL,
   cl.length = NULL,
   cl.cex = 0.8,
   cl.ratio = 0.15,
@@ -82,8 +82,18 @@ matrix.}
 otherwise a new plot is created.}
 
 \item{col}{Vector, the color of glyphs. It is distributed uniformly in
-\code{cl.lim}. If NULL, \code{col} will be
+\code{cl.lim} interval. If NULL, \code{col} will be
 \code{colorRampPalette(col2)(200)}, see example about col2.}
+
+\item{cl.lim}{The limits \code{(x1, x2)} interval for assigning color by
+  \code{col}. If \code{NULL},
+  \code{cl.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
+  \code{cl.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
+  is \code{FALSE}
+
+  NOTICE: if you set \code{cl.lim} when \code{is.corr TRUE}, the assigning color
+  method is still distributed uniformly in [-1, 1], it only affect the display
+  on colorlegend.}
 
 \item{bg}{The background color.}
 
@@ -160,8 +170,6 @@ must be one of \code{"lt"}, \code{"ld"}, \code{"td"}, \code{"d"} or
 it must be one of \code{"r"} (default if \code{type=="upper"} or
 \code{"full"}), \code{"b"} (default if \code{type=="lower"}) or \code{"n"},
 \code{"n"} means don't draw colorlabel.}
-
-\item{cl.lim}{The  limits \code{(x1, x2)}  in the colorlabel.}
 
 \item{cl.length}{Integer, the number of number-text in colorlabel, passed to
 \code{\link{colorlegend}}. If \code{NULL}, \code{cl.length} is
@@ -284,6 +292,7 @@ M <- cor(mtcars)
 set.seed(0)
 
 ##  different color series
+col0 <- colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
 col1 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
                            "cyan", "#007FFF", "blue","#00007F"))
 col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
@@ -292,6 +301,8 @@ col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
 col3 <- colorRampPalette(c("red", "white", "blue"))
 col4 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "#7FFF7F",
                            "cyan", "#007FFF", "blue", "#00007F"))
+
+
 wb <- c("white", "black")
 
 par(ask = TRUE)
@@ -358,18 +369,41 @@ corrplot(M, order = "hclust", addrect = 3, rect.col = "red")
 corrplot(M, order = "hclust", addrect = 4, rect.col = "blue")
 corrplot(M, order = "hclust", hclust.method = "ward.D2", addrect = 4)
 
-
-
 ## visualize a  matrix in [0, 1]
 corrplot(abs(M), order = "AOE", cl.lim = c(0,1))
 corrplot(abs(M), order = "AOE", col = col1(20), cl.lim = c(0,1))
-corrplot(abs(M), order = "AOE", col = col3(200), cl.lim = c(0,1))
+
+
+# when is.corr=TRUE, cl.lim only affect the color legend
+# If you change it, the color is still assigned on [-1, 1]
+corrplot(M/2)
+corrplot(M/2, cl.lim=c(-0.5,0.5))
+
+# when is.corr=FALSE, cl.lim is also used to assign colors
+# if the matrix have both positive and negative values
+# the matrix transformation keep every values positive and negative
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2))
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2)
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 4)
+
+## 0.5~0.6
+corrplot(abs(M)/10+0.5, col=col0(10))
+corrplot(abs(M)/10+0.5, is.corr = FALSE, cl.lim=c(0.5,0.6), col=col0(10))
 
 
 ## visualize a  matrix in [-100, 100]
 ran <- round(matrix(runif(225, -100,100), 15))
 corrplot(ran, is.corr = FALSE)
 corrplot(ran, is.corr = FALSE, cl.lim = c(-100, 100))
+
+## visualize a  matrix in [100, 300]
+ran2 <- ran + 200
+
+# bad color
+corrplot(ran2, is.corr = FALSE, cl.lim = c(100, 300), col=col1(100))
+
+# good color
+corrplot(ran2, is.corr = FALSE, cl.lim = c(100, 300), col=col0(100))
 
 
 ## text-labels and plot type

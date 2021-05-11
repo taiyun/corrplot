@@ -3,6 +3,7 @@ M <- cor(mtcars)
 set.seed(0)
 
 ##  different color series
+col0 <- colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
 col1 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
                            "cyan", "#007FFF", "blue","#00007F"))
 col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
@@ -11,6 +12,8 @@ col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
 col3 <- colorRampPalette(c("red", "white", "blue"))
 col4 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "#7FFF7F",
                            "cyan", "#007FFF", "blue", "#00007F"))
+
+
 wb <- c("white", "black")
 
 par(ask = TRUE)
@@ -77,18 +80,41 @@ corrplot(M, order = "hclust", addrect = 3, rect.col = "red")
 corrplot(M, order = "hclust", addrect = 4, rect.col = "blue")
 corrplot(M, order = "hclust", hclust.method = "ward.D2", addrect = 4)
 
-
-
 ## visualize a  matrix in [0, 1]
 corrplot(abs(M), order = "AOE", cl.lim = c(0,1))
 corrplot(abs(M), order = "AOE", col = col1(20), cl.lim = c(0,1))
-corrplot(abs(M), order = "AOE", col = col3(200), cl.lim = c(0,1))
+
+
+# when is.corr=TRUE, cl.lim only affect the color legend
+# If you change it, the color is still assigned on [-1, 1]
+corrplot(M/2)
+corrplot(M/2, cl.lim=c(-0.5,0.5))
+
+# when is.corr=FALSE, cl.lim is also used to assign colors
+# if the matrix have both positive and negative values
+# the matrix transformation keep every values positive and negative
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2))
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2)
+corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 4)
+
+## 0.5~0.6
+corrplot(abs(M)/10+0.5, col=col0(10))
+corrplot(abs(M)/10+0.5, is.corr = FALSE, cl.lim=c(0.5,0.6), col=col0(10))
 
 
 ## visualize a  matrix in [-100, 100]
 ran <- round(matrix(runif(225, -100,100), 15))
 corrplot(ran, is.corr = FALSE)
 corrplot(ran, is.corr = FALSE, cl.lim = c(-100, 100))
+
+## visualize a  matrix in [100, 300]
+ran2 <- ran + 200
+
+# bad color
+corrplot(ran2, is.corr = FALSE, cl.lim = c(100, 300), col=col1(100))
+
+# good color
+corrplot(ran2, is.corr = FALSE, cl.lim = c(100, 300), col=col0(100))
 
 
 ## text-labels and plot type
