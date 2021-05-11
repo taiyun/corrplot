@@ -331,46 +331,28 @@ corrplot <- function(corr,
     c_max <- max(corr, na.rm = TRUE)
     c_min <- min(corr, na.rm = TRUE)
 
-    # The following if-elseif-else code should exhaustively cover all 9
-    # combinations of c_min and c_max variables. Each variable can be either
-    # zero (0), positive (+) or negative (-).
-
-    # c_min c_max
-
-    # 00
-    # -0
-    # +0
-    # --
-    # 0-
-    if (c_max <= 0) {
-      intercept <- -cl.lim[2]
-      zoom <- 1 / (diff(cl.lim))
+    # all negative or positive, trans to [0, 1]
+    if (c_max <= 0 | c_min>=0) {
+      intercept <- -c_min
+      zoom <- 1 / (c_max - c_min)
     }
 
-    # ++
-    # +-
-    # 0+
-    else if (c_min >= 0) {
-      intercept <- -cl.lim[1]
-      zoom <- 1 / (diff(cl.lim))
-    }
 
-    # -+
+    # mixed negative and positive, remain its sign, e.g. [-0.8, 1] or [-1, 0.7]
     else {
 
       # expression from the original code as a sanity check
       stopifnot(c_max * c_min < 0)
-
-      # newly derived expression which covers the single remainig case
+      # newly derived expression which covers the single remaining case
       stopifnot(c_min < 0 && c_max > 0)
 
       intercept <- 0
-      zoom <- 1 / max(abs(cl.lim))
+      zoom <- 1 / max(abs(c(c_max, c_min)))
     }
 
-    # now, the zoom might still be Inf when cl.lim were both zero
+    # now, the zoom might still be Inf when c_max and c_min were both zero
     if (zoom == Inf) {
-      stopifnot(cl.lim[1] == 0 && cl.lim[2] == 0) # check the assumption
+      stopifnot(c_max == 0 && c_min == 0) # check the assumption
       zoom <- 0
     }
 
