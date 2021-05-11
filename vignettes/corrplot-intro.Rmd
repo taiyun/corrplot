@@ -216,11 +216,11 @@ corrplot(M, type = "lower", order = "hclust", tl.col = "black", tl.srt = 45)
 ```
 
 
-# Assign and display color using cl.lim 
+# Assign and display colors by cl.lim 
 
 ```{r cl_lim}
 # when is.corr=TRUE, cl.lim only affect the color legend
-# If you change it, the color is still assigned on [-1, 1]
+# If you change it, the color on matrix is still assigned on [-1, 1]
 corrplot(M/2)
 corrplot(M/2, cl.lim=c(-0.5,0.5))
 
@@ -236,7 +236,7 @@ corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2))
 # for showing the usage of cl.lim, run with warning
 corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2)
 
-## matrix in 0.5~0.6, a good example
+## matrix in [50, 60]
 corrplot(abs(M)*10+50, is.corr = FALSE, cl.lim=c(50, 60), col=col0(10))
 ```
 
