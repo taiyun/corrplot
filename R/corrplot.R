@@ -855,8 +855,7 @@ corrplot <- function(corr,
     if(!is.null(rownames(p.mat)) | !is.null(rownames(p.mat))) {
       if(!all(colnames(p.mat)==colnames(corr)) |
          !all(rownames(p.mat)==rownames(corr))) {
-        warning('The p.mat and corr may be not paired,\n
-since the rownames and colnames are not totally same. Please check!')
+        warning('p.mat and corr may be not paired, their rownames and colnames are not totally same!')
       }
     }
 
