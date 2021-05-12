@@ -37,6 +37,10 @@ cor.mtest <- function(mat, ...) {
     }
   }
 
+  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+  colnames(lowCI.mat) <- rownames(lowCI.mat) <- colnames(mat)
+  colnames(uppCI.mat) <- rownames(uppCI.mat) <- colnames(mat)
+
   list(
     p = p.mat,
     lowCI = lowCI.mat,
