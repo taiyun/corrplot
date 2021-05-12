@@ -844,10 +844,21 @@ corrplot <- function(corr,
     }
   }
 
+
+
+
   if (!is.null(p.mat) && insig != "n") {
     if (order != "original") {
       p.mat <- p.mat[ord, ord]
     }
+
+    if(!is.null(rownames(p.mat)) | !is.null(rownames(p.mat))) {
+      if(!all(colnames(p.mat)==colnames(corr)) |
+         !all(rownames(p.mat)==rownames(corr))) {
+        warning('p.mat and corr may be not paired, their rownames and colnames are not totally same!')
+      }
+    }
+
 
     pos.pNew  <- getPos.Dat(p.mat)[[1]]
     pNew      <- getPos.Dat(p.mat)[[2]]

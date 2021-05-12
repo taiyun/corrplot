@@ -228,4 +228,12 @@ test_that("Issue #99: Mark significant correlations", {
                          insig = "label_sig", pch.col = "white"))
   expect_silent(corrplot(M, p.mat = fakepmat, insig = "label_sig",
                          pch = "p<.05", pch.cex = .5, order = "AOE"))
+  expect_warning(corrplot(M, p.mat = fakepmat[,11:1], insig = "label_sig",
+                         pch = "p<.05", pch.cex = .5, order = "AOE"))
+})
+
+test_that("cl.lim", {
+  M <- cor(mtcars)
+  expect_warning(corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2))
+  expect_warning(corrplot(abs(M), is.corr = FALSE, cl.lim=c(-1, 1)))
 })
