@@ -290,7 +290,6 @@ corrplot <- function(corr,
   plotCI <- match.arg(plotCI)
 
 
-
   # rescale symbols within the corrplot based on win.asp parameter
   if (win.asp != 1 && !(method %in% c("circle", "square"))) {
     stop("Parameter 'win.asp' is supported only for circle and square methods.")
@@ -581,12 +580,7 @@ corrplot <- function(corr,
         n1 - 0.5 - nn * cl.ratio * (cl.pos == "b") - laboffset,
         n2 + 0.5 + laboffset +
           ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
-      ) +
-        #c(-0.15, 0) +
-        c(0, -1) * (type == "upper" && tl.pos != "n")  # nasty hack
-
-      # note: the nasty hack above is related to multiple issues
-      # (e.g. #96, #94, #102)
+      ) #+ c(-0.15, 0)
 
       plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
 
