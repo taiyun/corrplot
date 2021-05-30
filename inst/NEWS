@@ -1,3 +1,9 @@
+		CHANGES IN corrplot VERSION 0.XX
+
+CHANGES
+  * Fix #177: the top margin is too small when type is lower or upper
+
+
 		CHANGES IN corrplot VERSION 0.88
 
 CHANGES
