@@ -579,7 +579,8 @@ corrplot <- function(corr,
       ylim <- c(
         n1 - 0.5 - nn * cl.ratio * (cl.pos == "b") - laboffset,
         n2 + 0.5 + laboffset +
-          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos) +
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * (type=='lower') * grepl("d", tl.pos)
       ) #+ c(-0.15, 0)
 
       plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
