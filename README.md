@@ -15,6 +15,29 @@ reordering. For examples, see its
 This package is licensed under the MIT license, and available on CRAN:
 <http://cran.r-project.org/package=corrplot>.
 
+
+
+## Basic example
+```r
+library(corrplot)
+M <- cor(mtcars)
+corrplot(M, order = "hclust", addrect = 2)
+```
+![Basic example](https://raw.githubusercontent.com/taiyun/corrplot/master/vignettes/webimg/rectangles-1.png)
+
+## Download and Install
+
+To download the release version of the package on CRAN, type the following at the R command line:
+```r
+install.packages("corrplot")
+```
+
+To download the development version of the package, type the following at the R command line:
+```r
+install.packages("devtools")
+devtools::install_github("taiyun/corrplot", build_vignettes = TRUE)
+```
+
 ## How to cite
 The R core development team and the very active community of package authors
 have invested a lot of time and effort in creating R as it is today. Please give
@@ -26,77 +49,12 @@ library(corrplot)
 citation("corrplot")
 ```
 
-## Basic example
-```r
-library(corrplot)
-M <- cor(mtcars)
-corrplot(M, order = "hclust", addrect = 2)
-```
-![Basic example](https://raw.githubusercontent.com/taiyun/corrplot/master/vignettes/webimg/rectangles-1.png)
+### Reporting bugs and other issues
+If you encounter a clear bug, please file a minimal reproducible example on github.
 
-## Download and Install
-To download the development version of the package, type the following at the R command line:
-```r
-install.packages("devtools")
-devtools::install_github("taiyun/corrplot", build_vignettes = TRUE)
-```
-
-To download the release version of the package on CRAN, type the following at the R command line:
-```r
-install.packages("corrplot")
-```
 
 ### How to contribute
 - Fork, clone, edit, commit, push, create pull request
 - Use RStudio
 - Unit-testing: press `CTRL+SHIFT+T` in RStudio
   - we know that is hard to write tests especially for a visual package like this
-
-### Reporting bugs and other issues
-If you encounter a clear bug, please file a minimal reproducible example on github.
-
-### How to perform static code analysis and style checks
-We use `lintr` which also performs the analysis on Travis-CI.
-Configuration for `lintr` is in `.lintr` file.
-Lints are treated as warnings, but we strive to be lint-free.
-
-In RStudio, you can run `lintr` from the console as follows:
-```r
-> lintr::lint_package()
-```
-
-### Who do I talk to? ###
-- [Viliam Simko](https://github.com/vsimko)
-- [Taiyun Wei](https://github.com/taiyun)
-
-## License
-This package is free and open source software, licensed under MIT.
-
-## Other links
-- Corrplot listed at OpenHub: https://www.openhub.net/p/corrplot
-- Research software impact of Corrplot (by Depsy): http://depsy.org/package/r/corrplot
-- CRAN: http://cran.r-project.org/web/packages/corrplot
-
-### Additional development dependendencies
-In order to develop the corrplot package, you might want to install the following dependencies on Ubuntu-based systems. These are mostly needed for generating the vignette.
-
-```sh
-sudo apt-get install libxml2-dev
-sudo apt-get install libcurl4-openssl-dev
-sudo apt-get install texlive-latex-base
-sudo apt-get install texlive-latex-extra
-sudo apt-get install texlive-fonts-recommended
-sudo apt-get install texlive-extra-utils
-sudo apt-get install librsvg2-bin
-sudo apt-get install libmagick++-dev
-```
-
-```r
-install.packages("lintr")
-install.packages("testthat")
-install.packages("roxygen2")
-install.packages("magick")
-install.packages("base64enc")
-install.packages("rmarkdown")
-install.packages("tinytex")
-```
