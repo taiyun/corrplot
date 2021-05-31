@@ -87,20 +87,13 @@ test_that("Issue #21: plotCI=rect incompatible with some methods", {
   L <- M - 0.1
   U <- M + 0.1
   expect_equal(corrplot.mixed(M, lower = "circle", upper = "number",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "number", upper = "circle",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "circle", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "ellipse", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "pie", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect")$corr, M)
 })
 
 test_that("Issue #43: Return value should be the same as corrplot function", {
   M <- cor(mtcars)
-  expect_equal(corrplot.mixed(M), corrplot(M)[[1]])
+  expect_equal(corrplot.mixed(M)$corr, corrplot(M)$corr)
+  expect_equal(corrplot.mixed(M, order='AOE')$corrPos, corrplot(M, order='AOE')$corrPos)
 })
 
 test_that("Should only work with matrix or dataframe", {
