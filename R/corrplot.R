@@ -1018,6 +1018,8 @@ corrplot <- function(corr,
     colnames(corrPos)[4] = c('p.value')
   }
   rownames(corrPos) = NULL
+  corrPos = corrPos[order(corrPos[,1],corrPos[,2]),]
+
   res = list(corr=corr, corrPos=corrPos)
 
   invisible(res) # reordered correlation matrix, and Position
