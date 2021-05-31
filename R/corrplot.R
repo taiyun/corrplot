@@ -210,7 +210,10 @@
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text label.
 #'
-#' @return (Invisibly) returns a reordered correlation matrix.
+#' @return (Invisibly) returns a \code{list(corr, corrTrans)}.
+#' \code{corr} is a reordered correlation matrix for plotting.
+#' \code{corrPos} is a matrix with x, y, corr and p.value(if p.mat is not NULL)
+#' column, which x and y are the position on the correlation matrix plot.
 #'
 #' @details \code{corrplot} function offers flexible ways to visualize
 #'   correlation matrix, lower and upper bound of confidence interval matrix.
@@ -1008,7 +1011,16 @@ corrplot <- function(corr,
                     col = rect.col, lwd = rect.lwd)
   }
 
-  invisible(corr) # reordered correlation matrix
+  corrPos = cbind(Pos, DAT)
+  colnames(corrPos) = c('x', 'y', 'corr')
+  if(!is.null(p.mat)) {
+    corrPos = cbind(corrPos, pNew)
+    colnames(corrPos)[4] = c('p.value')
+  }
+  rownames(corrPos) = NULL
+  res = list(corr, corrPos)
+
+  invisible(res) # reordered correlation matrix, and Position
 }
 
 #' @note pure function

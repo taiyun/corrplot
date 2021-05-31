@@ -265,7 +265,10 @@ currently compatible only with methods "circle" and "square".}
 text label.}
 }
 \value{
-(Invisibly) returns a reordered correlation matrix.
+(Invisibly) returns a \code{list(corr, corrTrans)}.
+\code{corr} is a reordered correlation matrix for plotting.
+\code{corrPos} is a matrix with x, y, corr and p.value(if p.mat is not NULL)
+column, which x and y are the position on the correlation matrix plot.
 }
 \description{
 A graphical display of a correlation matrix, confidence interval. The details
