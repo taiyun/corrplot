@@ -1,8 +1,9 @@
 #' Significance test which produces p-values and confidence intervals for each
 #' pair of input features.
 #'
-#' @param mat Input matrix of size \code{FxS}, with \code{F} columns that
-#'   represent features and \code{S} rows that represent samples.
+#' @param mat Input matrix of size \code{NxF},
+#'   with \code{N} rows that represent samples
+#'   and \code{F} columns that represent features.
 #' @param \dots Additional arguments passed to function \code{\link{cor.test}},
 #'   e.g. \code{conf.level = 0.95}.
 #'
