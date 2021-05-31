@@ -2,7 +2,8 @@
 
 CHANGES
   * Change the return value of corrplot() and corrplot.mixed() from matrix `corr` to `list(corr, corrPos)`
-  * Fix #177: the top margin is too small when type is lower or upper
+  * Fix #177: the top margin is too small when type is "lower" or "upper"
+  * Make the correlation coefficients adding on the graph is before parameter insig working
   * Revise the document
 
 

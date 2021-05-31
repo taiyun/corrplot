@@ -292,7 +292,8 @@ corrplot(M, p.mat = res1$p, sig.level = .05)
 corrplot(M, p.mat = res1$p, sig.level = .01)
 
 ## leave blank on no significant coefficient
-corrplot(M, p.mat = res1$p, insig = "blank")
+corrplot(M, p.mat = res1$p, method = "circle", type = "lower", insig='blank',
+         addCoef.col ='black', order = "AOE", diag=FALSE)
 
 ## add p-values on no significant coefficient
 corrplot(M, p.mat = res1$p, insig = "p-value")

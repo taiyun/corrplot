@@ -843,6 +843,13 @@ corrplot <- function(corr,
   }
 
 
+  ## add numbers
+  if (!is.null(addCoef.col) && method != "number") {
+    text(Pos[,1], Pos[,2],  col = addCoef.col,
+         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
+                        number.digits),
+         cex = number.cex, font = number.font)
+  }
 
 
   if (!is.null(p.mat) && insig != "n") {
@@ -918,6 +925,7 @@ corrplot <- function(corr,
     }
   }
 
+
   ### color legend
   if (cl.pos != "n") {
     colRange <- assign.color(dat = cl.lim2)
@@ -992,13 +1000,7 @@ corrplot <- function(corr,
 
   title(title, ...)
 
-  ## add numbers
-  if (!is.null(addCoef.col) && method != "number") {
-    text(Pos[,1], Pos[,2],  col = addCoef.col,
-         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits),
-         cex = number.cex, font = number.font)
-  }
+
 
   ## add grid, in case of the grid is ate when "diag=FALSE"
   if (type == "full" && plotCI == "n" && !is.null(addgrid.col)) {
