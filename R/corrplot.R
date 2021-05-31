@@ -1018,7 +1018,7 @@ corrplot <- function(corr,
     colnames(corrPos)[4] = c('p.value')
   }
   rownames(corrPos) = NULL
-  res = list(corr, corrPos)
+  res = list(corr=corr, corrPos=corrPos)
 
   invisible(res) # reordered correlation matrix, and Position
 }
