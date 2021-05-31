@@ -62,12 +62,12 @@ corrplot.mixed <- function(
 
   corrplot(corr, type = "upper", method = upper, diag = TRUE,
            tl.pos = tl.pos, plotCI = plotCI_upper,
-           col = upper.col, mar = mar, ...)
+           col = upper.col, mar = mar, ...) -> res1
 
   corrplot(corr, add = TRUE, type = "lower", method = lower,
            diag = (diag == "l"),
            tl.pos = "n", cl.pos = "n", plotCI = plotCI_lower,
-           col = lower.col, mar = mar, ...)
+           col = lower.col, mar = mar, ...) -> res2
 
   if (diag == "n" && tl.pos != "d") {
     # draw empty rectangles over the diagonal to "clean" it graphically
@@ -75,7 +75,12 @@ corrplot.mixed <- function(
             inches = FALSE, squares = rep(1, n))
   }
 
-  # fixes issue #43
-  # return value should be the same as in the corrplot function
-  invisible(corr)
+  corr = res1$corr
+  corrPos = rbind(res1$corrPos, res2$corrPos)
+  corrPos = corrPos[order(corrPos[,1],corrPos[,2]),]
+
+
+  res = list(corr=corr, corrPos=corrPos)
+
+  invisible(res)
 }

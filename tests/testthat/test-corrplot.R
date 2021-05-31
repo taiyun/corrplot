@@ -64,7 +64,7 @@ test_that("Testing 'outline' parameter", {
 test_that("Issue #7: Enable to plot a matrix with NA", {
   M <- cor(mtcars)
   diag(M) <- NA
-  expect_equal(corrplot(M), M)
+  expect_equal(corrplot(M)$corr, M)
 })
 
 
@@ -87,20 +87,13 @@ test_that("Issue #21: plotCI=rect incompatible with some methods", {
   L <- M - 0.1
   U <- M + 0.1
   expect_equal(corrplot.mixed(M, lower = "circle", upper = "number",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "number", upper = "circle",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "circle", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "ellipse", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "pie", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect")$corr, M)
 })
 
 test_that("Issue #43: Return value should be the same as corrplot function", {
   M <- cor(mtcars)
-  expect_equal(corrplot.mixed(M), corrplot(M))
+  expect_equal(corrplot.mixed(M)$corr, corrplot(M)$corr)
+  expect_equal(corrplot.mixed(M, order='AOE')$corrPos, corrplot(M, order='AOE')$corrPos)
 })
 
 test_that("Should only work with matrix or dataframe", {
@@ -111,13 +104,14 @@ test_that("Should only work with matrix or dataframe", {
 test_that("Non-correlation matrix", {
   M <- matrix(runif(100, 0, 10), nrow = 10)
   expect_error(corrplot(M), regexp = "The matrix is not in")
-  expect_true(is.matrix(corrplot(M, is.corr = FALSE)))
+  expect_true(is.matrix(corrplot(M, is.corr = FALSE)$corr))
+  expect_true(is.matrix(corrplot(M, is.corr = FALSE)$corrPos))
 })
 
 test_that("Try different ordering", {
   M <- cor(mtcars)
 
-  expect_true(identical(M, corrplot(M)))
+  expect_true(identical(M, corrplot(M)$corr))
   expect_false(identical(M, corrplot(M, order = "AOE")))
   expect_false(identical(M, corrplot(M, order = "FPC")))
   expect_false(identical(M, corrplot(M, order = "hclust")))
