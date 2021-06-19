@@ -8,8 +8,9 @@ pair of input features.}
 cor.mtest(mat, ...)
 }
 \arguments{
-\item{mat}{Input matrix of size \code{FxS}, with \code{F} columns that
-represent features and \code{S} rows that represent samples.}
+\item{mat}{Input matrix of size \code{NxF},
+with \code{N} rows that represent samples
+and \code{F} columns that represent features.}
 
 \item{\dots}{Additional arguments passed to function \code{\link{cor.test}},
 e.g. \code{conf.level = 0.95}.}
@@ -29,6 +30,6 @@ pair of input features.
 \seealso{
 Function \code{\link{cor.test}}
 }
-\keyword{confidence,}
-\keyword{p-value,}
+\keyword{confidence}
+\keyword{p-value}
 \keyword{significance}

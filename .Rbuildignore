@@ -2,5 +2,7 @@
 ^\.Rproj\.user$
 ^\.travis\.yml$
 ^\.lintr$
+^\.github$
 ^vignettes/webimg
 ^README.md$
+^codecov\.yml$

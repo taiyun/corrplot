@@ -64,14 +64,10 @@ test_that("Testing 'outline' parameter", {
 test_that("Issue #7: Enable to plot a matrix with NA", {
   M <- cor(mtcars)
   diag(M) <- NA
-  expect_equal(corrplot(M), M)
+  expect_equal(corrplot(M)$corr, M)
 })
 
-test_that("Issue #70: Enable to plot a matrix with NA when 'is.corr = FALSE'", {
-  M <- matrix(0, ncol = 5, nrow = 5)
-  M[1,1] <- NA
-  expect_true(is.matrix(corrplot(M, is.corr = FALSE)))
-})
+
 
 test_that("Issue #20: plotmath expressions in rownames / colnames", {
   M <- cor(mtcars)[1:5,1:5]
@@ -91,20 +87,13 @@ test_that("Issue #21: plotCI=rect incompatible with some methods", {
   L <- M - 0.1
   U <- M + 0.1
   expect_equal(corrplot.mixed(M, lower = "circle", upper = "number",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "number", upper = "circle",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "circle", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "ellipse", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
-  expect_equal(corrplot.mixed(M, lower = "pie", upper = "square",
-                              lowCI = L, uppCI = U, plotCI = "rect"), M)
+                              lowCI = L, uppCI = U, plotCI = "rect")$corr, M)
 })
 
 test_that("Issue #43: Return value should be the same as corrplot function", {
   M <- cor(mtcars)
-  expect_equal(corrplot.mixed(M), corrplot(M))
+  expect_equal(corrplot.mixed(M)$corr, corrplot(M)$corr)
+  expect_equal(corrplot.mixed(M, order='AOE')$corrPos, corrplot(M, order='AOE')$corrPos)
 })
 
 test_that("Should only work with matrix or dataframe", {
@@ -115,13 +104,14 @@ test_that("Should only work with matrix or dataframe", {
 test_that("Non-correlation matrix", {
   M <- matrix(runif(100, 0, 10), nrow = 10)
   expect_error(corrplot(M), regexp = "The matrix is not in")
-  expect_true(is.matrix(corrplot(M, is.corr = FALSE)))
+  expect_true(is.matrix(corrplot(M, is.corr = FALSE)$corr))
+  expect_true(is.matrix(corrplot(M, is.corr = FALSE)$corrPos))
 })
 
 test_that("Try different ordering", {
   M <- cor(mtcars)
 
-  expect_true(identical(M, corrplot(M)))
+  expect_true(identical(M, corrplot(M)$corr))
   expect_false(identical(M, corrplot(M, order = "AOE")))
   expect_false(identical(M, corrplot(M, order = "FPC")))
   expect_false(identical(M, corrplot(M, order = "hclust")))
@@ -232,4 +222,12 @@ test_that("Issue #99: Mark significant correlations", {
                          insig = "label_sig", pch.col = "white"))
   expect_silent(corrplot(M, p.mat = fakepmat, insig = "label_sig",
                          pch = "p<.05", pch.cex = .5, order = "AOE"))
+  expect_warning(corrplot(M, p.mat = fakepmat[,11:1], insig = "label_sig",
+                         pch = "p<.05", pch.cex = .5, order = "AOE"))
+})
+
+test_that("cl.lim", {
+  M <- cor(mtcars)
+  expect_warning(corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2))
+  expect_warning(corrplot(abs(M), is.corr = FALSE, cl.lim=c(-1, 1)))
 })

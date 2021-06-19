@@ -38,7 +38,7 @@ colorlegend <- function(
     at <- seq(0L, 1L, length = length(labels))
   }
 
-  if (is.null(lim.segment) || lim.segment == "auto") {
+  if (any(is.null(lim.segment)) || any(lim.segment == "auto")) {
     lim.segment <- ratio.colbar + c(0, ratio.colbar * .2)
   }
 

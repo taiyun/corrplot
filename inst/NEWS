@@ -1,9 +1,37 @@
+		CHANGES IN corrplot VERSION 0.89
+
+CHANGES
+  * Change the return value of corrplot() and corrplot.mixed() from matrix `corr` to `list(corr, corrPos)`
+  * Fix #177: the top margin is too small when parameter `type` is "lower" or "upper". (thanks, @lijian13)
+  * Parameter `addCoef.col` works prior to parameter `insig`
+  * Revise the document
+
+
+
+		CHANGES IN corrplot VERSION 0.88
+
+CHANGES
+  * Revise the document
+  * Remove full_col and fix #152 #157 #165 #166
+  * Fix #150 in document, it should be the arcus tangens functions. (thanks, @surmann)
+  * Change vignette engine from 'knitr::knitr' to 'knitr::rmarkdown'
+  * Use 'prettydoc' package creating vignettes
+  * Set 'rmarkdown' and 'prettydoc' as Suggests packages
+
+
+		CHANGES IN corrplot VERSION 0.87
+
+CHANGES
+  * Change to the MIT license
+  * Fix #142: NA issues when cl.lim is supplied. (thanks, @AlexChristensen)
+
+
 		CHANGES IN corrplot VERSION 0.83
-		
+
 CHANGES
   * CITATION now uses fields from DESCRIPTION
   * RColorBrewer is now a suggested package (not required)
-  
+
 NEW FEATURES
   * Fixed #99 : A new option insig = "label_sig" to mark significant correlations.
 
@@ -13,7 +41,7 @@ BUG FIXES
   * Fixed #19: Color Legend has 0 width when only 1 column is used
   * Fixed #70: NA errors when is.corr = F
   * Fixed #77: Error when the matrix(corr) contains NA values.
-  
+
 NEW FEATURES
   * Fixed #18: title position and pie corrplot background circle
     * Used existing parameter `outline` to control the border color of pie symbols.

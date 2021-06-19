@@ -27,11 +27,19 @@
 #'   otherwise a new plot is created.
 #'
 #' @param col Vector, the color of glyphs. It is distributed uniformly in
-#'   \code{cl.lim}. If NULL, \code{col} will be
+#'   \code{cl.lim} interval. If NULL, \code{col} will be
 #'   \code{colorRampPalette(col2)(200)}, see example about col2.
 #'
-#' @param full_col Logical, whether to use the entire color spectrum
-#'   defined in \code{col} for visualization.
+#' @param cl.lim The limits \code{(x1, x2)} interval for assigning color by
+#'   \code{col}. If \code{NULL},
+#'   \code{cl.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
+#'   \code{cl.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
+#'   is \code{FALSE}
+#'
+#'   NOTICE: if you set \code{cl.lim} when \code{is.corr TRUE}, the assigning color
+#'   method is still distributed uniformly in [-1, 1], it only affect the display
+#'   on colorlegend.
+#'
 #'
 #' @param bg The background color.
 #'
@@ -108,8 +116,6 @@
 #'   it must be one of \code{"r"} (default if \code{type=="upper"} or
 #'   \code{"full"}), \code{"b"} (default if \code{type=="lower"}) or \code{"n"},
 #'   \code{"n"} means don't draw colorlabel.
-#'
-#' @param cl.lim The  limits \code{(x1, x2)}  in the colorlabel.
 #'
 #' @param cl.length Integer, the number of number-text in colorlabel, passed to
 #'   \code{\link{colorlegend}}. If \code{NULL}, \code{cl.length} is
@@ -204,7 +210,10 @@
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text label.
 #'
-#' @return (Invisibly) returns a reordered correlation matrix.
+#' @return (Invisibly) returns a \code{list(corr, corrTrans)}.
+#' \code{corr} is a reordered correlation matrix for plotting.
+#' \code{corrPos} is a matrix with x, y, corr and p.value(if p.mat is not NULL)
+#' column, which x and y are the position on the correlation matrix plot.
 #'
 #' @details \code{corrplot} function offers flexible ways to visualize
 #'   correlation matrix, lower and upper bound of confidence interval matrix.
@@ -243,7 +252,7 @@
 corrplot <- function(corr,
   method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
   type = c("full", "lower", "upper"), add = FALSE,
-  col = NULL, full_col = TRUE, bg = "white", title = "", is.corr = TRUE,
+  col = NULL, cl.lim = NULL, bg = "white", title = "", is.corr = TRUE,
   diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
@@ -255,9 +264,8 @@ corrplot <- function(corr,
   tl.pos = NULL, tl.cex = 1,
   tl.col = "red", tl.offset = 0.4, tl.srt = 90,
 
-  cl.pos = NULL, cl.lim = NULL,
-  cl.length = NULL, cl.cex = 0.8, cl.ratio = 0.15,
-  cl.align.text = "c", cl.offset = 0.5,
+  cl.pos = NULL, cl.length = NULL, cl.cex = 0.8,
+  cl.ratio = 0.15, cl.align.text = "c", cl.offset = 0.5,
 
   number.cex = 1, number.font = 2, number.digits = NULL,
 
@@ -284,6 +292,7 @@ corrplot <- function(corr,
   insig <- match.arg(insig)
   plotCI <- match.arg(plotCI)
 
+
   # rescale symbols within the corrplot based on win.asp parameter
   if (win.asp != 1 && !(method %in% c("circle", "square"))) {
     stop("Parameter 'win.asp' is supported only for circle and square methods.")
@@ -300,28 +309,50 @@ corrplot <- function(corr,
     addgrid.col <- switch(method, color = NA, shade = NA, "grey")
   }
 
-  if (any(corr < cl.lim[1]) || any(corr > cl.lim[2])) {
+  # Issue #142
+  # checks for all values that are not missing
+  if (any(corr[!is.na(corr)] < cl.lim[1]) || any(corr[!is.na(corr)] > cl.lim[2])) {
     stop("color limits should cover matrix")
   }
+
 
   if (is.null(cl.lim)) {
     if (is.corr) {
       # if the matrix is expected to be a correlation matrix
       # it MUST be within the interval [-1,1]
-      cl.lim <- c(-1,1)
+      cl.lim <- c(-1, 1)
     } else {
       # Issue #91
       # if not a correlation matrix and the diagonal is hidden,
       # we need to compute limits from all cells except the diagonal
-      corr_tmp <- corr
-      diag(corr_tmp) <- ifelse(
-        rep(diag, length(diag(corr_tmp))),
-        diag(corr_tmp),
-        NA
-      )
-      cl.lim <- c(min(corr_tmp, na.rm = TRUE), max(corr_tmp, na.rm = TRUE))
+
+      if(!diag) {
+        diag(corr) = NA
+      }
+
+      cl.lim <- c(min(corr, na.rm = TRUE), max(corr, na.rm = TRUE))
     }
   }
+
+  # if the mat have both negative and positive values, it is a SpecialCorr
+  SpecialCorr = 0
+
+  if(is.corr) {
+    # check the interval if expecting a correlation matrix
+    # otherwise, the values can be any number
+    if (min(corr, na.rm = TRUE) < -1 - .Machine$double.eps ^ .75 ||
+        max(corr, na.rm = TRUE) >  1 + .Machine$double.eps ^ .75 ) {
+      stop("The matrix is not in [-1, 1]!")
+    }
+
+
+    SpecialCorr = 1
+
+    if(cl.lim[1] < -1 | cl.lim[2] > 1) {
+      stop('cl.lim should be within the interval [-1,1]')
+    }
+  }
+
 
   intercept <- 0
   zoom <- 1
@@ -331,46 +362,41 @@ corrplot <- function(corr,
     c_max <- max(corr, na.rm = TRUE)
     c_min <- min(corr, na.rm = TRUE)
 
-    # The following if-elseif-else code should exhaustively cover all 9
-    # combinations of c_min and c_max variables. Each variable can be either
-    # zero (0), positive (+) or negative (-).
-
-    # c_min c_max
-
-    # 00
-    # -0
-    # +0
-    # --
-    # 0-
-    if (c_max <= 0) {
-      intercept <- -cl.lim[2]
-      zoom <- 1 / (diff(cl.lim))
+    if(diff(cl.lim)/(c_max - c_min)> 2) {
+      warning("cl.lim interval too wide, please set a suitable value")
     }
 
-    # ++
-    # +-
-    # 0+
-    else if (c_min >= 0) {
-      intercept <- -cl.lim[1]
+    # all negative or positive, trans to [0, 1]
+    if (c_max <= 0 | c_min>=0) {
+      intercept <- -c_min
       zoom <- 1 / (diff(cl.lim))
+
+
+      if(cl.lim[1] * cl.lim[2] < 0) {
+        warning("cl.lim interval not suitable to the matrix")
+      }
+
     }
 
-    # -+
+
+    # mixed negative and positive, remain its sign, e.g. [-0.8, 1] or [-1, 0.7]
     else {
 
       # expression from the original code as a sanity check
       stopifnot(c_max * c_min < 0)
-
-      # newly derived expression which covers the single remainig case
+      # newly derived expression which covers the single remaining case
       stopifnot(c_min < 0 && c_max > 0)
+
+
 
       intercept <- 0
       zoom <- 1 / max(abs(cl.lim))
+      SpecialCorr <- 1
     }
 
-    # now, the zoom might still be Inf when cl.lim were both zero
+    # now, the zoom might still be Inf when c_max and c_min were both zero
     if (zoom == Inf) {
-      stopifnot(cl.lim[1] == 0 && cl.lim[2] == 0) # check the assumption
+      stopifnot(c_max == 0 && c_min == 0) # check the assumption
       zoom <- 0
     }
 
@@ -380,14 +406,7 @@ corrplot <- function(corr,
   cl.lim2 <- (intercept + cl.lim) * zoom
   int <- intercept * zoom
 
-  if (is.corr) {
-    # check the interval if expecting a correlation matrix
-    # otherwise, the values can be any number
-    if (min(corr, na.rm = TRUE) < -1 - .Machine$double.eps ^ .75 ||
-      max(corr, na.rm = TRUE) >  1 + .Machine$double.eps ^ .75 ) {
-      stop("The matrix is not in [-1, 1]!")
-    }
-  }
+
 
   if (is.null(col)) {
     col <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
@@ -492,28 +511,19 @@ corrplot <- function(corr,
 
   rm(expand_expression) # making sure the function is only used here
 
-  # scale data to range [lower, upper]
-  # if the dataspan is invalid we use the coller in the middle of the interval
-  scale_to_range <- function(data, lower = 1, upper) {
-    dataspan <- max(data) - min(data)
-    if (dataspan == 0)
-      rep((upper - lower) / 2, length(data)) # middle color
-    else
-      (upper - lower) * (data - min(data)) / dataspan + lower # full range
-  }
 
   ## assign colors
-  assign.color <- function(dat = DAT, color = col) {
-    if (full_col) {
-      # Rescale data before computing color to ensure that all colors are used.
-      newcorr <- scale_to_range(data = dat, lower = 1, upper = length(color))
-      color[floor(newcorr)]
-    } else {
+  assign.color <- function(dat = DAT, color = col, isSpecialCorr = SpecialCorr) {
+
+    if(isSpecialCorr) {
       newcorr <- (dat + 1) / 2
-      newcorr[newcorr <= 0]  <- 0
-      newcorr[newcorr >= 1]  <- 1 - 1e-16
-      color[floor(newcorr * length(color)) + 1] # new color returned
+    } else {
+      newcorr <- dat
     }
+
+    newcorr[newcorr <= 0]  <- 0
+    newcorr[newcorr >= 1]  <- 1 - 1e-16
+    color[floor(newcorr * length(color)) + 1] # new color returned
   }
 
   col.fill <- assign.color()
@@ -572,13 +582,9 @@ corrplot <- function(corr,
       ylim <- c(
         n1 - 0.5 - nn * cl.ratio * (cl.pos == "b") - laboffset,
         n2 + 0.5 + laboffset +
-          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos)
-      ) +
-        #c(-0.15, 0) +
-        c(0, -1) * (type == "upper" && tl.pos != "n")  # nasty hack
-
-      # note: the nasty hack above is related to multiple issues
-      # (e.g. #96, #94, #102)
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos) +
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * (type=='lower') * grepl("d", tl.pos)
+      ) #+ c(-0.15, 0)
 
       plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
 
@@ -836,10 +842,28 @@ corrplot <- function(corr,
     }
   }
 
+
+  ## add numbers
+  if (!is.null(addCoef.col) && method != "number") {
+    text(Pos[,1], Pos[,2],  col = addCoef.col,
+         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
+                        number.digits),
+         cex = number.cex, font = number.font)
+  }
+
+
   if (!is.null(p.mat) && insig != "n") {
     if (order != "original") {
       p.mat <- p.mat[ord, ord]
     }
+
+    if(!is.null(rownames(p.mat)) | !is.null(rownames(p.mat))) {
+      if(!all(colnames(p.mat)==colnames(corr)) |
+         !all(rownames(p.mat)==rownames(corr))) {
+        warning('p.mat and corr may be not paired, their rownames and colnames are not totally same!')
+      }
+    }
+
 
     pos.pNew  <- getPos.Dat(p.mat)[[1]]
     pNew      <- getPos.Dat(p.mat)[[2]]
@@ -901,9 +925,12 @@ corrplot <- function(corr,
     }
   }
 
+
   ### color legend
   if (cl.pos != "n") {
     colRange <- assign.color(dat = cl.lim2)
+
+
     ind1 <- which(col == colRange[1])
     ind2 <- which(col == colRange[2])
     colbar <- col[ind1:ind2]
@@ -973,13 +1000,7 @@ corrplot <- function(corr,
 
   title(title, ...)
 
-  ## add numbers
-  if (!is.null(addCoef.col) && method != "number") {
-    text(Pos[,1], Pos[,2],  col = addCoef.col,
-         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits),
-         cex = number.cex, font = number.font)
-  }
+
 
   ## add grid, in case of the grid is ate when "diag=FALSE"
   if (type == "full" && plotCI == "n" && !is.null(addgrid.col)) {
@@ -992,7 +1013,18 @@ corrplot <- function(corr,
                     col = rect.col, lwd = rect.lwd)
   }
 
-  invisible(corr) # reordered correlation matrix
+  corrPos = cbind(Pos, DAT)
+  colnames(corrPos) = c('x', 'y', 'corr')
+  if(!is.null(p.mat)) {
+    corrPos = cbind(corrPos, pNew)
+    colnames(corrPos)[4] = c('p.value')
+  }
+  rownames(corrPos) = NULL
+  corrPos = corrPos[order(corrPos[,1],corrPos[,2]),]
+
+  res = list(corr=corr, corrPos=corrPos)
+
+  invisible(res) # reordered correlation matrix, and Position
 }
 
 #' @note pure function

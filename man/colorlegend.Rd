@@ -4,9 +4,19 @@
 \alias{colorlegend}
 \title{Draw color legend.}
 \usage{
-colorlegend(colbar, labels, at = NULL, xlim = c(0, 1), ylim = c(0, 1),
-  vertical = TRUE, ratio.colbar = 0.4, lim.segment = "auto",
-  align = c("c", "l", "r"), addlabels = TRUE, ...)
+colorlegend(
+  colbar,
+  labels,
+  at = NULL,
+  xlim = c(0, 1),
+  ylim = c(0, 1),
+  vertical = TRUE,
+  ratio.colbar = 0.4,
+  lim.segment = "auto",
+  align = c("c", "l", "r"),
+  addlabels = TRUE,
+  ...
+)
 }
 \arguments{
 \item{colbar}{Vector, color of colbar.}

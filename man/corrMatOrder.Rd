@@ -4,9 +4,12 @@
 \alias{corrMatOrder}
 \title{Reorder a correlation matrix.}
 \usage{
-corrMatOrder(corr, order = c("AOE", "FPC", "hclust", "alphabet"),
-  hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single",
-  "average", "mcquitty", "median", "centroid"))
+corrMatOrder(
+  corr,
+  order = c("AOE", "FPC", "hclust", "alphabet"),
+  hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
+    "mcquitty", "median", "centroid")
+)
 }
 \arguments{
 \item{corr}{Correlation matrix to reorder.}
@@ -15,8 +18,8 @@ corrMatOrder(corr, order = c("AOE", "FPC", "hclust", "alphabet"),
 \itemize{
    \item{\code{"AOE"} for the angular order of the eigenvectors.
      It is calculated from the order of the angles, \eqn{a_i}:
-     \deqn{ a_i = tan (e_{i2} / e_{i1}), if e_{i1} > 0}
-     \deqn{ a_i = tan (e_{i2} / e_{i1}) + \pi, otherwise.}
+     \deqn{ a_i = arctan (e_{i2} / e_{i1}), if e_{i1} > 0}
+     \deqn{ a_i = arctan (e_{i2} / e_{i1}) + \pi, otherwise.}
      where \eqn{e_1} and \eqn{e_2} are the largest two eigenvalues
      of matrix \code{corr}.
      See Michael Friendly (2002) for details.}
@@ -43,7 +46,7 @@ M <- cor(mtcars)
 (order.AOE <- corrMatOrder(M, order = "AOE"))
 (order.FPC <- corrMatOrder(M, order = "FPC"))
 (order.hc <- corrMatOrder(M, order = "hclust"))
-(order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward"))
+(order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
 
 M.AOE <- M[order.AOE,order.AOE]
 M.FPC <- M[order.FPC,order.FPC]
@@ -65,7 +68,7 @@ corrplot(M.hc)
 corrRect.hclust(corr = M.hc, k = 3)
 
 corrplot(M.hc2)
-corrRect.hclust(M.hc2, k = 2, method = "ward")
+corrRect.hclust(M.hc2, k = 2, method = "ward.D")
 }
 \seealso{
 Package \code{seriation} offers more methods to reorder matrices,
