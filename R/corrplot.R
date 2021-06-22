@@ -212,7 +212,8 @@
 #'
 #' @return (Invisibly) returns a \code{list(corr, corrTrans)}.
 #' \code{corr} is a reordered correlation matrix for plotting.
-#' \code{corrPos} is a matrix with x, y, corr and p.value(if p.mat is not NULL)
+#' \code{corrPos} is a data frame with \code{xName, yName, x, y, corr} and
+#' \code{p.value}(if p.mat is not NULL)
 #' column, which x and y are the position on the correlation matrix plot.
 #'
 #' @details \code{corrplot} function offers flexible ways to visualize
@@ -454,7 +455,11 @@ corrplot <- function(corr,
     Pos <- ind
     Pos[,1] <-  ind[,2]
     Pos[,2] <- -ind[,1] + 1 + n
-    return(list(Pos, Dat))
+
+    PosName <- ind
+    PosName[,1] <- colnames(mat)[ind[,2]]
+    PosName[,2] <- rownames(mat)[ind[,1]]
+    return(list(Pos, Dat, PosName))
   }
 
   # retrieves coordinates of NA cells
@@ -468,7 +473,10 @@ corrplot <- function(corr,
     return(Pos)
   }
 
+  testTemp = getPos.Dat(corr)
+
   Pos <- getPos.Dat(corr)[[1]]
+  PosName <- getPos.Dat(corr)[[3]]
 
   # decide whether NA labels are going to be rendered or whether we ignore them
   if (any(is.na(corr)) && is.character(na.label)) {
@@ -1013,14 +1021,15 @@ corrplot <- function(corr,
                     col = rect.col, lwd = rect.lwd)
   }
 
-  corrPos = cbind(Pos, DAT)
-  colnames(corrPos) = c('x', 'y', 'corr')
+  corrPos = data.frame(PosName, Pos, DAT)
+  colnames(corrPos) = c('xName', 'yName', 'x', 'y', 'corr')
   if(!is.null(p.mat)) {
     corrPos = cbind(corrPos, pNew)
-    colnames(corrPos)[4] = c('p.value')
+    colnames(corrPos)[6] = c('p.value')
   }
+  corrPos = corrPos[order(corrPos[,3],-corrPos[,4]),]
   rownames(corrPos) = NULL
-  corrPos = corrPos[order(corrPos[,1],corrPos[,2]),]
+
 
   res = list(corr=corr, corrPos=corrPos)
 

@@ -93,7 +93,6 @@ test_that("Issue #21: plotCI=rect incompatible with some methods", {
 test_that("Issue #43: Return value should be the same as corrplot function", {
   M <- cor(mtcars)
   expect_equal(corrplot.mixed(M)$corr, corrplot(M)$corr)
-  expect_equal(corrplot.mixed(M, order='AOE')$corrPos, corrplot(M, order='AOE')$corrPos)
 })
 
 test_that("Should only work with matrix or dataframe", {
@@ -105,7 +104,7 @@ test_that("Non-correlation matrix", {
   M <- matrix(runif(100, 0, 10), nrow = 10)
   expect_error(corrplot(M), regexp = "The matrix is not in")
   expect_true(is.matrix(corrplot(M, is.corr = FALSE)$corr))
-  expect_true(is.matrix(corrplot(M, is.corr = FALSE)$corrPos))
+  expect_true(is.data.frame(corrplot(M, is.corr = FALSE)$corrPos))
 })
 
 test_that("Try different ordering", {

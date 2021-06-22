@@ -1,7 +1,23 @@
 data(mtcars)
 M <- cor(mtcars)
-corrplot(M, method = "circle", order = "FPC")
-corrRect(c(5,6))
+
+
+f=corrplot(M, order = "AOE")
+r=rbind(c('gear', 'wt', 'qsec', 'carb'),
+        c('wt', 'gear', 'carb', 'qsec'))
+corrRect(namesMat=r, corrRes=f)
+
+
+f=corrplot(M, method = "circle", order = "AOE", type='lower')
+r=c('gear', 'carb', 'qsec', 'wt')
+corrRect(namesMat=r, corrRes=f)
+
+
+corrplot(M, method = "circle", order = "hclust")
+corrRect(clus=c(5,6))
+
+corrplot(M, method = "circle", order = "hclust")
+corrRect(clus=c(5,3,3))
 
 (order.hc <- corrMatOrder(M, order = "hclust"))
 (order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))

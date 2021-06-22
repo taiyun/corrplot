@@ -4,14 +4,21 @@
 \alias{corrRect}
 \title{Draw rectangle(s) on the correlation matrix graph.}
 \usage{
-corrRect(clus, col = "black", lwd = 2)
+corrRect(clus = NULL, namesMat = NULL, corrRes, col = "black", lwd = 2, ...)
 }
 \arguments{
 \item{clus}{Vector, the number of each cluster's members.}
 
+\item{namesMat}{4-length character vector or 4-columns character matrix,
+corresponding represents the names of xleft, ybottom, xright, ytop.}
+
+\item{corrRes}{list of the \code{corrplot()} returns.}
+
 \item{col}{Color of rectangles.}
 
 \item{lwd}{Line width of rectangles.}
+
+\item{\dots}{Additional arguments passing to function \code{rect()}.}
 }
 \description{
 Draw rectangle(s) around the chart of corrrlation matrix.
@@ -24,8 +31,24 @@ based on hierarchical clustering (\code{\link{hclust}}).
 \examples{
 data(mtcars)
 M <- cor(mtcars)
-corrplot(M, method = "circle", order = "FPC")
-corrRect(c(5,6))
+
+
+f=corrplot(M, order = "AOE")
+r=rbind(c('gear', 'wt', 'qsec', 'carb'),
+        c('wt', 'gear', 'carb', 'qsec'))
+corrRect(namesMat=r, corrRes=f)
+
+
+f=corrplot(M, method = "circle", order = "AOE", type='lower')
+r=c('gear', 'carb', 'qsec', 'wt')
+corrRect(namesMat=r, corrRes=f)
+
+
+corrplot(M, method = "circle", order = "hclust")
+corrRect(clus=c(5,6))
+
+corrplot(M, method = "circle", order = "hclust")
+corrRect(clus=c(5,3,3))
 
 (order.hc <- corrMatOrder(M, order = "hclust"))
 (order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
