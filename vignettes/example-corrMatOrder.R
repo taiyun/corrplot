@@ -1,14 +1,14 @@
-M <- cor(mtcars)
+M = cor(mtcars)
 
-(order.AOE <- corrMatOrder(M, order = "AOE"))
-(order.FPC <- corrMatOrder(M, order = "FPC"))
-(order.hc <- corrMatOrder(M, order = "hclust"))
-(order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
+(order.AOE = corrMatOrder(M, order = "AOE"))
+(order.FPC = corrMatOrder(M, order = "FPC"))
+(order.hc = corrMatOrder(M, order = "hclust"))
+(order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
 
-M.AOE <- M[order.AOE,order.AOE]
-M.FPC <- M[order.FPC,order.FPC]
-M.hc  <- M[order.hc, order.hc]
-M.hc2 <- M[order.hc2,order.hc2]
+M.AOE = M[order.AOE,order.AOE]
+M.FPC = M[order.FPC,order.FPC]
+M.hc  = M[order.hc, order.hc]
+M.hc2 = M[order.hc2,order.hc2]
 
 
 

@@ -24,7 +24,7 @@
 #' @author Taiyun Wei
 #' @example vignettes/example-corrplot.mixed.R
 #' @export
-corrplot.mixed <- function(
+corrplot.mixed = function(
   corr,
   lower = "number",
   upper = "circle",
@@ -38,26 +38,26 @@ corrplot.mixed <- function(
   mar = c(0, 0, 0, 0),
   ...)
 {
-  tl.pos <- match.arg(tl.pos)
-  diag <- match.arg(diag)
-  plotCI <- match.arg(plotCI)
-  n <- nrow(corr)
+  tl.pos = match.arg(tl.pos)
+  diag = match.arg(diag)
+  plotCI = match.arg(plotCI)
+  n = nrow(corr)
 
   # fixes issue #21
   # some methods are not compatible with plotCI="rect"
-  adjust_plotCI <- function(plotCI, method) {
+  adjust_plotCI = function(plotCI, method) {
     if (plotCI != "rect" || method %in% c("circle", "square")) {
       return(plotCI)
     }
     return("n")
   }
 
-  plotCI_lower <- adjust_plotCI(plotCI, lower)
-  plotCI_upper <- adjust_plotCI(plotCI, upper)
+  plotCI_lower = adjust_plotCI(plotCI, lower)
+  plotCI_upper = adjust_plotCI(plotCI, upper)
 
   # fixed issue #102
   # restore this parameter when exiting the corrplot.mixed function in any way
-  oldpar <- par(mar = mar, bg = "white")
+  oldpar = par(mar = mar, bg = "white")
   on.exit(par(oldpar), add = TRUE)
 
   corrplot(corr, type = "upper", method = upper, diag = TRUE,

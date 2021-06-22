@@ -1,6 +1,6 @@
-M <- cor(mtcars)
-ord <- corrMatOrder(M, order = "AOE")
-M2 <- M[ord,ord]
+M = cor(mtcars)
+ord = corrMatOrder(M, order = "AOE")
+M2 = M[ord,ord]
 
 
 corrplot.mixed(M2)

@@ -10,7 +10,7 @@ corrRect(clus = NULL, namesMat = NULL, corrRes, col = "black", lwd = 2, ...)
 \item{clus}{Vector, the number of each cluster's members.}
 
 \item{namesMat}{4-length character vector or 4-columns character matrix,
-corresponding represents the names of xleft, ybottom, xright, ytop.}
+represents the names of xleft, ybottom, xright, ytop correspondingly.}
 
 \item{corrRes}{list of the \code{corrplot()} returns.}
 
@@ -30,30 +30,30 @@ based on hierarchical clustering (\code{\link{hclust}}).
 }
 \examples{
 data(mtcars)
-M <- cor(mtcars)
+M = cor(mtcars)
 
 
-f=corrplot(M, order = "AOE")
-r=rbind(c('gear', 'wt', 'qsec', 'carb'),
+f = corrplot(M, order = "AOE")
+r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
 corrRect(namesMat=r, corrRes=f)
 
 
-f=corrplot(M, method = "circle", order = "AOE", type='lower')
-r=c('gear', 'carb', 'qsec', 'wt')
+f = corrplot(M, method = "circle", order = "AOE", type='lower')
+r = c('gear', 'carb', 'qsec', 'wt')
 corrRect(namesMat=r, corrRes=f)
 
 
 corrplot(M, method = "circle", order = "hclust")
-corrRect(clus=c(5,6))
+corrRect(clus = c(5,6))
 
 corrplot(M, method = "circle", order = "hclust")
-corrRect(clus=c(5,3,3))
+corrRect(clus = c(5,3,3))
 
-(order.hc <- corrMatOrder(M, order = "hclust"))
-(order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
-M.hc  <- M[order.hc, order.hc]
-M.hc2 <- M[order.hc2, order.hc2]
+(order.hc = corrMatOrder(M, order = "hclust"))
+(order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
+M.hc  = M[order.hc, order.hc]
+M.hc2 = M[order.hc2, order.hc2]
 
 par(ask = TRUE)
 

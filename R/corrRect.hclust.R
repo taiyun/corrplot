@@ -22,7 +22,7 @@
 #' @keywords hplot
 #' @author Taiyun Wei
 #' @export
-corrRect.hclust <- function(
+corrRect.hclust = function(
   corr,
   k = 2,
   col = "black",
@@ -30,12 +30,12 @@ corrRect.hclust <- function(
   method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
              "mcquitty", "median", "centroid") )
 {
-  n <- nrow(corr)
-  method <- match.arg(method)
-  tree <- hclust(as.dist(1 - corr), method = method)
-  hc <- cutree(tree, k = k)
-  clustab <- table(hc)[unique(hc[tree$order])]
-  cu <- c(0, cumsum(clustab))
+  n = nrow(corr)
+  method = match.arg(method)
+  tree = hclust(as.dist(1 - corr), method = method)
+  hc = cutree(tree, k = k)
+  clustab = table(hc)[unique(hc[tree$order])]
+  cu = c(0, cumsum(clustab))
 
   rect(cu[-(k + 1)] + 0.5,
        n - cu[-(k + 1)] + 0.5,

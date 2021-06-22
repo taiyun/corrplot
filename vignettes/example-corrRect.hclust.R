@@ -1,12 +1,12 @@
 data(mtcars)
-M <- cor(mtcars)
+M = cor(mtcars)
 corrplot(M, method = "circle", order = "FPC")
 corrRect(c(5,6))
 
-(order.hc <- corrMatOrder(M, order = "hclust"))
-(order.hc2 <- corrMatOrder(M, order = "hclust", hclust.method = "ward.D2"))
-M.hc  <- M[order.hc, order.hc]
-M.hc2 <- M[order.hc2, order.hc2]
+(order.hc = corrMatOrder(M, order = "hclust"))
+(order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D2"))
+M.hc  = M[order.hc, order.hc]
+M.hc2 = M[order.hc2, order.hc2]
 
 par(ask = TRUE)
 

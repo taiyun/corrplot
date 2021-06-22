@@ -1,20 +1,20 @@
 data(mtcars)
-M <- cor(mtcars)
+M = cor(mtcars)
 set.seed(0)
 
 ##  different color series
-col0 <- colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
-col1 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
+col0 = colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
+col1 = colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
                            "cyan", "#007FFF", "blue","#00007F"))
-col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
+col2 = colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                            "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                            "#4393C3", "#2166AC", "#053061"))
-col3 <- colorRampPalette(c("red", "white", "blue"))
-col4 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "#7FFF7F",
+col3 = colorRampPalette(c("red", "white", "blue"))
+col4 = colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "#7FFF7F",
                            "cyan", "#007FFF", "blue", "#00007F"))
 
 
-wb <- c("white", "black")
+wb = c("white", "black")
 
 par(ask = TRUE)
 
@@ -103,12 +103,12 @@ corrplot(abs(M)/10+0.5, is.corr = FALSE, cl.lim=c(0.5,0.6), col=col0(10))
 
 
 ## visualize a  matrix in [-100, 100]
-ran <- round(matrix(runif(225, -100,100), 15))
+ran = round(matrix(runif(225, -100,100), 15))
 corrplot(ran, is.corr = FALSE)
 corrplot(ran, is.corr = FALSE, cl.lim = c(-100, 100))
 
 ## visualize a  matrix in [100, 300]
-ran2 <- ran + 200
+ran2 = ran + 200
 
 # bad color
 corrplot(ran2, is.corr = FALSE, cl.lim = c(100, 300), col=col1(100))
@@ -139,7 +139,7 @@ corrplot(M, order = "AOE", cl.pos = "n")
 
 
 ## deal with missing Values
-M2 <- M
+M2 = M
 diag(M2) = NA
 corrplot(M2)
 corrplot(M2, na.label = "o")
@@ -151,8 +151,8 @@ corrplot(M[1:8,])
 corrplot(M[,1:8])
 
 
-res1 <- cor.mtest(mtcars, conf.level = 0.95)
-res2 <- cor.mtest(mtcars, conf.level = 0.99)
+res1 = cor.mtest(mtcars, conf.level = 0.95)
+res2 = cor.mtest(mtcars, conf.level = 0.99)
 
 
 ## specialized the insignificant value according to the significant level
@@ -201,7 +201,7 @@ corrplot(M, p.mat = res2$p, low = res2$lowCI, upp = res2$uppCI,
 ## begin.animaton
 par(ask = FALSE)
 for (i in seq(0.1, 0, -0.005)) {
-  tmp <- cor.mtest(mtcars, conf.level = 1 - i)
+  tmp = cor.mtest(mtcars, conf.level = 1 - i)
   corrplot(M, p.mat = tmp$p, low = tmp$lowCI, upp = tmp$uppCI, order = "hclust",
            pch.col = "red", sig.level = i, plotCI = "rect", cl.pos = "n",
            mar = c(0, 0, 1, 0),
