@@ -136,11 +136,17 @@ corrplot(M, order = "hclust")
 corrplot(M, order = "FPC")
 ```
 
-If using `"hclust"`, `corrplot()` can  draw rectangles around the chart of corrrlation matrix based on the results of  hierarchical clustering.
+If using `"hclust"`, `corrplot()` can  draw rectangles around the chart of correlation matrix based on the results of  hierarchical clustering.
 
 ```{r rectangles}
+f=corrplot(M, order = "AOE")
+r=rbind(c('gear', 'wt', 'qsec', 'carb'),
+        c('wt', 'gear', 'carb', 'qsec'))
+corrRect(namesMat=r, corrRes=f)
+
 corrplot(M, order = "hclust", addrect = 3)
 ```
+
 ```{r hclust-lightblue}
 # Change background color to lightblue
 corrplot(M, type = "upper", order = "hclust", cl.pos = "n",

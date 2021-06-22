@@ -267,7 +267,8 @@ text label.}
 \value{
 (Invisibly) returns a \code{list(corr, corrTrans)}.
 \code{corr} is a reordered correlation matrix for plotting.
-\code{corrPos} is a matrix with x, y, corr and p.value(if p.mat is not NULL)
+\code{corrPos} is a data frame with \code{xName, yName, x, y, corr} and
+\code{p.value}(if p.mat is not NULL)
 column, which x and y are the position on the correlation matrix plot.
 }
 \description{
