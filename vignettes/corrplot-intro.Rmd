@@ -26,18 +26,18 @@ knitr::opts_chunk$set(
   fig.height = 6,
   dev = "png")
 
-get_os <- function(){
-  sysinf <- Sys.info()
+get_os = function(){
+  sysinf = Sys.info()
   if (!is.null(sysinf)){
-    os <- sysinf['sysname']
+    os = sysinf['sysname']
     if (os == 'Darwin')
-      os <- "osx"
+      os = "osx"
   } else { ## mystery machine
-    os <- .Platform$OS.type
+    os = .Platform$OS.type
     if (grepl("^darwin", R.version$os))
-      os <- "osx"
+      os = "osx"
     if (grepl("linux-gnu", R.version$os))
-      os <- "linux"
+      os = "linux"
   }
   tolower(os)
 }
@@ -64,7 +64,7 @@ There are seven visualization methods (parameter `method`) in **corrplot** packa
 
 ```{r methods}
 library(corrplot)
-M <- cor(mtcars)
+M = cor(mtcars)
 corrplot(M, method = "circle")
 corrplot(M, method = "square")
 corrplot(M, method = "ellipse")
@@ -163,18 +163,18 @@ spectrum.
 
 ```{r color}
 ## color example, suitable for matrix in [-N, 0] or [0, N]
-col0 <- colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
+col0 = colorRampPalette(c("white", "cyan", "#007FFF", "blue","#00007F"))
 
 ## diverging color example, suitable for matrix in [-N, N]
-col1 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
+col1 = colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "white",
                            "cyan", "#007FFF", "blue", "#00007F"))
-col2 <- colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
+col2 = colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
                            "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
                            "#4393C3", "#2166AC", "#053061"))
-col3 <- colorRampPalette(c("red", "white", "blue"))	
-col4 <- colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "#7FFF7F",
+col3 = colorRampPalette(c("red", "white", "blue"))	
+col4 = colorRampPalette(c("#7F0000", "red", "#FF7F00", "yellow", "#7FFF7F",
                            "cyan", "#007FFF", "blue", "#00007F"))
-whiteblack <- c("white", "black")
+whiteblack = c("white", "black")
 
 ## using these color spectra
 corrplot(M, order = "hclust", addrect = 2, col = col1(100))
@@ -249,7 +249,7 @@ corrplot(abs(M)*10+50, is.corr = FALSE, cl.lim=c(50, 60), col=col0(10))
 If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 ```{r non-corr-asp}
-ran <- matrix(rnorm(70), ncol = 7)
+ran = matrix(rnorm(70), ncol = 7)
 corrplot(ran, is.corr = FALSE, win.asp = .7, method = "circle")
 ```
 
@@ -261,7 +261,7 @@ parameter, it is possible to use a different value (max. two characters are
 supported).
 
 ```{r NAs}
-M2 <- M
+M2 = M
 diag(M2) = NA
 corrplot(M2)
 corrplot(M2, na.label = "o")
@@ -278,9 +278,9 @@ expression in variable names. To activate plotmath rendering, prefix your label
 with one of the characters `":"`, `"="` or `"$"`.
 
 ```{r plotmath}
-M2 <- M[1:5,1:5]
-colnames(M2) <- c("alpha", "beta", ":alpha+beta", ":alpha[0]", "=alpha[beta]")
-rownames(M2) <- c("$alpha", "$beta", NA, "$alpha[0]", "$alpha[beta]")
+M2 = M[1:5,1:5]
+colnames(M2) = c("alpha", "beta", ":alpha+beta", ":alpha[0]", "=alpha[beta]")
+rownames(M2) = c("$alpha", "$beta", NA, "$alpha[0]", "$alpha[beta]")
 corrplot(M2)
 ```
 
@@ -289,8 +289,8 @@ corrplot(M2)
 
 
 ```{r test}
-res1 <- cor.mtest(mtcars, conf.level = .95)
-res2 <- cor.mtest(mtcars, conf.level = .99)
+res1 = cor.mtest(mtcars, conf.level = .95)
+res2 = cor.mtest(mtcars, conf.level = .99)
 
 ## specialized the insignificant value according to the significant level
 corrplot(M, p.mat = res1$p, sig.level = .2)
@@ -324,7 +324,7 @@ corrplot(M, p.mat = res1$p, low = res1$lowCI, upp = res1$uppCI,
 ```
 
 ```{r ci_with_label}
-res1 <- cor.mtest(mtcars, conf.level = .95)
+res1 = cor.mtest(mtcars, conf.level = .95)
 
 corrplot(M, p.mat = res1$p, diag = FALSE, tl.pos = 'd', insig = "label_sig",
          sig.level = c(.001, .01, .05), pch.cex = .9, pch.col = "white")

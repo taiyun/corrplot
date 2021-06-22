@@ -56,9 +56,9 @@ of lower triangular) or \code{"u"} (draw the glyphs of upper triangular).}
 Using mixed methods to visualize a correlation matrix.
 }
 \examples{
-M <- cor(mtcars)
-ord <- corrMatOrder(M, order = "AOE")
-M2 <- M[ord,ord]
+M = cor(mtcars)
+ord = corrMatOrder(M, order = "AOE")
+M2 = M[ord,ord]
 
 
 corrplot.mixed(M2)

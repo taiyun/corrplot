@@ -21,7 +21,7 @@
 #' @keywords hplot
 #' @author Taiyun Wei
 #' @export
-colorlegend <- function(
+colorlegend = function(
   colbar,
   labels,
   at = NULL,
@@ -35,11 +35,11 @@ colorlegend <- function(
   ...)
 {
   if (is.null(at) && addlabels) {
-    at <- seq(0L, 1L, length = length(labels))
+    at = seq(0L, 1L, length = length(labels))
   }
 
   if (any(is.null(lim.segment)) || any(lim.segment == "auto")) {
-    lim.segment <- ratio.colbar + c(0, ratio.colbar * .2)
+    lim.segment = ratio.colbar + c(0, ratio.colbar * .2)
   }
 
   if (any(at < 0L) || any(at > 1L)) {
@@ -54,17 +54,17 @@ colorlegend <- function(
     stop("lim.segment should be between 0 and 1")
   }
 
-  align <- match.arg(align)
-  xgap <- diff(xlim)
-  ygap <- diff(ylim)
-  len <- length(colbar)
-  rat1 <- ratio.colbar
-  rat2 <- lim.segment
+  align = match.arg(align)
+  xgap = diff(xlim)
+  ygap = diff(ylim)
+  len = length(colbar)
+  rat1 = ratio.colbar
+  rat2 = lim.segment
 
   if (vertical) {
 
-      at <- at * ygap + ylim[1]
-      yyy <- seq(ylim[1], ylim[2], length = len + 1)
+      at = at * ygap + ylim[1]
+      yyy = seq(ylim[1], ylim[2], length = len + 1)
 
       rect(rep(xlim[1], len), yyy[1:len],
            rep(xlim[1] + xgap * rat1, len), yyy[-1],
@@ -73,7 +73,7 @@ colorlegend <- function(
       segments(xlim[1] + xgap * rat2[1], at, xlim[1] + xgap * rat2[2], at)
 
       if (addlabels) {
-        pos.xlabel <- rep(xlim[1] + xgap * max(rat2, rat1), length(at))
+        pos.xlabel = rep(xlim[1] + xgap * max(rat2, rat1), length(at))
         switch(align,
           l = text(pos.xlabel, y = at, labels = labels, pos = 4, ...),
           r = text(xlim[2],    y = at, labels = labels, pos = 2, ...),
@@ -83,8 +83,8 @@ colorlegend <- function(
       }
   } else {
 
-    at <- at * xgap + xlim[1]
-    xxx <- seq(xlim[1], xlim[2], length = len + 1)
+    at = at * xgap + xlim[1]
+    xxx = seq(xlim[1], xlim[2], length = len + 1)
 
     rect(xxx[1:len], rep(ylim[2] - rat1 * ygap, len),
          xxx[-1], rep(ylim[2], len),
@@ -93,7 +93,7 @@ colorlegend <- function(
     segments(at, ylim[2] - ygap * rat2[1], at, ylim[2] - ygap * rat2[2])
 
     if (addlabels) {
-      pos.ylabel <- rep(ylim[2] - ygap * max(rat2, rat1), length(at))
+      pos.ylabel = rep(ylim[2] - ygap * max(rat2, rat1), length(at))
       switch(align,
        l = text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...),
        r = text(x = at, y = ylim[1],    labels = labels, pos = 2, ...),

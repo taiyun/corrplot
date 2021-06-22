@@ -2,7 +2,7 @@ context("cor.mtest - significance test and confidence intervals")
 
 test_that("Basic usage of cor.mtest", {
 
-  res1 <- cor.mtest(mtcars)
+  res1 = cor.mtest(mtcars)
 
   expect_true(is.list(res1))
   expect_true(is.matrix(res1$p))
