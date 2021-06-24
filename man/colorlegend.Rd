@@ -36,11 +36,11 @@ for details.}
 (including colorbar, segments and labels).}
 
 \item{lim.segment}{Vector (quantile) of length 2, the elements should be in
-[0,1], giving segments coordinates ranges. If the value is NULL or "auto",
+[0,1], giving segments coordinates ranges. If the value is NULL or 'auto',
 then the ranges are derived automatically.}
 
-\item{align}{Character, alignment type of labels, \code{"l"} means left,
-\code{"c"} means center and \code{"r"} right.}
+\item{align}{Character, alignment type of labels, \code{'l'} means left,
+\code{'c'} means center and \code{'r'} right.}
 
 \item{addlabels}{Logical, whether add text label or not.}
 
@@ -51,24 +51,24 @@ Draw color legend.
 }
 \examples{
 par(mar = rep(0,4))
-plot(0,xlim = c(0,6), ylim = c(-0.5,1.2), type = "n")
+plot(0,xlim = c(0,6), ylim = c(-0.5,1.2), type = 'n')
 
 colorlegend(rainbow(100), 0:9)
 
 colorlegend(heat.colors(100), LETTERS[1:12], xlim = c(1,2))
 
 colorlegend(terrain.colors(100), 0:9, ratio.colbar = 0.6,
-            lim.segment = c(0,0.6), xlim = c(2,3), align = "l")
+            lim.segment = c(0,0.6), xlim = c(2,3), align = 'l')
 
 colorlegend(topo.colors(100), 0:9, lim.segment = c(0,0.6),
-            xlim = c(3,4), align = "l", offset = 0)
+            xlim = c(3,4), align = 'l', offset = 0)
 
 colorlegend(cm.colors(100),1:5, xlim = c(4,5))
 
 colorlegend(sample(rainbow(12)), labels = LETTERS[1:12],
-            at = seq(0.05, 0.95, len = 12), xlim = c(5,6), align = "r")
+            at = seq(0.05, 0.95, len = 12), xlim = c(5,6), align = 'r')
 
-colorlegend(colbar = grey(1:100 / 100), 1:10, col = "red", align = "l",
+colorlegend(colbar = grey(1:100 / 100), 1:10, col = 'red', align = 'l',
             xlim = c(0, 6), ylim = c(-0.5,-0.1), vertical = FALSE)
 
 colorlegend(sample(rainbow(12)),

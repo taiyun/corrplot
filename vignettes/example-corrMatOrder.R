@@ -1,9 +1,9 @@
 M = cor(mtcars)
 
-(order.AOE = corrMatOrder(M, order = "AOE"))
-(order.FPC = corrMatOrder(M, order = "FPC"))
-(order.hc = corrMatOrder(M, order = "hclust"))
-(order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
+(order.AOE = corrMatOrder(M, order = 'AOE'))
+(order.FPC = corrMatOrder(M, order = 'FPC'))
+(order.hc = corrMatOrder(M, order = 'hclust'))
+(order.hc2 = corrMatOrder(M, order = 'hclust', hclust.method = 'ward.D'))
 
 M.AOE = M[order.AOE,order.AOE]
 M.FPC = M[order.FPC,order.FPC]
@@ -25,4 +25,4 @@ corrplot(M.hc)
 corrRect.hclust(corr = M.hc, k = 3)
 
 corrplot(M.hc2)
-corrRect.hclust(M.hc2, k = 2, method = "ward.D")
+corrRect.hclust(M.hc2, k = 2, method = 'ward.D')

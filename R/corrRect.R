@@ -8,15 +8,15 @@
 #'
 #' @param index Vector, variable index of diag rect \code{c(Rect1from, Rect2from,
 #' Rect3from, ..., RectNto)} on the correlation matrix graph.
-#' Only affect when the colnames are the same as rownames, or both of them is NULL.
-#' It need \code{corrRes} input.
+#' It works when the colnames are the same as rownames, or both of them is NULL.
+#' It needs \code{corrRes} inputted.
 #' @param name Vector, variable name of diag rect \code{c(Rect1from, Rect2from,
 #' Rect3from, ..., RectNto)} on the correlation matrix graph.
-#' Only affect when the colnames are the same as rownames.
-#' It need \code{corrRes} inputted.
+#' OIt works when the colnames are the same as rownames.
+#' It needs \code{corrRes} inputted.
 #' @param namesMat 4-length character vector or 4-columns character matrix,
 #' represents the names of xleft, ybottom, xright, ytop correspondingly.
-#' It need \code{corrRes} input.
+#' It needs \code{corrRes} inputted.
 #' @param corrRes List of the \code{corrplot()} returns.
 #' @param col Color of rectangles.
 #' @param lwd Line width of rectangles.
@@ -27,14 +27,14 @@
 #' @author Taiyun Wei
 #' @export
 corrRect = function(index = NULL, name = NULL, namesMat = NULL,
-                    corrRes = NULL, col = "black", lwd = 2, ...) {
+                    corrRes = NULL, col = 'black', lwd = 2, ...) {
 
   if((!is.null(index) + !is.null(name) + !is.null(namesMat)) > 1) {
     stop('You should just input one of index, name and namesMat!')
   }
 
   if(is.null(corrRes)|!is.list(corrRes)) {
-    stop("List 'corrRes' must be inputted!")
+    stop('List \'corrRes\' must be inputted!')
   }
 
   corr = corrRes$corr
@@ -47,15 +47,15 @@ corrRect = function(index = NULL, name = NULL, namesMat = NULL,
   if(!is.null(name)) {
 
     if(any(cName != rName)) {
-      stop("colnames and rownames should't be NULL!")
+      stop('colnames and rownames should NOT be NULL!')
     }
 
     if(is.null(cName) | is.null(rName)) {
-      stop("colnames and rownames must be same when index or name is inputted!")
+      stop('colnames and rownames must be same when index or name is inputted!')
     }
 
     if(!all(name %in% cName)) {
-      stop("Non-existent name found!")
+      stop('Non-existent name found!')
     }
 
     index = unlist(lapply(name, function(n) which(cName==n)))
@@ -66,7 +66,7 @@ corrRect = function(index = NULL, name = NULL, namesMat = NULL,
   if(!is.null(index)) {
 
     if(!is.null(cName) & !is.null(rName) & any(cName != rName)) {
-      stop("colnames and rownames must be same when index or name is inputted!")
+      stop('colnames and rownames must be same when index or name is inputted!')
     }
 
 
@@ -82,12 +82,12 @@ corrRect = function(index = NULL, name = NULL, namesMat = NULL,
     St[,2] = abs(St[,2] - nrow(corr) - 1)
     St[,4] = abs(St[,4] - nrow(corr) - 1)
 
-    if(type=="upper") {
+    if(type=='upper') {
       i = which((St[,1] - St[,2]) > -0.1 & (St[,3] - St[,4]) > -0.1)
       S = S[i,]
     }
 
-    if(type=="lower") {
+    if(type=='lower') {
       i = which((St[,2] - St[,1]) > -0.1 & (St[,4] - St[,3]) > -0.1)
       S = S[i,]
     }

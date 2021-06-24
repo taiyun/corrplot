@@ -20,7 +20,7 @@ This package is licensed under the MIT license, and available on CRAN:
 ```r
 library(corrplot)
 M <- cor(mtcars)
-corrplot(M, order = "hclust", addrect = 2)
+corrplot(M, order = 'hclust', addrect = 2)
 ```
 ![Basic example](https://raw.githubusercontent.com/taiyun/corrplot/master/vignettes/webimg/rectangles-1.png)
 
@@ -28,22 +28,20 @@ corrplot(M, order = "hclust", addrect = 2)
 
 To download the release version of the package on CRAN, type the following at the R command line:
 ```r
-install.packages("corrplot")
+install.packages('corrplot')
 ```
 
 To download the development version of the package, type the following at the R command line:
 ```r
-install.packages("devtools")
-devtools::install_github("taiyun/corrplot", build_vignettes = TRUE)
+devtools::install_github('taiyun/corrplot', build_vignettes = TRUE)
 ```
 
 ## How to cite
 To cite `corrplot` properly, call the R built-in command
-`citation("corrplot")` as follows:
+`citation('corrplot')` as follows:
 
 ```r
-library(corrplot)
-citation("corrplot")
+citation('corrplot')
 ```
 
 ## Reporting bugs and other issues

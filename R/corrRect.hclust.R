@@ -14,9 +14,9 @@
 #'
 #' @param method Character, the agglomeration method to be used for hierarchical
 #'   clustering (\code{\link{hclust}}). This should be (an unambiguous
-#'   abbreviation of) one of \code{"ward"}, \code{"ward.D"}, \code{"ward.D2"},
-#'   \code{"single"}, \code{"complete"}, \code{"average"}, \code{"mcquitty"},
-#'   \code{"median"} or \code{"centroid"}.
+#'   abbreviation of) one of \code{'ward'}, \code{'ward.D'}, \code{'ward.D2'},
+#'   \code{'single'}, \code{'complete'}, \code{'average'}, \code{'mcquitty'},
+#'   \code{'median'} or \code{'centroid'}.
 #'
 #' @example vignettes/example-corrRect.hclust.R
 #' @keywords hplot
@@ -25,10 +25,10 @@
 corrRect.hclust = function(
   corr,
   k = 2,
-  col = "black",
+  col = 'black',
   lwd = 2,
-  method = c("complete", "ward", "ward.D", "ward.D2", "single", "average",
-             "mcquitty", "median", "centroid") )
+  method = c('complete', 'ward', 'ward.D', 'ward.D2', 'single', 'average',
+             'mcquitty', 'median', 'centroid') )
 {
   n = nrow(corr)
   method = match.arg(method)

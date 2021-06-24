@@ -1,4 +1,4 @@
 library(testthat)
 library(corrplot)
 
-test_check("corrplot")
+test_check('corrplot')
