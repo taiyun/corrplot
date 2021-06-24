@@ -139,10 +139,15 @@ corrplot(M, order = "FPC")
 If using `"hclust"`, `corrplot()` can  draw rectangles around the chart of correlation matrix based on the results of  hierarchical clustering.
 
 ```{r rectangles}
-f=corrplot(M, order = "AOE")
-r=rbind(c('gear', 'wt', 'qsec', 'carb'),
+# use namesMat parameter
+r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
-corrRect(namesMat=r, corrRes=f)
+corrplot(M, order = "AOE") -> p1
+corrRect(namesMat = r, corrRes = p1)
+
+# use name parameter
+corrplot(M, order = "AOE") -> p2
+corrRect(name = c("gear", "wt", "carb"), corrRes = p2)
 
 corrplot(M, order = "hclust", addrect = 3)
 ```
@@ -328,11 +333,8 @@ res1 = cor.mtest(mtcars, conf.level = .95)
 
 corrplot(M, p.mat = res1$p, diag = FALSE, tl.pos = 'd', insig = "label_sig",
          sig.level = c(.001, .01, .05), pch.cex = .9, pch.col = "white")
-corrplot(M, p.mat = res1$p, diag = FALSE, tl.pos = 'd',  method = "color",
-         insig = "label_sig", pch.col = "white")
+
 corrplot(M, p.mat = res1$p, method = "color", diag = FALSE, type = "upper",
          sig.level = c(.001, .01, .05), pch.cex = .9, 
          insig = "label_sig", pch.col = "white", order = "AOE")
-corrplot(M, p.mat = res1$p, diag = FALSE, tl.pos = 'd', insig = "label_sig", 
-         pch.col = "white", pch = "p<.05", pch.cex = .5, order = "AOE")
 ```
