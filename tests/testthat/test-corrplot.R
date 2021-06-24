@@ -42,7 +42,7 @@ test_that("Testing 'tl.pos' parameter", {
 test_that("Testing 'corrRect' function", {
   M = cor(mtcars)
   corrplot(M, method = "circle", order = "FPC")
-  corrRect(c(5, 6))
+  expect_error(corrRect(c(5, 6)))
 })
 
 test_that("Testing 'outline' parameter", {

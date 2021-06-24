@@ -265,11 +265,13 @@ currently compatible only with methods "circle" and "square".}
 text label.}
 }
 \value{
-(Invisibly) returns a \code{list(corr, corrTrans)}.
+(Invisibly) returns a \code{list(corr, corrTrans, arg)}.
 \code{corr} is a reordered correlation matrix for plotting.
 \code{corrPos} is a data frame with \code{xName, yName, x, y, corr} and
 \code{p.value}(if p.mat is not NULL)
 column, which x and y are the position on the correlation matrix plot.
+\code{arg} is a list of some corrplot() input parameters' value.
+Now \code{type} is in.
 }
 \description{
 A graphical display of a correlation matrix, confidence interval. The details

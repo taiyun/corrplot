@@ -1,23 +1,26 @@
 data(mtcars)
 M = cor(mtcars)
 
-
-f = corrplot(M, order = "AOE")
 r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
-corrRect(namesMat=r, corrRes=f)
+corrplot(M, order = "AOE") -> p
+corrRect(namesMat = r, corrRes = p)
 
 
-f = corrplot(M, method = "circle", order = "AOE", type='lower')
 r = c('gear', 'carb', 'qsec', 'wt')
-corrRect(namesMat=r, corrRes=f)
+corrplot(M, method = "circle", order = "AOE", type='lower') -> p
+corrRect(namesMat = r, corrRes = p)
 
 
-corrplot(M, method = "circle", order = "hclust")
-corrRect(clus = c(5,6))
+corrplot(M, method = "circle", order = "hclust") -> p
+corrRect(index = c(1, 6, 11), corrRes = p)
 
-corrplot(M, method = "circle", order = "hclust")
-corrRect(clus = c(5,3,3))
+# same as
+corrplot(M, method = "circle", order = "hclust") -> p
+corrRect(name = c("carb", "qsec", "gear"), corrRes = p)
+
+
+
 
 (order.hc = corrMatOrder(M, order = "hclust"))
 (order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))

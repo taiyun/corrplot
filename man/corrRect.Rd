@@ -4,15 +4,32 @@
 \alias{corrRect}
 \title{Draw rectangle(s) on the correlation matrix graph.}
 \usage{
-corrRect(clus = NULL, namesMat = NULL, corrRes, col = "black", lwd = 2, ...)
+corrRect(
+  index = NULL,
+  name = NULL,
+  namesMat = NULL,
+  corrRes = NULL,
+  col = "black",
+  lwd = 2,
+  ...
+)
 }
 \arguments{
-\item{clus}{Vector, the number of each cluster's members.}
+\item{index}{Vector, variable index of diag rect \code{c(Rect1from, Rect2from,
+Rect3from, ..., RectNto)} on the correlation matrix graph.
+Only affect when the colnames are the same as rownames, or both of them is NULL.
+It need \code{corrRes} input.}
+
+\item{name}{Vector, variable name of diag rect \code{c(Rect1from, Rect2from,
+Rect3from, ..., RectNto)} on the correlation matrix graph.
+Only affect when the colnames are the same as rownames.
+It need \code{corrRes} inputted.}
 
 \item{namesMat}{4-length character vector or 4-columns character matrix,
-represents the names of xleft, ybottom, xright, ytop correspondingly.}
+represents the names of xleft, ybottom, xright, ytop correspondingly.
+It need \code{corrRes} input.}
 
-\item{corrRes}{list of the \code{corrplot()} returns.}
+\item{corrRes}{List of the \code{corrplot()} returns.}
 
 \item{col}{Color of rectangles.}
 
@@ -24,31 +41,34 @@ represents the names of xleft, ybottom, xright, ytop correspondingly.}
 Draw rectangle(s) around the chart of corrrlation matrix.
 }
 \details{
-\code{corrRect} needs the number(parameter \code{clus}) of each cluster's
-members, while \code{corrRect.hclust}  can get the members in each cluster
+\code{corrRect} needs one of \code{index}, \code{name} and \code{namesMat} inputted.
+While \code{corrRect.hclust} can get the members in each cluster
 based on hierarchical clustering (\code{\link{hclust}}).
 }
 \examples{
 data(mtcars)
 M = cor(mtcars)
 
-
-f = corrplot(M, order = "AOE")
 r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
-corrRect(namesMat=r, corrRes=f)
+corrplot(M, order = "AOE") -> p
+corrRect(namesMat = r, corrRes = p)
 
 
-f = corrplot(M, method = "circle", order = "AOE", type='lower')
 r = c('gear', 'carb', 'qsec', 'wt')
-corrRect(namesMat=r, corrRes=f)
+corrplot(M, method = "circle", order = "AOE", type='lower') -> p
+corrRect(namesMat = r, corrRes = p)
 
 
-corrplot(M, method = "circle", order = "hclust")
-corrRect(clus = c(5,6))
+corrplot(M, method = "circle", order = "hclust") -> p
+corrRect(index = c(1, 6, 11), corrRes = p)
 
-corrplot(M, method = "circle", order = "hclust")
-corrRect(clus = c(5,3,3))
+# same as
+corrplot(M, method = "circle", order = "hclust") -> p
+corrRect(name = c("carb", "qsec", "gear"), corrRes = p)
+
+
+
 
 (order.hc = corrMatOrder(M, order = "hclust"))
 (order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))

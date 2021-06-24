@@ -1,7 +1,7 @@
 data(mtcars)
 M = cor(mtcars)
-corrplot(M, method = "circle", order = "FPC")
-corrRect(c(5,6))
+corrplot(M, method = "circle", order = "FPC") -> p
+corrRect(index = c(1, 6, 11), corrRes = p)
 
 (order.hc = corrMatOrder(M, order = "hclust"))
 (order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D2"))

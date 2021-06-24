@@ -210,11 +210,13 @@
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text label.
 #'
-#' @return (Invisibly) returns a \code{list(corr, corrTrans)}.
+#' @return (Invisibly) returns a \code{list(corr, corrTrans, arg)}.
 #' \code{corr} is a reordered correlation matrix for plotting.
 #' \code{corrPos} is a data frame with \code{xName, yName, x, y, corr} and
 #' \code{p.value}(if p.mat is not NULL)
 #' column, which x and y are the position on the correlation matrix plot.
+#' \code{arg} is a list of some corrplot() input parameters' value.
+#' Now \code{type} is in.
 #'
 #' @details \code{corrplot} function offers flexible ways to visualize
 #'   correlation matrix, lower and upper bound of confidence interval matrix.
@@ -1031,7 +1033,7 @@ corrplot = function(corr,
   rownames(corrPos) = NULL
 
 
-  res = list(corr=corr, corrPos=corrPos)
+  res = list(corr = corr, corrPos = corrPos, arg = list(type = type ))
 
   invisible(res) # reordered correlation matrix, and Position
 }
