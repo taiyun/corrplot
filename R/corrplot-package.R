@@ -38,6 +38,6 @@ NULL
 
 .onAttach <- function(libname, pkgname) {
   # just to show a startup message
-  message <- paste("corrplot", utils::packageVersion("corrplot"), "loaded")
+  message <- paste('corrplot', utils::packageVersion('corrplot'), 'loaded')
   packageStartupMessage(message, appendLF = TRUE)
 }

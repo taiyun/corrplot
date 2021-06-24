@@ -17,17 +17,17 @@ corrRect(
 \arguments{
 \item{index}{Vector, variable index of diag rect \code{c(Rect1from, Rect2from,
 Rect3from, ..., RectNto)} on the correlation matrix graph.
-Only affect when the colnames are the same as rownames, or both of them is NULL.
-It need \code{corrRes} input.}
+It works when the colnames are the same as rownames, or both of them is NULL.
+It needs \code{corrRes} inputted.}
 
 \item{name}{Vector, variable name of diag rect \code{c(Rect1from, Rect2from,
 Rect3from, ..., RectNto)} on the correlation matrix graph.
-Only affect when the colnames are the same as rownames.
-It need \code{corrRes} inputted.}
+OIt works when the colnames are the same as rownames.
+It needs \code{corrRes} inputted.}
 
 \item{namesMat}{4-length character vector or 4-columns character matrix,
 represents the names of xleft, ybottom, xright, ytop correspondingly.
-It need \code{corrRes} input.}
+It needs \code{corrRes} inputted.}
 
 \item{corrRes}{List of the \code{corrplot()} returns.}
 
@@ -51,51 +51,53 @@ M = cor(mtcars)
 
 r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
-corrplot(M, order = "AOE") -> p
+corrplot(M, order = 'AOE') -> p
 corrRect(namesMat = r, corrRes = p)
 
 
 r = c('gear', 'carb', 'qsec', 'wt')
-corrplot(M, method = "circle", order = "AOE", type='lower') -> p
+corrplot(M, method = 'circle', order = 'AOE', type='lower') -> p
 corrRect(namesMat = r, corrRes = p)
 
+corrplot(M, method = 'circle', order = 'hclust', type = 'upper') -> p
+corrRect(index = c(1, 6, 11), corrRes = p)
 
-corrplot(M, method = "circle", order = "hclust") -> p
+corrplot(M, method = 'circle', order = 'hclust') -> p
 corrRect(index = c(1, 6, 11), corrRes = p)
 
 # same as
-corrplot(M, method = "circle", order = "hclust") -> p
-corrRect(name = c("carb", "qsec", "gear"), corrRes = p)
+corrplot(M, method = 'circle', order = 'hclust') -> p
+corrRect(name = c('carb', 'qsec', 'gear'), corrRes = p)
 
 
 
 
-(order.hc = corrMatOrder(M, order = "hclust"))
-(order.hc2 = corrMatOrder(M, order = "hclust", hclust.method = "ward.D"))
+(order.hc = corrMatOrder(M, order = 'hclust'))
+(order.hc2 = corrMatOrder(M, order = 'hclust', hclust.method = 'ward.D'))
 M.hc  = M[order.hc, order.hc]
 M.hc2 = M[order.hc2, order.hc2]
 
 par(ask = TRUE)
 
-# same as: corrplot(M, order = "hclust", addrect = 2)
+# same as: corrplot(M, order = 'hclust', addrect = 2)
 corrplot(M.hc)
 corrRect.hclust(corr = M.hc, k = 2)
 
-# same as: corrplot(M, order = "hclust", addrect = 3)
+# same as: corrplot(M, order = 'hclust', addrect = 3)
 corrplot(M.hc)
 corrRect.hclust(corr = M.hc, k = 3)
 
-# same as: corrplot(M, order = "hclust", hclust.method = "ward.D", addrect = 2)
+# same as: corrplot(M, order = 'hclust', hclust.method = 'ward.D', addrect = 2)
 corrplot(M.hc2)
-corrRect.hclust(M.hc2, k = 2, method = "ward.D")
+corrRect.hclust(M.hc2, k = 2, method = 'ward.D')
 
-# same as: corrplot(M, order = "hclust", hclust.method = "ward.D", addrect = 3)
+# same as: corrplot(M, order = 'hclust', hclust.method = 'ward.D', addrect = 3)
 corrplot(M.hc2)
-corrRect.hclust(M.hc2, k = 3, method = "ward.D")
+corrRect.hclust(M.hc2, k = 3, method = 'ward.D')
 
-# same as: corrplot(M, order = "hclust", hclust.method = "ward.D", addrect = 4)
+# same as: corrplot(M, order = 'hclust', hclust.method = 'ward.D', addrect = 4)
 corrplot(M.hc2)
-corrRect.hclust(M.hc2, k = 4, method = "ward.D")
+corrRect.hclust(M.hc2, k = 4, method = 'ward.D')
 }
 \author{
 Taiyun Wei

@@ -5,22 +5,22 @@
 #' setting \code{is.corr = FALSE}.
 #'
 #' @param corr The correlation matrix to visualize, must be square if
-#'   \code{order} is not \code{"original"}. For general matrix, please using
+#'   \code{order} is not \code{'original'}. For general matrix, please using
 #'   \code{is.corr = FALSE} to convert.
 #'
 #' @param method Character, the visualization method of correlation matrix to be
-#'   used. Currently, it supports seven methods, named \code{"circle"}
-#'   (default), \code{"square"}, \code{"ellipse"}, \code{"number"},
-#'   \code{"pie"}, \code{"shade"} and \code{"color"}. See examples for details.
+#'   used. Currently, it supports seven methods, named \code{'circle'}
+#'   (default), \code{'square'}, \code{'ellipse'}, \code{'number'},
+#'   \code{'pie'}, \code{'shade'} and \code{'color'}. See examples for details.
 #'
 #'   The areas of circles or squares show the absolute value of corresponding
-#'   correlation coefficients. Method \code{"pie"} and \code{"shade"} came from
+#'   correlation coefficients. Method \code{'pie'} and \code{'shade'} came from
 #'   Michael Friendly's job (with some adjustment about the shade added on), and
-#'   \code{"ellipse"} came from D.J. Murdoch and E.D. Chow's job, see in section
+#'   \code{'ellipse'} came from D.J. Murdoch and E.D. Chow's job, see in section
 #'   References.
 #'
-#' @param type Character, \code{"full"} (default), \code{"upper"} or
-#'   \code{"lower"}, display full matrix, lower triangular or upper triangular
+#' @param type Character, \code{'full'} (default), \code{'upper'} or
+#'   \code{'lower'}, display full matrix, lower triangular or upper triangular
 #'   matrix.
 #'
 #' @param add Logical, if \code{TRUE}, the graph is added to an existing plot,
@@ -55,14 +55,14 @@
 #' @param outline Logical or character, whether plot outline of circles, square
 #'   and ellipse, or the color of these glyphs. For pie, this represents the
 #'   color of the circle outlining the pie. If \code{outline} is \code{TRUE},
-#'   the default value is \code{"black"}.
+#'   the default value is \code{'black'}.
 #'
 #' @param mar See \code{\link{par}}.
 #'
 #' @param addgrid.col The color of the grid. If \code{NA}, don't add grid. If
 #'   \code{NULL} the default value is chosen. The default value depends on
 #'   \code{method}, if \code{method} is \code{color} or \code{shade}, the color
-#'   of the grid is \code{NA}, that is, not draw grid; otherwise \code{"grey"}.
+#'   of the grid is \code{NA}, that is, not draw grid; otherwise \code{'grey'}.
 #'
 #' @param addCoef.col Color of coefficients added on the graph. If \code{NULL}
 #'   (default), add no coefficients.
@@ -72,19 +72,19 @@
 #'
 #' @param order Character, the ordering method of the correlation matrix.
 #' \itemize{
-#'   \item{\code{"original"} for original order (default).}
-#'   \item{\code{"AOE"} for the angular order of the eigenvectors.}
-#'   \item{\code{"FPC"} for the first principal component order.}
-#'   \item{\code{"hclust"} for the hierarchical clustering order.}
-#'   \item{\code{"alphabet"} for alphabetical order.}
+#'   \item{\code{'original'} for original order (default).}
+#'   \item{\code{'AOE'} for the angular order of the eigenvectors.}
+#'   \item{\code{'FPC'} for the first principal component order.}
+#'   \item{\code{'hclust'} for the hierarchical clustering order.}
+#'   \item{\code{'alphabet'} for alphabetical order.}
 #' }
 #'
 #' See function \code{\link{corrMatOrder}} for details.
 #'
 #' @param hclust.method Character, the agglomeration method to be used when
-#'   \code{order} is \code{\link{hclust}}. This should be one of \code{"ward"},
-#'   \code{"ward.D"}, \code{"ward.D2"}, \code{"single"}, \code{"complete"},
-#'   \code{"average"}, \code{"mcquitty"}, \code{"median"} or \code{"centroid"}.
+#'   \code{order} is \code{\link{hclust}}. This should be one of \code{'ward'},
+#'   \code{'ward.D'}, \code{'ward.D2'}, \code{'single'}, \code{'complete'},
+#'   \code{'average'}, \code{'mcquitty'}, \code{'median'} or \code{'centroid'}.
 #'
 #' @param addrect Integer, the number of rectangles draws on the graph according
 #'   to the hierarchical cluster, only valid when \code{order} is \code{hclust}.
@@ -97,11 +97,11 @@
 #'   valid when \code{addrect} is equal or greater than 1.
 #'
 #' @param tl.pos Character or logical, position of text labels. If character, it
-#'   must be one of \code{"lt"}, \code{"ld"}, \code{"td"}, \code{"d"} or
-#'   \code{"n"}. \code{"lt"}(default if \code{type=="full"}) means left and top,
-#'   \code{"ld"}(default if \code{type=="lower"}) means left and diagonal,
-#'   \code{"td"}(default if \code{type=="upper"}) means top and diagonal(near),
-#'   \code{"d"} means diagonal, \code{"n"} means don't add textlabel.
+#'   must be one of \code{'lt'}, \code{'ld'}, \code{'td'}, \code{'d'} or
+#'   \code{'n'}. \code{'lt'}(default if \code{type=='full'}) means left and top,
+#'   \code{'ld'}(default if \code{type=='lower'}) means left and diagonal,
+#'   \code{'td'}(default if \code{type=='upper'}) means top and diagonal(near),
+#'   \code{'d'} means diagonal, \code{'n'} means don't add textlabel.
 #'
 #' @param tl.cex Numeric, for the size of text label (variable names).
 #'
@@ -113,9 +113,9 @@
 #'   \code{\link{text}}.
 #'
 #' @param cl.pos Character or logical, position of color labels; If character,
-#'   it must be one of \code{"r"} (default if \code{type=="upper"} or
-#'   \code{"full"}), \code{"b"} (default if \code{type=="lower"}) or \code{"n"},
-#'   \code{"n"} means don't draw colorlabel.
+#'   it must be one of \code{'r'} (default if \code{type=='upper'} or
+#'   \code{'full'}), \code{'b'} (default if \code{type=='lower'}) or \code{'n'},
+#'   \code{'n'} means don't draw colorlabel.
 #'
 #' @param cl.length Integer, the number of number-text in colorlabel, passed to
 #'   \code{\link{colorlegend}}. If \code{NULL}, \code{cl.length} is
@@ -128,9 +128,9 @@
 #' @param cl.ratio Numeric, to justify the width of colorlabel, 0.1~0.2 is
 #'   suggested.
 #'
-#' @param cl.align.text Character, \code{"l"}, \code{"c"} (default) or
-#'   \code{"r"}, for number-label in colorlabel, \code{"l"} means left,
-#'   \code{"c"} means center, and \code{"r"} means right.
+#' @param cl.align.text Character, \code{'l'}, \code{'c'} (default) or
+#'   \code{'r'}, for number-label in colorlabel, \code{'l'} means left,
+#'   \code{'c'} means center, and \code{'r'} means right.
 #'
 #' @param cl.offset Numeric, for number-label in colorlabel, see
 #'   \code{\link{text}}.
@@ -144,11 +144,11 @@
 #' @param number.digits indicating the number of decimal digits to be
 #'   added into the plot. Non-negative integer or NULL, default NULL.
 #'
-#' @param addshade Character for shade style, \code{"negative"},
-#'   \code{"positive"} or \code{"all"}, only valid when \code{method} is
-#'   \code{"shade"}. If \code{"all"}, all correlation coefficients' glyph will
-#'   be shaded; if \code{"positive"}, only the positive will be shaded; if
-#'   \code{"negative"}, only the negative will be shaded. Note: the angle of
+#' @param addshade Character for shade style, \code{'negative'},
+#'   \code{'positive'} or \code{'all'}, only valid when \code{method} is
+#'   \code{'shade'}. If \code{'all'}, all correlation coefficients' glyph will
+#'   be shaded; if \code{'positive'}, only the positive will be shaded; if
+#'   \code{'negative'}, only the negative will be shaded. Note: the angle of
 #'   shade line is different, 45 degrees for positive and 135 degrees for
 #'   negative.
 #'
@@ -161,51 +161,51 @@
 #'
 #' @param sig.level Significant level,  if the p-value in \code{p-mat} is bigger
 #'   than \code{sig.level}, then the corresponding correlation coefficient is
-#'   regarded as insignificant. If \code{insig} is \code{"label_sig"}, this may
+#'   regarded as insignificant. If \code{insig} is \code{'label_sig'}, this may
 #'   be an increasing vector of significance levels, in which case \code{pch}
 #'   will be used once for the highest p-value interval and multiple times
-#'   (e.g. "*", "**", "***") for each lower p-value interval.
+#'   (e.g. '*', '**', '***') for each lower p-value interval.
 #'
 #' @param insig Character, specialized insignificant correlation coefficients,
-#'   \code{"pch"} (default), \code{"p-value"}, \code{"blank"}, \code{"n"}, or
-#'   \code{"label_sig"}. If \code{"blank"}, wipe away the corresponding glyphs;
-#'   if \code{"p-value"}, add p-values the corresponding glyphs;
-#'   if \code{"pch"}, add characters (see \code{pch} for details) on
-#'   corresponding glyphs; if \code{"n"}, don't take any measures; if
-#'   \code{"label_sig"}, mark significant correlations with pch
+#'   \code{'pch'} (default), \code{'p-value'}, \code{'blank'}, \code{'n'}, or
+#'   \code{'label_sig'}. If \code{'blank'}, wipe away the corresponding glyphs;
+#'   if \code{'p-value'}, add p-values the corresponding glyphs;
+#'   if \code{'pch'}, add characters (see \code{pch} for details) on
+#'   corresponding glyphs; if \code{'n'}, don't take any measures; if
+#'   \code{'label_sig'}, mark significant correlations with pch
 #'   (see \code{sig.level}).
 #'
 #' @param pch Add character on the glyphs of insignificant correlation
-#'   coefficients(only valid when \code{insig} is \code{"pch"}). See
+#'   coefficients(only valid when \code{insig} is \code{'pch'}). See
 #'   \code{\link{par}}.
 #'
 #' @param pch.col The color of pch (only valid when \code{insig} is
-#'   \code{"pch"}).
+#'   \code{'pch'}).
 #'
-#' @param pch.cex The cex of pch (only valid when \code{insig} is \code{"pch"}).
+#' @param pch.cex The cex of pch (only valid when \code{insig} is \code{'pch'}).
 #'
 #' @param plotCI Character, method of ploting confidence interval. If
-#'   \code{"n"}, don't plot confidence interval. If "rect", plot rectangles
+#'   \code{'n'}, don't plot confidence interval. If 'rect', plot rectangles
 #'   whose upper side means upper bound and lower side means lower bound,
 #'   respectively, and meanwhile correlation coefficients are also added on the
-#'   rectangles. If "circle", first plot a circle with the bigger absolute
+#'   rectangles. If 'circle', first plot a circle with the bigger absolute
 #'   bound, and then plot the smaller. Warning: if the two bounds are the same
 #'   sign, the smaller circle will be wiped away, thus forming a ring. Method
-#'   "square" is similar to "circle".
+#'   'square' is similar to 'circle'.
 #'
 #' @param lowCI.mat Matrix of the lower bound of confidence interval.
 #'
 #' @param uppCI.mat Matrix of the upper bound of confidence interval.
 #'
 #' @param na.label Label to be used for rendering \code{NA} cells. Default is
-#'   \code{"?"}. If "square", then the cell is rendered as a square with the
+#'   \code{'?'}. If 'square', then the cell is rendered as a square with the
 #'   \code{na.label.col} color.
 #'
 #' @param na.label.col Color used for rendering \code{NA} cells. Default is
-#'   \code{"black"}.
+#'   \code{'black'}.
 #'
 #' @param win.asp Aspect ration for the whole plot. Value other than 1 is
-#'   currently compatible only with methods "circle" and "square".
+#'   currently compatible only with methods 'circle' and 'square'.
 #'
 #' @param \dots Additional arguments passing to function \code{text} for drawing
 #'   text label.
@@ -241,7 +241,7 @@
 #' @note Row- and column names of the input matrix are used as labels rendered
 #'   in the corrplot. Plothmath expressions will be used if the name is prefixed
 #'   by one of the following characters: \code{:}, \code{=} or \code{$}.
-#'   For example \code{":alpha + beta"}.
+#'   For example \code{':alpha + beta'}.
 #'
 #' @seealso Function \code{plotcorr}  in the \code{ellipse} package and
 #'   \code{corrgram}  in the \code{corrgram} package have some similarities.
@@ -253,35 +253,35 @@
 #' @import graphics grDevices stats
 #' @export
 corrplot = function(corr,
-  method = c("circle", "square", "ellipse", "number", "shade", "color", "pie"),
-  type = c("full", "lower", "upper"), add = FALSE,
-  col = NULL, cl.lim = NULL, bg = "white", title = "", is.corr = TRUE,
+  method = c('circle', 'square', 'ellipse', 'number', 'shade', 'color', 'pie'),
+  type = c('full', 'lower', 'upper'), add = FALSE,
+  col = NULL, cl.lim = NULL, bg = 'white', title = '', is.corr = TRUE,
   diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
-  order = c("original", "AOE", "FPC", "hclust", "alphabet"),
-  hclust.method = c("complete", "ward", "ward.D", "ward.D2", "single",
-                    "average", "mcquitty", "median", "centroid"),
-  addrect = NULL, rect.col = "black", rect.lwd = 2,
+  order = c('original', 'AOE', 'FPC', 'hclust', 'alphabet'),
+  hclust.method = c('complete', 'ward', 'ward.D', 'ward.D2', 'single',
+                    'average', 'mcquitty', 'median', 'centroid'),
+  addrect = NULL, rect.col = 'black', rect.lwd = 2,
 
   tl.pos = NULL, tl.cex = 1,
-  tl.col = "red", tl.offset = 0.4, tl.srt = 90,
+  tl.col = 'red', tl.offset = 0.4, tl.srt = 90,
 
   cl.pos = NULL, cl.length = NULL, cl.cex = 0.8,
-  cl.ratio = 0.15, cl.align.text = "c", cl.offset = 0.5,
+  cl.ratio = 0.15, cl.align.text = 'c', cl.offset = 0.5,
 
   number.cex = 1, number.font = 2, number.digits = NULL,
 
-  addshade = c("negative", "positive", "all"),
-  shade.lwd = 1, shade.col = "white",
+  addshade = c('negative', 'positive', 'all'),
+  shade.lwd = 1, shade.col = 'white',
 
   p.mat = NULL, sig.level = 0.05,
-  insig = c("pch", "p-value", "blank", "n", "label_sig"),
-  pch = 4, pch.col = "black", pch.cex = 3,
+  insig = c('pch', 'p-value', 'blank', 'n', 'label_sig'),
+  pch = 4, pch.col = 'black', pch.cex = 3,
 
-  plotCI = c("n", "square", "circle", "rect"),
+  plotCI = c('n', 'square', 'circle', 'rect'),
   lowCI.mat = NULL, uppCI.mat = NULL,
-  na.label = "?", na.label.col = "black",
+  na.label = '?', na.label.col = 'black',
   win.asp = 1,
   ...)
 {
@@ -297,25 +297,25 @@ corrplot = function(corr,
 
 
   # rescale symbols within the corrplot based on win.asp parameter
-  if (win.asp != 1 && !(method %in% c("circle", "square"))) {
-    stop("Parameter 'win.asp' is supported only for circle and square methods.")
+  if (win.asp != 1 && !(method %in% c('circle', 'square'))) {
+    stop('Parameter \'win.asp\' is supported only for circle and square methods.')
   }
   asp_rescale_factor = min(1, win.asp) / max(1, win.asp)
   stopifnot(asp_rescale_factor >= 0 && asp_rescale_factor <= 1)
 
   if (!is.matrix(corr) && !is.data.frame(corr)) {
-    stop("Need a matrix or data frame!")
+    stop('Need a matrix or data frame!')
   }
 
   # select grid color automatically if not specified
   if (is.null(addgrid.col)) {
-    addgrid.col = switch(method, color = NA, shade = NA, "grey")
+    addgrid.col = switch(method, color = NA, shade = NA, 'grey')
   }
 
   # Issue #142
   # checks for all values that are not missing
   if (any(corr[!is.na(corr)] < cl.lim[1]) || any(corr[!is.na(corr)] > cl.lim[2])) {
-    stop("color limits should cover matrix")
+    stop('color limits should cover matrix')
   }
 
 
@@ -345,7 +345,7 @@ corrplot = function(corr,
     # otherwise, the values can be any number
     if (min(corr, na.rm = TRUE) < -1 - .Machine$double.eps ^ .75 ||
         max(corr, na.rm = TRUE) >  1 + .Machine$double.eps ^ .75 ) {
-      stop("The matrix is not in [-1, 1]!")
+      stop('The matrix is not in [-1, 1]!')
     }
 
 
@@ -366,7 +366,7 @@ corrplot = function(corr,
     c_min = min(corr, na.rm = TRUE)
 
     if(diff(cl.lim)/(c_max - c_min)> 2) {
-      warning("cl.lim interval too wide, please set a suitable value")
+      warning('cl.lim interval too wide, please set a suitable value')
     }
 
     # all negative or positive, trans to [0, 1]
@@ -376,7 +376,7 @@ corrplot = function(corr,
 
 
       if(cl.lim[1] * cl.lim[2] < 0) {
-        warning("cl.lim interval not suitable to the matrix")
+        warning('cl.lim interval not suitable to the matrix')
       }
 
     }
@@ -412,9 +412,9 @@ corrplot = function(corr,
 
 
   if (is.null(col)) {
-    col = colorRampPalette(c("#67001F", "#B2182B", "#D6604D", "#F4A582",
-                              "#FDDBC7", "#FFFFFF", "#D1E5F0", "#92C5DE",
-                              "#4393C3", "#2166AC", "#053061"))(200)
+    col = colorRampPalette(c('#67001F', '#B2182B', '#D6604D', '#F4A582',
+                              '#FDDBC7', '#FFFFFF', '#D1E5F0', '#92C5DE',
+                              '#4393C3', '#2166AC', '#053061'))(200)
   }
 
   n = nrow(corr)
@@ -422,7 +422,7 @@ corrplot = function(corr,
   min.nm = min(n,m)
   ord = seq_len(min.nm)
 
-  if (order != "original") {
+  if (order != 'original') {
     ord = corrMatOrder(corr, order = order, hclust.method = hclust.method)
     corr = corr[ord, ord]
   }
@@ -507,7 +507,7 @@ corrplot = function(corr,
 
   # Issue #20: support plotmath expressions in rownames and colnames
   expand_expression = function(s) {
-    ifelse(grepl("^[:=$]", s), parse(text = substring(s, 2)), s)
+    ifelse(grepl('^[:=$]', s), parse(text = substring(s, 2)), s)
   }
 
   newrownames = sapply(
@@ -542,29 +542,29 @@ corrplot = function(corr,
   isTRUE = function(x) identical(x, TRUE)
 
   if (isFALSE(tl.pos)) {
-    tl.pos = "n"
+    tl.pos = 'n'
   }
 
   if (is.null(tl.pos) || isTRUE(tl.pos)) {
-    tl.pos = switch(type, full = "lt", lower = "ld", upper = "td")
+    tl.pos = switch(type, full = 'lt', lower = 'ld', upper = 'td')
   }
 
   if (isFALSE(cl.pos)) {
-    cl.pos = "n"
+    cl.pos = 'n'
   }
 
   if (is.null(cl.pos) || isTRUE(cl.pos)) {
-    cl.pos = switch(type, full = "r", lower = "b", upper = "r")
+    cl.pos = switch(type, full = 'r', lower = 'b', upper = 'r')
   }
 
   if (isFALSE(outline)) {
     col.border = col.fill
   } else if (isTRUE(outline)) {
-    col.border = "black"
+    col.border = 'black'
   } else if (is.character(outline)) {
     col.border = outline
   } else {
-    stop("Unsupported value type for parameter outline")
+    stop('Unsupported value type for parameter outline')
   }
 
   # restore this parameter when exiting the corrplot function in any way
@@ -578,30 +578,30 @@ corrplot = function(corr,
     # Issue #10: code from Sebastien Rochette (github user @statnmap)
     xlabwidth = max(strwidth(newrownames, cex = tl.cex))
     ylabwidth = max(strwidth(newcolnames, cex = tl.cex))
-    laboffset = strwidth("W", cex = tl.cex) * tl.offset
+    laboffset = strwidth('W', cex = tl.cex) * tl.offset
 
     # Issue #10
     for (i in 1:50) {
       xlim = c(
         m1 - 0.5 - laboffset -
-          xlabwidth * (grepl("l", tl.pos) | grepl("d", tl.pos)),
-        m2 + 0.5 + mm * cl.ratio * (cl.pos == "r") +
-          xlabwidth * abs(cos(tl.srt * pi / 180)) * grepl("d", tl.pos)
+          xlabwidth * (grepl('l', tl.pos) | grepl('d', tl.pos)),
+        m2 + 0.5 + mm * cl.ratio * (cl.pos == 'r') +
+          xlabwidth * abs(cos(tl.srt * pi / 180)) * grepl('d', tl.pos)
       ) #+ c(-0.35, 0.15)
 
       ylim = c(
-        n1 - 0.5 - nn * cl.ratio * (cl.pos == "b") - laboffset,
+        n1 - 0.5 - nn * cl.ratio * (cl.pos == 'b') - laboffset,
         n2 + 0.5 + laboffset +
-          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl("t", tl.pos) +
-          ylabwidth * abs(sin(tl.srt * pi / 180)) * (type=='lower') * grepl("d", tl.pos)
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * grepl('t', tl.pos) +
+          ylabwidth * abs(sin(tl.srt * pi / 180)) * (type=='lower') * grepl('d', tl.pos)
       ) #+ c(-0.15, 0)
 
-      plot.window(xlim, ylim, asp = 1, xaxs = "i", yaxs = "i")
+      plot.window(xlim, ylim, asp = 1, xaxs = 'i', yaxs = 'i')
 
       x.tmp = max(strwidth(newrownames, cex = tl.cex))
       y.tmp = max(strwidth(newcolnames, cex = tl.cex))
 
-      laboffset.tmp = strwidth("W", cex = tl.cex) * tl.offset
+      laboffset.tmp = strwidth('W', cex = tl.cex) * tl.offset
       if (max(x.tmp - xlabwidth,
               y.tmp - ylabwidth,
               laboffset.tmp - laboffset) < 1e-03) {
@@ -614,13 +614,13 @@ corrplot = function(corr,
       laboffset = laboffset.tmp
 
       if (i == 50) {
-        warning(c("Not been able to calculate text margin, ",
-                  "please try again with a clean new empty window using ",
-                  "{plot.new(); dev.off()} or reduce tl.cex"))
+        warning(c('Not been able to calculate text margin, ',
+                  'please try again with a clean new empty window using ',
+                  '{plot.new(); dev.off()} or reduce tl.cex'))
       }
     }
 
-    if (.Platform$OS.type == "windows") {
+    if (.Platform$OS.type == 'windows') {
       grDevices::windows.options(width = 7,
                                  height = 7 * diff(ylim) / diff(xlim))
     }
@@ -629,25 +629,25 @@ corrplot = function(corr,
     ylim = ylim + diff(ylim) * 0.01 * c(-1, 1)
 
     plot.window(xlim = xlim , ylim = ylim,
-                asp = win.asp, xlab = "", ylab = "", xaxs = "i", yaxs = "i")
+                asp = win.asp, xlab = '', ylab = '', xaxs = 'i', yaxs = 'i')
   }
 
   ## for: add = TRUE
-  laboffset = strwidth("W", cex = tl.cex) * tl.offset
+  laboffset = strwidth('W', cex = tl.cex) * tl.offset
 
   ## background for the cells
   symbols(Pos, add = TRUE, inches = FALSE,
           rectangles = matrix(1, len.DAT, 2), bg = bg, fg = bg)
 
   ## circle
-  if (method == "circle" && plotCI == "n") {
+  if (method == 'circle' && plotCI == 'n') {
     symbols(Pos, add = TRUE,  inches = FALSE,
             circles = asp_rescale_factor * 0.9 * abs(DAT) ^ 0.5 / 2,
             fg = col.border, bg = col.fill)
   }
 
   ## ellipse
-  if (method == "ellipse" && plotCI == "n") {
+  if (method == 'ellipse' && plotCI == 'n') {
     ell.dat = function(rho, length = 99) {
       k = seq(0, 2 * pi, length = length)
       x = cos(k + acos(rho) / 2) / 2
@@ -670,7 +670,7 @@ corrplot = function(corr,
   stopifnot(number.digits %% 1 == 0)  # is whole number
   stopifnot(number.digits >= 0)       # is non-negative number
 
-  if (method == "number" && plotCI == "n") {
+  if (method == 'number' && plotCI == 'n') {
     x = (DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom
     text(Pos[,1], Pos[,2], font = number.font, col = col.fill,
          labels = format(round(x, number.digits), nsmall = number.digits),
@@ -685,7 +685,7 @@ corrplot = function(corr,
 
     stopifnot(is.matrix(PosNA)) # sanity check
 
-    if (na.label == "square") {
+    if (na.label == 'square') {
       symbols(PosNA, add = TRUE, inches = FALSE,
               squares = rep(1, nrow(PosNA)),
               bg = na.label.col, fg = na.label.col)
@@ -696,13 +696,13 @@ corrplot = function(corr,
            col = na.label.col,
            labels = na.label, cex = number.cex, ...)
     } else {
-      stop(paste("Maximum number of characters for NA label is:",
+      stop(paste('Maximum number of characters for NA label is:',
                  NA_LABEL_MAX_CHARS))
     }
   }
 
   ## pie
-  if (method == "pie" && plotCI == "n") {
+  if (method == 'pie' && plotCI == 'n') {
 
     # Issue #18: Corrplot background circle
     symbols(Pos, add = TRUE, inches = FALSE,
@@ -719,11 +719,11 @@ corrplot = function(corr,
     len.pie = unlist(lapply(PIE.dat, length)) / 2
     PIE.dat2 = 0.85 * matrix(unlist(PIE.dat), ncol = 2, byrow = TRUE)
     PIE.dat2 = PIE.dat2  + Pos[rep(1:length(DAT), len.pie),]
-    polygon(PIE.dat2, border = "black", col = col.fill)
+    polygon(PIE.dat2, border = 'black', col = col.fill)
   }
 
   ## shade
-  if (method == "shade" && plotCI == "n") {
+  if (method == 'shade' && plotCI == 'n') {
     symbols(Pos, add = TRUE, inches = FALSE, squares = rep(1, len.DAT),
             bg = col.fill, fg = addgrid.col)
 
@@ -737,12 +737,12 @@ corrplot = function(corr,
       y2 = y + 0.5
       dat = NA
 
-      if ((addshade == "positive" || addshade == "all") && rho > 0) {
+      if ((addshade == 'positive' || addshade == 'all') && rho > 0) {
         dat = cbind(c(x1, x1, x), c(y, y1, y1),
                      c(x, x2, x2), c(y2, y2 ,y))
       }
 
-      if ((addshade == "negative" || addshade == "all") && rho < 0) {
+      if ((addshade == 'negative' || addshade == 'all') && rho < 0) {
         dat = cbind(c(x1, x1, x), c(y, y2, y2),
                      c(x, x2, x2), c(y1, y1 ,y))
       }
@@ -761,25 +761,25 @@ corrplot = function(corr,
   }
 
   ## square
-  if (method == "square" && plotCI == "n") {
+  if (method == 'square' && plotCI == 'n') {
     draw_method_square(Pos, DAT, asp_rescale_factor, col.border, col.fill)
   }
 
   ## color
-  if (method == "color" && plotCI == "n") {
+  if (method == 'color' && plotCI == 'n') {
     draw_method_color(Pos, col.border, col.fill)
   }
 
   ## add grid
   draw_grid(AllCoords, addgrid.col)
 
-  if (plotCI != "n") {
+  if (plotCI != 'n') {
 
     if (is.null(lowCI.mat) || is.null(uppCI.mat)) {
-      stop("Need lowCI.mat and uppCI.mat!")
+      stop('Need lowCI.mat and uppCI.mat!')
     }
 
-    if (order != "original") {
+    if (order != 'original') {
       lowCI.mat = lowCI.mat[ord, ord]
       uppCI.mat = uppCI.mat[ord, ord]
     }
@@ -789,8 +789,8 @@ corrplot = function(corr,
     pos.uppNew  = getPos.Dat(uppCI.mat)[[1]]
     uppNew      = getPos.Dat(uppCI.mat)[[2]]
 
-    if (!method %in% c("circle", "square")) {
-       stop("Method shoud be circle or square if drawing confidence intervals.")
+    if (!method %in% c('circle', 'square')) {
+       stop('Method shoud be circle or square if drawing confidence intervals.')
     }
 
     k1 = (abs(uppNew) > abs(lowNew))
@@ -803,7 +803,7 @@ corrplot = function(corr,
     color_bigabs = col[ceiling((bigabs + 1) * length(col) / 2)]
     color_smallabs = col[ceiling((smallabs + 1) * length(col) / 2)]
 
-    if (plotCI == "circle") {
+    if (plotCI == 'circle') {
 
       symbols(pos.uppNew[,1], pos.uppNew[,2],
         add = TRUE,  inches = FALSE,
@@ -819,7 +819,7 @@ corrplot = function(corr,
         fg = ifelse(sig > 0, col.fill, color_smallabs))
     }
 
-    if (plotCI == "square") {
+    if (plotCI == 'square') {
       symbols(pos.uppNew[,1], pos.uppNew[,2],
         add = TRUE,  inches = FALSE,
         squares = abs(bigabs) ^ 0.5,
@@ -833,28 +833,28 @@ corrplot = function(corr,
         fg = ifelse(sig > 0, col.fill, color_smallabs))
     }
 
-    if (plotCI == "rect") {
+    if (plotCI == 'rect') {
       rect.width = 0.25
       rect(pos.uppNew[,1] - rect.width, pos.uppNew[,2] + smallabs / 2,
            pos.uppNew[,1] + rect.width, pos.uppNew[,2] + bigabs / 2,
            col = col.fill, border = col.fill)
       segments(pos.lowNew[,1] - rect.width, pos.lowNew[,2] + DAT / 2,
                pos.lowNew[,1] + rect.width, pos.lowNew[,2] + DAT / 2,
-               col = "black", lwd = 1)
+               col = 'black', lwd = 1)
       segments(pos.uppNew[,1] - rect.width, pos.uppNew[,2] + uppNew / 2,
                pos.uppNew[,1] + rect.width, pos.uppNew[,2] + uppNew / 2,
-               col = "black", lwd = 1)
+               col = 'black', lwd = 1)
       segments(pos.lowNew[,1] - rect.width, pos.lowNew[,2] + lowNew / 2,
                pos.lowNew[,1] + rect.width, pos.lowNew[,2] + lowNew / 2,
-               col = "black", lwd = 1)
+               col = 'black', lwd = 1)
       segments(pos.lowNew[,1] - 0.5,pos.lowNew[,2],
-               pos.lowNew[,1] + 0.5, pos.lowNew[,2], col = "grey70", lty = 3)
+               pos.lowNew[,1] + 0.5, pos.lowNew[,2], col = 'grey70', lty = 3)
     }
   }
 
 
   ## add numbers
-  if (!is.null(addCoef.col) && method != "number") {
+  if (!is.null(addCoef.col) && method != 'number') {
     text(Pos[,1], Pos[,2],  col = addCoef.col,
          labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
                         number.digits),
@@ -862,8 +862,8 @@ corrplot = function(corr,
   }
 
 
-  if (!is.null(p.mat) && insig != "n") {
-    if (order != "original") {
+  if (!is.null(p.mat) && insig != 'n') {
+    if (order != 'original') {
       p.mat = p.mat[ord, ord]
     }
 
@@ -878,11 +878,11 @@ corrplot = function(corr,
     pos.pNew  = getPos.Dat(p.mat)[[1]]
     pNew      = getPos.Dat(p.mat)[[2]]
 
-    if (insig == "label_sig") {
+    if (insig == 'label_sig') {
 
       # Unless another character is specified, mark sig with *
       if (!is.character(pch))
-        pch = "*"
+        pch = '*'
 
       place_points = function(sig.locs, point) {
         text(pos.pNew[,1][sig.locs], pos.pNew[,2][sig.locs],
@@ -896,7 +896,7 @@ corrplot = function(corr,
         l = length(sig.level)
         for (i in seq_along(sig.level)) {
           iter = l + 1 - i
-          pchTmp = paste(rep(pch, i), collapse = "")
+          pchTmp = paste(rep(pch, i), collapse = '')
           if (i == length(sig.level)) {
             locs = which(pNew < sig.level[iter])
             if (length(locs)) {
@@ -917,17 +917,17 @@ corrplot = function(corr,
       ind.p = which(pNew > sig.level)
       p_inSig = length(ind.p) > 0
 
-      if (insig == "pch" && p_inSig) {
+      if (insig == 'pch' && p_inSig) {
         points(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
                pch = pch, col = pch.col, cex = pch.cex, lwd = 2)
       }
 
-      if (insig == "p-value" && p_inSig) {
+      if (insig == 'p-value' && p_inSig) {
         text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
              round(pNew[ind.p],2), col = pch.col)
       }
 
-      if (insig == "blank" && p_inSig) {
+      if (insig == 'blank' && p_inSig) {
         symbols(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p], inches = FALSE,
                 squares = rep(1, length(pos.pNew[,1][ind.p])),
                 fg = addgrid.col, bg = bg, add = TRUE)
@@ -937,7 +937,7 @@ corrplot = function(corr,
 
 
   ### color legend
-  if (cl.pos != "n") {
+  if (cl.pos != 'n') {
     colRange = assign.color(dat = cl.lim2)
 
 
@@ -951,13 +951,13 @@ corrplot = function(corr,
 
     labels = seq(cl.lim[1], cl.lim[2], length = cl.length)
 
-    if (cl.pos == "r") {
+    if (cl.pos == 'r') {
       vertical = TRUE
       xlim = c(m2 + 0.5 + mm * 0.02, m2 + 0.5 + mm * cl.ratio)
       ylim = c(n1 - 0.5, n2 + 0.5)
     }
 
-    if (cl.pos == "b") {
+    if (cl.pos == 'b') {
       vertical = FALSE
       xlim = c(m1 - 0.5, m2 + 0.5)
       ylim = c(n1 - 0.5 - nn * cl.ratio, n1 - 0.5 - nn * 0.02)
@@ -970,25 +970,25 @@ corrplot = function(corr,
   }
 
   ## add variable names and title
-  if (tl.pos != "n") {
+  if (tl.pos != 'n') {
     pos.xlabel = cbind(m1:m2, n2 + 0.5 + laboffset)
     pos.ylabel = cbind(m1 - 0.5, n2:n1)
 
-    if (tl.pos == "td") {
-      if (type != "upper") {
-        stop("type should be \"upper\" if tl.pos is \"dt\".")
+    if (tl.pos == 'td') {
+      if (type != 'upper') {
+        stop('type should be \'upper\' if tl.pos is \'dt\'.')
       }
       pos.ylabel = cbind(m1:(m1 + nn) - 0.5, n2:n1)
     }
 
-    if (tl.pos == "ld") {
-      if (type != "lower") {
-        stop("type should be \"lower\" if tl.pos is \"ld\".")
+    if (tl.pos == 'ld') {
+      if (type != 'lower') {
+        stop('type should be \'lower\' if tl.pos is \'ld\'.')
       }
       pos.xlabel = cbind(m1:m2, n2:(n2 - mm) + 0.5 + laboffset)
     }
 
-    if (tl.pos == "d") {
+    if (tl.pos == 'd') {
       pos.ylabel = cbind(m1:(m1 + nn) - 0.5, n2:n1)
       pos.ylabel = pos.ylabel[1:min(n, m),]
 
@@ -1012,13 +1012,13 @@ corrplot = function(corr,
 
 
 
-  ## add grid, in case of the grid is ate when "diag=FALSE"
-  if (type == "full" && plotCI == "n" && !is.null(addgrid.col)) {
+  ## add grid, in case of the grid is ate when 'diag=FALSE'
+  if (type == 'full' && plotCI == 'n' && !is.null(addgrid.col)) {
     rect(m1 - 0.5, n1 - 0.5, m2 + 0.5, n2 + 0.5, border = addgrid.col)
   }
 
   ##  draws rectangles, call function corrRect.hclust
-  if (!is.null(addrect) && order == "hclust" && type == "full") {
+  if (!is.null(addrect) && order == 'hclust' && type == 'full') {
     corrRect.hclust(corr, k = addrect, method = hclust.method,
                     col = rect.col, lwd = rect.lwd)
   }
