@@ -135,18 +135,27 @@ corrplot(M, order = 'hclust')
 corrplot(M, order = 'FPC')
 ```
 
-If using `'hclust'`, `corrplot()` can  draw rectangles around the chart of correlation matrix based on the results of  hierarchical clustering.
+If using `'hclust'`, `corrplot()` can  draw rectangles around the plot of correlation matrix based on the results of  hierarchical clustering.
+
+`corrRect()` can add rectangles on the plot with three ways(parameter `index`, `name` and `namesMat`)
+after `corrplot()`. 
+Since R 4.1.0, we can use pipe operator `|>` very conveniently.
 
 ```{r rectangles}
 # use namesMat parameter
 r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
-corrplot(M, order = 'AOE') -> p1
-corrRect(namesMat = r, corrRes = p1)
+# Since R 4.1.0, the better way is the following one line code: 
+# corrplot(M, order = 'AOE') |> corrRect(namesMat = r)
+corrplot(M, order = 'AOE') -> p
+corrRect(p, namesMat = r)
+
 
 # use name parameter
-corrplot(M, order = 'AOE') -> p2
-corrRect(name = c('gear', 'wt', 'carb'), corrRes = p2)
+# Since R 4.1.0, the better way is the following one line code: 
+# corrplot(M, order = 'AOE') |> corrRect(name = c('gear', 'wt', 'carb'))
+corrplot(M, order = 'AOE') -> p
+corrRect(p, name = c('gear', 'wt', 'carb'))
 
 corrplot(M, order = 'hclust', addrect = 3)
 ```
