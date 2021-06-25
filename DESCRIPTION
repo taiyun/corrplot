@@ -4,15 +4,15 @@ Title: Visualization of a Correlation Matrix
 Version: 0.89
 Date: 2021-06-07
 Authors@R: c(
-  person("Taiyun", "Wei", email = "weitaiyun@gmail.com", role = c("cre", "aut")),
-  person("Viliam", "Simko", email = "viliam.simko@gmail.com", role = "aut"),
-  person("Michael", "Levy", email = "michael.levy@healthcatalyst.com", role = "ctb"),
-  person("Yihui", "Xie", email = "xie@yihui.name", role = "ctb"),
-  person("Yan", "Jin", email = "jyfeather@gmail.com", role = "ctb"),
-  person("Jeff", "Zemla", email = "zemla@wisc.edu", role = "ctb"),
-  person("Moritz", "Freidank", email = "freidankm@googlemail.com", role = "ctb"),
-  person("Jun", "Cai", email = "cai-j12@mails.tsinghua.edu.cn", role = "ctb"),
-  person("Tomas", "Protivinsky", email = "tomas.protivinsky@gmail.com", role = "ctb")
+  person('Taiyun', 'Wei', email = 'weitaiyun@gmail.com', role = c('cre', 'aut')),
+  person('Viliam', 'Simko', email = 'viliam.simko@gmail.com', role = 'aut'),
+  person('Michael', 'Levy', email = 'michael.levy@healthcatalyst.com', role = 'ctb'),
+  person('Yihui', 'Xie', email = 'xie@yihui.name', role = 'ctb'),
+  person('Yan', 'Jin', email = 'jyfeather@gmail.com', role = 'ctb'),
+  person('Jeff', 'Zemla', email = 'zemla@wisc.edu', role = 'ctb'),
+  person('Moritz', 'Freidank', email = 'freidankm@googlemail.com', role = 'ctb'),
+  person('Jun', 'Cai', email = 'cai-j12@mails.tsinghua.edu.cn', role = 'ctb'),
+  person('Tomas', 'Protivinsky', email = 'tomas.protivinsky@gmail.com', role = 'ctb')
   )
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Suggests:

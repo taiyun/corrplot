@@ -4,22 +4,43 @@ M = cor(mtcars)
 r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
 corrplot(M, order = 'AOE') -> p
-corrRect(namesMat = r, corrRes = p)
+corrRect(p, namesMat = r)
+
+# same as using pipe operator `|>`
+if(getRversion() >= '4.1.0') {
+  corrplot(M, order = 'AOE') |> corrRect(namesMat = r)
+}
 
 
 r = c('gear', 'carb', 'qsec', 'wt')
-corrplot(M, method = 'circle', order = 'AOE', type='lower') -> p
-corrRect(namesMat = r, corrRes = p)
+corrplot(M, order = 'AOE', type='lower') -> p
+corrRect(p, namesMat = r)
 
-corrplot(M, method = 'circle', order = 'hclust', type = 'upper') -> p
-corrRect(index = c(1, 6, 11), corrRes = p)
+# same as using pipe operator `|>`
+if(getRversion() >= '4.1.0') {
+  corrplot(M, order = 'AOE', type='lower') |>
+    corrRect(namesMat = r)
+}
 
-corrplot(M, method = 'circle', order = 'hclust') -> p
-corrRect(index = c(1, 6, 11), corrRes = p)
 
-# same as
-corrplot(M, method = 'circle', order = 'hclust') -> p
-corrRect(name = c('carb', 'qsec', 'gear'), corrRes = p)
+corrplot(M, order = 'hclust', type = 'upper') -> p
+corrRect(p, index = c(1, 6, 11))
+
+# same as using pipe operator
+if(getRversion() >= '4.1.0') {
+  corrplot(M, order = 'AOE', type='lower') |>
+    corrRect(index = c(1, 6, 11))
+}
+
+
+corrplot(M, order = 'hclust') -> p
+corrRect(p, name = c('carb', 'qsec', 'gear'))
+
+# same as using pipe operator
+if(getRversion() >= '4.1.0') {
+  corrplot(M, order = 'hclust') |>
+    corrRect(name = c('carb', 'qsec', 'gear'))
+}
 
 
 

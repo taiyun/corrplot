@@ -1,11 +1,13 @@
 #' Draw rectangle(s) on the correlation matrix graph.
 #'
-#' Draw rectangle(s) around the chart of corrrlation matrix.
+#' Draw rectangle(s) after the correlation matrix plotted. SUGGESTION: It's more convenient
+#' to draw rectangle(s) by using pipe operator `|>` since R 4.1.0.
 #'
 #' \code{corrRect} needs one of \code{index}, \code{name} and \code{namesMat} inputted.
 #' While \code{corrRect.hclust} can get the members in each cluster
 #' based on hierarchical clustering (\code{\link{hclust}}).
 #'
+#' @param corrRes List of the \code{corrplot()} returns.
 #' @param index Vector, variable index of diag rect \code{c(Rect1from, Rect2from,
 #' Rect3from, ..., RectNto)} on the correlation matrix graph.
 #' It works when the colnames are the same as rownames, or both of them is NULL.
@@ -17,7 +19,6 @@
 #' @param namesMat 4-length character vector or 4-columns character matrix,
 #' represents the names of xleft, ybottom, xright, ytop correspondingly.
 #' It needs \code{corrRes} inputted.
-#' @param corrRes List of the \code{corrplot()} returns.
 #' @param col Color of rectangles.
 #' @param lwd Line width of rectangles.
 #' @param \dots Additional arguments passing to function \code{rect()}.
@@ -26,8 +27,8 @@
 #' @keywords hplot
 #' @author Taiyun Wei
 #' @export
-corrRect = function(index = NULL, name = NULL, namesMat = NULL,
-                    corrRes = NULL, col = 'black', lwd = 2, ...) {
+corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
+                    col = 'black', lwd = 2, ...) {
 
   if((!is.null(index) + !is.null(name) + !is.null(namesMat)) > 1) {
     stop('You should just input one of index, name and namesMat!')
