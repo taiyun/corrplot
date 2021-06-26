@@ -150,6 +150,11 @@ r = rbind(c('gear', 'wt', 'qsec', 'carb'),
 corrplot(M, order = 'AOE') -> p
 corrRect(p, namesMat = r)
 
+# show the return list of corrplot()
+attributes(p)
+print(p$corr, digits=2)
+head(p$corrPos)
+p$arg
 
 # use name parameter
 # Since R 4.1.0, the better way is the following one line code: 
@@ -302,13 +307,10 @@ corrplot(M2)
 
 
 ```{r test}
-res1 = cor.mtest(mtcars, conf.level = .95)
-res2 = cor.mtest(mtcars, conf.level = .99)
+res1 = cor.mtest(mtcars, conf.level = 0.95)
 
 ## specialized the insignificant value according to the significant level
-corrplot(M, p.mat = res1$p, sig.level = .2)
-corrplot(M, p.mat = res1$p, sig.level = .05)
-corrplot(M, p.mat = res1$p, sig.level = .01)
+corrplot(M, p.mat = res1$p, sig.level = 0.05) 
 
 ## leave blank on no significant coefficient
 corrplot(M, p.mat = res1$p, method = 'circle', type = 'lower', insig='blank',
