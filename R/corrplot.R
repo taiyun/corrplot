@@ -663,7 +663,6 @@ corrplot = function(corr,
 
   ## number
   if (is.null(number.digits)) {
-    # TODO: this expression might be confusing
     number.digits = switch(addCoefasPercent + 1, 2, 0)
   }
 
@@ -924,7 +923,7 @@ corrplot = function(corr,
 
       if (insig == 'p-value' && p_inSig) {
         text(pos.pNew[,1][ind.p], pos.pNew[,2][ind.p],
-             round(pNew[ind.p],2), col = pch.col)
+             round(pNew[ind.p], number.digits), col = pch.col)
       }
 
       if (insig == 'blank' && p_inSig) {
