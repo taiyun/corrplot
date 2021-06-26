@@ -22,10 +22,10 @@ test_that('Testing `tl.pos` parameter', {
 })
 
 
-test_that('Testing `cl.lim` parameter', {
+test_that('Testing `col.lim` parameter', {
   M = cor(mtcars)
-  expect_silent(corrplot(M, cl.lim = c(-1, 1)))
-  expect_error(corrplot(M, cl.lim = c(0, 1)),
+  expect_silent(corrplot(M, col.lim = c(-1, 1)))
+  expect_error(corrplot(M, col.lim = c(0, 1)),
                regexp = 'color limits should cover matrix')
 })
 
@@ -225,8 +225,8 @@ test_that('Issue #99: Mark significant correlations', {
                          pch = 'p<.05', pch.cex = .5, order = 'AOE'))
 })
 
-test_that('cl.lim', {
+test_that('col.lim', {
   M = cor(mtcars)
-  expect_warning(corrplot(M*2, is.corr = FALSE, cl.lim=c(-2, 2) * 2))
-  expect_warning(corrplot(abs(M), is.corr = FALSE, cl.lim=c(-1, 1)))
+  expect_warning(corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2) * 2))
+  expect_warning(corrplot(abs(M), is.corr = FALSE, col.lim=c(-1, 1)))
 })
