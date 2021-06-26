@@ -36,9 +36,9 @@
 #'   \code{col.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
 #'   is \code{FALSE}
 #'
-#'   NOTICE: if you set \code{col.lim} when \code{is.corr TRUE}, the assigning color
+#'   NOTICE: if you set \code{col.lim} when \code{is.corr} is \code{TRUE}, the assigning color
 #'   method is still distributed uniformly in [-1, 1], it only affect the display
-#'   on colorlegend.
+#'   on color-legend.
 #'
 #'
 #' @param bg The background color.
@@ -101,7 +101,7 @@
 #'   \code{'n'}. \code{'lt'}(default if \code{type=='full'}) means left and top,
 #'   \code{'ld'}(default if \code{type=='lower'}) means left and diagonal,
 #'   \code{'td'}(default if \code{type=='upper'}) means top and diagonal(near),
-#'   \code{'d'} means diagonal, \code{'n'} means don't add textlabel.
+#'   \code{'d'} means diagonal, \code{'n'} means don't add text-label.
 #'
 #' @param tl.cex Numeric, for the size of text label (variable names).
 #'
@@ -112,27 +112,27 @@
 #' @param tl.srt Numeric, for text label string rotation in degrees, see
 #'   \code{\link{text}}.
 #'
-#' @param cl.pos Character or logical, position of color labels; If character,
+#' @param cl.pos Character or logical, position of color-legend; If character,
 #'   it must be one of \code{'r'} (default if \code{type=='upper'} or
 #'   \code{'full'}), \code{'b'} (default if \code{type=='lower'}) or \code{'n'},
-#'   \code{'n'} means don't draw colorlabel.
+#'   \code{'n'} means don't draw color-legend.
 #'
-#' @param cl.length Integer, the number of number-text in colorlabel, passed to
+#' @param cl.length Integer, the number of number-text in color-legend, passed to
 #'   \code{\link{colorlegend}}. If \code{NULL}, \code{cl.length} is
 #'   \code{length(col) + 1} when \code{length(col) <=20}; \code{cl.length} is 11
 #'   when \code{length(col) > 20}
 #'
-#' @param cl.cex Numeric, cex of number-label in colorlabel,  passed to
+#' @param cl.cex Numeric, cex of number-label in color-legend,  passed to
 #'   \code{\link{colorlegend}}.
 #'
-#' @param cl.ratio Numeric, to justify the width of colorlabel, 0.1~0.2 is
+#' @param cl.ratio Numeric, to justify the width of color-legend, 0.1~0.2 is
 #'   suggested.
 #'
 #' @param cl.align.text Character, \code{'l'}, \code{'c'} (default) or
-#'   \code{'r'}, for number-label in colorlabel, \code{'l'} means left,
+#'   \code{'r'}, for number-label in color-legend, \code{'l'} means left,
 #'   \code{'c'} means center, and \code{'r'} means right.
 #'
-#' @param cl.offset Numeric, for number-label in colorlabel, see
+#' @param cl.offset Numeric, for number-label in color-legend, see
 #'   \code{\link{text}}.
 #'
 #' @param number.cex The \code{cex} parameter to send to the call to \code{text}
@@ -156,8 +156,8 @@
 #'
 #' @param shade.col The color of shade line.
 #'
-#' @param p.mat Matrix of p-value, if \code{NULL}, arguments \code{sig.level},
-#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} is invalid.
+#' @param p.mat Matrix of p-value, if \code{NULL}, parameter \code{sig.level},
+#'   \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} are invalid.
 #'
 #' @param sig.level Significant level,  if the p-value in \code{p-mat} is bigger
 #'   than \code{sig.level}, then the corresponding correlation coefficient is
@@ -187,8 +187,7 @@
 #' @param plotCI Character, method of ploting confidence interval. If
 #'   \code{'n'}, don't plot confidence interval. If 'rect', plot rectangles
 #'   whose upper side means upper bound and lower side means lower bound,
-#'   respectively, and meanwhile correlation coefficients are also added on the
-#'   rectangles. If 'circle', first plot a circle with the bigger absolute
+#'   respectively. If 'circle', first plot a circle with the bigger absolute
 #'   bound, and then plot the smaller. Warning: if the two bounds are the same
 #'   sign, the smaller circle will be wiped away, thus forming a ring. Method
 #'   'square' is similar to 'circle'.
