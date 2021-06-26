@@ -27,16 +27,16 @@
 #'   otherwise a new plot is created.
 #'
 #' @param col Vector, the color of glyphs. It is distributed uniformly in
-#'   \code{cl.lim} interval. If NULL, \code{col} will be
+#'   \code{col.lim} interval. If NULL, \code{col} will be
 #'   \code{colorRampPalette(col2)(200)}, see example about col2.
 #'
-#' @param cl.lim The limits \code{(x1, x2)} interval for assigning color by
+#' @param col.lim The limits \code{(x1, x2)} interval for assigning color by
 #'   \code{col}. If \code{NULL},
-#'   \code{cl.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
-#'   \code{cl.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
+#'   \code{col.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
+#'   \code{col.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
 #'   is \code{FALSE}
 #'
-#'   NOTICE: if you set \code{cl.lim} when \code{is.corr TRUE}, the assigning color
+#'   NOTICE: if you set \code{col.lim} when \code{is.corr TRUE}, the assigning color
 #'   method is still distributed uniformly in [-1, 1], it only affect the display
 #'   on colorlegend.
 #'
@@ -255,7 +255,7 @@
 corrplot = function(corr,
   method = c('circle', 'square', 'ellipse', 'number', 'shade', 'color', 'pie'),
   type = c('full', 'lower', 'upper'), add = FALSE,
-  col = NULL, cl.lim = NULL, bg = 'white', title = '', is.corr = TRUE,
+  col = NULL, col.lim = NULL, bg = 'white', title = '', is.corr = TRUE,
   diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
@@ -314,16 +314,16 @@ corrplot = function(corr,
 
   # Issue #142
   # checks for all values that are not missing
-  if (any(corr[!is.na(corr)] < cl.lim[1]) || any(corr[!is.na(corr)] > cl.lim[2])) {
+  if (any(corr[!is.na(corr)] < col.lim[1]) || any(corr[!is.na(corr)] > col.lim[2])) {
     stop('color limits should cover matrix')
   }
 
 
-  if (is.null(cl.lim)) {
+  if (is.null(col.lim)) {
     if (is.corr) {
       # if the matrix is expected to be a correlation matrix
       # it MUST be within the interval [-1,1]
-      cl.lim = c(-1, 1)
+      col.lim = c(-1, 1)
     } else {
       # Issue #91
       # if not a correlation matrix and the diagonal is hidden,
@@ -333,7 +333,7 @@ corrplot = function(corr,
         diag(corr) = NA
       }
 
-      cl.lim = c(min(corr, na.rm = TRUE), max(corr, na.rm = TRUE))
+      col.lim = c(min(corr, na.rm = TRUE), max(corr, na.rm = TRUE))
     }
   }
 
@@ -351,8 +351,8 @@ corrplot = function(corr,
 
     SpecialCorr = 1
 
-    if(cl.lim[1] < -1 | cl.lim[2] > 1) {
-      stop('cl.lim should be within the interval [-1,1]')
+    if(col.lim[1] < -1 | col.lim[2] > 1) {
+      stop('col.lim should be within the interval [-1,1]')
     }
   }
 
@@ -365,18 +365,18 @@ corrplot = function(corr,
     c_max = max(corr, na.rm = TRUE)
     c_min = min(corr, na.rm = TRUE)
 
-    if(diff(cl.lim)/(c_max - c_min)> 2) {
-      warning('cl.lim interval too wide, please set a suitable value')
+    if(diff(col.lim)/(c_max - c_min)> 2) {
+      warning('col.lim interval too wide, please set a suitable value')
     }
 
     # all negative or positive, trans to [0, 1]
     if (c_max <= 0 | c_min>=0) {
       intercept = -c_min
-      zoom = 1 / (diff(cl.lim))
+      zoom = 1 / (diff(col.lim))
 
 
-      if(cl.lim[1] * cl.lim[2] < 0) {
-        warning('cl.lim interval not suitable to the matrix')
+      if(col.lim[1] * col.lim[2] < 0) {
+        warning('col.lim interval not suitable to the matrix')
       }
 
     }
@@ -393,7 +393,7 @@ corrplot = function(corr,
 
 
       intercept = 0
-      zoom = 1 / max(abs(cl.lim))
+      zoom = 1 / max(abs(col.lim))
       SpecialCorr = 1
     }
 
@@ -406,7 +406,7 @@ corrplot = function(corr,
     corr = (intercept + corr) * zoom
   }
 
-  cl.lim2 = (intercept + cl.lim) * zoom
+  col.lim2 = (intercept + col.lim) * zoom
   int = intercept * zoom
 
 
@@ -937,7 +937,7 @@ corrplot = function(corr,
 
   ### color legend
   if (cl.pos != 'n') {
-    colRange = assign.color(dat = cl.lim2)
+    colRange = assign.color(dat = col.lim2)
 
 
     ind1 = which(col == colRange[1])
@@ -948,7 +948,7 @@ corrplot = function(corr,
       cl.length = ifelse(length(colbar) > 20, 11, length(colbar) + 1)
     }
 
-    labels = seq(cl.lim[1], cl.lim[2], length = cl.length)
+    labels = seq(col.lim[1], col.lim[2], length = cl.length)
 
     if (cl.pos == 'r') {
       vertical = TRUE
