@@ -10,7 +10,7 @@ corrplot(
   type = c("full", "lower", "upper"),
   add = FALSE,
   col = NULL,
-  cl.lim = NULL,
+  col.lim = NULL,
   bg = "white",
   title = "",
   is.corr = TRUE,
@@ -82,16 +82,16 @@ matrix.}
 otherwise a new plot is created.}
 
 \item{col}{Vector, the color of glyphs. It is distributed uniformly in
-\code{cl.lim} interval. If NULL, \code{col} will be
+\code{col.lim} interval. If NULL, \code{col} will be
 \code{colorRampPalette(col2)(200)}, see example about col2.}
 
-\item{cl.lim}{The limits \code{(x1, x2)} interval for assigning color by
+\item{col.lim}{The limits \code{(x1, x2)} interval for assigning color by
   \code{col}. If \code{NULL},
-  \code{cl.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
-  \code{cl.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
+  \code{col.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
+  \code{col.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
   is \code{FALSE}
 
-  NOTICE: if you set \code{cl.lim} when \code{is.corr TRUE}, the assigning color
+  NOTICE: if you set \code{col.lim} when \code{is.corr TRUE}, the assigning color
   method is still distributed uniformly in [-1, 1], it only affect the display
   on colorlegend.}
 
