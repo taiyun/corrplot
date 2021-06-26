@@ -130,9 +130,9 @@ corrplot(M, order = 'AOE', type = 'lower', cl.pos = 'b', diag = FALSE)
 
 
 #### color-legend
-corrplot(M, order = 'AOE', cl.ratio = .2, cl.align = 'l')
-corrplot(M, order = 'AOE', cl.ratio = .2, cl.align = 'c')
-corrplot(M, order = 'AOE', cl.ratio = .2, cl.align = 'r')
+corrplot(M, order = 'AOE', cl.ratio = 0.2, cl.align = 'l')
+corrplot(M, order = 'AOE', cl.ratio = 0.2, cl.align = 'c')
+corrplot(M, order = 'AOE', cl.ratio = 0.2, cl.align = 'r')
 corrplot(M, order = 'AOE', cl.pos = 'b')
 corrplot(M, order = 'AOE', cl.pos = 'b', tl.pos = 'd')
 corrplot(M, order = 'AOE', cl.pos = 'n')
@@ -150,23 +150,45 @@ corrplot(M2, na.label = 'NA')
 corrplot(M[1:8,])
 corrplot(M[,1:8])
 
+testRes = cor.mtest(mtcars, conf.level = 0.95)
+
+## specialized the insignificant value according to the significant level
+corrplot(M, p.mat = testRes$p, sig.level = 0.05, order = 'hclust', addrect = 2)
+
+## leave blank on no significant coefficient
+corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
+         addCoef.col ='black', number.cex = 0.8, order = 'AOE', diag=FALSE)
+
+## add p-values on no significant coefficients
+corrplot(M, p.mat = testRes$p, insig = 'p-value')
+
+## add all p-values
+corrplot(M, p.mat = testRes$p, insig = 'p-value', sig.level = -1)
+
+## add significant level stars
+corrplot(M, p.mat = testRes$p, method = 'color', diag = FALSE, type = 'upper',
+         sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.9,
+         insig = 'label_sig', pch.col = 'grey20', order = 'AOE')
+
+## add significant level stars and cluster rectangles
+corrplot(M, p.mat = testRes$p, tl.pos = 'd', order = 'hclust', addrect = 2,
+         insig = 'label_sig', sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.9, pch.col = 'grey20')
+
+# Visualize confidence interval
+corrplot(M, lowCI = testRes$lowCI, uppCI = testRes$uppCI, order = 'hclust',
+         tl.pos = 'd', rect.col = 'navy', plotC = 'rect', cl.pos = 'n')
+
+# Visualize confidence interval and cross the significant coefficients
+corrplot(M, p.mat = testRes$p, lowCI = testRes$lowCI, uppCI = testRes$uppCI,
+         addrect = 3, rect.col = 'navy', plotC = 'rect', cl.pos = 'n')
+
+
 
 res1 = cor.mtest(mtcars, conf.level = 0.95)
 res2 = cor.mtest(mtcars, conf.level = 0.99)
 
 
-## specialized the insignificant value according to the significant level
-corrplot(M, p.mat = res1$p, sig.level = 0.2)
-corrplot(M, p.mat = res1$p, sig.level = 0.05)
-corrplot(M, p.mat = res1$p, sig.level = 0.01)
-corrplot(M, p.mat = res1$p, insig = 'blank')
-corrplot(M, p.mat = res1$p, insig = 'p-value')
-corrplot(M, p.mat = res1$p, insig = 'p-value', sig.level = -1) ## add all p-values
-corrplot(M, p.mat = res1$p, order = 'hclust', insig = 'blank', addrect = 3)
-corrplot(M, p.mat = res1$p, order = 'hclust', insig = 'pch', addrect = 3)
-
-
-## plot confidence interval(0.95), 'square' method
+## plot confidence interval(0.95), 'circle' method
 corrplot(M, low = res1$uppCI, upp = res1$uppCI,
          plotCI = 'circle', addg = 'grey20', cl.pos = 'n')
 corrplot(M, p.mat = res1$p, low = res1$lowCI, upp = res1$uppCI,
@@ -186,7 +208,7 @@ corrplot(M, p.mat = res1$p, low = res1$lowCI, upp = res1$uppCI,
          col = c('white','black'), bg = 'gold2', order = 'AOE', pch.col = 'red',
          plotCI = 'square', addg = NULL, cl.pos = 'n')
 
-## plot confidence interval(0.95, 0.95, 0.99), 'rect' method
+## plot confidence interval0.95, 0.95, 0.99, 'rect' method
 corrplot(M, low = res1$lowCI, upp = res1$uppCI, order = 'hclust',
          rect.col = 'navy', plotCI = 'rect',cl.pos = 'n')
 corrplot(M, p.mat = res1$p, low = res1$lowCI, upp = res1$uppCI,
