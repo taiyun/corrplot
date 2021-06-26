@@ -80,7 +80,6 @@ corrplot(M, method = 'number')
 corrplot(M, method = 'color', order = 'alphabet') # colorful number
 corrplot(M) # by default, method = 'circle'
 corrplot(M, order = 'AOE') # after 'AOE' reorder
-corrplot(M, method = 'shade', order = 'AOE') 
 corrplot(M, method = 'square', order = 'FPC', type = 'lower', diag = FALSE)
 corrplot(M, method = 'ellipse', order = 'AOE', type = 'upper')
 corrplot.mixed(M, order = 'AOE')
