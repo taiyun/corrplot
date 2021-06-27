@@ -1,6 +1,5 @@
 ---
 title: 'An Introduction to corrplot Package'
-subtitle: 'Making Correlation Matrix Plot Worth A Thousand Words'
 author: 'Taiyun Wei, Viliam Simko'
 date: '`r Sys.Date()`'
 output:
@@ -81,10 +80,11 @@ corrplot(M, method = 'number')
 corrplot(M, method = 'color', order = 'alphabet') # colorful number
 corrplot(M) # by default, method = 'circle'
 corrplot(M, order = 'AOE') # after 'AOE' reorder
+corrplot(M, method = 'shade', order = 'AOE', diag = FALSE) 
 corrplot(M, method = 'square', order = 'FPC', type = 'lower', diag = FALSE)
 corrplot(M, method = 'ellipse', order = 'AOE', type = 'upper')
 corrplot.mixed(M, order = 'AOE')
-corrplot.mixed(M, lower = 'color', upper = 'pie', order = 'hclust')
+corrplot.mixed(M, lower = 'shade', upper = 'pie', order = 'hclust')
 ```
 
 
@@ -124,7 +124,8 @@ If using `'hclust'`, `corrplot()` can draw rectangles around the plot of correla
 
 ```{r hclust}
 corrplot(M, order = 'hclust', addrect = 2)
-corrplot(M, method = 'square', order = 'hclust', addrect = 3)
+corrplot(M, method = 'square', diag = FALSE, order = 'hclust', 
+         addrect = 3, rect.col = 'blue', rect.lwd = 3, tl.pos = 'd')
 ```
 
 
@@ -214,10 +215,11 @@ If your matrix is rectangular, you can adjust the aspect ratio with the
 
 ```{r non-corr}
 ## color example, suitable for matrix in [-N, 0] or [0, N]
-col3 = colorRampPalette(c('white', 'cyan', '#007FFF', 'blue'))
+col3 = hcl.colors(10, "YlOrRd", rev = TRUE)
 
-N = matrix(runif(80, 50, 60), 8)
-corrplot(N, is.corr = FALSE, col.lim = c(50, 60), col = col3(10), win.asp = 0.8)
+N = matrix(runif(80, 20, 30), 8)
+corrplot(N, is.corr = FALSE, col.lim = c(20, 30), 
+         col = col3, cl.pos = 'b', win.asp = 0.8)
 ```
 
 Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend
@@ -241,9 +243,9 @@ To activate plotmath rendering, prefix your label with `'$'`.
 ```{r NA-math}
 M2 = M
 diag(M2) = NA
-colnames(M2)[1:5] = c('alpha', 'beta', '$alpha+beta', '$alpha[0]', '$alpha[beta]')
-rownames(M2)[1:5] = c('$alpha', '$beta', NA, '$alpha[0]', '$alpha[beta]')
-corrplot(10*abs(M2), col = col3(10), is.corr = FALSE, col.lim = c(0, 10))
+colnames(M2) = rep(c('$alpha+beta', '$alpha[0]', '$alpha[beta]'), c(4, 4, 3))
+rownames(M2) = rep(c('$Sigma[i]^n', '$sigma',  '$alpha[0]^100', '$alpha[beta]'), c(2, 4, 2, 3))
+corrplot(10*abs(M2), col = col3, is.corr = FALSE, col.lim = c(0, 10), tl.cex = 1.5)
 ```
 
 
