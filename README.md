@@ -19,7 +19,7 @@ This package is licensed under the MIT license, and available on CRAN:
 ## Basic example
 ```r
 library(corrplot)
-M <- cor(mtcars)
+M = cor(mtcars)
 corrplot(M, order = 'hclust', addrect = 2)
 ```
 ![Basic example](https://raw.githubusercontent.com/taiyun/corrplot/master/vignettes/webimg/rectangles-1.png)
