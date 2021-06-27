@@ -9,14 +9,11 @@ output:
 toc-title: 'Table of Contents'
 vignette: >
   %\VignetteIndexEntry{An Introduction to corrplot Package}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
-
-
 ```{r setup, include=FALSE}
-set.seed(0) # we need reproducible results
 knitr::opts_chunk$set(
   fig.align = 'center',
   fig.path = 'webimg/',
@@ -46,33 +43,41 @@ if(get_os() =='windows' & capabilities('cairo')){
 
 ## Introduction
 
-**corrplot** package is a graphical display of correlation matrix, p-value and
-confidence interval. It also contains some algorithms to do matrix reordering. 
-In addition, corrplot is good at details, including choosing color, text labels,
-color labels, layout, adding rectangles, etc.
+**corrplot** package is a graphical display of correlation matrix,
+p-value and confidence interval. It also contains some algorithms to do
+matrix reordering. In addition, corrplot is good at details, including
+choosing color, text labels, color labels, layout, adding rectangles,
+etc.
 
-`corrplot()` have about 50 parameters, however the most common using are only a few. 
-In most scenes, you can get a correlation matrix plot with only one or a few lines of code.
+`corrplot()` have about 50 parameters, however the most common using are
+only a few. In most scenes, you can get a correlation matrix plot with
+only one or a few lines of code.
 
 The mostly using parameters are `method`, `type`, `order` and `diag`.
 
-There are seven visualization methods (parameter `method`) in **corrplot** package, 
-named `'circle'`, `'square'`, `'ellipse'`, `'number'`, `'shade'`, `'color'`, `'pie'`. 
-Color intensity of the glyph is proportional to the correlation coefficients by default.
-For method `'circle'` and `'square'`, the **areas** of circles or squares show the absolute value of corresponding correlation coefficients. 
-For method `'number'`, the correlation coefficients are showed with corresponding color on the graph.
-Method `'pie'` and `'shade'` came from Michael Friendly's job (with some adjustment about the shade added on).
-and `'ellipse'` came from D.J. Murdoch and E.D. Chow's job, see in section References.
+There are seven visualization methods (parameter `method`) in
+**corrplot** package, named `'circle'`, `'square'`, `'ellipse'`,
+`'number'`, `'shade'`, `'color'`, `'pie'`. Color intensity of the glyph
+is proportional to the correlation coefficients by default. For method
+`'circle'` and `'square'`, the **areas** of circles or squares show the
+absolute value of corresponding correlation coefficients. For method
+`'number'`, the correlation coefficients are showed with corresponding
+color on the graph. Method `'pie'` and `'shade'` came from Michael
+Friendly's job (with some adjustment about the shade added on). and
+`'ellipse'` came from D.J. Murdoch and E.D. Chow's job, see in section
+References.
 
 `corrplot.mixed()` is a wrapped function for mixed visualization style,
-which can set the visual methods of lower and upper triangular separately.
+which can set the visual methods of lower and upper triangular
+separately.
 
-There are three layout types (parameter `type`): `'full'`, `'upper'` and `'lower'`.
+There are three layout types (parameter `type`): `'full'`, `'upper'` and
+`'lower'`.
 
-The correlation matrix can be reordered according to the correlation matrix coefficients. 
-This is important to identify the hidden structure and pattern in the matrix. 
+The correlation matrix can be reordered according to the correlation
+matrix coefficients. This is important to identify the hidden structure
+and pattern in the matrix.
 
-  
 ```{r intro}
 library(corrplot)
 M = cor(mtcars)
@@ -87,40 +92,41 @@ corrplot.mixed(M, order = 'AOE')
 corrplot.mixed(M, lower = 'shade', upper = 'pie', order = 'hclust')
 ```
 
-
-
 ## Reorder a correlation matrix
 
-The details of four `order` algorithms, named `'AOE'`, `'FPC'`, `'hclust'`, `'alphabet'` are as following. 
+The details of four `order` algorithms, named `'AOE'`, `'FPC'`,
+`'hclust'`, `'alphabet'` are as following.
 
-  - `'AOE'` is for the angular order of the eigenvectors. It is calculated from 
-    the order of the angles $a_i$,
-    
+-   `'AOE'` is for the angular order of the eigenvectors. It is
+    calculated from the order of the angles $a_i$,
+
     $$
     a_i = 
     \begin{cases}
-    			\arctan (e_{i2}/e_{i1}), & \text{if $e_{i1}>0$;}
-    			 \newline
-    			\arctan (e_{i2}/e_{i1}) + \pi, & \text{otherwise.}
-    \end{cases}			
+                \arctan (e_{i2}/e_{i1}), & \text{if $e_{i1}>0$;}
+                 \newline
+                \arctan (e_{i2}/e_{i1}) + \pi, & \text{otherwise.}
+    \end{cases}         
     $$
-    
-    where $e_1$ and $e_2$ are the largest two eigenvalues of the correlation 
-    matrix.
-    See [Michael Friendly (2002)](http://www.datavis.ca/papers/corrgram.pdf)
-    for details.
-  
-  - `'FPC'` for the first principal component order.
-  - `'hclust'` for hierarchical clustering order, and `'hclust.method'` for the
-    agglomeration method to be used. `'hclust.method'` should be one of
-    `'ward'`, `'single'`, `'complete'`, `'average'`, `'mcquitty'`, `'median'` or
-    `'centroid'`.
-  - `'alphabet'` for alphabetical order.
 
+    where $e_1$ and $e_2$ are the largest two eigenvalues of the
+    correlation matrix. See [Michael Friendly
+    (2002)](http://www.datavis.ca/papers/corrgram.pdf) for details.
 
-You can also reorder the matrix 'manually' via function `corrMatOrder()`.
+-   `'FPC'` for the first principal component order.
 
-If using `'hclust'`, `corrplot()` can draw rectangles around the plot of correlation matrix based on the results of  hierarchical clustering.
+-   `'hclust'` for hierarchical clustering order, and `'hclust.method'`
+    for the agglomeration method to be used. `'hclust.method'` should be
+    one of `'ward'`, `'single'`, `'complete'`, `'average'`,
+    `'mcquitty'`, `'median'` or `'centroid'`.
+
+-   `'alphabet'` for alphabetical order.
+
+You can also reorder the matrix 'manually' via function
+`corrMatOrder()`.
+
+If using `'hclust'`, `corrplot()` can draw rectangles around the plot of
+correlation matrix based on the results of hierarchical clustering.
 
 ```{r hclust}
 corrplot(M, order = 'hclust', addrect = 2)
@@ -128,9 +134,8 @@ corrplot(M, method = 'square', diag = FALSE, order = 'hclust',
          addrect = 3, rect.col = 'blue', rect.lwd = 3, tl.pos = 'd')
 ```
 
-
-`corrRect()` can add rectangles on the plot with three ways(parameter `index`, `name` and `namesMat`)
-after `corrplot()`. 
+`corrRect()` can add rectangles on the plot with three ways(parameter
+`index`, `name` and `namesMat`) after `corrplot()`.
 
 Since R 4.1.0, we can use pipe operator `|>` very conveniently.
 
@@ -158,27 +163,29 @@ corrRect(p, name = c('gear', 'wt', 'carb'))
 
 ## Change color spectra, color-legend and text-legend
 
-The color of the correlation plots can be customized by `col`. 
-The function `colorRampPalette()` is very convenient for generating color spectrum. 
-Other option would be to use `RcolorBrewer` package.
+The color of the correlation plots can be customized by `col`. The
+function `colorRampPalette()` is very convenient for generating color
+spectrum. Other option would be to use `RcolorBrewer` package.
 
 Parameters group `cl.*` is for color-legend. The common-using are:
 
-* `cl.pos` is for the position of color labels. It is character or logical. 
-If character, it must be one of `'r'` (means right, default if `type='upper'` or `'full'`), 
-`'b'` (means bottom, default if `type='lower'`) or `'n'`(means don't draw color-label).
-* `cl.ratio` is to justify the width of color-legend, 0.1~0.2 is suggested.
+-   `cl.pos` is for the position of color labels. It is character or
+    logical. If character, it must be one of `'r'` (means right, default
+    if `type='upper'` or `'full'`), `'b'` (means bottom, default if
+    `type='lower'`) or `'n'`(means don't draw color-label).
+-   `cl.ratio` is to justify the width of color-legend, 0.1\~0.2 is
+    suggested.
 
 Parameters group `tl.*` is for text-legend. The common-using are:
 
-* `tl.pos` is for the position of text labels. It is character or logical.
-If character, it must be one of `'lt'`, `'ld'`, `'td'`, `'d'` or `'n'`. 
-`'lt'`(default if `type='full'`) means left and top, `'ld'`(default if `type='lower'`) means left and diagonal,
-`'td'`(default if `type='upper'`) means top and diagonal(near), 
-`'d'` means diagonal, `'n'` means don't add text-label.
-* `tl.cex` is for the size of text label (variable names).
-* `tl.srt` is for text label string rotation in degrees.
-
+-   `tl.pos` is for the position of text labels. It is character or
+    logical. If character, it must be one of `'lt'`, `'ld'`, `'td'`,
+    `'d'` or `'n'`. `'lt'`(default if `type='full'`) means left and top,
+    `'ld'`(default if `type='lower'`) means left and diagonal,
+    `'td'`(default if `type='upper'`) means top and diagonal(near),
+    `'d'` means diagonal, `'n'` means don't add text-label.
+-   `tl.cex` is for the size of text label (variable names).
+-   `tl.srt` is for text label string rotation in degrees.
 
 ```{r color}
 ## diverging color example, suitable for matrix in [-N, N]
@@ -188,27 +195,28 @@ col2 = colorRampPalette(c('red', 'white', 'blue'))
 
 library(RColorBrewer)
 # use RcolorBrewer color
-corrplot(M, type = 'upper', order = 'hclust', col = brewer.pal(n = 8, name = 'RdBu'))
+corrplot(M, type = 'upper', order = 'hclust', 
+         col = brewer.pal(n = 8, name = 'RdBu'))
 
 ## bottom color legend, diagonal text legend, rotate text label
-corrplot(M, order = 'AOE', cl.pos = 'b', tl.pos = 'd', col = col1(10), diag = FALSE)
+corrplot(M, order = 'AOE', cl.pos = 'b', tl.pos = 'd', 
+         col = col1(10), diag = FALSE)
 
 ## text labels rotated 45 degrees and  wider color legend with numbers right aligned
-corrplot(M, type = 'lower', order = 'hclust', tl.col = 'black', cl.ratio = 0.2, tl.srt = 45, col = col2(10))
+corrplot(M, type = 'lower', order = 'hclust', tl.col = 'black', 
+         cl.ratio = 0.2, tl.srt = 45, col = col2(10))
 
 ## remove color legend, text legend and principal diagonal glyph
-corrplot(M, order = 'AOE', cl.pos = 'n', tl.pos = 'n', col = c('white', 'black'), bg = 'gold2')  
+corrplot(M, order = 'AOE', cl.pos = 'n', tl.pos = 'n', 
+         col = c('white', 'black'), bg = 'gold2')  
 ```
 
+## Visualize non-correlation matrix, NA value and math label
 
-
-
-## Dealing with non-correlation matrix, NA value and math label
-
-We can visualize a non-correlation matrix by set `is.corr=FALSE`, and assign colors by `col.lim`. 
-If the matrix have both positive and negative values, the matrix transformation keep every values 
-positiveness and negativeness. 
-
+We can visualize a non-correlation matrix by set `is.corr=FALSE`, and
+assign colors by `col.lim`. If the matrix have both positive and
+negative values, the matrix transformation keep every values
+positiveness and negativeness.
 
 If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
@@ -222,8 +230,9 @@ corrplot(N, is.corr = FALSE, col.lim = c(20, 30),
          col = col3, cl.pos = 'b', win.asp = 0.8)
 ```
 
-Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend
-If you change it, the color on correlation matrix plot is still assigned on `c(-1, 1)`
+Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend If
+you change it, the color on correlation matrix plot is still assigned on
+`c(-1, 1)`
 
 ```{r col-lim}
 # when is.corr=TRUE, col.lim only affect the color legend display
@@ -231,61 +240,68 @@ corrplot(M/2)
 corrplot(M/2, col.lim=c(-0.5, 0.5))
 ```
 
-By default, **corrplot** renders NA values as `'?'` characters. 
-Using `na.label` parameter, it is possible to use a different value 
-(max. two characters are supported).
+By default, **corrplot** renders NA values as `'?'` characters. Using
+`na.label` parameter, it is possible to use a different value (max. two
+characters are supported).
 
 Since version `0.78`, it is possible to use
 [plotmath](https://www.rdocumentation.org/packages/grDevices/topics/plotmath)
-expression in variable names. 
-To activate plotmath rendering, prefix your label with `'$'`.
+expression in variable names. To activate plotmath rendering, prefix
+your label with `'$'`.
 
 ```{r NA-math}
 M2 = M
 diag(M2) = NA
-colnames(M2) = rep(c('$alpha+beta', '$alpha[0]', '$alpha[beta]'), c(4, 4, 3))
-rownames(M2) = rep(c('$Sigma[i]^n', '$sigma',  '$alpha[0]^100', '$alpha[beta]'), c(2, 4, 2, 3))
-corrplot(10*abs(M2), col = col3, is.corr = FALSE, col.lim = c(0, 10), tl.cex = 1.5)
+colnames(M2) = rep(c('$alpha+beta', '$alpha[0]', '$alpha[beta]'), 
+                   c(4, 4, 3))
+rownames(M2) = rep(c('$Sigma[i]^n', '$sigma',  '$alpha[0]^100', '$alpha[beta]'), 
+                   c(2, 4, 2, 3))
+corrplot(10*abs(M2), col = col3, is.corr = FALSE, 
+         col.lim = c(0, 10), tl.cex = 1.5)
 ```
-
 
 ## Visualize p-value and confidence interval
 
-`corrplot()` can also visualize p-value and confidence interval on the correlation matrix plot.
-Here are some important parameters.
+`corrplot()` can also visualize p-value and confidence interval on the
+correlation matrix plot. Here are some important parameters.
 
 About p-value:
 
-* `p.mat` is the p-value matrix, if `NULL`, parameter `sig.level`, `insig, pch`, `pch.col`, `pch.cex` are invalid.
-* `sig.level` is significant level, with default value 0.05. If the p-value in `p-mat` is bigger than `sig.level`, 
-then the corresponding correlation coefficient is regarded as insignificant. 
-If `insig` is `'label_sig'`, `sig.level` can be an increasing vector of significance levels, 
-in which case `pch` will be used once for the highest p-value interval and multiple times (e.g. `'*'`, `'**'`, `'***'`) for each lower p-value interval.
-* `insig` Character, specialized insignificant correlation coefficients, 
-`'pch'` (default), `'p-value'`, `'blank',` `'n'`, or `'label_sig'`. 
-If `'blank'`, wipe away the corresponding glyphs; 
-if `'p-value'`, add p-values the corresponding glyphs; 
-if `'pch'`, add characters (see pch for details) on corresponding glyphs; 
-if `'n'`, don't take any measures; 
-if `'label_sig'`, mark significant correlations with `pch` (see `sig.level`).
-* `pch` is for adding character on the glyphs of insignificant correlation coefficients
-(only valid when insig is `'pch'`). See `?par` .
+-   `p.mat` is the p-value matrix, if `NULL`, parameter `sig.level`,
+    `insig, pch`, `pch.col`, `pch.cex` are invalid.
+-   `sig.level` is significant level, with default value 0.05. If the
+    p-value in `p-mat` is bigger than `sig.level`, then the
+    corresponding correlation coefficient is regarded as insignificant.
+    If `insig` is `'label_sig'`, `sig.level` can be an increasing vector
+    of significance levels, in which case `pch` will be used once for
+    the highest p-value interval and multiple times (e.g. `'*'`, `'**'`,
+    `'***'`) for each lower p-value interval.
+-   `insig` Character, specialized insignificant correlation
+    coefficients, `'pch'` (default), `'p-value'`, `'blank',` `'n'`, or
+    `'label_sig'`. If `'blank'`, wipe away the corresponding glyphs; if
+    `'p-value'`, add p-values the corresponding glyphs; if `'pch'`, add
+    characters (see pch for details) on corresponding glyphs; if `'n'`,
+    don't take any measures; if `'label_sig'`, mark significant
+    correlations with `pch` (see `sig.level`).
+-   `pch` is for adding character on the glyphs of insignificant
+    correlation coefficients (only valid when insig is `'pch'`). See
+    `?par` .
 
 About confidence interval:
 
-* `plotCI` is character for the method of plotting confidence interval. If `'n'`, don't plot confidence interval. 
-If `'rect'`, plot rectangles whose upper side means upper bound and lower side means lower bound respectively. 
-* `lowCI.mat` is the matrix of the lower bound of confidence interval.
-* `uppCI.mat` is the Matrix of the upper bound of confidence interval.
+-   `plotCI` is character for the method of plotting confidence
+    interval. If `'n'`, don't plot confidence interval. If `'rect'`,
+    plot rectangles whose upper side means upper bound and lower side
+    means lower bound respectively.
+-   `lowCI.mat` is the matrix of the lower bound of confidence interval.
+-   `uppCI.mat` is the Matrix of the upper bound of confidence interval.
 
-We can get p-value matrix and confidence intervals matrix by `cor.mtest()` which returns a list containing:
+We can get p-value matrix and confidence intervals matrix by
+`cor.mtest()` which returns a list containing:
 
-* `p` is the p-values matrix.
-* `lowCI` is the lower bound of confidence interval matrix.
-* `uppCI` is the lower bound of confidence interval matrix.
-
-
-
+-   `p` is the p-values matrix.
+-   `lowCI` is the lower bound of confidence interval matrix.
+-   `uppCI` is the lower bound of confidence interval matrix.
 
 ```{r test}
 testRes = cor.mtest(mtcars, conf.level = 0.95)
@@ -310,7 +326,8 @@ corrplot(M, p.mat = testRes$p, method = 'color', diag = FALSE, type = 'upper',
 
 ## add significant level stars and cluster rectangles
 corrplot(M, p.mat = testRes$p, tl.pos = 'd', order = 'hclust', addrect = 2,
-         insig = 'label_sig', sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.9, pch.col = 'grey20')
+         insig = 'label_sig', sig.level = c(0.001, 0.01, 0.05), 
+         pch.cex = 0.9, pch.col = 'grey20')
 ```
 
 Visualize confidence interval.
@@ -325,10 +342,10 @@ corrplot(M, p.mat = testRes$p, lowCI = testRes$lowCI, uppCI = testRes$uppCI,
          addrect = 3, rect.col = 'navy', plotC = 'rect', cl.pos = 'n')
 ```
 
-
-
 ## References
 
-Michael Friendly (2002). Corrgrams: Exploratory displays for correlation matrices. The American Statistician, 56, 316–324.
+Michael Friendly (2002). Corrgrams: Exploratory displays for correlation
+matrices. The American Statistician, 56, 316--324.
 
-D.J. Murdoch, E.D. Chow (1996). A graphical display of large correlation matrices. The American Statistician, 50, 178–180.
+D.J. Murdoch, E.D. Chow (1996). A graphical display of large correlation
+matrices. The American Statistician, 50, 178--180.
