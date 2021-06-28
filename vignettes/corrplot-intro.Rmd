@@ -53,7 +53,7 @@ statistical significance of the correlations.
 
 
 `corrplot()` has about 50 parameters, however the mostly common ones are only a few. 
-YWe can get a correlation matrix plot with only one line of code in most scenes.
+We can get a correlation matrix plot with only one line of code in most scenes.
 
 The mostly using parameters include `method`, `type`, `order`, `diag`, and etc.
 
@@ -211,8 +211,8 @@ col2 = colorRampPalette(c('red', 'white', 'blue'))
 
 library(RColorBrewer)
 # use RcolorBrewer color
-corrplot(M, type = 'upper', order = 'hclust', 
-         col = brewer.pal(n = 10, name = 'PRGn'))
+corrplot(M, order = 'AOE', addCoef.col = 'black', tl.pos = 'd',  
+         cl.pos = 'n', col = brewer.pal(n = 10, name = 'PRGn'))
 
 ## bottom color legend, diagonal text legend, rotate text label
 corrplot(M, order = 'AOE', cl.pos = 'b', tl.pos = 'd', 
