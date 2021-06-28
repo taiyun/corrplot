@@ -4,5 +4,4 @@
 ^\.lintr$
 ^\.github$
 ^vignettes/webimg
-^README.md$
 ^codecov\.yml$

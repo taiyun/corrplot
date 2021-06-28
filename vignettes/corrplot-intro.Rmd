@@ -43,29 +43,41 @@ if(get_os() =='windows' & capabilities('cairo')){
 
 ## Introduction
 
-**corrplot** package is a graphical display of correlation matrix,
-p-value and confidence interval. It also contains some algorithms to do
-matrix reordering. In addition, corrplot is good at details, including
-choosing color, text labels, color labels, layout, adding rectangles,
-etc.
+R package **corrplot** focuses on reordering and visualizing correlation matrix. 
+It can also draw clusters, p-values and confidence intervals on correlation matrix plot. 
+corrplot is very easy to use and good at plotting details, including visualization method, 
+layout, color choosing and assigning, color-legend, text labels, cluster rectangles, 
+p-values, confidence intervals, NA values, math labels etc.
 
-`corrplot()` have about 50 parameters, however the most common using are
-only a few. In most scenes, you can get a correlation matrix plot with
-only one or a few lines of code.
+`corrplot()` has about 50 parameters, however the mostly common ones are only a few. 
+You can get a correlation matrix plot with only one line of code in most scenes.
 
-The mostly using parameters are `method`, `type`, `order` and `diag`.
+The mostly using parameters include `method`, `type`, `order`, `diag`, and etc.
 
 There are seven visualization methods (parameter `method`) in
-**corrplot** package, named `'circle'`, `'square'`, `'ellipse'`,
+corrplot package, named `'circle'`, `'square'`, `'ellipse'`,
 `'number'`, `'shade'`, `'color'`, `'pie'`. Color intensity of the glyph
-is proportional to the correlation coefficients by default. For method
-`'circle'` and `'square'`, the **areas** of circles or squares show the
-absolute value of corresponding correlation coefficients. For method
-`'number'`, the correlation coefficients are showed with corresponding
-color on the graph. Method `'pie'` and `'shade'` came from Michael
-Friendly's job (with some adjustment about the shade added on). and
-`'ellipse'` came from D.J. Murdoch and E.D. Chow's job, see in section
-References.
+is proportional to the correlation coefficients by default color setting. 
+
+- `'circle'` and `'square'`, the **areas** of circles or squares show the
+absolute value of corresponding correlation coefficients. 
+
+- `'ellipse'`, the ellipses have their eccentricity parametrically scaled to the correlation value. 
+It comes from D.J. Murdoch and E.D. Chow's job, see in section References.
+
+- `'number'`, coefficients numbers with different color. 
+
+- `'color'`, square of equal size with different color.
+
+- `'shade'`, similar to `'color'`, but the negative coefficients glyphs are shaded. 
+Method `'pie'` and `'shade'` come from Michael Friendly's job. 
+
+- `'pie'`, the circles are filled clockwise for positive values, anti-clockwise for negative
+values. 
+
+
+
+
 
 `corrplot.mixed()` is a wrapped function for mixed visualization style,
 which can set the visual methods of lower and upper triangular
@@ -81,8 +93,8 @@ and pattern in the matrix.
 ```{r intro}
 library(corrplot)
 M = cor(mtcars)
-corrplot(M, method = 'number') 
-corrplot(M, method = 'color', order = 'alphabet') # colorful number
+corrplot(M, method = 'number') # colorful number
+corrplot(M, method = 'color', order = 'alphabet') 
 corrplot(M) # by default, method = 'circle'
 corrplot(M, order = 'AOE') # after 'AOE' reorder
 corrplot(M, method = 'shade', order = 'AOE', diag = FALSE) 
@@ -136,29 +148,30 @@ corrplot(M, method = 'square', diag = FALSE, order = 'hclust',
 
 `corrRect()` can add rectangles on the plot with three ways(parameter
 `index`, `name` and `namesMat`) after `corrplot()`.
-
-Since R 4.1.0, we can use pipe operator `|>` very conveniently.
+We can use pipe operator `*>%` in package `magrittr` with more convenience. 
+Since R 4.1.0,  `|>` is supported without extra package.
 
 ```{r rectangles}
 # use namesMat parameter
 r = rbind(c('gear', 'wt', 'qsec', 'carb'),
         c('wt', 'gear', 'carb', 'qsec'))
-# Since R 4.1.0, the better way is the following one line code: 
+# The simpler code:
+# corrplot(M, order = 'AOE') %>% corrRect(namesMat = r)
+# Since R 4.1.0, the following one line code works: 
 # corrplot(M, order = 'AOE') |> corrRect(namesMat = r)
 corrplot(M, order = 'AOE') -> p
 corrRect(p, namesMat = r)
 
 # show the return list of corrplot()
 attributes(p)
-print(p$corr, digits=2)
 head(p$corrPos)
 p$arg
 
 # use name parameter
-# Since R 4.1.0, the better way is the following one line code: 
+# Since R 4.1.0, the following one line code works: 
 # corrplot(M, order = 'AOE') |> corrRect(name = c('gear', 'wt', 'carb'))
-corrplot(M, order = 'AOE') -> p
-corrRect(p, name = c('gear', 'wt', 'carb'))
+library(magrittr)
+corrplot(M, order = 'AOE') %>% corrRect(name = c('gear', 'wt', 'carb'))
 ```
 
 ## Change color spectra, color-legend and text-legend
@@ -196,7 +209,7 @@ col2 = colorRampPalette(c('red', 'white', 'blue'))
 library(RColorBrewer)
 # use RcolorBrewer color
 corrplot(M, type = 'upper', order = 'hclust', 
-         col = brewer.pal(n = 8, name = 'RdBu'))
+         col = brewer.pal(n = 10, name = 'PRGn'))
 
 ## bottom color legend, diagonal text legend, rotate text label
 corrplot(M, order = 'AOE', cl.pos = 'b', tl.pos = 'd', 
@@ -307,7 +320,7 @@ We can get p-value matrix and confidence intervals matrix by
 testRes = cor.mtest(mtcars, conf.level = 0.95)
 
 ## specialized the insignificant value according to the significant level
-corrplot(M, p.mat = testRes$p, sig.level = 0.05, order = 'hclust', addrect = 2) 
+corrplot(M, p.mat = testRes$p, sig.level = 0.10, order = 'hclust', addrect = 2) 
 
 ## leave blank on no significant coefficient
 corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
