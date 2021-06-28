@@ -7,7 +7,7 @@
   * Add `arg` to the corrplot() return list.
   * Add pipe operator `|>` examples when using corrRect().
   * Parameter `number.digits` also works on p-value. (thanks, @bassam-abulnoor)
-  * Revise the document.
+  * Revise the document. (thanks, Shuai Huang)
 
 
 # corrplot 0.89

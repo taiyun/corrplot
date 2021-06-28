@@ -1,8 +1,8 @@
 Package: corrplot
 Type: Package
 Title: Visualization of a Correlation Matrix
-Version: 0.89
-Date: 2021-06-07
+Version: 0.90
+Date: 2021-06-30
 Authors@R: c(
   person('Taiyun', 'Wei', email = 'weitaiyun@gmail.com', role = c('cre', 'aut')),
   person('Viliam', 'Simko', email = 'viliam.simko@gmail.com', role = 'aut'),
@@ -22,7 +22,7 @@ Suggests:
     magrittr,
     prettydoc,
     testthat
-Description: A graphical display for correlation matrices, cluster rectangles, p-values and confidence intervals.
+Description: corrplot provides a visual exploratory tool on correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables.
 License: MIT + file LICENSE
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues

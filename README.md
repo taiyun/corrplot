@@ -7,11 +7,12 @@
 
 ## Summary
 
-R package **corrplot** focuses on reordering and visualizing correlation matrix. 
-It can also draw clusters, p-values and confidence intervals on correlation matrix plot. 
-corrplot is very easy to use and good at plotting details, including visualization method, 
-layout, color choosing and assigning, color-legend, text labels, cluster rectangles, 
-p-values, confidence intervals, NA values, math labels etc.
+R package **corrplot** provides a visual exploratory tool on correlation matrix that 
+supports automatic variable reordering to help detect hidden patterns among variables.
+
+corrplot is very easy to use and provides a rich array of plotting options in 
+visualization method, graphic layout, color, legend, text labels, etc. 
+It also provides p-values and confidence intervals to help users determine the 
 
 For examples, see its
 [online vignette](http://cloud.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html).
