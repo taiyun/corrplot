@@ -16,6 +16,7 @@ Authors@R: c(
   )
 Maintainer: Taiyun Wei <weitaiyun@gmail.com>
 Suggests:
+    seriation,
     knitr,
     RColorBrewer,
     rmarkdown,
