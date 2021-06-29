@@ -37,6 +37,10 @@ It needs \code{corrRes} inputted.}
 
 \item{\dots}{Additional arguments passing to function \code{rect()}.}
 }
+\value{
+(Invisibly) returns input parameter \code{corrRes},
+usually \code{list(corr, corrTrans, arg)}.
+}
 \description{
 Draw rectangle(s) after the correlation matrix plotted. SUGGESTION: It's more convenient
 to draw rectangle(s) by using pipe operator `|>` since R 4.1.0.

@@ -23,6 +23,9 @@
 #' @param lwd Line width of rectangles.
 #' @param \dots Additional arguments passing to function \code{rect()}.
 #'
+#' @return (Invisibly) returns input parameter \code{corrRes},
+#' usually \code{list(corr, corrTrans, arg)}.
+#'
 #' @example vignettes/example-corrRect.R
 #' @keywords hplot
 #' @author Taiyun Wei
@@ -114,6 +117,8 @@ corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
 
     rect(x1, y1, x2, y2, border = col, lwd = lwd, ...)
   }
+
+  invisible(corrRes)
 
 }
 
