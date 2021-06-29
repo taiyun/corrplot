@@ -216,10 +216,8 @@ corrplot(Z, order = 'AOE') %>%
 
 
 # use namesMat parameter
-r = rbind(c('eggs', 'eggs', 'airborne', 'airborne'),
-        c('backbone', 'backbone', 'milk', 'milk'),
-        c('eggs', 'catsize', 'airborne', 'milk'),
-        c('catsize', 'eggs', 'milk','airborne'))
+r = rbind(c('eggs', 'catsize', 'airborne', 'milk'),
+          c('catsize', 'eggs', 'milk', 'airborne'))
 corrplot(Z, order = 'hclust') %>% corrRect(namesMat = r)
 ```
 
@@ -406,16 +404,16 @@ corrplot(M, p.mat = testRes$p, lowCI = testRes$lowCI, uppCI = testRes$uppCI,
 
 ## References
 
-Michael Friendly (2002). Corrgrams: Exploratory displays for correlation
+- Michael Friendly (2002). Corrgrams: Exploratory displays for correlation
 matrices. The American Statistician, 56, 316--324.
 
-D.J. Murdoch, E.D. Chow (1996). A graphical display of large correlation
+- D.J. Murdoch, E.D. Chow (1996). A graphical display of large correlation
 matrices. The American Statistician, 50, 178--180.
 
-Michael Hahsler, Christian Buchta and Kurt Hornik (2020). seriation: Infrastructure for Ordering
+- Michael Hahsler, Christian Buchta and Kurt Hornik (2020). seriation: Infrastructure for Ordering
   Objects Using Seriation. R package version 1.2-9. https://CRAN.R-project.org/package=seriation
 
-Hahsler M, Hornik K, Buchta C (2008). "Getting things in order: An introduction to the R package
+- Hahsler M, Hornik K, Buchta C (2008). "Getting things in order: An introduction to the R package
 seriation." _Journal of Statistical Software_, *25*(3), 1-34. ISSN 1548-7660, doi:
 10.18637/jss.v025.i03 (URL: https://doi.org/10.18637/jss.v025.i03), <URL:
 https://www.jstatsoft.org/v25/i03/>.
