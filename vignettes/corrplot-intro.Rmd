@@ -149,32 +149,78 @@ corrplot(M, method = 'square', diag = FALSE, order = 'hclust',
          addrect = 3, rect.col = 'blue', rect.lwd = 3, tl.pos = 'd')
 ```
 
+R package **seriation** provides the infrastructure for ordering objects with an 
+implementation of several seriation/sequencing/ordination techniques to reorder 
+matrices, dissimilarity matrices, and dendrograms. For more information, 
+see in section References.
+
+We can reorder the matrix via **seriation** package and then corrplot it. 
+Here are some examples.
+
+
+
+```{r seriation}
+library(seriation)
+list_seriation_methods('matrix')
+list_seriation_methods('dist')
+
+data(Zoo)
+Z = cor(Zoo[,-c(15, 17)])
+
+dist2Order = function(corr, method, ...) {
+  d_corr = as.dist(1 - corr)
+  s = seriate(d_corr, method = method, ...)
+  i = get_order(s)
+  return(i)
+}
+
+
+# PCA_angle, same as 'AOE' in corrplot() and corrMatOrder()
+i = get_order(seriate(Z, 'PCA_angle'))
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Hierarchical clustering
+i = dist2Order(Z, 'HC')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Rank-two ellipse seriation
+i = dist2Order(Z, 'R2E')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Spectral seriation 
+i = dist2Order(Z, 'Spectral')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# TSP solver 
+i = dist2Order(Z, 'TSP')
+corrplot(Z[i, i], cl.pos = 'n')
+```
+
 `corrRect()` can add rectangles on the plot with three ways(parameter
 `index`, `name` and `namesMat`) after `corrplot()`.
 We can use pipe operator `*>%` in package `magrittr` with more convenience. 
 Since R 4.1.0,  `|>` is supported without extra package.
 
 ```{r rectangles}
-# use namesMat parameter
-r = rbind(c('gear', 'wt', 'qsec', 'carb'),
-        c('wt', 'gear', 'carb', 'qsec'))
-# The simpler code:
-# corrplot(M, order = 'AOE') %>% corrRect(namesMat = r)
-# Since R 4.1.0, the following one line code works: 
-# corrplot(M, order = 'AOE') |> corrRect(namesMat = r)
-corrplot(M, order = 'AOE') -> p
-corrRect(p, namesMat = r)
+library(magrittr)
 
-# show the return list of corrplot()
-attributes(p)
-head(p$corrPos)
-p$arg
+# use index parameter
+i = get_order(seriate(Z, 'PCA_angle'))
+corrplot(Z[i, i], cl.pos = 'n') %>% corrRect(c(1, 9, 15))
 
 # use name parameter
 # Since R 4.1.0, the following one line code works: 
 # corrplot(M, order = 'AOE') |> corrRect(name = c('gear', 'wt', 'carb'))
-library(magrittr)
-corrplot(M, order = 'AOE') %>% corrRect(name = c('gear', 'wt', 'carb'))
+corrplot(Z, order = 'AOE') %>% 
+  corrRect(name = c('tail', 'airborne', 'venomous', 'predator'))
+
+
+# use namesMat parameter
+r = rbind(c('eggs', 'eggs', 'airborne', 'airborne'),
+        c('backbone', 'backbone', 'milk', 'milk'),
+        c('eggs', 'catsize', 'airborne', 'milk'),
+        c('catsize', 'eggs', 'milk','airborne'))
+corrplot(Z, order = 'hclust') %>% corrRect(namesMat = r)
 ```
 
 ## Change color spectra, color-legend and text-legend
@@ -365,3 +411,11 @@ matrices. The American Statistician, 56, 316--324.
 
 D.J. Murdoch, E.D. Chow (1996). A graphical display of large correlation
 matrices. The American Statistician, 50, 178--180.
+
+Michael Hahsler, Christian Buchta and Kurt Hornik (2020). seriation: Infrastructure for Ordering
+  Objects Using Seriation. R package version 1.2-9. https://CRAN.R-project.org/package=seriation
+
+Hahsler M, Hornik K, Buchta C (2008). "Getting things in order: An introduction to the R package
+seriation." _Journal of Statistical Software_, *25*(3), 1-34. ISSN 1548-7660, doi:
+10.18637/jss.v025.i03 (URL: https://doi.org/10.18637/jss.v025.i03), <URL:
+https://www.jstatsoft.org/v25/i03/>.
