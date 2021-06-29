@@ -8,6 +8,7 @@
   *  Rename parameter `cl.lim` to `col.lim`.
   *  Add `arg` to the corrplot() return list.
   *  Add pipe operator `|>` examples when using corrRect().
+  *  Set 'seriation' as Suggests package, and add examples in the document.
   *  Parameter `number.digits` also works on p-value. (thanks, @bassam-abulnoor)
   *  Revise the document. (thanks, Shuai Huang)
 
