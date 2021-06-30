@@ -13,6 +13,7 @@ supports automatic variable reordering to help detect hidden patterns among vari
 corrplot is very easy to use and provides a rich array of plotting options in 
 visualization method, graphic layout, color, legend, text labels, etc. 
 It also provides p-values and confidence intervals to help users determine the 
+statistical significance of the correlations.
 
 For examples, see its
 [online vignette](https://cloud.r-project.org/package=corrplot/vignettes/corrplot-intro.html).
