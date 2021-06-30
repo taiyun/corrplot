@@ -16,7 +16,7 @@ It also provides p-values and confidence intervals to help users determine the
 statistical significance of the correlations.
 
 For examples, see its
-[online vignette](https://cloud.r-project.org/package=corrplot/vignettes/corrplot-intro.html).
+[online vignette](https://taiyun.github.io/corrplot/).
 
 
 This package is licensed under the MIT license, and available on CRAN:
