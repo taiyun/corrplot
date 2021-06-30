@@ -17,6 +17,7 @@ It also provides p-values and confidence intervals to help users determine the
 For examples, see its
 [online vignette](https://cloud.r-project.org/package=corrplot/vignettes/corrplot-intro.html).
 
+
 This package is licensed under the MIT license, and available on CRAN:
 <https://cran.r-project.org/package=corrplot>.
 
