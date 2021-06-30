@@ -36,7 +36,7 @@ get_os = function(){
   }
   tolower(os)
 }
-if(get_os() =='windows' & capabilities('cairo')){
+if(capabilities('cairo')){
   knitr::opts_chunk$set(dev.args = list(type='cairo'))
 }
 ```
