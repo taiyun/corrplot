@@ -1,9 +1,9 @@
 [![R-CMD-check](https://github.com/taiyun/corrplot/workflows/R-CMD-check/badge.svg)](https://github.com/taiyun/corrplot/actions)
 [![Build Status](https://travis-ci.org/taiyun/corrplot.svg?branch=master)](https://travis-ci.org/taiyun/corrplot)
 [![codecov.io](https://codecov.io/github/taiyun/corrplot/coverage.svg?branch=master)](https://codecov.io/github/taiyun/corrplot?branch=master)
-[![CRAN Status](http://www.r-pkg.org/badges/version/corrplot)](http://cran.r-project.org/package=corrplot)
-[![CRAN Downloads](http://cranlogs.r-pkg.org/badges/corrplot)](http://www.r-pkg.org/pkg/corrplot)
-[![Support badge](https://img.shields.io/badge/stackoverflow-corrplot-yellowgreen.svg)](http://stackoverflow.com/questions/tagged/r-corrplot)
+[![CRAN Status](https://www.r-pkg.org/badges/version/corrplot)](https://cran.r-project.org/package=corrplot)
+[![CRAN Downloads](https://cranlogs.r-pkg.org/badges/corrplot)](https://www.r-pkg.org/pkg/corrplot)
+[![Support badge](https://img.shields.io/badge/stackoverflow-corrplot-yellowgreen.svg)](https://stackoverflow.com/questions/tagged/r-corrplot)
 
 ## Summary
 
@@ -15,10 +15,10 @@ visualization method, graphic layout, color, legend, text labels, etc.
 It also provides p-values and confidence intervals to help users determine the 
 
 For examples, see its
-[online vignette](http://cloud.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html).
+[online vignette](https://cloud.r-project.org/package=corrplot/vignettes/corrplot-intro.html).
 
 This package is licensed under the MIT license, and available on CRAN:
-<http://cran.r-project.org/package=corrplot>.
+<https://cran.r-project.org/package=corrplot>.
 
 
 
