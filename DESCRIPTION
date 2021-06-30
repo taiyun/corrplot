@@ -23,7 +23,7 @@ Suggests:
     magrittr,
     prettydoc,
     testthat
-Description: corrplot provides a visual exploratory tool on correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables.
+Description: Provides a visual exploratory tool on correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables.
 License: MIT + file LICENSE
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues
