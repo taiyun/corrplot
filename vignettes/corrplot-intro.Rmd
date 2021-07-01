@@ -183,16 +183,32 @@ corrplot(Z[i, i], cl.pos = 'n')
 i = dist2Order(Z, 'HC')
 corrplot(Z[i, i], cl.pos = 'n')
 
-# Rank-two ellipse seriation
-i = dist2Order(Z, 'R2E')
+# Fast Optimal Leaf Ordering for Hierarchical Clustering
+i = dist2Order(Z, 'OLO')
 corrplot(Z[i, i], cl.pos = 'n')
 
-# Spectral seriation 
-i = dist2Order(Z, 'Spectral')
+# Quadratic Assignment Problem
+i = dist2Order(Z, 'QAP_2SUM')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Multidimensional Scaling
+i = dist2Order(Z, 'MDS_nonmetric')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Simulated annealing
+i = dist2Order(Z, 'ARSA')
 corrplot(Z[i, i], cl.pos = 'n')
 
 # TSP solver 
 i = dist2Order(Z, 'TSP')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Spectral seriation
+i = dist2Order(Z, 'Spectral')
+corrplot(Z[i, i], cl.pos = 'n')
+
+# Rank-two ellipse seriation
+i = dist2Order(Z, 'R2E')
 corrplot(Z[i, i], cl.pos = 'n')
 ```
 

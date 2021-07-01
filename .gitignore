@@ -1,5 +1,5 @@
 .Rproj.user
 .Rhistory
 .RData
-vignettes/webimg
-inst/doc
+vignettes/webimg/
+inst/doc/
