@@ -23,12 +23,14 @@
 #'   \code{'lower'}, display full matrix, lower triangular or upper triangular
 #'   matrix.
 #'
-#' @param add Logical, if \code{TRUE}, the graph is added to an existing plot,
-#'   otherwise a new plot is created.
 #'
 #' @param col Vector, the color of glyphs. It is distributed uniformly in
-#'   \code{col.lim} interval. If NULL, \code{col} will be
-#'   \code{colorRampPalette(col2)(200)}, see example about col2.
+#'   \code{col.lim} interval.
+#'   If \code{is.corr} is \code{TRUE}, \code{col} will be \code{col2('RdBu', 200)}.
+#'   If \code{is.corr} is \code{FALSE} and all values of the matrix are positive or negative,
+#'   \code{col} will be \code{col2('RdBu', 200)}.
+#'   If \code{is.corr} is \code{FALSE} and the values of the matrix are partly
+#'   positive and partly negative, \code{col} will be \code{col1('YlOrBr', 200)}.
 #'
 #' @param col.lim The limits \code{(x1, x2)} interval for assigning color by
 #'   \code{col}. If \code{NULL},
@@ -48,6 +50,9 @@
 #' @param is.corr Logical, whether the input matrix is a correlation matrix or
 #'   not. We can visualize the non-correlation matrix by setting
 #'   \code{is.corr = FALSE}.
+#'
+#' @param add Logical, if \code{TRUE}, the graph is added to an existing plot,
+#'   otherwise a new plot will be created.
 #'
 #' @param diag Logical, whether display the correlation coefficients on the
 #'   principal diagonal.
@@ -253,9 +258,10 @@
 #' @export
 corrplot = function(corr,
   method = c('circle', 'square', 'ellipse', 'number', 'shade', 'color', 'pie'),
-  type = c('full', 'lower', 'upper'), add = FALSE,
-  col = NULL, col.lim = NULL, bg = 'white', title = '', is.corr = TRUE,
-  diag = TRUE, outline = FALSE, mar = c(0, 0, 0, 0),
+  type = c('full', 'lower', 'upper'), col = NULL, col.lim = NULL, bg = 'white',
+  title = '', is.corr = TRUE, add = FALSE,   diag = TRUE, outline = FALSE,
+  mar = c(0, 0, 0, 0),
+
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
   order = c('original', 'AOE', 'FPC', 'hclust', 'alphabet'),
