@@ -82,8 +82,12 @@ matrix.}
 otherwise a new plot is created.}
 
 \item{col}{Vector, the color of glyphs. It is distributed uniformly in
-\code{col.lim} interval. If NULL, \code{col} will be
-\code{colorRampPalette(col2)(200)}, see example about col2.}
+\code{col.lim} interval.
+If \code{is.corr} is \code{TRUE}, \code{col} will be \code{col2('RdBu', 200)}.
+If \code{is.corr} is \code{FALSE} and all values of the matrix are positive or negative,
+\code{col} will be \code{col2('RdBu', 200)}.
+If \code{is.corr} is \code{FALSE} and the values of the matrix are partly
+positive and partly negative, \code{col} will be \code{col1('YlOrBr', 200)}.}
 
 \item{col.lim}{The limits \code{(x1, x2)} interval for assigning color by
   \code{col}. If \code{NULL},
@@ -297,16 +301,10 @@ M = cor(mtcars)
 set.seed(0)
 
 ##  different color series
-col0 = colorRampPalette(c('white', 'cyan', '#007FFF', 'blue','#00007F'))
-col1 = colorRampPalette(c('#7F0000', 'red', '#FF7F00', 'yellow', 'white',
-                           'cyan', '#007FFF', 'blue','#00007F'))
-col2 = colorRampPalette(c('#67001F', '#B2182B', '#D6604D', '#F4A582',
-                           '#FDDBC7', '#FFFFFF', '#D1E5F0', '#92C5DE',
-                           '#4393C3', '#2166AC', '#053061'))
-col3 = colorRampPalette(c('red', 'white', 'blue'))
-col4 = colorRampPalette(c('#7F0000', 'red', '#FF7F00', 'yellow', '#7FFF7F',
-                           'cyan', '#007FFF', 'blue', '#00007F'))
-
+## col2: Get diverging colors
+## c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')
+## col1: Get sequential colors
+## c('Oranges', 'Purples', 'Reds', 'Blues', 'Greens', 'Greys', 'OrRd', 'YlOrRd', 'YlOrBr', 'YlGn')
 
 wb = c('white', 'black')
 
@@ -319,23 +317,23 @@ corrplot(M)
 corrplot(M, order = 'AOE')
 corrplot(M, order = 'AOE', addCoef.col = 'grey')
 
-corrplot(M, order = 'AOE', col = col1(20), cl.length = 21, addCoef.col = 'grey')
-corrplot(M, order = 'AOE', col = col1(10), addCoef.col = 'grey')
+corrplot(M, order = 'AOE',  cl.length = 21, addCoef.col = 'grey')
+corrplot(M, order = 'AOE', col = col2(n=10), addCoef.col = 'grey')
 
-corrplot(M, order = 'AOE', col = col2(200))
-corrplot(M, order = 'AOE', col = col2(200), addCoef.col = 'grey')
-corrplot(M, order = 'AOE', col = col2(20), cl.length = 21, addCoef.col = 'grey')
-corrplot(M, order = 'AOE', col = col2(10), addCoef.col = 'grey')
+corrplot(M, order = 'AOE', col = col2('PiYG'))
+corrplot(M, order = 'AOE', col = col2('PRGn'), addCoef.col = 'grey')
+corrplot(M, order = 'AOE', col = col2('PuOr', 20), cl.length = 21, addCoef.col = 'grey')
+corrplot(M, order = 'AOE', col = col2('PuOr', 10), addCoef.col = 'grey')
 
-corrplot(M, order = 'AOE', col = col3(100))
-corrplot(M, order = 'AOE', col = col3(10))
+corrplot(M, order = 'AOE', col = col2('RdYlBu', 100))
+corrplot(M, order = 'AOE', col = col2('RdYlBu', 10))
 
 
-corrplot(M, method = 'color', col = col1(20), cl.length = 21, order = 'AOE',
+corrplot(M, method = 'color', col = col2(n=20), cl.length = 21, order = 'AOE',
          addCoef.col = 'grey')
-corrplot(M, method = 'square', col = col2(200), order = 'AOE')
-corrplot(M, method = 'ellipse', col = col1(200), order = 'AOE')
-corrplot(M, method = 'shade', col = col3(20), order = 'AOE')
+corrplot(M, method = 'square', col = col2(n=200), order = 'AOE')
+corrplot(M, method = 'ellipse', col = col2(n=200), order = 'AOE')
+corrplot(M, method = 'shade', col = col2(n=20), order = 'AOE')
 corrplot(M, method = 'pie', order = 'AOE')
 
 ## col = wb
@@ -376,7 +374,7 @@ corrplot(M, order = 'hclust', hclust.method = 'ward.D2', addrect = 4)
 
 ## visualize a  matrix in [0, 1]
 corrplot(abs(M), order = 'AOE', col.lim = c(0,1))
-corrplot(abs(M), order = 'AOE', col = col1(20), col.lim = c(0,1))
+corrplot(abs(M), order = 'AOE', is.corr=FALSE,  col.lim = c(0,1))
 
 
 # when is.corr=TRUE, col.lim only affect the color legend
@@ -392,8 +390,8 @@ corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2) * 2)
 corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2) * 4)
 
 ## 0.5~0.6
-corrplot(abs(M)/10+0.5, col=col0(10))
-corrplot(abs(M)/10+0.5, is.corr = FALSE, col.lim=c(0.5,0.6), col=col0(10))
+corrplot(abs(M)/10+0.5, col = col1('Greens', 10))
+corrplot(abs(M)/10+0.5, is.corr = FALSE, col.lim=c(0.5,0.6), col = col1('YlGn', 10))
 
 
 ## visualize a  matrix in [-100, 100]
@@ -401,14 +399,14 @@ ran = round(matrix(runif(225, -100,100), 15))
 corrplot(ran, is.corr = FALSE)
 corrplot(ran, is.corr = FALSE, col.lim = c(-100, 100))
 
-## visualize a  matrix in [100, 300]
+## visualize a matrix in [100, 300]
 ran2 = ran + 200
 
-# bad color
-corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col=col1(100))
+# bad color, not suitable for a matrix in [100, 300]
+corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col=col2(,100))
 
 # good color
-corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col=col0(100))
+corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col=col1(,100))
 
 
 ## text-labels and plot type
