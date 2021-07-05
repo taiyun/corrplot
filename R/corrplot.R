@@ -410,10 +410,17 @@ corrplot = function(corr,
 
 
 
-  if (is.null(col)) {
-    col = colorRampPalette(c('#67001F', '#B2182B', '#D6604D', '#F4A582',
-                              '#FDDBC7', '#FFFFFF', '#D1E5F0', '#92C5DE',
-                              '#4393C3', '#2166AC', '#053061'))(200)
+  if (is.null(col) & is.corr) {
+    col = col2('RdBu', 200)
+  }
+
+  if (is.null(col) & !is.corr ) {
+    if(col.lim[1] * col.lim[2] < 0) {
+      col = col2('RdBu', 200)
+    } else {
+      col = col1('YlOrBr', 200)
+    }
+
   }
 
   n = nrow(corr)
