@@ -24,4 +24,3 @@ r_packages:
 
 after_success:
   - Rscript -e 'library(covr); codecov()'
-  - Rscript -e 'devtools::install(); lintr::lint_package()'
