@@ -1,12 +1,20 @@
+# corrplot 0.91
+
+## Changes
+
+  *  Add new function `COL1()`: Get sequential colors.
+  *  Add new function `COL2()`: Get diverging colors.
+
+  
 # corrplot 0.90
 
 ## Changes
 
-  *  Add customizable rectangles to correlation plots in corrRect().(#185, requirements from @douglaswhitaker thanks).
-  *  Remove `clus`; add `index` and `name` parameters in corrRect().
-  *  Add `xName`, `yName` two columns in `corrPos` data frame(e.g. corrplot(...)$corrPos).
-  *  Rename parameter `cl.lim` to `col.lim`.
-  *  Add `arg` to the corrplot() return list.
+  *  Add customizable rectangles to correlation plots in `corrRect()`.(#185, requirements from @douglaswhitaker thanks).
+  *  Remove `clus`; add `index` and `name` parameters in `corrRect()`.
+  *  Add `xName`, `yName` two columns in `corrPos` data frame(e.g. `corrplot(...)$corrPos`).
+  *  Rename parameter `cl.lim` to `col.lim` in `corrplot()`.
+  *  Add `arg` to the `corrplot()` return list.
   *  Add pipe operator `|>` examples when using corrRect().
   *  Set 'seriation' as Suggests package, and add examples in the document.
   *  Parameter `number.digits` also works on p-value. (thanks, @bassam-abulnoor)
