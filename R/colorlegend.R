@@ -74,12 +74,18 @@ colorlegend = function(
 
       if (addlabels) {
         pos.xlabel = rep(xlim[1] + xgap * max(rat2, rat1), length(at))
-        switch(align,
-          l = text(pos.xlabel, y = at, labels = labels, pos = 4, ...),
-          r = text(xlim[2],    y = at, labels = labels, pos = 2, ...),
-          c = text((pos.xlabel + xlim[2]) / 2, y = at, labels = labels, ...),
-          stop('programming error - should not have reached this line!')
-        )
+
+        if(align == 'l') {
+          l = text(pos.xlabel, y = at, labels = labels, pos = 4, ...)
+        }
+
+        if(align == 'r') {
+          r = text(xlim[2],    y = at, labels = labels, pos = 2, ...)
+        }
+
+        if(align == 'c') {
+          c = text((pos.xlabel + xlim[2]) / 2, y = at, labels = labels, ...)
+        }
       }
   } else {
 
@@ -94,12 +100,18 @@ colorlegend = function(
 
     if (addlabels) {
       pos.ylabel = rep(ylim[2] - ygap * max(rat2, rat1), length(at))
-      switch(align,
-       l = text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...),
-       r = text(x = at, y = ylim[1],    labels = labels, pos = 2, ...),
-       c = text(x = at, y = (pos.ylabel + ylim[1]) / 2, labels = labels, ...),
-       stop('programming error - should not have reached this line!')
-      )
+
+      if(align == 'l') {
+        text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...)
+      }
+
+      if(align == 'c') {
+        text(x = at, y = ylim[1],    labels = labels, pos = 2, ...)
+      }
+
+      if(align == 'r') {
+        text(x = at, y = (pos.ylabel + ylim[1]) / 2, labels = labels, ...)
+      }
     }
   }
 }
