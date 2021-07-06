@@ -14,7 +14,7 @@
 #' @example vignettes/example-colorlegend.R
 #' @export
 
-col2 = function(diverging = c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu'),
+COL2 = function(diverging = c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu'),
                 n = 200) {
 
   diverging = match.arg(diverging)
@@ -56,7 +56,7 @@ col2 = function(diverging = c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu'),
 #' @export
 
 
-col1 = function(sequential = c('Oranges', 'Purples', 'Reds', 'Blues', 'Greens',
+COL1 = function(sequential = c('Oranges', 'Purples', 'Reds', 'Blues', 'Greens',
                                'Greys', 'OrRd', 'YlOrRd', 'YlOrBr', 'YlGn'),
                 n = 200) {
 

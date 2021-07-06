@@ -26,11 +26,11 @@
 #'
 #' @param col Vector, the color of glyphs. It is distributed uniformly in
 #'   \code{col.lim} interval.
-#'   If \code{is.corr} is \code{TRUE}, \code{col} will be \code{col2('RdBu', 200)}.
+#'   If \code{is.corr} is \code{TRUE}, \code{col} will be \code{COL2('RdBu', 200)}.
 #'   If \code{is.corr} is \code{FALSE} and all values of the matrix are positive or negative,
-#'   \code{col} will be \code{col2('RdBu', 200)}.
+#'   \code{col} will be \code{COL2('RdBu', 200)}.
 #'   If \code{is.corr} is \code{FALSE} and the values of the matrix are partly
-#'   positive and partly negative, \code{col} will be \code{col1('YlOrBr', 200)}.
+#'   positive and partly negative, \code{col} will be \code{COL1('YlOrBr', 200)}.
 #'
 #' @param col.lim The limits \code{(x1, x2)} interval for assigning color by
 #'   \code{col}. If \code{NULL},
@@ -417,14 +417,14 @@ corrplot = function(corr,
 
 
   if (is.null(col) & is.corr) {
-    col = col2('RdBu', 200)
+    col = COL2('RdBu', 200)
   }
 
   if (is.null(col) & !is.corr ) {
     if(col.lim[1] * col.lim[2] < 0) {
-      col = col2('RdBu', 200)
+      col = COL2('RdBu', 200)
     } else {
-      col = col1('YlOrBr', 200)
+      col = COL1('YlOrBr', 200)
     }
 
   }
