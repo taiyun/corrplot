@@ -4,7 +4,7 @@ context('Visualization of a correlation matrix')
 
 test_that('Testing `cl.pos` parameter', {
   M = cor(mtcars)
-  expect_silent(corrplot(M, cl.pos = TRUE))
+  expect_silent(corrplot(M, cl.pos = TRUE, diag = FALSE))
   expect_silent(corrplot(M, cl.pos = FALSE))
   expect_silent(corrplot(M, cl.pos = 'r'))
   expect_silent(corrplot(M, cl.pos = 'b'))
@@ -27,6 +27,8 @@ test_that('Testing `col.lim` parameter', {
   expect_silent(corrplot(M, col.lim = c(-1, 1)))
   expect_error(corrplot(M, col.lim = c(0, 1)),
                regexp = 'color limits should cover matrix')
+  expect_error(corrplot(M, col.lim = c(-1, 2)),
+               regexp = 'col.lim should be within the interval')
 })
 
 test_that('Testing `tl.pos` parameter', {
@@ -230,3 +232,53 @@ test_that('col.lim', {
   expect_warning(corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2) * 2))
   expect_warning(corrplot(abs(M), is.corr = FALSE, col.lim=c(-1, 1)))
 })
+
+
+test_that("plotCI == 'circle'", {
+  M = cor(mtcars)
+  res = cor.mtest(mtcars, conf.level = 0.95)
+  ## plot confidence interval(0.95), 'circle' method
+  corrplot(M, p.mat = res$p, low = res$lowCI, upp = res$uppCI,
+           plotCI = 'circle', addg = 'grey20', cl.pos = 'n')
+  expect_error(corrplot(M, p.mat = res$p, plotCI = 'circle'),
+               regexp = 'Need lowCI.mat and uppCI.mat!')
+})
+
+test_that("plotCI == 'square'", {
+  M = cor(mtcars)
+  res = cor.mtest(mtcars, conf.level = 0.95)
+  ## plot confidence interval(0.95), 'circle' method
+  corrplot(M, p.mat = res$p, low = res$lowCI, upp = res$uppCI, order = 'AOE',
+           plotCI = 'square', addg = 'grey20', cl.pos = 'n')
+})
+
+
+test_that("add numbers", {
+  M = cor(mtcars)
+  corrplot(M, addCoef.col ='black')
+})
+
+test_that("p-value", {
+
+  M = cor(mtcars)
+  testRes = cor.mtest(mtcars, conf.level = 0.95)
+
+  ## specialized the insignificant value according to the significant level
+  corrplot(M, p.mat = testRes$p, sig.level = 0.10, order = 'hclust', addrect = 2)
+
+  ## leave blank on no significant coefficient
+  corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
+           addCoef.col ='black', number.cex = 0.8, order = 'AOE', diag = FALSE)
+
+  ## add p-values on no significant coefficients
+  corrplot(M, p.mat = testRes$p, insig = 'p-value')
+})
+
+
+test_that("if (diag == 'n' && tl.pos != 'd')", {
+  M = cor(mtcars)
+  corrplot.mixed(M, diag = 'n', tl.pos = 'lt')
+})
+
+
+

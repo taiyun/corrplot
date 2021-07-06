@@ -33,7 +33,8 @@
 corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
                     col = 'black', lwd = 2, ...) {
 
-  if((!is.null(index) + !is.null(name) + !is.null(namesMat)) > 1) {
+  if((as.integer(!is.null(index)) + as.integer(!is.null(name)) +
+      as.integer(!is.null(namesMat))) > 1) {
     stop('You should just input one of index, name and namesMat!')
   }
 
@@ -51,12 +52,9 @@ corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
   if(!is.null(name)) {
 
     if(any(cName != rName)) {
-      stop('colnames and rownames should NOT be NULL!')
-    }
-
-    if(is.null(cName) | is.null(rName)) {
       stop('colnames and rownames must be same when index or name is inputted!')
     }
+
 
     if(!all(name %in% cName)) {
       stop('Non-existent name found!')
@@ -69,7 +67,7 @@ corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
 
   if(!is.null(index)) {
 
-    if(!is.null(cName) & !is.null(rName) & any(cName != rName)) {
+    if(any(cName != rName)) {
       stop('colnames and rownames must be same when index or name is inputted!')
     }
 
@@ -102,18 +100,18 @@ corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
   if(!is.null(namesMat)) {
 
     if(is.vector(namesMat)) {
-      namesMat = matrix(namesMat, ncol=4)
+      namesMat = matrix(namesMat, ncol = 4, nrow = 1)
     }
 
-    xy1 = getCharXY(namesMat[,1:2, drop=FALSE], corrPos)
-    xy2 = getCharXY(namesMat[,3:4, drop=FALSE], corrPos)
+    xy1 = getCharXY(namesMat[, 1:2, drop=FALSE], corrPos)
+    xy2 = getCharXY(namesMat[, 3:4, drop=FALSE], corrPos)
 
     xy = cbind(xy1, xy2)
 
-    x1 = apply(xy[,c(1,3), drop=FALSE], 1, min) - 0.5
-    y1 = apply(xy[,c(2,4), drop=FALSE], 1, min) - 0.5
-    x2 = apply(xy[,c(1,3), drop=FALSE], 1, max) + 0.5
-    y2 = apply(xy[,c(2,4), drop=FALSE], 1, max) + 0.5
+    x1 = apply(xy[, c(1,3), drop=FALSE], 1, min) - 0.5
+    y1 = apply(xy[, c(2,4), drop=FALSE], 1, min) - 0.5
+    x2 = apply(xy[, c(1,3), drop=FALSE], 1, max) + 0.5
+    y2 = apply(xy[, c(2,4), drop=FALSE], 1, max) + 0.5
 
     rect(x1, y1, x2, y2, border = col, lwd = lwd, ...)
   }
@@ -126,10 +124,6 @@ corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
 #' @note pure function
 #' @noRd
 getCharXY = function(x, dat){
-
-  if(is.vector((x))) {
-    x = matrix(x, nrow = 1)
-  }
 
   res = apply(x, 1, function(n, d=dat) d[d[,1]==n[1]&d[,2]==n[2], 3:4])
 

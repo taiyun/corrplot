@@ -800,10 +800,6 @@ corrplot = function(corr,
     pos.uppNew  = getPos.Dat(uppCI.mat)[[1]]
     uppNew      = getPos.Dat(uppCI.mat)[[2]]
 
-    if (!method %in% c('circle', 'square')) {
-       stop('Method shoud be circle or square if drawing confidence intervals.')
-    }
-
     k1 = (abs(uppNew) > abs(lowNew))
     bigabs = uppNew
     bigabs[which(!k1)] = lowNew[!k1]

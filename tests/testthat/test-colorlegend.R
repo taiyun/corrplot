@@ -5,8 +5,9 @@ pdf(NULL)
 
 test_that('Basic usage of colorlegend', {
   plot(0, type = 'n')
-  expect_silent(colorlegend(rainbow(100), 0:9))
-  expect_silent(colorlegend(rainbow(100), 0:9, vertical = FALSE))
+  colorlegend(rainbow(100), 0:9, align = 'r')
+  colorlegend(rainbow(100), 0:9, align = 'l', vertical = FALSE)
+  colorlegend(rainbow(100), 0:9, align = 'r', vertical = FALSE)
 })
 
 test_that('Calling colorlegend without first calling plot should fail', {
@@ -43,7 +44,7 @@ test_that('Issues #64, #66: lim.segment in function colorlegend()', {
   expect_error(colorlegend(rainbow(100), 0:9, lim.segment = 'otherstring'),
                regexp = 'should be a vector of length 2')
 
-  expect_silent(colorlegend(rainbow(100), 0:9, lim.segment = c(0,1)))
+  colorlegend(rainbow(100), 0:9, lim.segment = c(0,1), align ='l')
 })
 
 test_that('Parameter `at` should be between 0 and 1', {
