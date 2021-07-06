@@ -132,10 +132,11 @@ The details of four `order` algorithms, named `'AOE'`, `'FPC'`,
 
 -   `'hclust'` for hierarchical clustering order, and `'hclust.method'`
     for the agglomeration method to be used. `'hclust.method'` should be
-    one of `'ward'`, `'single'`, `'complete'`, `'average'`,
-    `'mcquitty'`, `'median'` or `'centroid'`.
+    one of `'ward'`, `'ward.D'`, `'ward.D2'`, `'single'`, `'complete'`, 
+    `'average'`, `'mcquitty'`, `'median'` or `'centroid'`.
 
 -   `'alphabet'` for alphabetical order.
+
 
 You can also reorder the matrix 'manually' via function
 `corrMatOrder()`.
@@ -264,23 +265,21 @@ Parameters group `tl.*` is for text-legend. The common-using are:
 -   `tl.srt` is for text label string rotation in degrees.
 
 ```{r color}
-## diverging color example, suitable for matrix in [-N, N]
-col1 = colorRampPalette(c('#7F0000', 'red', '#FF7F00', 'yellow', 'white',
-                           'cyan', '#007FFF', 'blue', '#00007F'))
-col2 = colorRampPalette(c('red', 'white', 'blue'))	
-
-library(RColorBrewer)
-# use RcolorBrewer color
+corrplot(M, order = 'AOE', col = COL2('RdBu', 10))
+         
 corrplot(M, order = 'AOE', addCoef.col = 'black', tl.pos = 'd',  
-         cl.pos = 'n', col = brewer.pal(n = 10, name = 'PRGn'))
+         cl.pos = 'n', col = COL2('PiYG'))
+
+corrplot(M, method = 'square', order = 'AOE', addCoef.col = 'black', tl.pos = 'd',
+         cl.pos = 'n', col = COL2('BrBG'))
 
 ## bottom color legend, diagonal text legend, rotate text label
 corrplot(M, order = 'AOE', cl.pos = 'b', tl.pos = 'd', 
-         col = col1(10), diag = FALSE)
+         col = COL2('PRGn'), diag = FALSE)
 
 ## text labels rotated 45 degrees and  wider color legend with numbers right aligned
 corrplot(M, type = 'lower', order = 'hclust', tl.col = 'black', 
-         cl.ratio = 0.2, tl.srt = 45, col = col2(10))
+         cl.ratio = 0.2, tl.srt = 45, col = COL2('PuOr', 10))
 
 ## remove color legend, text legend and principal diagonal glyph
 corrplot(M, order = 'AOE', cl.pos = 'n', tl.pos = 'n', 
@@ -298,12 +297,12 @@ If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 
 ```{r non-corr}
-## color example, suitable for matrix in [-N, 0] or [0, N]
-col3 = hcl.colors(10, "YlOrRd", rev = TRUE)
-
+## matrix in [-20, 30] 
 N = matrix(runif(80, 20, 30), 8)
-corrplot(N, is.corr = FALSE, col.lim = c(20, 30), 
-         col = col3, cl.pos = 'b', win.asp = 0.8)
+corrplot(N, is.corr = FALSE, col.lim = c(20, 30), cl.pos = 'b', win.asp = 0.8)
+
+## matrix in [-5, 15] 
+corrplot(10*(M + 0.5), is.corr = FALSE, cl.pos = 'b')
 ```
 
 Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend If
@@ -332,8 +331,7 @@ colnames(M2) = rep(c('$alpha+beta', '$alpha[0]', '$alpha[beta]'),
                    c(4, 4, 3))
 rownames(M2) = rep(c('$Sigma[i]^n', '$sigma',  '$alpha[0]^100', '$alpha[beta]'), 
                    c(2, 4, 2, 3))
-corrplot(10*abs(M2), col = col3, is.corr = FALSE, 
-         col.lim = c(0, 10), tl.cex = 1.5)
+corrplot(10*abs(M2), is.corr = FALSE, col.lim = c(0, 10), tl.cex = 1.5)
 ```
 
 ## Visualize p-value and confidence interval
