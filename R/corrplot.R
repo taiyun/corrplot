@@ -402,12 +402,6 @@ corrplot = function(corr,
       SpecialCorr = 1
     }
 
-    # now, the zoom might still be Inf when c_max and c_min were both zero
-    if (zoom == Inf) {
-      stopifnot(c_max == 0 && c_min == 0) # check the assumption
-      zoom = 0
-    }
-
     corr = (intercept + corr) * zoom
   }
 
