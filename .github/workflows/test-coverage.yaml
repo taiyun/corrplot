@@ -3,17 +3,12 @@ on:
     branches:
       - main
       - master
-      - dev
-  pull_request:
-    branches:
-      - main
-      - master
 
 name: test-coverage
 
 jobs:
   test-coverage:
-    runs-on: macOS-latest
+    runs-on: windows-latest
     env:
       GITHUB_PAT: ${{ secrets.CODECOV_TOKEN }}
       # don't treat missing suggested packages as error
