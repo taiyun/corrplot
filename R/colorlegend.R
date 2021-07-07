@@ -76,15 +76,15 @@ colorlegend = function(
         pos.xlabel = rep(xlim[1] + xgap * max(rat2, rat1), length(at))
 
         if(align == 'l') {
-          l = text(pos.xlabel, y = at, labels = labels, pos = 4, ...)
+          text(pos.xlabel, y = at, labels = labels, pos = 4, ...)
         }
 
         if(align == 'r') {
-          r = text(xlim[2],    y = at, labels = labels, pos = 2, ...)
+          text(xlim[2],    y = at, labels = labels, pos = 2, ...)
         }
 
         if(align == 'c') {
-          c = text((pos.xlabel + xlim[2]) / 2, y = at, labels = labels, ...)
+          text((pos.xlabel + xlim[2]) / 2, y = at, labels = labels, ...)
         }
       }
   } else {
