@@ -7,7 +7,7 @@ test_that('Testing `cl.pos` parameter', {
   expect_silent(corrplot(M, cl.pos = TRUE, diag = FALSE))
   expect_silent(corrplot(M, cl.pos = FALSE))
   expect_silent(corrplot(M, cl.pos = 'r'))
-  expect_silent(corrplot(M, cl.pos = 'b'))
+  expect_silent(corrplot(M, method = 'shade', addshade = 'all', cl.pos = 'b'))
 })
 
 test_that('Testing `tl.pos` parameter', {
@@ -201,7 +201,7 @@ test_that('Issue #79: Changing aspect ratio for the plot', {
 test_that('Issue #18', {
   M = cor(mtcars)
   # TODO: calling the function without actually checking anything
-  expect_silent(corrplot(M, method = 'pie'))
+  expect_silent(corrplot(M, method = 'pie', is.corr = FALSE, diag = FALSE))
   expect_silent(corrplot(M, method = 'pie', outline = TRUE))
   expect_silent(corrplot(M, method = 'pie', outline = 'white'))
 })
@@ -281,4 +281,8 @@ test_that("if (diag == 'n' && tl.pos != 'd')", {
 })
 
 
-
+test_that('long name warning', {
+  M = cor(mtcars)
+  colnames(M) = rownames(M) = rep(toString(rep(LETTERS, 5)), 11)
+  expect_warning(corrplot(M),  regexp = 'Not been able to calculate text margin')
+})
