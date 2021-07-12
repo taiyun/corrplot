@@ -37,8 +37,9 @@ corrMatOrder = function(
   corr,
   order = c('AOE', 'FPC', 'hclust', 'alphabet'),
   hclust.method = c('complete', 'ward', 'ward.D', 'ward.D2', 'single',
-                    'average', 'mcquitty', 'median', 'centroid') )
+                    'average', 'mcquitty', 'median', 'centroid'))
 {
+
   order = match.arg(order)
   hclust.method = match.arg(hclust.method)
 

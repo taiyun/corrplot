@@ -11,7 +11,7 @@ test_that('Basic usage of colorlegend', {
 })
 
 test_that('Calling colorlegend without first calling plot should fail', {
-  if ( length(dev.list()) != 0) {
+  if (length(dev.list()) != 0) {
     dev.off()
     pdf(NULL)
   }
@@ -25,7 +25,7 @@ test_that('Issues #64, #66: lim.segment in function colorlegend()', {
   expect_error(colorlegend(rainbow(100), 0:9, lim.segment = 1),
                regexp = 'should be a vector of length 2')
 
-  expect_error(colorlegend(rainbow(100), 0:9, lim.segment = c(1,2,3)),
+  expect_error(colorlegend(rainbow(100), 0:9, lim.segment = c(1, 2, 3)),
                regexp = 'should be a vector of length 2')
 
   # lim.segment[1] >= 0
@@ -44,14 +44,14 @@ test_that('Issues #64, #66: lim.segment in function colorlegend()', {
   expect_error(colorlegend(rainbow(100), 0:9, lim.segment = 'otherstring'),
                regexp = 'should be a vector of length 2')
 
-  colorlegend(rainbow(100), 0:9, lim.segment = c(0,1), align ='l')
+  colorlegend(rainbow(100), 0:9, lim.segment = c(0, 1), align ='l')
 })
 
 test_that('Parameter `at` should be between 0 and 1', {
   plot(0, type = 'n')
 
-  expect_error(colorlegend(rainbow(100), 0:2, at = c(-1,.5,.8)),
+  expect_error(colorlegend(rainbow(100), 0:2, at = c(-1, 0.5, 0.8)),
                regexp = 'should be between 0 and 1')
 
-  expect_silent(colorlegend(rainbow(100), 0:2, at = c(0,.5,.8)))
+  expect_silent(colorlegend(rainbow(100), 0:2, at = c(0, 0.5, 0.8)))
 })

@@ -38,6 +38,7 @@ corrplot.mixed = function(
   mar = c(0, 0, 0, 0),
   ...)
 {
+
   tl.pos = match.arg(tl.pos)
   diag = match.arg(diag)
   plotCI = match.arg(plotCI)
@@ -77,7 +78,7 @@ corrplot.mixed = function(
 
   corr = res1$corr
   corrPos = rbind(res1$corrPos, res2$corrPos)
-  corrPos = corrPos[order(corrPos[,1],corrPos[,2]),]
+  corrPos = corrPos[order(corrPos[, 1], corrPos[, 2]), ]
 
 
   res = list(corr=corr, corrPos=corrPos)
