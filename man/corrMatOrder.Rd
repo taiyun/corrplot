@@ -48,10 +48,10 @@ M = cor(mtcars)
 (order.hc = corrMatOrder(M, order = 'hclust'))
 (order.hc2 = corrMatOrder(M, order = 'hclust', hclust.method = 'ward.D'))
 
-M.AOE = M[order.AOE,order.AOE]
-M.FPC = M[order.FPC,order.FPC]
+M.AOE = M[order.AOE, order.AOE]
+M.FPC = M[order.FPC, order.FPC]
 M.hc  = M[order.hc, order.hc]
-M.hc2 = M[order.hc2,order.hc2]
+M.hc2 = M[order.hc2, order.hc2]
 
 
 

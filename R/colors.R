@@ -31,8 +31,8 @@ COL2 = function(diverging = c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu'),
              '#D9F0D3', '#A6DBA0', '#5AAE61', '#1B7837', '#00441B'),
     PuOr = c('#7F3B08', '#B35806', '#E08214', '#FDB863', '#FEE0B6', '#FFFFFF',
              '#D8DAEB', '#B2ABD2', '#8073AC', '#542788', '#2D004B'),
-    RdYlBu = c('#a50026','#d73027','#f46d43','#fdae61','#fee090','#FFFFFF',
-                '#e0f3f8','#abd9e9','#74add1','#4575b4','#313695')
+    RdYlBu = c('#A50026', '#D73027', '#F46D43', '#FDAE61', '#FEE090', '#FFFFFF',
+               '#E0F3F8', '#ABD9E9', '#74ADD1', '#4575B4', '#313695')
   )
 
   return(colorRampPalette(colors)(n))

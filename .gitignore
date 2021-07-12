@@ -1,6 +1,7 @@
 .Rproj.user
 .Rhistory
 .RData
+.lintr
 vignettes/webimg/
 inst/doc/
 #!vignettes/webimg/rectangles-1.png

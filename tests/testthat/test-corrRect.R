@@ -33,7 +33,7 @@ test_that('pipe operator', {
 
 test_that('You should just input one of index, name and namesMat!', {
   M = cor(mtcars)
-  expect_error(corrRect(corrplot(M), index = c(1,5,11), name = c('gear', 'wt')),
+  expect_error(corrRect(corrplot(M), index = c(1, 5, 11), name = c('gear', 'wt')),
                regexp = 'You should just input one of index, name and namesMat!')
 })
 
@@ -61,4 +61,3 @@ test_that('colnames and rownames must be same when index or name is inputted!', 
   expect_error(corrRect(corrplot(M[1:3, 4:6]), index = c(1, 5, 11)),
                regexp = 'colnames and rownames must be same when index or name is inputted!')
 })
-

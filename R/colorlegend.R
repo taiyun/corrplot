@@ -34,6 +34,7 @@ colorlegend = function(
   addlabels = TRUE,
   ...)
 {
+
   if (is.null(at) && addlabels) {
     at = seq(0L, 1L, length = length(labels))
   }
@@ -106,7 +107,7 @@ colorlegend = function(
       }
 
       if(align == 'c') {
-        text(x = at, y = ylim[1],    labels = labels, pos = 2, ...)
+        text(x = at, y = ylim[1], labels = labels, pos = 2, ...)
       }
 
       if(align == 'r') {

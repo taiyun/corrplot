@@ -72,7 +72,7 @@ test_that('Issue #7: Enable to plot a matrix with NA', {
 
 
 test_that('Issue #20: plotmath expressions in rownames / colnames', {
-  M = cor(mtcars)[1:5,1:5]
+  M = cor(mtcars)[1:5, 1:5]
   colnames(M) = c('alpha', 'beta', ':alpha+beta', ': a[0]', '=a[beta]')
   rownames(M) = c('alpha', 'beta', NA, '$a[0]', '$ a[beta]')
   corrplot(M)
@@ -141,7 +141,7 @@ test_that('Issue #46: Rendering NA values', {
 
   M = cor(mtcars)
   diag(M) = NA
-  M[4,2] = NA
+  M[4, 2] = NA
 
   # default label for NAs
   expect_silent(corrplot(M))
@@ -151,7 +151,7 @@ test_that('Issue #46: Rendering NA values', {
 
   # large matrix
   M = matrix(runif(10000, 0.5, 1), nrow = 100)
-  M[40:50,30:70] = 0
+  M[40:50, 30:70] = 0
   diag(M) = NA
   expect_silent(corrplot(M, method = 'color', cl.pos = 'n', tl.pos = 'n',
                          na.label = 'square', addgrid.col = NA))
@@ -177,8 +177,8 @@ test_that('Using `number.digits` parameter', {
   # the allowed values for nsmall parameter of format() function is [0, 20]
   expect_silent(corrplot(M, method = 'number', number.digits = 20))
 
-  expect_error(corrplot(M, number.digits = 1.2), regexp = 'is not TRUE' )
-  expect_error(corrplot(M, number.digits = -1), regexp = 'is not TRUE' )
+  expect_error(corrplot(M, number.digits = 1.2), regexp = 'is not TRUE')
+  expect_error(corrplot(M, number.digits = -1), regexp = 'is not TRUE')
 })
 
 test_that('par() is restored after corrplot()', {
@@ -215,16 +215,16 @@ test_that('Issue #76: separate `col` parameters corrplot.mixed', {
 
 test_that('Issue #99: Mark significant correlations', {
   M = cor(mtcars)
-  fakepmat = 1 - abs(M) ^ .2  # Hmisc::rcorr provides a p-value matrix, but
+  fakepmat = 1 - abs(M) ^ 0.2  # Hmisc::rcorr provides a p-value matrix, but
   # don't want to introduce the dependency
   expect_silent(corrplot(M, p.mat = fakepmat, insig = 'label_sig', pch = '!',
-                         sig.level = c(.001, .1, .99)))
+                         sig.level = c(0.001, 0.1, 0.99)))
   expect_silent(corrplot(M[1:2, ], p.mat = fakepmat[1:2, ], method = 'ellipse',
                          insig = 'label_sig', pch.col = 'white'))
   expect_silent(corrplot(M, p.mat = fakepmat, insig = 'label_sig',
-                         pch = 'p<.05', pch.cex = .5, order = 'AOE'))
-  expect_warning(corrplot(M, p.mat = fakepmat[,11:1], insig = 'label_sig',
-                         pch = 'p<.05', pch.cex = .5, order = 'AOE'))
+                         pch = 'p<.05', pch.cex = 0.5, order = 'AOE'))
+  expect_warning(corrplot(M, p.mat = fakepmat[, 11:1], insig = 'label_sig',
+                         pch = 'p<.05', pch.cex = 0.5, order = 'AOE'))
 })
 
 test_that('col.lim', {

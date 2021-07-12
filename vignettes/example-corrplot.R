@@ -52,7 +52,7 @@ corrplot(M, add = TRUE, type = 'lower', method = 'ellipse', order = 'AOE',
          diag = FALSE, tl.pos = 'n', cl.pos = 'n')
 
 ## circle + square
-corrplot(M, order = 'AOE',type = 'upper', tl.pos = 'd')
+corrplot(M, order = 'AOE', type = 'upper', tl.pos = 'd')
 corrplot(M, add = TRUE, type = 'lower', method = 'square', order = 'AOE',
          diag = FALSE, tl.pos = 'n', cl.pos = 'n')
 
@@ -75,29 +75,29 @@ corrplot(M, order = 'hclust', addrect = 4, rect.col = 'blue')
 corrplot(M, order = 'hclust', hclust.method = 'ward.D2', addrect = 4)
 
 ## visualize a  matrix in [0, 1]
-corrplot(abs(M), order = 'AOE', col.lim = c(0,1))
-corrplot(abs(M), order = 'AOE', is.corr=FALSE,  col.lim = c(0,1))
+corrplot(abs(M), order = 'AOE', col.lim = c(0, 1))
+corrplot(abs(M), order = 'AOE', is.corr = FALSE,  col.lim = c(0, 1))
 
 
 # when is.corr=TRUE, col.lim only affect the color legend
 # If you change it, the color is still assigned on [-1, 1]
 corrplot(M/2)
-corrplot(M/2, col.lim=c(-0.5,0.5))
+corrplot(M/2, col.lim = c(-0.5, 0.5))
 
 # when is.corr=FALSE, col.lim is also used to assign colors
 # if the matrix have both positive and negative values
 # the matrix transformation keep every values positive and negative
-corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2))
-corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2) * 2)
-corrplot(M*2, is.corr = FALSE, col.lim=c(-2, 2) * 4)
+corrplot(M*2, is.corr = FALSE, col.lim = c(-2, 2))
+corrplot(M*2, is.corr = FALSE, col.lim = c(-2, 2) * 2)
+corrplot(M*2, is.corr = FALSE, col.lim = c(-2, 2) * 4)
 
 ## 0.5~0.6
 corrplot(abs(M)/10+0.5, col = COL1('Greens', 10))
-corrplot(abs(M)/10+0.5, is.corr = FALSE, col.lim=c(0.5,0.6), col = COL1('YlGn', 10))
+corrplot(abs(M)/10+0.5, is.corr = FALSE, col.lim = c(0.5, 0.6), col = COL1('YlGn', 10))
 
 
 ## visualize a  matrix in [-100, 100]
-ran = round(matrix(runif(225, -100,100), 15))
+ran = round(matrix(runif(225, -100, 100), 15))
 corrplot(ran, is.corr = FALSE)
 corrplot(ran, is.corr = FALSE, col.lim = c(-100, 100))
 
@@ -105,10 +105,10 @@ corrplot(ran, is.corr = FALSE, col.lim = c(-100, 100))
 ran2 = ran + 200
 
 # bad color, not suitable for a matrix in [100, 300]
-corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col=COL2(,100))
+corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col = COL2(, 100))
 
 # good color
-corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col=COL1(,100))
+corrplot(ran2, is.corr = FALSE, col.lim = c(100, 300), col = COL1(, 100))
 
 
 ## text-labels and plot type
@@ -141,8 +141,8 @@ corrplot(M2, na.label = 'NA')
 
 
 ##the input matrix is not square
-corrplot(M[1:8,])
-corrplot(M[,1:8])
+corrplot(M[1:8, ])
+corrplot(M[, 1:8])
 
 testRes = cor.mtest(mtcars, conf.level = 0.95)
 
@@ -150,8 +150,8 @@ testRes = cor.mtest(mtcars, conf.level = 0.95)
 corrplot(M, p.mat = testRes$p, sig.level = 0.05, order = 'hclust', addrect = 2)
 
 ## leave blank on no significant coefficient
-corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
-         addCoef.col ='black', number.cex = 0.8, order = 'AOE', diag=FALSE)
+corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig ='blank',
+         addCoef.col ='black', number.cex = 0.8, order = 'AOE', diag = FALSE)
 
 ## add p-values on no significant coefficients
 corrplot(M, p.mat = testRes$p, insig = 'p-value')
@@ -166,7 +166,8 @@ corrplot(M, p.mat = testRes$p, method = 'color', diag = FALSE, type = 'upper',
 
 ## add significant level stars and cluster rectangles
 corrplot(M, p.mat = testRes$p, tl.pos = 'd', order = 'hclust', addrect = 2,
-         insig = 'label_sig', sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.9, pch.col = 'grey20')
+         insig = 'label_sig', sig.level = c(0.001, 0.01, 0.05),
+         pch.cex = 0.9, pch.col = 'grey20')
 
 # Visualize confidence interval
 corrplot(M, lowCI = testRes$lowCI, uppCI = testRes$uppCI, order = 'hclust',
@@ -199,12 +200,12 @@ corrplot(M, low = res1$lowCI, upp = res1$uppCI,
          col = c('white', 'black'), bg = 'gold2', order = 'AOE',
          plotCI = 'square', addg = NULL, cl.pos = 'n')
 corrplot(M, p.mat = res1$p, low = res1$lowCI, upp = res1$uppCI,
-         col = c('white','black'), bg = 'gold2', order = 'AOE', pch.col = 'red',
+         col = c('white', 'black'), bg = 'gold2', order = 'AOE', pch.col = 'red',
          plotCI = 'square', addg = NULL, cl.pos = 'n')
 
 ## plot confidence interval0.95, 0.95, 0.99, 'rect' method
 corrplot(M, low = res1$lowCI, upp = res1$uppCI, order = 'hclust',
-         rect.col = 'navy', plotCI = 'rect',cl.pos = 'n')
+         rect.col = 'navy', plotCI = 'rect', cl.pos = 'n')
 corrplot(M, p.mat = res1$p, low = res1$lowCI, upp = res1$uppCI,
          order = 'hclust', pch.col = 'red', sig.level = 0.05, addrect = 3,
          rect.col = 'navy', plotCI = 'rect', cl.pos = 'n')

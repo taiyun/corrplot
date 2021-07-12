@@ -9,7 +9,7 @@ test_that('Basic usage of cor.mtest', {
   expect_true(is.matrix(res1$lowCI))
   expect_true(is.matrix(res1$uppCI))
 
-  expect_equal(dim(res1$p), c(11,11))
+  expect_equal(dim(res1$p), c(11, 11))
 
   expect_equal(dim(res1$p), dim(res1$lowCI))
   expect_equal(dim(res1$p), dim(res1$uppCI))

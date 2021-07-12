@@ -58,7 +58,7 @@ Using mixed methods to visualize a correlation matrix.
 \examples{
 M = cor(mtcars)
 ord = corrMatOrder(M, order = 'AOE')
-M2 = M[ord,ord]
+M2 = M[ord, ord]
 
 
 corrplot.mixed(M2)
