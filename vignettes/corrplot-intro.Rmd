@@ -17,8 +17,8 @@ vignette: >
 knitr::opts_chunk$set(
   fig.align = 'center',
   fig.path = 'webimg/',
-  fig.width = 6,
-  fig.height = 6,
+  fig.width = 7,
+  fig.height = 7,
   dev = 'png')
 
 get_os = function() {
