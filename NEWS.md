@@ -1,7 +1,8 @@
 # corrplot 0.91
 
 ## Changes
-
+ 
+  *  `tl.pos` add a new parameter `'l'` in `corrplot()`. (thanks, @ggordn3r)
   *  Add new function `COL1()`: Get sequential colors.
   *  Add new function `COL2()`: Get diverging colors.
 

@@ -17,8 +17,8 @@ vignette: >
 knitr::opts_chunk$set(
   fig.align = 'center',
   fig.path = 'webimg/',
-  fig.width = 6,
-  fig.height = 6,
+  fig.width = 7,
+  fig.height = 7,
   dev = 'png')
 
 get_os = function() {
@@ -302,7 +302,7 @@ N = matrix(runif(80, 20, 30), 8)
 corrplot(N, is.corr = FALSE, col.lim = c(20, 30), cl.pos = 'b', win.asp = 0.8)
 
 ## matrix in [-5, 15]
-corrplot(10*(M + 0.5), is.corr = FALSE, cl.pos = 'b')
+corrplot(10*(M + 0.5), is.corr = FALSE, cl.pos = 'b', tl.pos = 'l')
 ```
 
 Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend If
@@ -383,9 +383,19 @@ testRes = cor.mtest(mtcars, conf.level = 0.95)
 ## specialized the insignificant value according to the significant level
 corrplot(M, p.mat = testRes$p, sig.level = 0.10, order = 'hclust', addrect = 2)
 
-## leave blank on no significant coefficient
+
+## leave blank on non-significant coefficient
+## add significant correlation coefficients
 corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
          addCoef.col ='black', number.cex = 0.8, order = 'AOE', diag=FALSE)
+
+
+## leave blank on non-significant coefficient
+## add all correlation coefficients
+corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
+         order = 'AOE', diag=FALSE)$corrPos -> p1
+text(p1$x, p1$y, round(p1$corr,2), cex=0.8)
+
 
 ## add p-values on no significant coefficients
 corrplot(M, p.mat = testRes$p, insig = 'p-value')
