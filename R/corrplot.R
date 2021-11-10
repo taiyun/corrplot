@@ -371,13 +371,18 @@ corrplot = function(corr,
     c_max = max(corr, na.rm = TRUE)
     c_min = min(corr, na.rm = TRUE)
 
+    if((col.lim[1] > c_min) | (col.lim[2] < c_max))
+    {
+      stop('Wrong color: matrix should be in col.lim interval!')
+    }
+
     if(diff(col.lim)/(c_max - c_min)> 2) {
       warning('col.lim interval too wide, please set a suitable value')
     }
 
     # all negative or positive, trans to [0, 1]
     if (c_max <= 0 | c_min>=0) {
-      intercept = -c_min
+      intercept = - col.lim[1]
       zoom = 1 / (diff(col.lim))
 
 
@@ -405,6 +410,9 @@ corrplot = function(corr,
 
     corr = (intercept + corr) * zoom
   }
+
+
+
 
   col.lim2 = (intercept + col.lim) * zoom
   int = intercept * zoom
