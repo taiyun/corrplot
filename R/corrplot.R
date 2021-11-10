@@ -106,6 +106,7 @@
 #'   \code{'n'}. \code{'lt'}(default if \code{type=='full'}) means left and top,
 #'   \code{'ld'}(default if \code{type=='lower'}) means left and diagonal,
 #'   \code{'td'}(default if \code{type=='upper'}) means top and diagonal(near),
+#'   \code{'l'} means left,
 #'   \code{'d'} means diagonal, \code{'n'} means don't add text-label.
 #'
 #' @param tl.cex Numeric, for the size of text label (variable names).
@@ -1001,9 +1002,13 @@ corrplot = function(corr,
            col = tl.col, cex = tl.cex, ...)
 
     } else {
-      text(pos.xlabel[, 1], pos.xlabel[, 2], newcolnames, srt = tl.srt,
-           adj = ifelse(tl.srt == 0, c(0.5, 0), c(0, 0)),
-           col = tl.col, cex = tl.cex, offset = tl.offset, ...)
+
+      if(tl.pos != 'l') {
+        text(pos.xlabel[, 1], pos.xlabel[, 2], newcolnames, srt = tl.srt,
+             adj = ifelse(tl.srt == 0, c(0.5, 0), c(0, 0)),
+             col = tl.col, cex = tl.cex, offset = tl.offset, ...)
+      }
+
       text(pos.ylabel[, 1], pos.ylabel[, 2], newrownames,
            col = tl.col, cex = tl.cex, pos = 2, offset = tl.offset, ...)
     }

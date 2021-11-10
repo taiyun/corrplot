@@ -159,6 +159,7 @@ must be one of \code{'lt'}, \code{'ld'}, \code{'td'}, \code{'d'} or
 \code{'n'}. \code{'lt'}(default if \code{type=='full'}) means left and top,
 \code{'ld'}(default if \code{type=='lower'}) means left and diagonal,
 \code{'td'}(default if \code{type=='upper'}) means top and diagonal(near),
+\code{'l'} means left,
 \code{'d'} means diagonal, \code{'n'} means don't add text-label.}
 
 \item{tl.cex}{Numeric, for the size of text label (variable names).}
