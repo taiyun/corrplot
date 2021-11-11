@@ -40,7 +40,8 @@ for details.}
 then the ranges are derived automatically.}
 
 \item{align}{Character, alignment type of labels, \code{'l'} means left,
-\code{'c'} means center and \code{'r'} right.}
+\code{'c'} means center and \code{'r'} right.
+Only valid when \code{vertical} is \code{TRUE}.}
 
 \item{addlabels}{Logical, whether add text label or not.}
 
