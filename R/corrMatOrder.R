@@ -52,7 +52,6 @@ corrMatOrder = function(
 }
 
 #' Reorder the variables using the angular order of the eigenvectors.
-#' @note pure function
 #' @noRd
 reorder_using_aoe = function(corr) {
   x.eigen = eigen(corr)$vectors[, 1:2]
@@ -63,7 +62,6 @@ reorder_using_aoe = function(corr) {
 }
 
 #' Reorder the variables using the first principal component.
-#' @note pure function
 #' @noRd
 reorder_using_fpc = function(corr) {
   x.eigen = eigen(corr)$vectors[, 1:2]
@@ -72,7 +70,6 @@ reorder_using_fpc = function(corr) {
 }
 
 #' Reorder the variables using hclust (Hierarchical Clustering).
-#' @note pure function
 #' @noRd
 reorder_using_hclust = function(corr, hclust.method) {
   hc = hclust(as.dist(1 - corr), method = hclust.method)

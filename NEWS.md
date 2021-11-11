@@ -1,3 +1,10 @@
+# corrplot 0.92
+
+## Changes
+
+  *  Fix #228: assigning colors incorrectly when `is.corr = FALSE`. (thanks, @bixiou)
+  *  Fix #232: some functions wrongly marked as pure.
+
 # corrplot 0.91
 
 ## Changes

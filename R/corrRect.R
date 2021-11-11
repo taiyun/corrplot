@@ -122,7 +122,6 @@ corrRect = function(corrRes = NULL, index = NULL, name = NULL, namesMat = NULL,
 }
 
 
-#' @note pure function
 #' @noRd
 getCharXY = function(x, dat) {
 

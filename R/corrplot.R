@@ -1052,7 +1052,7 @@ corrplot = function(corr,
   invisible(res) # reordered correlation matrix, and Position
 }
 
-#' @note pure function
+
 #' @noRd
 draw_method_square = function(coords, values, asp_rescale_factor, fg, bg) {
   symbols(coords, add = TRUE, inches = FALSE,
@@ -1060,14 +1060,14 @@ draw_method_square = function(coords, values, asp_rescale_factor, fg, bg) {
           bg = bg, fg = fg)
 }
 
-#' @note pure function
+
 #' @noRd
 draw_method_color = function(coords, fg, bg) {
   symbols(coords, squares = rep(1, nrow(coords)), fg = fg, bg = bg,
           add = TRUE, inches = FALSE)
 }
 
-#' @note pure function
+
 #' @noRd
 draw_grid = function(coords, fg) {
   symbols(coords, add = TRUE, inches = FALSE, fg = fg, bg = NA,
