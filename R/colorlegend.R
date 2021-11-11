@@ -101,18 +101,7 @@ colorlegend = function(
 
     if (addlabels) {
       pos.ylabel = rep(ylim[2] - ygap * max(rat2, rat1), length(at))
-
-      if(align == 'l') {
-        text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...)
-      }
-
-      if(align == 'c') {
-        text(x = at, y = ylim[1], labels = labels, pos = 2, ...)
-      }
-
-      if(align == 'r') {
-        text(x = at, y = (pos.ylabel + ylim[1]) / 2, labels = labels, ...)
-      }
+      text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...)
     }
   }
 }
