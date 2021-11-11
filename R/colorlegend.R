@@ -14,6 +14,7 @@
 #'   then the ranges are derived automatically.
 #' @param align Character, alignment type of labels, \code{'l'} means left,
 #'   \code{'c'} means center and \code{'r'} right.
+#'   Only valid when \code{vertical} is \code{TRUE}.
 #' @param addlabels Logical, whether add text label or not.
 #' @param \dots Additional arguments, passed to \code{\link{plot}}
 #'
