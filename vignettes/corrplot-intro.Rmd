@@ -297,12 +297,16 @@ If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 
 ```{r non-corr}
-## matrix in [-20, 30]
-N = matrix(runif(80, 20, 30), 8)
-corrplot(N, is.corr = FALSE, col.lim = c(20, 30), cl.pos = 'b', win.asp = 0.8)
+## matrix in [25, 30]
+N1 = matrix(runif(80, 20, 26), 8)
+corrplot(N1, is.corr = FALSE, col.lim = c(20, 30), method = 'color',
+         col = COL1('YlGn'), cl.pos = 'b', addCoef.col = 'grey50')
 
-## matrix in [-5, 15]
-corrplot(10*(M + 0.5), is.corr = FALSE, cl.pos = 'b', tl.pos = 'l')
+
+## matrix in [-15, 10]
+N2 = matrix(runif(100, -15, 10), 10)
+corrplot(N2, is.corr = FALSE, method = 'color', col.lim = c(-15, 10),
+         col = COL2('PiYG'), cl.pos = 'b', addCoef.col = 'grey50')
 ```
 
 Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend If
