@@ -14,6 +14,7 @@
 #'   then the ranges are derived automatically.
 #' @param align Character, alignment type of labels, \code{'l'} means left,
 #'   \code{'c'} means center and \code{'r'} right.
+#'   Only valid when \code{vertical} is \code{TRUE}.
 #' @param addlabels Logical, whether add text label or not.
 #' @param \dots Additional arguments, passed to \code{\link{plot}}
 #'
@@ -101,18 +102,7 @@ colorlegend = function(
 
     if (addlabels) {
       pos.ylabel = rep(ylim[2] - ygap * max(rat2, rat1), length(at))
-
-      if(align == 'l') {
-        text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...)
-      }
-
-      if(align == 'c') {
-        text(x = at, y = ylim[1], labels = labels, pos = 2, ...)
-      }
-
-      if(align == 'r') {
-        text(x = at, y = (pos.ylabel + ylim[1]) / 2, labels = labels, ...)
-      }
+      text(x = at, y = pos.ylabel, labels = labels, pos = 1, ...)
     }
   }
 }

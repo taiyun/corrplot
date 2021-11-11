@@ -4,6 +4,8 @@
 
   *  Fix #228: assigning colors incorrectly when `is.corr = FALSE`. (thanks, @bixiou)
   *  Fix #232: some functions wrongly marked as pure.
+  *  Fix colorlegend lables alignment when `type = 'lower'`.
+  *  Revise the document.
 
 # corrplot 0.91
 
