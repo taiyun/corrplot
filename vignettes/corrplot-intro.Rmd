@@ -283,6 +283,7 @@ for(i in 1:length(col)) {
 
 **Sequential colors**:
 
+
 ```{r echo=FALSE,  fig.width = 8, fig.height = 6, out.width = '700px'}
 ## sequential colors
 plot.new()
@@ -364,7 +365,7 @@ positiveness and negativeness.
 If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 
-```{r non-corr, fig.width = 7}
+```{r non-corr}
 ## matrix in [20, 26]
 N1 = matrix(runif(80, 20, 26), 8)
 corrplot(N1, is.corr = FALSE, col.lim = c(20, 30), method = 'color', tl.pos = 'n',
