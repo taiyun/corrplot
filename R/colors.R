@@ -1,7 +1,10 @@
 #' Get diverging colors
 #'
 #' Get diverging colors from palette theme name and n. The color palettes
-#' are from RColorBrewer, but with the middle color changing to '#FFFFFF'(white)
+#' are from RColorBrewer, but with the middle color changing to '#FFFFFF'(white),
+#' thus we can visualize element 0 with white color.
+#' Diverging colors are suitable for visualize a matrix which elements are partly positive and
+#' partly negative (e.g. correlation matrix in [-1, 1], or [-20, 100]).
 #'
 #' @param diverging Diverging color Palettes
 #' @param n the number of colors (>= 1) to be in the palette.
@@ -41,8 +44,9 @@ COL2 = function(diverging = c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu'),
 
 #' Get sequential colors
 #'
-#' Get diverging colors from palette theme name and n. The color palettes
-#' are from RColorBrewer.
+#' Get sequential colors from palette theme name and n. The color palettes
+#' are from RColorBrewer. Sequential colors are suitable for visualize a non-negative
+#' or non-positive matrix (e.g. matrix in [0, 20], or [-100, -10], or [100, 500]).
 #'
 #' @param sequential Sequential color Palettes
 #' @param n the number of colors (>= 1) to be in the palette.
