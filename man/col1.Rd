@@ -19,8 +19,9 @@ COL1(
 A character vector containing color names
 }
 \description{
-Get diverging colors from palette theme name and n. The color palettes
-are from RColorBrewer.
+Get sequential colors from palette theme name and n. The color palettes
+are from RColorBrewer. Sequential colors are suitable for visualize a non-negative
+or non-positive matrix (e.g. matrix in [0, 20], or [-100, -10], or [100, 500]).
 }
 \examples{
 ## diverging colors

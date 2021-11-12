@@ -16,7 +16,10 @@ A character vector containing color names
 }
 \description{
 Get diverging colors from palette theme name and n. The color palettes
-are from RColorBrewer, but with the middle color changing to '#FFFFFF'(white)
+are from RColorBrewer, but with the middle color changing to '#FFFFFF'(white),
+thus we can visualize element 0 with white color.
+Diverging colors are suitable for visualize a matrix which elements are partly positive and
+partly negative (e.g. correlation matrix in [-1, 1], or [-20, 100]).
 }
 \examples{
 ## diverging colors

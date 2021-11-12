@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
   fig.path = 'webimg/',
   fig.width = 7,
   fig.height = 7,
+  out.width = '600px',
   dev = 'png')
 
 get_os = function() {
@@ -240,9 +241,76 @@ corrplot(Z, order = 'hclust') %>% corrRect(namesMat = r)
 
 ## Change color spectra, color-legend and text-legend
 
-The color of the correlation plots can be customized by `col`. The
-function `colorRampPalette()` is very convenient for generating color
-spectrum. Other option would be to use `RcolorBrewer` package.
+We can get sequential and diverging colors from `COL1()` and `COL2()`.
+The color palettes are borrowed from `RColorBrewer` package. 
+
+**Notice**: the middle color getting from `COL2()` is fixed to `'#FFFFFF'`(white), 
+thus we can visualizing element 0 with white color.
+
+- `COL1()`: Get sequential colors, suitable for visualize a non-negative or 
+non-positive matrix (e.g. matrix in [0, 20], or [-100, -10], or [100, 500]). 
+- `COL2()`: Get diverging colors, suitable for visualize a matrix which elements 
+are partly positive and partly negative (e.g. correlation matrix in [-1, 1], or [-20, 100]).
+
+
+The color of the correlation plots can be customized by `col` in `corrplot()`. 
+It is distributed uniformly in `col.lim` interval. By default,
+
+- If `is.corr` is `TRUE`, `col` will be `COL2('RdBu', 200)`. 
+- If `is.corr` is `FALSE`, 
+  - and `corr` is a non-negative or non-positive matrix, `col` will be `COL1('YlOrBr', 200)`;
+  - otherwise (elements are partly positive and partly negative), `col` will be `COL2('RdBu', 200)`.
+ 
+
+Here all diverging colors from `COL2()` and sequential colors from `COL1()` are shown below.
+
+**Diverging colors**:
+
+```{r echo=FALSE,  fig.width = 8, fig.height = 6, out.width = '700px'}
+## diverging colors
+plot.new()
+par(mar = c(0, 0, 0, 0) + 0.1)
+plot.window(xlim = c(-0.2, 1.1), ylim = c(0, 1), xaxs = 'i', yaxs = 'i')
+
+col = c('RdBu', 'BrBG', 'PiYG', 'PRGn', 'PuOr', 'RdYlBu')
+
+for(i in 1:length(col)) {
+  colorlegend(COL2(col[i]), -10:10/10, align = 'l', cex = 0.8, xlim = c(0, 1),
+              ylim = c(i/length(col)-0.1, i/length(col)), vertical = FALSE)
+  text(-0.01, i/length(col)-0.02, col[i], adj = 0.5, pos = 2, cex = 0.8)
+}
+```
+
+**Sequential colors**:
+
+```{r echo=FALSE,  fig.width = 8, fig.height = 6, out.width = '700px'}
+## sequential colors
+plot.new()
+par(mar = c(0, 0, 0, 0) + 0.1)
+plot.window(xlim = c(-0.2, 1.1), ylim = c(0, 1), xaxs = 'i', yaxs = 'i')
+
+col = c('Oranges', 'Purples', 'Reds', 'Blues', 'Greens', 'Greys', 'OrRd',
+        'YlOrRd', 'YlOrBr', 'YlGn')
+
+for(i in 1:length(col)) {
+  colorlegend(COL1(col[i]), 0:10, align = 'l', cex = 0.8, xlim = c(0, 1),
+              ylim = c(i/length(col)-0.1, i/length(col)), vertical = FALSE)
+  text(-0.01, i/length(col)-0.02, col[i], adj = 0.5, pos = 2)
+}
+```
+
+Usage of `COL1()` and `COL2()`:
+
+```{r eval=FALSE}
+COL1(sequential = c("Oranges", "Purples", "Reds", "Blues", "Greens", 
+                    "Greys", "OrRd", "YlOrRd", "YlOrBr", "YlGn"), n = 200)
+
+COL2(diverging = c("RdBu", "BrBG", "PiYG", "PRGn", "PuOr", "RdYlBu"), n = 200)
+```
+
+
+In addition, function `colorRampPalette()` is very convenient for generating color spectrum. 
+
 
 Parameters group `cl.*` is for color-legend. The common-using are:
 
@@ -296,20 +364,20 @@ positiveness and negativeness.
 If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 
-```{r non-corr}
+```{r non-corr, fig.width = 7}
 ## matrix in [20, 26]
 N1 = matrix(runif(80, 20, 26), 8)
-corrplot(N1, is.corr = FALSE, col.lim = c(20, 30), method = 'color',
+corrplot(N1, is.corr = FALSE, col.lim = c(20, 30), method = 'color', tl.pos = 'n',
          col = COL1('YlGn'), cl.pos = 'b', addCoef.col = 'grey50')
 
 
 ## matrix in [-15, 10]
-N2 = matrix(runif(100, -15, 10), 10)
-corrplot(N2, is.corr = FALSE, method = 'color', col.lim = c(-15, 10),
+N2 = matrix(runif(80, -15, 10), 8)
+corrplot(N2, is.corr = FALSE, method = 'color', col.lim = c(-15, 10), tl.pos = 'n',
          col = COL2('PiYG'), cl.pos = 'b', addCoef.col = 'grey50')
 ```
 
-Notice: when `is.corr=TRUE`, `col.lim` only affect the color legend If
+Notice: when `is.corr` is `TRUE`, `col.lim` only affect the color legend If
 you change it, the color on correlation matrix plot is still assigned on
 `c(-1, 1)`
 

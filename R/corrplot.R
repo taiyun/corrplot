@@ -26,11 +26,11 @@
 #'
 #' @param col Vector, the color of glyphs. It is distributed uniformly in
 #'   \code{col.lim} interval.
-#'   If \code{is.corr} is \code{TRUE}, \code{col} will be \code{COL2('RdBu', 200)}.
-#'   If \code{is.corr} is \code{FALSE} and all values of the matrix are positive or negative,
-#'   \code{col} will be \code{COL2('RdBu', 200)}.
-#'   If \code{is.corr} is \code{FALSE} and the values of the matrix are partly
-#'   positive and partly negative, \code{col} will be \code{COL1('YlOrBr', 200)}.
+#'   If \code{is.corr} is \code{TRUE}, the default value will be \code{COL2('RdBu', 200)}.
+#'   If \code{is.corr} is \code{FALSE} and \code{corr} is a non-negative or non-positive matrix,
+#'   the default value will be \code{COL1('YlOrBr', 200)};
+#'   otherwise (elements are partly positive and partly negative),
+#'   the default value will be \code{COL2('RdBu', 200)}.
 #'
 #' @param col.lim The limits \code{(x1, x2)} interval for assigning color by
 #'   \code{col}. If \code{NULL},
