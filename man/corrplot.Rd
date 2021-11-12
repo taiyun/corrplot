@@ -78,7 +78,7 @@ corrplot(
 \code{'lower'}, display full matrix, lower triangular or upper triangular
 matrix.}
 
-\item{col}{Vector, the color of glyphs. It is distributed uniformly in
+\item{col}{Vector, the colors of glyphs. They are distributed uniformly in
 \code{col.lim} interval.
 If \code{is.corr} is \code{TRUE}, the default value will be \code{COL2('RdBu', 200)}.
 If \code{is.corr} is \code{FALSE} and \code{corr} is a non-negative or non-positive matrix,
@@ -88,12 +88,12 @@ the default value will be \code{COL2('RdBu', 200)}.}
 
 \item{col.lim}{The limits \code{(x1, x2)} interval for assigning color by
   \code{col}. If \code{NULL},
-  \code{col.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE}, .
+  \code{col.lim} will be \code{c(-1, 1)} when \code{is.corr} is  \code{TRUE},
   \code{col.lim} will be \code{c(min(corr), max(corr))} when \code{is.corr}
   is \code{FALSE}
 
-  NOTICE: if you set \code{col.lim} when \code{is.corr} is \code{TRUE}, the assigning color
-  method is still distributed uniformly in [-1, 1], it only affect the display
+  NOTICE: if you set \code{col.lim} when \code{is.corr} is \code{TRUE}, the assigning colors
+  are still distributed uniformly in [-1, 1], it only affect the display
   on color-legend.}
 
 \item{bg}{The background color.}

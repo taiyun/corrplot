@@ -14,6 +14,7 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
+
 knitr::opts_chunk$set(
   fig.align = 'center',
   fig.path = 'webimg/',
@@ -40,6 +41,7 @@ get_os = function() {
 if(get_os() =='windows' & capabilities('cairo') | all(capabilities(c('cairo', 'X11')))) {
   knitr::opts_chunk$set(dev.args = list(type='cairo'))
 }
+
 ```
 
 ## Introduction
@@ -169,48 +171,42 @@ list_seriation_methods('dist')
 data(Zoo)
 Z = cor(Zoo[, -c(15, 17)])
 
-dist2Order = function(corr, method, ...) {
+dist2order = function(corr, method, ...) {
   d_corr = as.dist(1 - corr)
   s = seriate(d_corr, method = method, ...)
   i = get_order(s)
   return(i)
 }
+```
 
+Methods `'PCA_angle'` and `'HC'` in **seriation**, are same as `'AOE'` and `'hclust'` 
+separately in `corrplot()` and `corrMatOrder()`.
 
-# PCA_angle, same as 'AOE' in corrplot() and corrMatOrder()
-i = get_order(seriate(Z, 'PCA_angle'))
-corrplot(Z[i, i], cl.pos = 'n')
+Here are some plots after seriation.
 
-# Hierarchical clustering
-i = dist2Order(Z, 'HC')
-corrplot(Z[i, i], cl.pos = 'n')
-
+```{r seriation-plot}
 # Fast Optimal Leaf Ordering for Hierarchical Clustering
-i = dist2Order(Z, 'OLO')
+i = dist2order(Z, 'OLO')
 corrplot(Z[i, i], cl.pos = 'n')
 
 # Quadratic Assignment Problem
-i = dist2Order(Z, 'QAP_2SUM')
+i = dist2order(Z, 'QAP_2SUM')
 corrplot(Z[i, i], cl.pos = 'n')
 
 # Multidimensional Scaling
-i = dist2Order(Z, 'MDS_nonmetric')
+i = dist2order(Z, 'MDS_nonmetric')
 corrplot(Z[i, i], cl.pos = 'n')
 
 # Simulated annealing
-i = dist2Order(Z, 'ARSA')
+i = dist2order(Z, 'ARSA')
 corrplot(Z[i, i], cl.pos = 'n')
 
 # TSP solver
-i = dist2Order(Z, 'TSP')
+i = dist2order(Z, 'TSP')
 corrplot(Z[i, i], cl.pos = 'n')
 
 # Spectral seriation
-i = dist2Order(Z, 'Spectral')
-corrplot(Z[i, i], cl.pos = 'n')
-
-# Rank-two ellipse seriation
-i = dist2Order(Z, 'R2E')
+i = dist2order(Z, 'Spectral')
 corrplot(Z[i, i], cl.pos = 'n')
 ```
 
@@ -222,8 +218,8 @@ Since R 4.1.0,  `|>` is supported without extra package.
 ```{r rectangles}
 library(magrittr)
 
-# use index parameter
-i = get_order(seriate(Z, 'PCA_angle'))
+# Rank-two ellipse seriation, use index parameter
+i = dist2order(Z, 'R2E')
 corrplot(Z[i, i], cl.pos = 'n') %>% corrRect(c(1, 9, 15))
 
 # use name parameter
@@ -253,14 +249,21 @@ non-positive matrix (e.g. matrix in [0, 20], or [-100, -10], or [100, 500]).
 are partly positive and partly negative (e.g. correlation matrix in [-1, 1], or [-20, 100]).
 
 
-The color of the correlation plots can be customized by `col` in `corrplot()`. 
-It is distributed uniformly in `col.lim` interval. By default,
+The colors of the correlation plots can be customized by `col` in `corrplot()`. 
+They are distributed uniformly in `col.lim` interval.
 
-- If `is.corr` is `TRUE`, `col` will be `COL2('RdBu', 200)`. 
-- If `is.corr` is `FALSE`, 
-  - and `corr` is a non-negative or non-positive matrix, `col` will be `COL1('YlOrBr', 200)`;
-  - otherwise (elements are partly positive and partly negative), `col` will be `COL2('RdBu', 200)`.
- 
+- `col`: vector, the colors of glyphs. They are distributed uniformly in `col.lim` interval. By default,
+  - If `is.corr` is `TRUE`, `col` will be `COL2('RdBu', 200)`. 
+  - If `is.corr` is `FALSE`, 
+    - and `corr` is a non-negative or non-positive matrix, `col` will be `COL1('YlOrBr', 200)`;
+    - otherwise (elements are partly positive and partly negative), `col` will be `COL2('RdBu', 200)`.
+- `col.lim`: the limits (x1, x2) interval for assigning color by `col`. By default,
+  - `col.lim` will be `c(-1, 1)` when `is.corr` is `TRUE`, 
+  - `col.lim` will be `c(min(corr), max(corr))` when `is.corr` is `FALSE`.
+  - **NOTICE**: if you set `col.lim` when `is.corr` is `TRUE`, the assigning colors are still 
+  distributed uniformly in [-1, 1], it only affect the display on color-legend.
+- `is.corr`: logical, whether the input matrix is a correlation matrix or not. The default value is `TRUE`.
+We can visualize a non-correlation matrix by setting `is.corr = FALSE`. 
 
 Here all diverging colors from `COL2()` and sequential colors from `COL1()` are shown below.
 
@@ -326,10 +329,10 @@ Parameters group `tl.*` is for text-legend. The common-using are:
 
 -   `tl.pos` is for the position of text labels. It is character or
     logical. If character, it must be one of `'lt'`, `'ld'`, `'td'`,
-    `'d'` or `'n'`. `'lt'`(default if `type='full'`) means left and top,
+    `'d'`, `'l'` or `'n'`. `'lt'`(default if `type='full'`) means left and top,
     `'ld'`(default if `type='lower'`) means left and diagonal,
     `'td'`(default if `type='upper'`) means top and diagonal(near),
-    `'d'` means diagonal, `'n'` means don't add text-label.
+    `'d'` means diagonal, `'l'` means left, `'n'` means don't add text-label.
 -   `tl.cex` is for the size of text label (variable names).
 -   `tl.srt` is for text label string rotation in degrees.
 
@@ -366,10 +369,10 @@ If your matrix is rectangular, you can adjust the aspect ratio with the
 `win.asp` parameter to make the matrix rendered as a square.
 
 ```{r non-corr}
-## matrix in [20, 26]
+## matrix in [20, 26], grid.col
 N1 = matrix(runif(80, 20, 26), 8)
 corrplot(N1, is.corr = FALSE, col.lim = c(20, 30), method = 'color', tl.pos = 'n',
-         col = COL1('YlGn'), cl.pos = 'b', addCoef.col = 'grey50')
+         col = COL1('YlGn'), cl.pos = 'b', addgrid.col = 'white', addCoef.col = 'grey50')
 
 
 ## matrix in [-15, 10]
@@ -461,15 +464,17 @@ corrplot(M, p.mat = testRes$p, sig.level = 0.10, order = 'hclust', addrect = 2)
 ## add significant correlation coefficients
 corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
          addCoef.col ='black', number.cex = 0.8, order = 'AOE', diag=FALSE)
+```
 
-
+```{r special}
 ## leave blank on non-significant coefficient
 ## add all correlation coefficients
 corrplot(M, p.mat = testRes$p, method = 'circle', type = 'lower', insig='blank',
-         order = 'AOE', diag=FALSE)$corrPos -> p1
-text(p1$x, p1$y, round(p1$corr,2), cex=0.8)
+         order = 'AOE', diag = FALSE)$corrPos -> p1
+text(p1$x, p1$y, round(p1$corr, 2))
+```
 
-
+```{r p-values}
 ## add p-values on no significant coefficients
 corrplot(M, p.mat = testRes$p, insig = 'p-value')
 
