@@ -28,4 +28,4 @@ License: MIT + file LICENSE
 URL: https://github.com/taiyun/corrplot
 BugReports: https://github.com/taiyun/corrplot/issues
 VignetteBuilder: knitr
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2

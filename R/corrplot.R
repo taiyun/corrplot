@@ -872,6 +872,12 @@ corrplot = function(corr,
   }
 
 
+  if (!is.null(p.mat)) {
+    pos.pNew  = getPos.Dat(p.mat)[[1]]
+    pNew      = getPos.Dat(p.mat)[[2]]
+  }
+
+
   if (!is.null(p.mat) && insig != 'n') {
     if (order != 'original') {
       p.mat = p.mat[ord, ord]
@@ -883,10 +889,6 @@ corrplot = function(corr,
         warning('p.mat and corr may be not paired, their rownames and colnames are not totally same!')
       }
     }
-
-
-    pos.pNew  = getPos.Dat(p.mat)[[1]]
-    pNew      = getPos.Dat(p.mat)[[2]]
 
     if (insig == 'label_sig') {
 

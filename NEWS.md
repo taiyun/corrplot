@@ -1,3 +1,11 @@
+# corrplot 0.9X
+
+## Changes
+
+  *  Fix #247: `addgrid` and `bg` in mixed plot. (thanks, @ZoomMan91)
+  *  Fix #246: using `insig` and `p.mat` causes an error. (thanks, @Sumidu)
+
+
 # corrplot 0.92
 
 ## Changes
