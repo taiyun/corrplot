@@ -2,8 +2,8 @@
 
 ## Changes
 
-  *  Fix #247: `addgrid` and `bg` in mixed plot. (thanks, @ZoomMan91)
-  *  Fix #246: using `insig` and `p.mat` causes an error. (thanks, @Sumidu)
+  *  Fix #247: `addgrid.col` and `bg` don't work in mixed plot. (thanks, @ZoomMan91)
+  *  Fix #246: using `insig = "n"` and `p.mat` sometimes causes an error. (thanks, @Sumidu)
 
 
 # corrplot 0.92

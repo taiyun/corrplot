@@ -59,41 +59,33 @@ r = rbind(c('gear', 'wt', 'qsec', 'carb'),
 corrplot(M, order = 'AOE') -> p
 corrRect(p, namesMat = r)
 
-# same as using pipe operator `|>`
-if(getRversion() >= '4.1.0') {
-  corrplot(M, order = 'AOE') |> corrRect(namesMat = r)
-}
+#  same as using pipe operator `|>` if R version >= 4.1.0:
+#  corrplot(M, order = 'AOE') |> corrRect(namesMat = r)
+
 
 
 r = c('gear', 'carb', 'qsec', 'wt')
 corrplot(M, order = 'AOE', type='lower') -> p
 corrRect(p, namesMat = r)
 
-# same as using pipe operator `|>`
-if(getRversion() >= '4.1.0') {
-  corrplot(M, order = 'AOE', type='lower') |>
-    corrRect(namesMat = r)
-}
+# same as using pipe operator `|>` if R version >= 4.1.0:
+# corrplot(M, order = 'AOE', type='lower') |> corrRect(namesMat = r)
+
 
 
 corrplot(M, order = 'hclust', type = 'upper') -> p
 corrRect(p, index = c(1, 6, 11))
 
-# same as using pipe operator
-if(getRversion() >= '4.1.0') {
-  corrplot(M, order = 'AOE', type='lower') |>
-    corrRect(index = c(1, 6, 11))
-}
+#  same as using pipe operator `|>` if R version >= 4.1.0:
+#  corrplot(M, order = 'AOE', type='lower') |> corrRect(index = c(1, 6, 11))
+
 
 
 corrplot(M, order = 'hclust') -> p
 corrRect(p, name = c('carb', 'qsec', 'gear'))
 
-# same as using pipe operator
-if(getRversion() >= '4.1.0') {
-  corrplot(M, order = 'hclust') |>
-    corrRect(name = c('carb', 'qsec', 'gear'))
-}
+#  same as using pipe operator `|>` if R version >= 4.1.0:
+#  corrplot(M, order = 'hclust') |> corrRect(name = c('carb', 'qsec', 'gear'))
 
 
 
