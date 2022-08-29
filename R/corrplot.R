@@ -47,9 +47,6 @@
 #'
 #' @param title Character, title of the graph.
 #'
-#' @param is.corr Logical, whether the input matrix is a correlation matrix or
-#'   not. We can visualize the non-correlation matrix by setting
-#'   \code{is.corr = FALSE}.
 #'
 #' @param add Logical, if \code{TRUE}, the graph is added to an existing plot,
 #'   otherwise a new plot will be created.
@@ -100,6 +97,16 @@
 #'
 #' @param rect.lwd Numeric, line width for borders for rectangle border(s), only
 #'   valid when \code{addrect} is equal or greater than 1.
+#'
+#'
+#' @param is.corr Logical, whether the input matrix is a correlation matrix or
+#'   not. We can visualize the non-correlation matrix by setting
+#'   \code{is.corr = FALSE}.
+#'
+#' @param ignoreSign Logical, whether or not to ignore matrix values' sign when assigning colors
+#’   for non-corr matrix.
+#'   Only valid when \code{is.corr = FALSE}. The default value is \code{FALSE}.
+#'
 #'
 #' @param tl.pos Character or logical, position of text labels. If character, it
 #'   must be one of \code{'lt'}, \code{'ld'}, \code{'td'}, \code{'d'} or
@@ -260,7 +267,7 @@
 corrplot = function(corr,
   method = c('circle', 'square', 'ellipse', 'number', 'shade', 'color', 'pie'),
   type = c('full', 'lower', 'upper'), col = NULL, col.lim = NULL, bg = 'white',
-  title = '', is.corr = TRUE, add = FALSE,   diag = TRUE, outline = FALSE,
+  title = '', add = FALSE,   diag = TRUE, outline = FALSE,
   mar = c(0, 0, 0, 0),
 
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
@@ -269,6 +276,8 @@ corrplot = function(corr,
   hclust.method = c('complete', 'ward', 'ward.D', 'ward.D2', 'single',
                     'average', 'mcquitty', 'median', 'centroid'),
   addrect = NULL, rect.col = 'black', rect.lwd = 2,
+
+  is.corr = TRUE, ignoreSign = FALSE,
 
   tl.pos = NULL, tl.cex = 1,
   tl.col = 'red', tl.offset = 0.4, tl.srt = 90,
@@ -380,8 +389,8 @@ corrplot = function(corr,
       warning('col.lim interval too wide, please set a suitable value')
     }
 
-    # all negative or positive, trans to [0, 1]
-    if (c_max <= 0 | c_min>=0) {
+    # all negative or positive or NOT keepSign, trans to [0, 1]
+    if (c_max <= 0 | c_min>=0 | ignoreSign) {
       intercept = - col.lim[1]
       zoom = 1 / (diff(col.lim))
 

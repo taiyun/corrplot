@@ -12,7 +12,6 @@ corrplot(
   col.lim = NULL,
   bg = "white",
   title = "",
-  is.corr = TRUE,
   add = FALSE,
   diag = TRUE,
   outline = FALSE,
@@ -26,6 +25,8 @@ corrplot(
   addrect = NULL,
   rect.col = "black",
   rect.lwd = 2,
+  is.corr = TRUE,
+  ignoreSign = FALSE,
   tl.pos = NULL,
   tl.cex = 1,
   tl.col = "red",
@@ -100,10 +101,6 @@ the default value will be \code{COL2('RdBu', 200)}.}
 
 \item{title}{Character, title of the graph.}
 
-\item{is.corr}{Logical, whether the input matrix is a correlation matrix or
-not. We can visualize the non-correlation matrix by setting
-\code{is.corr = FALSE}.}
-
 \item{add}{Logical, if \code{TRUE}, the graph is added to an existing plot,
 otherwise a new plot will be created.}
 
@@ -153,6 +150,13 @@ is equal or greater than 1.}
 
 \item{rect.lwd}{Numeric, line width for borders for rectangle border(s), only
 valid when \code{addrect} is equal or greater than 1.}
+
+\item{is.corr}{Logical, whether the input matrix is a correlation matrix or
+not. We can visualize the non-correlation matrix by setting
+\code{is.corr = FALSE}.}
+
+\item{ignoreSign}{Logical, whether or not to ignore matrix values' sign when assigning colors
+Only valid when \code{is.corr = FALSE}. The default value is \code{FALSE}.}
 
 \item{tl.pos}{Character or logical, position of text labels. If character, it
 must be one of \code{'lt'}, \code{'ld'}, \code{'td'}, \code{'d'} or
