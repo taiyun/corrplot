@@ -58,7 +58,7 @@ corrplot.mixed = function(
 
   # fixed issue #102
   # restore this parameter when exiting the corrplot.mixed function in any way
-  oldpar = par(mar = mar, bg = 'white')
+  oldpar = par(mar = mar, bg = par()$bg)
   on.exit(par(oldpar), add = TRUE)
 
   corrplot(corr, type = 'upper', method = upper, diag = TRUE,
