@@ -4,8 +4,7 @@
 
   *  Fix #247: `addgrid.col` and `bg` don't work in mixed plot. (thanks, @ZoomMan91)
   *  Fix #246: using `insig = "n"` and `p.mat` sometimes causes an error. (thanks, @Sumidu)
-  *  Fix #255: add new parameter `ignoreSign`, whether or not to ignore matrix values' sign when assigning colors for non-corr matrix.
-
+  *  Fix #255: add new parameter `transKeepSign`, whether or not to keep matrix values' sign when transforming non-corr matrix.
 
 # corrplot 0.92
 

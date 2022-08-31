@@ -2,7 +2,7 @@ Package: corrplot
 Type: Package
 Title: Visualization of a Correlation Matrix
 Version: 0.93
-Date: 2022-08-29
+Date: 2022-08-31
 Authors@R: c(
   person('Taiyun', 'Wei', email = 'weitaiyun@gmail.com', role = c('cre', 'aut')),
   person('Viliam', 'Simko', email = 'viliam.simko@gmail.com', role = 'aut'),
