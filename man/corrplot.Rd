@@ -10,6 +10,7 @@ corrplot(
   type = c("full", "lower", "upper"),
   col = NULL,
   col.lim = NULL,
+  is.corr = TRUE,
   bg = "white",
   title = "",
   add = FALSE,
@@ -25,8 +26,6 @@ corrplot(
   addrect = NULL,
   rect.col = "black",
   rect.lwd = 2,
-  is.corr = TRUE,
-  ignoreSign = FALSE,
   tl.pos = NULL,
   tl.cex = 1,
   tl.col = "red",
@@ -44,6 +43,7 @@ corrplot(
   addshade = c("negative", "positive", "all"),
   shade.lwd = 1,
   shade.col = "white",
+  transKeepSign = TRUE,
   p.mat = NULL,
   sig.level = 0.05,
   insig = c("pch", "p-value", "blank", "n", "label_sig"),
@@ -96,6 +96,10 @@ the default value will be \code{COL2('RdBu', 200)}.}
   NOTICE: if you set \code{col.lim} when \code{is.corr} is \code{TRUE}, the assigning colors
   are still distributed uniformly in [-1, 1], it only affect the display
   on color-legend.}
+
+\item{is.corr}{Logical, whether the input matrix is a correlation matrix or
+not. We can visualize the non-correlation matrix by setting
+\code{is.corr = FALSE}.}
 
 \item{bg}{The background color.}
 
@@ -150,13 +154,6 @@ is equal or greater than 1.}
 
 \item{rect.lwd}{Numeric, line width for borders for rectangle border(s), only
 valid when \code{addrect} is equal or greater than 1.}
-
-\item{is.corr}{Logical, whether the input matrix is a correlation matrix or
-not. We can visualize the non-correlation matrix by setting
-\code{is.corr = FALSE}.}
-
-\item{ignoreSign}{Logical, whether or not to ignore matrix values' sign when assigning colors
-Only valid when \code{is.corr = FALSE}. The default value is \code{FALSE}.}
 
 \item{tl.pos}{Character or logical, position of text labels. If character, it
 must be one of \code{'lt'}, \code{'ld'}, \code{'td'}, \code{'d'} or
@@ -218,6 +215,12 @@ negative.}
 \item{shade.lwd}{Numeric, the line width of shade.}
 
 \item{shade.col}{The color of shade line.}
+
+\item{transKeepSign}{Logical, whether or not to keep matrix values' sign when
+  transforming non-corr matrix for plotting.
+  Only valid when \code{is.corr = FALSE}. The default value is \code{TRUE}.
+
+  NOTE: If \code{FALSE},the non-corr matrix will be}
 
 \item{p.mat}{Matrix of p-value, if \code{NULL}, parameter \code{sig.level},
 \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} are invalid.}

@@ -378,11 +378,15 @@ corrplot(N1, is.corr = FALSE, col.lim = c(20, 30), method = 'color', tl.pos = 'n
 ## matrix in [-15, 10]
 N2 = matrix(runif(80, -15, 10), 8)
 
-## using sequential colors and ignore matrix values' sign when assigning colors
-corrplot(N2, is.corr = FALSE, ignoreSign = TRUE, method = 'color', col.lim = c(-15, 10), 
-         tl.pos = 'n', col = COL1("YlOrBr"), cl.pos = 'b', addCoef.col = 'grey50')
+## using sequential colors, transKeepSign = FALSE
+corrplot(N2, is.corr = FALSE, transKeepSign = FALSE, method = 'color', col.lim = c(-15, 10), 
+         tl.pos = 'n', col = COL1('YlGn'), cl.pos = 'b', addCoef.col = 'grey50')
 
-## using diverging colors and don't ignore matrix values' sign when assigning colors
+## using diverging colors, transKeepSign = TRUE (default)
+corrplot(N2, is.corr = FALSE, col.lim = c(-15, 10), 
+         tl.pos = 'n', col = COL2('PiYG'), cl.pos = 'b', addCoef.col = 'grey50')
+
+## using diverging colors
 corrplot(N2, is.corr = FALSE, method = 'color', col.lim = c(-15, 10), tl.pos = 'n',
          col = COL2('PiYG'), cl.pos = 'b', addCoef.col = 'grey50')
 ```
