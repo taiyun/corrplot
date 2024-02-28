@@ -269,7 +269,7 @@ corrplot = function(corr,
   method = c('circle', 'square', 'ellipse', 'number', 'shade', 'color', 'pie'),
   type = c('full', 'lower', 'upper'), col = NULL, col.lim = NULL, is.corr = TRUE,
   bg = 'white',   title = '', add = FALSE, diag = TRUE, outline = FALSE,
-  mar = c(0, 0, 0, 0),
+  mar = c(0, 0, 0, 0), del.lead.zero = FALSE,
 
   addgrid.col = NULL, addCoef.col = NULL, addCoefasPercent = FALSE,
 
@@ -323,6 +323,12 @@ corrplot = function(corr,
     stop('Need a matrix or data frame!')
   }
 
+  # logical of whether leading zero is dropped from numbers generated from 'method = "number"' and 'addCoef.col' 
+  if (del.lead.zero == TRUE) {
+    del.lead.zero = function(val) {sub("^(-?)0.", "\\1.", sprintf("%.2f", val)) }}
+  else if (del.lead.zero == FALSE) {
+    del.lead.zero = function(val){val}}
+  
   # select grid color automatically if not specified
   if (is.null(addgrid.col)) {
     addgrid.col = switch(method, color = NA, shade = NA, 'grey')
@@ -700,7 +706,7 @@ corrplot = function(corr,
   if (method == 'number' && plotCI == 'n') {
     x = (DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom
     text(Pos[, 1], Pos[, 2], font = number.font, col = col.fill,
-         labels = format(round(x, number.digits), nsmall = number.digits),
+         labels = format(del.lead.zero(round(x, number.digits)), nsmall = number.digits),
          cex = number.cex)
   }
 
@@ -879,8 +885,8 @@ corrplot = function(corr,
   ## add numbers
   if (!is.null(addCoef.col) && method != 'number') {
     text(Pos[, 1], Pos[, 2],  col = addCoef.col,
-         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits),
+         labels = del.lead.zero(round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
+                        number.digits)),
          cex = number.cex, font = number.font)
   }
 
