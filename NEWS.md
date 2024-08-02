@@ -1,3 +1,10 @@
+# corrplot 0.94
+
+## Changes
+
+  *  Fix #275: format correlations with nsmall = number.digits. (thanks, @the-mad-statter)
+
+  
 # corrplot 0.93
 
 ## Changes
