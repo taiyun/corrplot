@@ -879,8 +879,13 @@ corrplot = function(corr,
   ## add numbers
   if (!is.null(addCoef.col) && method != 'number') {
     text(Pos[, 1], Pos[, 2],  col = addCoef.col,
-         labels = round((DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom,
-                        number.digits),
+         labels = format(
+		   round(
+		     (DAT - int) * ifelse(addCoefasPercent, 100, 1) / zoom, 
+			 number.digits
+		   ), 
+		   nsmall = number.digits
+		 ),
          cex = number.cex, font = number.font)
   }
 
