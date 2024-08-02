@@ -4,7 +4,7 @@ YEAR <- strftime(meta$Date, '%Y')
 ALL <- eval(parse(text = meta$`Authors@R`))
 
 # authors only
-AUTHORS <- ALL[[ sapply(ALL$role, function(x) 'aut' %in% x) ]]
+AUTHORS <- ALL[sapply(ALL$role, function(x) 'aut' %in% x)]
 AUTHORS <- paste(AUTHORS$given, AUTHORS$family, collapse = ' and ')
 
 bibentry('Manual',
