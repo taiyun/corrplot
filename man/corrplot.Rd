@@ -182,7 +182,7 @@ it must be one of \code{'r'} (default if \code{type=='upper'} or
 \code{length(col) + 1} when \code{length(col) <=20}; \code{cl.length} is 11
 when \code{length(col) > 20}}
 
-\item{cl.cex}{Numeric, cex of number-label in color-legend,  passed to
+\item{cl.cex}{Numeric, text size of number-label in color-legend,  passed to
 \code{\link{colorlegend}}.}
 
 \item{cl.ratio}{Numeric, to justify the width of color-legend, 0.1~0.2 is
