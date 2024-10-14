@@ -1,4 +1,11 @@
-# corrplot 0.94
+# corrplot 0.95
+
+## Changes
+
+  *  Fix #279: Version 0.94 is not assigning significant ocurrences correctly. (thanks, @brenoliisboa and @david-priest)
+  
+  
+  # corrplot 0.94
 
 ## Changes
 
