@@ -27,7 +27,14 @@ cor.mtest = function(mat, ...) {
   for (i in 1:(n - 1)) {
     for (j in (i + 1):n) {
 
-      tmp = cor.test(x = mat[, i], y = mat[, j], ...)
+      tmp = tryCatch({
+            cor.test(x = mat[, i], y = mat[, j], ...)
+        },
+        error = function(e) {
+            warning(conditionMessage(e))
+            list(p.value = NA,
+                 conf.int = NULL)
+        })
       p.mat[i, j] = p.mat[j, i] = tmp$p.value
 
       # only 'pearson' method provides confidence intervals
