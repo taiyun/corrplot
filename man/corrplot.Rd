@@ -220,7 +220,34 @@ negative.}
   transforming non-corr matrix for plotting.
   Only valid when \code{is.corr = FALSE}. The default value is \code{TRUE}.
 
-  NOTE: If \code{FALSE},the non-corr matrix will be}
+  \code{corrplot()} maps the values of the matrix onto the colours in
+  \code{col} by rescaling them to the interval [0, 1]. For a matrix that is
+  not a correlation matrix, this parameter controls how that rescaling is
+  done when the matrix contains both negative and positive values.
+
+  If \code{TRUE}, the values are divided by \code{max(abs(col.lim))}: they
+  keep their sign and zero stays at the midpoint of the colour scale, so a
+  diverging palette is centred on zero, just as it is for a correlation
+  matrix. This is what you want when zero is a meaningful reference point
+  (e.g. differences, log ratios or z-scores). Note that the colour scale
+  then saturates at \code{max(abs(col.lim))}, so with an asymmetric
+  \code{col.lim} the side with the smaller range uses only part of the
+  palette.
+
+  If \code{FALSE}, the values are rescaled linearly so that
+  \code{col.lim[1]} is mapped to the first colour in \code{col} and
+  \code{col.lim[2]} to the last one: the whole palette is spread over the
+  whole data range and the sign of the values is lost, i.e. zero is no
+  longer tied to the middle of the palette. A sequential palette is usually
+  a better fit in this case. Since the rescaled values are all non-negative,
+  the glyph size would carry no sign information, so the methods
+  \code{'circle'}, \code{'square'}, \code{'ellipse'}, \code{'shade'} and
+  \code{'pie'} are rejected with an error.
+
+  The parameter has no effect on a matrix whose values are all negative or
+  all positive: such a matrix is always rescaled linearly over
+  \code{col.lim}, whatever the value of \code{transKeepSign}.
+}
 
 \item{p.mat}{Matrix of p-value, if \code{NULL}, parameter \code{sig.level},
 \code{insig}, \code{pch}, \code{pch.col}, \code{pch.cex} are invalid.}

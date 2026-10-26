@@ -91,6 +91,17 @@ corrplot(M*2, is.corr = FALSE, col.lim = c(-2, 2))
 corrplot(M*2, is.corr = FALSE, col.lim = c(-2, 2) * 2)
 corrplot(M*2, is.corr = FALSE, col.lim = c(-2, 2) * 4)
 
+# transKeepSign controls how such a matrix is rescaled to [0, 1]
+# TRUE (default): values are divided by max(abs(col.lim)), so zero stays at
+#   the middle of the colour scale and the sign is kept
+# FALSE: values are rescaled linearly over col.lim, the whole palette is used
+#   but the sign is lost, so 'circle', 'square', 'ellipse', 'shade' and 'pie'
+#   are not available
+corrplot(M, is.corr = FALSE, col.lim = c(-1, 1), method = 'color',
+         transKeepSign = TRUE)
+corrplot(M, is.corr = FALSE, col.lim = c(-1, 1), method = 'color',
+         transKeepSign = FALSE)
+
 ## 0.5~0.6
 corrplot(abs(M)/10+0.5, col = COL1('Greens', 10))
 corrplot(abs(M)/10+0.5, is.corr = FALSE, col.lim = c(0.5, 0.6), col = COL1('YlGn', 10))

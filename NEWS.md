@@ -1,3 +1,10 @@
+# corrplot (development version)
+
+## Changes
+
+  *  Document `transKeepSign`, which was previously described by a
+     truncated note, and illustrate it in the examples (#287).
+
 # corrplot 0.95
 
 ## Changes

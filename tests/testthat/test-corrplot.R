@@ -109,6 +109,32 @@ test_that('Non-correlation matrix', {
   expect_true(is.data.frame(corrplot(M, is.corr = FALSE)$corrPos))
 })
 
+test_that('Testing `transKeepSign` parameter (issue #287)', {
+  M = matrix(c(-0.5, 0, 0.25, 1), nrow = 2)
+  lim = c(-0.5, 1)
+
+  # TRUE (default): the values keep their sign, zero stays at zero
+  expect_equal(unname(corrplot(M, is.corr = FALSE, col.lim = lim,
+                               method = 'color')$corr), M)
+
+  # FALSE: col.lim[1] is mapped to 0 and col.lim[2] to 1
+  expect_equal(unname(corrplot(M, is.corr = FALSE, col.lim = lim,
+                               method = 'color',
+                               transKeepSign = FALSE)$corr),
+               (M - lim[1]) / diff(lim))
+
+  # without the sign, the value-based glyph methods do not make sense
+  expect_error(corrplot(M, is.corr = FALSE, col.lim = lim,
+                        transKeepSign = FALSE, method = 'circle'),
+               regexp = 'transKeepSign = FALSE')
+
+  # the parameter does not matter for a matrix with a single sign
+  Mpos = matrix(seq(1, 10, length.out = 100), nrow = 10)
+  expect_equal(unname(corrplot(Mpos, is.corr = FALSE, method = 'color',
+                               transKeepSign = FALSE)$corr),
+               unname(corrplot(Mpos, is.corr = FALSE, method = 'color')$corr))
+})
+
 test_that('Try different ordering', {
   M = cor(mtcars)
 
